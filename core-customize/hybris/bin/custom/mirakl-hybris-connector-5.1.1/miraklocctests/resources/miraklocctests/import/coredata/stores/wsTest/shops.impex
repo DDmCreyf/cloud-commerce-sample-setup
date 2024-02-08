@@ -1,0 +1,7 @@
+INSERT_UPDATE Currency; isocode[unique = true]
+                      ; USD
+
+INSERT_UPDATE Shop; id[unique = true]; grade; name  ; currency(isocode)[default = 'USD']; evaluationCount
+                  ; shop1            ; 2.1  ; shop1 ;                                   ; 10
+                  ; shop2            ; 3.4  ; shop2 ;                                   ; 15
+                  ; shop3            ; 4.9  ; shop3 ;                                   ; 20

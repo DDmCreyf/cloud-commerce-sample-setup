@@ -1,0 +1,133 @@
+{
+  "products": [
+    {
+      "category_code": "1360",
+      "category_label": "Power Drills",
+      "offers": [
+        {
+          "active": true,
+          "all_prices": [
+            {
+              "channel_code": null,
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 15.00,
+              "unit_discount_price": null,
+              "unit_origin_price": 15.00,
+              "volume_prices": [
+                {
+                  "price": 15.00,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 15.00
+                }
+              ]
+            },
+            {
+              "channel_code": null,
+              "context": {
+                "customer_organization_ids": [
+                  "B2B_Unit7950"
+                ]
+              },
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 98.00,
+              "unit_discount_price": null,
+              "unit_origin_price": 98.00,
+              "volume_prices": [
+                {
+                  "price": 98.00,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 98.00
+                }
+              ]
+            },
+            {
+              "channel_code": null,
+              "context": {
+                "customer_organization_ids": [
+                  "B2B_Unit670"
+                ]
+              },
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 67.00,
+              "unit_discount_price": null,
+              "unit_origin_price": 67.00,
+              "volume_prices": [
+                {
+                  "price": 67.00,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 67.00
+                }
+              ]
+            }
+          ],
+          "allow_quote_requests": false,
+          "applicable_pricing": {
+            "channel_code": null,
+            "discount_end_date": null,
+            "discount_start_date": null,
+            "price": 15.00,
+            "unit_discount_price": null,
+            "unit_origin_price": 15.00,
+            "volume_prices": [
+              {
+                "price": 15.00,
+                "quantity_threshold": 1,
+                "unit_discount_price": null,
+                "unit_origin_price": 15.00
+              }
+            ]
+          },
+          "channels": [
+            "INIT"
+          ],
+          "currency_iso_code": "EUR",
+          "description": null,
+          "discount": null,
+          "fulfillment": {
+            "center": {
+              "code": "DEFAULT"
+            }
+          },
+          "inactivity_reasons": [],
+          "is_professional": true,
+          "leadtime_to_ship": 5,
+          "logistic_class": {
+            "code": "SMALL",
+            "label": "SMALL"
+          },
+          "min_quantity_alert": null,
+          "min_shipping_price": 3.10,
+          "min_shipping_price_additional": 0.51,
+          "min_shipping_type": "STD",
+          "min_shipping_zone": "FR",
+          "model": "MARKETPLACE",
+          "nb_evaluation": 0,
+          "offer_additional_fields": [],
+          "offer_id": "S_3794514_1",
+          "premium": false,
+          "price": 15.00,
+          "price_additional_info": null,
+          "quantity": 8901,
+          "shipping_deadline": "2033-01-16T16:40:12.925Z",
+          "shop_grade": null,
+          "shop_id": 2002,
+          "shop_name": "Seller B2B",
+          "state_code": "11",
+          "total_price": 18.10
+        }
+      ],
+      "product_brand": "Black & Decker",
+      "product_description": "- 18V CORDLESS DRILL WITH AUTOSELECT® TECHNOLOGY - Select the application and the drill will automatically adjust to the correct setting    - AUTOSELECT® - For drilling into wood, metal or masonry and screw driving applications    - Variable speed for controlled drilling and screw driving    - Battery level indicator lets you know how much battery charge remains at any time    - Single sleeve, metal, keyless chuck makes bit changing quick and simple    - Easy, quick change of batteries due to new slide pack battery locking system    - Anti-slip soft grip for more comfort    - Forward/reverse switch for added versatility    - 1.5Ahr battery for a longer run time per charge    - Hammer action for drilling into masonry and concrete    - Powerful 18v, faster motor for more efficient drilling",
+      "product_references": [],
+      "product_sku": "3794514A",
+      "product_title": "18V Auto Select cordless drill",
+      "total_count": 1
+    }
+  ]
+}

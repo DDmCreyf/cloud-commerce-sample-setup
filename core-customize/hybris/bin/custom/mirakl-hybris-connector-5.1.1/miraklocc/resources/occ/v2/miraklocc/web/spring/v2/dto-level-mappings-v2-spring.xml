@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Cart -->
+
+    <alias name="defaultMiraklCartWsDTOFieldSetLevelMapping" alias="miraklCartWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklCartWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.CartWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="deliveryOrderGroups(BASIC)"/>
+                <entry key="DEFAULT"
+                       value="deliveryOrderGroups(DEFAULT)"/>
+                <entry key="FULL"
+                       value="deliveryOrderGroups(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklDeliveryOrderEntryGroupWsDTOFieldSetLevelMapping" alias="miraklDeliveryOrderEntryGroupWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklDeliveryOrderEntryGroupWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryOrderEntryGroupWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="shopId,shopName,selectedShippingOption,availableShippingOptions,leadTimeToShip"/>
+                <entry key="DEFAULT"
+                       value="shopId,shopName,selectedShippingOption(DEFAULT),availableShippingOptions(DEFAULT),leadTimeToShip"/>
+                <entry key="FULL"
+                       value="shopId,shopName,selectedShippingOption(FULL),availableShippingOptions(FULL),leadTimeToShip"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderEntryWsDTOFieldSetLevelMapping" alias="miraklOrderEntryWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklOrderEntryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="offerId,shopId,shopName,lineShippingCode,lineShippingPrice,lineShippingLabel"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklShippingOfferDiscrepancyWsDtoFieldSetLevelMapping" alias="miraklShippingOfferDiscrepancyWsDtoFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklShippingOfferDiscrepancyWsDtoFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.order.ShippingOfferDiscrepancyWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="missingQuantity,message,entry(BASIC)"/>
+                <entry key="DEFAULT"
+                       value="missingQuantity,message,entry(DEFAULT)"/>
+                <entry key="FULL"
+                       value="missingQuantity,message,entry(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Offer overview -->
+
+    <alias name="defaultMiraklOfferOverviewWsDTOFieldSetLevelMapping" alias="miraklOfferOverviewWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklOfferOverviewWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.offer.OfferOverviewWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,shopId,shopName,shopGrade,price,originPrice,totalPrice,minShippingPrice,quantity,minPurchasableQty,maxPurchasableQty,packageQty,stateCode,allOfferPricingsJSON"/>
+                <entry key="DEFAULT"
+                       value="code,shopId,shopName,shopGrade,price(DEFAULT),originPrice(DEFAULT),totalPrice(DEFAULT),minShippingPrice(DEFAULT),quantity,minPurchasableQty,maxPurchasableQty,packageQty,stateCode,allOfferPricingsJSON"/>
+                <entry key="FULL"
+                       value="code,shopId,shopName,shopGrade,price(FULL),originPrice(FULL),totalPrice(FULL),minShippingPrice(FULL),quantity,minPurchasableQty,maxPurchasableQty,packageQty,stateCode,allOfferPricingsJSON"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOfferStateSummaryWsDTOFieldSetLevelMapping" alias="miraklOfferStateSummaryWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklOfferStateSummaryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.offer.OfferStateSummaryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="stateCode,stateLabel,offerCount,minPrice"/>
+                <entry key="DEFAULT"
+                       value="stateCode,stateLabel,offerCount,minPrice(DEFAULT)"/>
+                <entry key="FULL"
+                       value="stateCode,stateLabel,offerCount,minPrice(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOffersSummaryWsDTOFieldSetLevelMapping" alias="miraklOffersSummaryWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklOffersSummaryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.offer.OffersSummaryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="bestOffer(BASIC),states(BASIC),offerCount"/>
+                <entry key="DEFAULT"
+                       value="bestOffer(DEFAULT),states(DEFAULT),offerCount"/>
+                <entry key="FULL"
+                       value="bestOffer(FULL),states(FULL),offerCount"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklProductWsDTOFieldSetLevelMapping" alias="miraklProductWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklProductWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="offersSummary(BASIC)"/>
+                <entry key="DEFAULT"
+                       value="offersSummary(DEFAULT)"/>
+                <entry key="FULL"
+                       value="offersSummary(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Offer list -->
+
+    <alias name="defaultMiraklOfferListWsDTOFieldSetLevelMapping" alias="miraklOfferListWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklOfferListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.offer.OfferListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="offers(BASIC)"/>
+                <entry key="DEFAULT"
+                       value="offers(DEFAULT)"/>
+                <entry key="FULL"
+                       value="offers(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOfferWsDTOFieldSetLevelMapping" alias="miraklOfferWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklOfferWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.offer.OfferWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="id,code,productCode,minShippingPrice(BASIC),price(BASIC),totalPrice(BASIC),originPrice(BASIC),quantity,stateLabel,shopId,discountStartDate,discountEndDate,discountPrice(BASIC),availableStartDate,availableEndDate,leadTimeToShip"/>
+                <entry key="DEFAULT"
+                       value="id,code,productCode,minShippingPrice(DEFAULT),price(DEFAULT),totalPrice(DEFAULT),originPrice(DEFAULT),quantity,stateLabel,shopId,discountStartDate,discountEndDate,discountPrice(DEFAULT),availableStartDate,availableEndDate,leadTimeToShip,priceAdditionalInfo,description,shopName,shopGrade,shopEvaluationCount"/>
+                <entry key="FULL"
+                       value="id,code,productCode,minShippingPrice(FULL),price(FULL),totalPrice(FULL),originPrice(FULL),quantity,stateLabel,shopId,discountStartDate,discountEndDate,discountPrice(FULL),availableStartDate,availableEndDate,leadTimeToShip,priceAdditionalInfo,description,shopName,shopGrade,shopEvaluationCount,minShippingPriceAdditional(FULL),volumePrices(FULL),volumeOriginPrices(FULL),packageQuantity,minOrderQuantity,maxOrderQuantity"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklProductsWithOffersListWsDTOFieldSetLevelMapping" alias="miraklProductsWithOffersListWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklProductsWithOffersListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.offer.ProductsWithOffersListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="productsWithOffers(BASIC)"/>
+                <entry key="DEFAULT"
+                       value="productsWithOffers(DEFAULT)"/>
+                <entry key="FULL"
+                       value="productsWithOffers(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <alias name="defaultMiraklProductWithOffersWsDTOFieldSetLevelMapping" alias="miraklProductWithOffersWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklProductWithOffersWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.offer.ProductWithOffersWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="productCode,offers(BASIC)"/>
+                <entry key="DEFAULT"
+                       value="productCode,offers(DEFAULT)"/>
+                <entry key="FULL"
+                       value="productCode,offers((FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Order history -->
+
+    <alias name="defaultMiraklConsignmentWsDTOFieldSetLevelMapping" alias="miraklConsignmentWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklConsignmentWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="shippingModeLabel,marketplaceStatus,marketplaceStatusLabel,canEvaluate,canWriteMessage,documents,customerDebited"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklConsignmentEntryWsDTOFieldSetLevelMapping" alias="miraklConsignmentEntryWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklConsignmentEntryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentEntryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="miraklOrderLineId,consignmentCode,miraklOrderLineStatus,miraklOrderLineStatusLabel,canOpenIncident"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklDocumentWsDTOFieldSetLevelMapping" alias="miraklDocumentWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklDocumentWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.order.DocumentWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="dateUploaded,fileName,fileSize,code,type"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklReasonWsDTOFieldSetLevelMapping" alias="miraklReasonWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklReasonWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.setting.ReasonWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,label"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Shop -->
+
+    <alias name="defaultMiraklAssessmentWsDTOFieldSetLevelMapping" alias="miraklAssessmentWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklAssessmentWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.evaluation.AssessmentWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,label,response,type"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklEvaluationWsDTOFieldSetLevelMapping" alias="miraklEvaluationWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklEvaluationWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.evaluation.EvaluationWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="assessments(BASIC),comment,date,firstName,lastName,grade"/>
+                <entry key="DEFAULT"
+                       value="assessments(DEFAULT),comment,date,firstName,lastName,grade"/>
+                <entry key="FULL"
+                       value="assessments(FULL),comment,date,firstName,lastName,grade"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklEvaluationPageWsDTOFieldSetLevelMapping" alias="miraklEvaluationPageWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklEvaluationPageWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.evaluation.EvaluationPageWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="evaluations(BASIC),evaluationPageCount"/>
+                <entry key="DEFAULT"
+                       value="evaluations(DEFAULT),evaluationPageCount"/>
+                <entry key="FULL"
+                       value="evaluations(FULL),evaluationPageCount"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklShopDTOFieldSetLevelMapping" alias="miraklShopWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklShopDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.shop.ShopWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="id,name,premium,grade,evaluationCount,registrationDate,approvalDelay,approvalRate,shippingCountry,availableShippingOptions(BASIC),description,returnPolicy,logo,banner,offersPageUrl"/>
+                <entry key="DEFAULT"
+                       value="id,name,premium,grade,evaluationCount,registrationDate,approvalDelay,approvalRate,shippingCountry,availableShippingOptions(DEFAULT),description,returnPolicy,logo,banner,offersPageUrl"/>
+                <entry key="FULL"
+                       value="id,name,premium,grade,evaluationCount,registrationDate,approvalDelay,approvalRate,shippingCountry,availableShippingOptions(FULL),description,returnPolicy,logo,banner,offersPageUrl"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Messaging -->
+
+    <alias name="defaultThreadListWsDTOFieldSetLevelMapping" alias="miraklThreadListWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultThreadListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="threads(BASIC),nextPageToken,previousPageToken,consignmentCode"/>
+                <entry key="DEFAULT"
+                       value="threads(DEFAULT),nextPageToken,previousPageToken,consignmentCode"/>
+                <entry key="FULL"
+                       value="threads(FULL),nextPageToken,previousPageToken,consignmentCode"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadWsDTOFieldSetLevelMapping" alias="miraklThreadWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="id,topic(BASIC),authorizedParticipants(BASIC),selectableParticipants(BASIC),currentParticipants(BASIC),currentParticipantsDisplayValue,dateCreated,dateUpdated,entityType,entityLabel,entityId"/>
+                <entry key="DEFAULT"
+                       value="id,topic(DEFAULT),authorizedParticipants(DEFAULT),selectableParticipants(DEFAULT),currentParticipants(DEFAULT),currentParticipantsDisplayValue,dateCreated,dateUpdated,entityType,entityLabel,entityId"/>
+                <entry key="FULL"
+                       value="id,topic(FULL),authorizedParticipants(FULL),selectableParticipants(FULL),currentParticipants(FULL),currentParticipantsDisplayValue,dateCreated,dateUpdated,entityType,entityLabel,entityId"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateThreadMessageWsDTOFieldSetLevelMapping" alias="miraklCreateThreadMessageWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklCreateThreadMessageWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.CreateThreadMessageWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="topic,body,to,attachments"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadDetailsWsDTOFieldSetLevelMapping" alias="miraklThreadDetailsWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadDetailsWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadDetailsWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="messages(BASIC)"/>
+                <entry key="DEFAULT"
+                       value="messages(DEFAULT)"/>
+                <entry key="FULL"
+                       value="messages(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadMessageWsDTOFieldSetLevelMapping" alias="miraklThreadMessageWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadMessageWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadMessageWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="senderType,senderDisplayName,body,dateCreated,attachments(BASIC),to(BASIC),isFromCustomer"/>
+                <entry key="DEFAULT"
+                       value="senderType,senderDisplayName,body,dateCreated,attachments(DEFAULT),to(DEFAULT),isFromCustomer"/>
+                <entry key="FULL"
+                       value="senderType,senderDisplayName,body,dateCreated,attachments(FULL),to(FULL),isFromCustomer"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadMessageAttachmentWsDTOFieldSetLevelMapping" alias="miraklThreadMessageAttachmentWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadMessageAttachmentWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadMessageAttachmentWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="id,name,size"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadRecipientWsDTOFieldSetLevelMapping" alias="miraklThreadRecipientWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadRecipientWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadRecipientWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="id,type,displayName"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadTopicWsDTOFieldSetLevelMapping" alias="miraklThreadTopicWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadTopicWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadTopicWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="code,displayValue"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadRequestWsDTOFieldSetLevelMapping" alias="miraklThreadRequestWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadRequestWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.ThreadRequestWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="consignmentCode,pageToken"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadReplyCreatedWsDTOFieldSetLevelMapping" alias="miraklThreadReplyCreatedWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadReplyCreatedWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.MiraklThreadReplyCreatedWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="messageId,threadId"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadCreatedWsDTOFieldSetLevelMapping" alias="miraklThreadCreatedWsDTOFieldSetLevelMapping"/>
+    <bean parent="fieldSetLevelMapping" id="defaultMiraklThreadCreatedWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.dto.message.MiraklThreadCreatedWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="messageId,threadId"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>

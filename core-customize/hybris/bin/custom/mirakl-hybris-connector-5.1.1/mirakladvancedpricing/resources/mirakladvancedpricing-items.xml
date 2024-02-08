@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+    <!-- Relations typecodes : 29500-29600 -->
+    <!-- itemtype typecodes : 29600-29700 -->
+
+    <collectiontypes>
+        <collectiontype code="OfferPricingList" elementtype="OfferPricing" autocreate="true" generate="true" type="list"/>
+    </collectiontypes>
+
+    <itemtypes>
+        <itemtype code="OfferPricing" jaloclass="com.mirakl.hybris.core.jalo.OfferPricing">
+            <description>The price details of an offer</description>
+            <deployment table="offerpricings" typecode="29600"/>
+            <attributes>
+                <attribute qualifier="offerId" type="java.lang.String">
+                    <description>The id of the offer related to the pricing</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="channelCode" type="java.lang.String">
+                    <description>The channel code related to the pricing (optional)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="startDate" type="java.util.Date">
+                    <description>The starting date of the pricing (optional)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="endDate" type="java.util.Date">
+                    <description>The ending date of the pricing (optional)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="customerOrganizationId" type="java.lang.String">
+                    <description>The customer organization related to the pricing (optional)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="customerGroupId" type="java.lang.String">
+                    <description>The customer group related to the pricing (optional)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="priceDetailsJSON" type="java.lang.String">
+                    <description>Pricing details as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="price" type="java.math.BigDecimal">
+                    <persistence type="dynamic" attributeHandler="offerPricingDynamicPrice" />
+                    <modifiers write="false" />
+                </attribute>
+                <attribute qualifier="priceDetailsJSONPretty" type="java.lang.String">
+                    <persistence type="dynamic" attributeHandler="offerPricingDynamicPriceDetailJSONPretty" />
+                    <modifiers read="true" write="true" />
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxOfferPricing">
+                    <key attribute="offerId"/>
+                    <key attribute="channelCode"/>
+                    <key attribute="customerOrganizationId"/>
+                    <key attribute="customerGroupId"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+    </itemtypes>
+</items>

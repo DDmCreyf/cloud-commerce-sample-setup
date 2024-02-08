@@ -1,0 +1,17 @@
+#
+# Import the Solr configuration for the Electronics store
+#
+
+# Index Type
+$solrIndexedType=electronicsProductType
+
+# Language
+$lang=en
+
+# Solr Indexed Property
+UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];displayName[lang=$lang]
+ ;$solrIndexedType;seller;"Seller"
+ ;$solrIndexedType;condition;"Condition"
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklpromotions"")"
+ ;$solrIndexedType;marketplacePromotions;"Promotion"
+#% endif:

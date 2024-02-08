@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+    <explorertree>
+        <group name="mirakl">
+            <group name="mirakl.jobs">
+            	   <typeref type="MiraklImportPromotionsCronJob" description="typeref.miraklimportpromotionscronjob.description"/>
+            	   <typeref type="MiraklImportPromotionsOfferMappingCronJob" description="typeref.miraklimportpromotionsoffermappingcronjob.description"/>
+            </group>
+            <typeref type="MiraklPromotion"/>
+        </group>
+    </explorertree>
+
+	<type name="MiraklPromotion" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="internalId" operator="contains" />
+				<condition attribute="shopId" operator="contains" />
+			</search>
+			<result>
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="internalId" width="250"/>
+						<attribute name="shopId" width="70" />
+						<attribute name="amountOff" width="100" />
+						<attribute name="percentageOff" width="100"/>
+						<attribute name="freeItemsQuantity" width="100" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<columnlayout>
+						<row>
+							<attribute name="internalId" />
+							<attribute name="shopId" />
+						</row>
+					</columnlayout>
+				</essentials>
+				<tab name="properties" position="0">
+					<section name="properties">
+						<listlayout>
+							<attribute name="internalId" />
+							<attribute name="shopId" />
+							<attribute name="startDate" />
+							<attribute name="endDate" />
+							<attribute name="amountOff" />
+							<attribute name="percentageOff" />
+							<attribute name="freeItemsQuantity" />
+							<attribute name="publicDescription" />
+							<attribute name="mediaUrl" />
+							<attribute name="state" />
+							<attribute name="type" />
+							<attribute name="rewardOnPurchasedItems" />
+							<attribute name="internalDescription" />
+							<attribute name="miraklCreationDate" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace">
+			<itemlayout>
+				<attribute name="internalId" />
+				<attribute name="shopId" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+    
+    <type name="Offer" mode="append">
+        <organizer>
+            <editor>
+                <tab name="tab.offer.properties">
+                    <section name="hmc.offer.promotions">
+                        <listlayout>
+                            <attribute name="triggerPromotions"/>
+                            <attribute name="rewardPromotions"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+    
+    <type name="MiraklImportPromotionsOfferMappingCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="tab.cronjob.common" mode="append" position="1">
+                    <section name="section.cronjob.common" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="lastExecutionDate"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+</configuration>

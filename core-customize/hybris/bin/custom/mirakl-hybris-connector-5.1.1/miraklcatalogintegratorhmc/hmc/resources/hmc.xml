@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+    <explorertree>
+        <group name="mirakl" mode="append">
+            <group name="mirakl.jobs">
+                <typeref type="MiraklExportCommissionCategoriesCronJob" description="typeref.miraklexportcommissioncategoriescronjob.description"/>
+            </group>
+            <typeref type="ShopSku" description="typeref.shopsku.description"/>
+            <typeref type="ShopVariantGroup" description="typeref.shopvariantgroup.description"/>
+        </group>
+    </explorertree>
+    
+    <type name="MiraklExportCommissionCategoriesCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <essentials>
+                    <columnlayout>
+                        <row>
+                            <attribute name="rootCategory"/>
+                            <attribute name="synchronizationFileName"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklExportSellableProductsCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append" position="0">
+                    <section name="hmc.section.mci" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="shop"/>
+                                <attribute name="importId"/>
+                            </row>
+                        </columnlayout>
+                        <listlayout>
+                            <attribute name="rootCategory"/>
+                            <attribute name="rootBrandCategory"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+    
+    <type name="MiraklDownloadProductFilesCronjob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append">
+                    <section name="hmc.section.mci" mode="append">
+                        <listlayout>
+                            <attribute name="importStatuses"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+    
+    <type name="ShopSku" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="sku"/>
+                <condition attribute="shop"/>
+                <condition attribute="product"/>
+                <condition attribute="checksum"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="sku" width="250"/>
+                        <attribute name="shop" width="250"/>
+                        <attribute name="product" width="250"/>
+                        <attribute name="checksum" width="350"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout>
+                        <attribute name="sku"/>
+                        <attribute name="shop"/>
+                        <attribute name="product"/>
+                    </listlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="ShopVariantGroup" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="code"/>
+                <condition attribute="shop"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="code" width="200"/>
+                        <attribute name="shop" width="200"/>
+                        <attribute name="product" width="200"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout>
+                        <attribute name="code"/>
+                        <attribute name="shop"/>
+                        <attribute name="product"/>
+                    </listlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+</configuration>

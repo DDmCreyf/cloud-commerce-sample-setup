@@ -1,0 +1,345 @@
+{
+  "products": [
+    {
+      "category_code": "1360",
+      "category_label": "Power Drills",
+      "offers": [
+        {
+          "active": true,
+          "all_prices": [
+            {
+              "channel_code": null,
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 15.34,
+              "unit_discount_price": null,
+              "unit_origin_price": 15.34,
+              "volume_prices": [
+                {
+                  "price": 15.34,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 15.34
+                }
+              ]
+            },
+            {
+              "channel_code": "UNKNOW_TO_SAP",
+              "context": {
+                "channel_codes": [
+                  "UNKNOW_TO_SAP"
+                ]
+              },
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 103.00,
+              "unit_discount_price": null,
+              "unit_origin_price": 103.00,
+              "volume_prices": [
+                {
+                  "price": 103.00,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 103.00
+                }
+              ]
+            },
+            {
+              "channel_code": "guestChannel",
+              "context": {
+                "channel_codes": [
+                  "guestChannel"
+                ]
+              },
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 65.00,
+              "unit_discount_price": null,
+              "unit_origin_price": 65.00,
+              "volume_prices": [
+                {
+                  "price": 65.00,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 65.00
+                }
+              ]
+            }
+          ],
+          "allow_quote_requests": false,
+          "applicable_pricing": {
+            "channel_code": null,
+            "discount_end_date": null,
+            "discount_start_date": null,
+            "price": 15.34,
+            "unit_discount_price": null,
+            "unit_origin_price": 15.34,
+            "volume_prices": [
+              {
+                "price": 15.34,
+                "quantity_threshold": 1,
+                "unit_discount_price": null,
+                "unit_origin_price": 15.34
+              }
+            ]
+          },
+          "channels": [
+            "INIT",
+            "UNKNOW_TO_SAP",
+            "guestChannel"
+          ],
+          "currency_iso_code": "USD",
+          "description": null,
+          "discount": null,
+          "fulfillment": {
+            "center": {
+              "code": "DEFAULT"
+            }
+          },
+          "inactivity_reasons": [],
+          "is_professional": true,
+          "leadtime_to_ship": 5,
+          "logistic_class": {
+            "code": "SMALL",
+            "label": "SMALL"
+          },
+          "min_quantity_alert": null,
+          "min_shipping_price": 3.10,
+          "min_shipping_price_additional": 0.51,
+          "min_shipping_type": "STD",
+          "min_shipping_zone": "FR",
+          "model": "MARKETPLACE",
+          "nb_evaluation": 0,
+          "offer_additional_fields": [],
+          "offer_id": 12258,
+          "premium": false,
+          "price": 15.34,
+          "price_additional_info": null,
+          "quantity": 10,
+          "shipping_deadline": "2023-08-09T08:53:44.660Z",
+          "shop_grade": null,
+          "shop_id": 2002,
+          "shop_name": "Seller B2B",
+          "state_code": "11",
+          "total_price": 90.10
+        }
+      ],
+      "product_brand": "brand_753",
+      "product_description": "Powerful with 2-speed gearbox for all screwdriving and drilling work    * 2-speed high-performance planetary gears: superior lifetime, best power transfer, high running smoothness.    * Click keyless chuck with Bosch Auto-Lock for the fastest and easiest tool changes.    * Torque pre-selection with 25 torque settings plus a drill setting – optimum power for every application.    * 1-hour quick charger with intelligent \"battery full\" detection.    * Bosch Electronic speed control: \"accelerate\" from 0 – max. using the trigger switch.    * PowerLight – thanks to the built-in LED, your workpiece is always well lit and clearly visible.    * Run-out brake and switch-on lock.    * Quick-change battery pack.    * Softgrip for a better and more comfortable hold.",
+      "product_references": [],
+      "product_sku": "3780171",
+      "product_title": "PSR 18-2",
+      "total_count": 1
+    },
+    {
+      "category_code": "1360",
+      "category_label": "Power Drills",
+      "offers": [
+        {
+          "active": true,
+          "all_prices": [
+            {
+              "channel_code": null,
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 15.22,
+              "unit_discount_price": null,
+              "unit_origin_price": 15.22,
+              "volume_prices": [
+                {
+                  "price": 15.22,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 15.22
+                },
+                {
+                  "price": 15.00,
+                  "quantity_threshold": 10,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 15.00
+                },
+                {
+                  "price": 14.98,
+                  "quantity_threshold": 15,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 14.98
+                },
+                {
+                  "price": 14.50,
+                  "quantity_threshold": 20,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 14.50
+                }
+              ]
+            }
+          ],
+          "allow_quote_requests": false,
+          "applicable_pricing": {
+            "channel_code": null,
+            "discount_end_date": null,
+            "discount_start_date": null,
+            "price": 15.22,
+            "unit_discount_price": null,
+            "unit_origin_price": 15.22,
+            "volume_prices": [
+              {
+                "price": 15.22,
+                "quantity_threshold": 1,
+                "unit_discount_price": null,
+                "unit_origin_price": 15.22
+              },
+              {
+                "price": 15.00,
+                "quantity_threshold": 10,
+                "unit_discount_price": null,
+                "unit_origin_price": 15.00
+              },
+              {
+                "price": 14.98,
+                "quantity_threshold": 15,
+                "unit_discount_price": null,
+                "unit_origin_price": 14.98
+              },
+              {
+                "price": 14.50,
+                "quantity_threshold": 20,
+                "unit_discount_price": null,
+                "unit_origin_price": 14.50
+              }
+            ]
+          },
+          "channels": [
+            "INIT",
+            "UNKNOW_TO_SAP",
+            "guestChannel"
+          ],
+          "currency_iso_code": "USD",
+          "description": null,
+          "discount": null,
+          "fulfillment": {
+            "center": {
+              "code": "DEFAULT"
+            }
+          },
+          "inactivity_reasons": [],
+          "is_professional": true,
+          "leadtime_to_ship": 5,
+          "logistic_class": {
+            "code": "SMALL",
+            "label": "SMALL"
+          },
+          "max_order_quantity": 5,
+          "min_order_quantity": 4,
+          "min_quantity_alert": null,
+          "min_shipping_price": 3.10,
+          "min_shipping_price_additional": 0.51,
+          "min_shipping_type": "STD",
+          "min_shipping_zone": "FR",
+          "model": "MARKETPLACE",
+          "nb_evaluation": 0,
+          "offer_additional_fields": [],
+          "offer_id": 12103,
+          "package_quantity": 3,
+          "premium": false,
+          "price": 15.22,
+          "price_additional_info": null,
+          "quantity": 948,
+          "shipping_deadline": "2023-08-09T08:53:44.667Z",
+          "shop_grade": null,
+          "shop_id": 2002,
+          "shop_name": "Seller B2B",
+          "state_code": "11",
+          "total_price": 18.32
+        },
+        {
+          "active": true,
+          "all_prices": [
+            {
+              "channel_code": null,
+              "discount_end_date": null,
+              "discount_start_date": null,
+              "price": 15.34,
+              "unit_discount_price": null,
+              "unit_origin_price": 15.34,
+              "volume_prices": [
+                {
+                  "price": 15.34,
+                  "quantity_threshold": 1,
+                  "unit_discount_price": null,
+                  "unit_origin_price": 15.34
+                }
+              ]
+            }
+          ],
+          "allow_quote_requests": false,
+          "applicable_pricing": {
+            "channel_code": null,
+            "discount_end_date": null,
+            "discount_start_date": null,
+            "price": 15.34,
+            "unit_discount_price": null,
+            "unit_origin_price": 15.34,
+            "volume_prices": [
+              {
+                "price": 15.34,
+                "quantity_threshold": 1,
+                "unit_discount_price": null,
+                "unit_origin_price": 15.34
+              },
+              {
+                "price": 14.00,
+                "quantity_threshold": 10,
+                "unit_discount_price": null,
+                "unit_origin_price":14.00
+              }]
+          },
+          "channels": [
+            "INIT",
+            "UNKNOW_TO_SAP",
+            "guestChannel"
+          ],
+          "currency_iso_code": "USD",
+          "description": null,
+          "discount": null,
+          "fulfillment": {
+            "center": {
+              "code": "DEFAULT"
+            }
+          },
+          "inactivity_reasons": [],
+          "is_professional": true,
+          "leadtime_to_ship": 5,
+          "logistic_class": {
+            "code": "SMALL",
+            "label": "SMALL"
+          },
+          "min_quantity_alert": null,
+          "min_shipping_price": 3.10,
+          "min_shipping_price_additional": 0.51,
+          "min_shipping_type": "STD",
+          "min_shipping_zone": "FR",
+          "model": "MARKETPLACE",
+          "nb_evaluation": 0,
+          "offer_additional_fields": [],
+          "offer_id": 12134,
+          "premium": false,
+          "price": 15.34,
+          "price_additional_info": null,
+          "quantity": 934,
+          "shipping_deadline": "2023-08-09T08:53:44.668Z",
+          "shop_grade": null,
+          "shop_id": 2002,
+          "shop_name": "Seller B2B",
+          "state_code": "1",
+          "total_price": 18.32
+        }
+      ],
+      "product_brand": "brand_980",
+      "product_description": "- 18V CORDLESS DRILL WITH AUTOSELECT® TECHNOLOGY - Select the application and the drill will automatically adjust to the correct setting    - AUTOSELECT® - For drilling into wood, metal or masonry and screw driving applications    - Variable speed for controlled drilling and screw driving    - Battery level indicator lets you know how much battery charge remains at any time    - Single sleeve, metal, keyless chuck makes bit changing quick and simple    - Easy, quick change of batteries due to new slide pack battery locking system    - Anti-slip soft grip for more comfort    - Forward/reverse switch for added versatility    - 1.5Ahr battery for a longer run time per charge    - Hammer action for drilling into masonry and concrete    - Powerful 18v, faster motor for more efficient drilling",
+      "product_references": [],
+      "product_sku": "3794514",
+      "product_title": "18V Auto Select cordless drill",
+      "total_count": 3
+    }
+  ]
+}

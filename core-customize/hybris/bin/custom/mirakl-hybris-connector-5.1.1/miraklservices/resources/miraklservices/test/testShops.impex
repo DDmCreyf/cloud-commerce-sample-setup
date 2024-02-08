@@ -1,0 +1,11 @@
+INSERT_UPDATE Shop ; id[unique=true]
+                   ; shop1          
+                   ; shop2          
+                   ; shop3          
+
+INSERT_UPDATE Offer ; id[unique=true] ; productCode  ; shop(id) 
+                    ; offer1          ; productCode1 ; shop1
+                    ; offer2          ; productCode1 ; shop2
+                    ; offer3          ; productCode1 ; shop2
+                    ; offer4          ; productCode1 ; shop3
+                    ; offer5          ; productCode2 ; shop2

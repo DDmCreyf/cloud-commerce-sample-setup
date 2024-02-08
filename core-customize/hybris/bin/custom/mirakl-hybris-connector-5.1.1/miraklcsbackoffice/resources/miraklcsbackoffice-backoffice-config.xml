@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ [y] hybris Platform
+  ~
+  ~ Copyright (c) 2017 SAP SE or an SAP affiliate company.
+  ~ All rights reserved.
+  ~
+  ~ This software is the confidential and proprietary information of SAP
+  ~ ("Confidential Information"). You shall not disclose such Confidential
+  ~ Information and shall use it only in accordance with the terms of the
+  ~ license agreement you entered into with SAP.
+  -->
+
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:n="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+
+    <context type="Order" merge-by="type" component="cs-listview">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="source" label="miraklcsbackoffice.order.listview.ordersource" />
+        </list:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="OrderEntry" component="referenceListViewOrderEntries">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="shopName" label="miraklcsbackoffice.order.hierarchy.shopname" />
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="Consignment" component="referenceListViewConsignments">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="deliveryMode" merge-mode="remove"/>
+            <list-view:column qualifier="status" merge-mode="remove"/>
+            <list-view:column qualifier="deliveryModeDisplayName" label="miraklcsbackoffice.order.tab.consignments.deliverymode"/>
+            <list-view:column qualifier="statusDisplayName" label="miraklcsbackoffice.order.tab.consignments.status"/>
+            <list-view:column qualifier="shopDisplayName" label="miraklcsbackoffice.order.hierarchy.shopname" />
+        </list-view:list-view>
+    </context>
+</config>
+

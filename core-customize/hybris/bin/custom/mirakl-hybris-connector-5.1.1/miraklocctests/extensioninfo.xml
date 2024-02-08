@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+
+
+    <extension abstractclassprefix="Generated" classprefix="Miraklocctests" jaloLogicFree="true"
+               managername="MiraklocctestsManager" managersuperclass="de.hybris.platform.jalo.extension.Extension"
+               name="miraklocctests" usemaven="false">
+
+
+        <requires-extension name="commercewebservicestests"/>
+        <requires-extension name="miraklfacades"/>
+        <requires-extension name="miraklocc"/>
+
+        <coremodule generated="true" manager="com.mirakl.hybris.jalo.MiraklocctestsManager" packageroot="com.mirakl.hybris.occtests"/>
+
+    </extension>
+
+
+</extensioninfo>

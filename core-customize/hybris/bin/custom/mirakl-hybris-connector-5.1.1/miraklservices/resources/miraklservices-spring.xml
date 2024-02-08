@@ -1,0 +1,2055 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- jobs -->
+
+    <bean id="defaultExportProductsJob" class="com.mirakl.hybris.core.product.jobs.MiraklExportSellableProductsJob" parent="abstractJobPerformable">
+        <property name="performJobStrategies" ref="sellableProductExportStrategies" />
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="catalogResolutionStrategies" ref="catalogResolutionStrategies"/>
+    </bean>
+
+    <alias name="defaultImportOffersJob" alias="importOffersJob"/>
+    <bean id="defaultImportOffersJob" class="com.mirakl.hybris.core.product.jobs.MiraklImportOffersJob" parent="abstractJobPerformable">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="syncOfferImportStrategy" ref="syncOfferImportStrategy"/>
+        <property name="asyncOfferImportSchedulingStrategy" ref="asyncOfferImportSchedulingStrategy"/>
+    </bean>
+
+    <alias name="defaultShopImportJob" alias="shopImportJob"/>
+    <bean id="defaultShopImportJob" class="com.mirakl.hybris.core.shop.jobs.MiraklImportShopsJob">
+        <property name="shopImportService" ref="shopImportService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+        <property name="sessionService" ref="sessionService"/>
+    </bean>
+
+    <alias name="defaultExportStatusJob" alias="exportStatusJob"/>
+    <bean id="defaultExportStatusJob" class="com.mirakl.hybris.core.jobs.MiraklExportStatusJob" parent="abstractJobPerformable">
+        <property name="exportJobReportService" ref="exportJobReportService"/>
+    </bean>
+
+    <alias name="defaultMiraklRetrieveDebitRequestsJob" alias="miraklRetrieveDebitRequestsJob"/>
+    <alias name="defaultMiraklRetrieveRefundRequestsJob" alias="miraklRetrieveRefundRequestsJob"/>
+
+    <alias name="defaultMiraklProcessDebitsJob" alias="miraklProcessDebitsJob"/>
+    <bean id="defaultMiraklProcessDebitsJob" class="com.mirakl.hybris.core.payment.jobs.MiraklProcessDebitsJob" parent="abstractJobPerformable">
+        <property name="processMarketplacePaymentStrategy" ref="processMarketplacePaymentStrategy"/>
+        <property name="lookupMiraklDebitsToProcessStrategy" ref="lookupMiraklDebitsToProcessStrategy"/>
+    </bean>
+
+    <alias name="defaultRefundPaymentJob" alias="refundPaymentJob"/>
+    <bean id="defaultRefundPaymentJob" class="com.mirakl.hybris.core.payment.jobs.MiraklRefundPaymentJob" parent="abstractJobPerformable">
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="refundLookupStrategy" ref="miraklRefundLookupStrategy"/>
+        <property name="refundProcessingStrategy" ref="miraklRefundProcessingStrategy"/>
+        <property name="miraklOrderLineRefundConverter" ref="miraklOrderLineRefundConverter"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultMiraklExportCatalogJob" alias="miraklExportCatalogJob"/>
+    <bean id="defaultMiraklExportCatalogJob" class="com.mirakl.hybris.core.catalog.jobs.MiraklExportCatalogJob" parent="abstractJobPerformable">
+        <property name="miraklExportCatalogService" ref="miraklExportCatalogService"/>
+        <property name="exportConfigConverter" ref="miraklExportCatalogConfigConverter"/>
+        <property name="postProcessExportCatalogStrategy" ref="miraklPostProcessExportCatalogStrategy"/>
+        <property name="exportJobReportService" ref="exportJobReportService"/>
+        <property name="exportCatalogContextConverter" ref="catalogContextConverter"/>
+    </bean>
+
+    <alias name="defaultProductImportStrategies" alias="productImportStrategies"/>
+    <util:map id="defaultProductImportStrategies" key-type="com.mirakl.hybris.core.enums.MiraklCatalogSystem"
+              value-type="com.mirakl.hybris.core.product.strategies.PerformJobStrategy"/>
+
+    <alias name="defaultMiraklProductImportJob" alias="miraklProductImportJob"/>
+    <bean id="defaultMiraklProductImportJob" class="com.mirakl.hybris.core.product.jobs.MiraklProductImportJob" parent="abstractJobPerformable">
+        <property name="performJobStrategies" ref="productImportStrategies"/>
+    </bean>
+
+    <alias name="defaultCleanupMiraklRawProductsPerformableJob" alias="cleanupMiraklRawProductsPerformableJob"/>
+    <bean id="defaultCleanupMiraklRawProductsPerformableJob" parent="abstractGenericMaintenanceJobPerformable">
+        <property name="maintenanceCleanupStrategy" ref="maintenanceCleanupRawProductsStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklDownloadProductFilesStrategies" alias="miraklDownloadProductFilesStrategies"/>
+    <util:map id="defaultMiraklDownloadProductFilesStrategies" key-type="com.mirakl.hybris.core.enums.MiraklCatalogSystem"
+               value-type="com.mirakl.hybris.core.product.strategies.PerformJobStrategy"/>
+
+    <alias name="defaultMiraklDownloadProductFilesJob" alias="miraklDownloadProductFilesJob"/>
+    <bean id="defaultMiraklDownloadProductFilesJob" class="com.mirakl.hybris.core.product.jobs.MiraklDownloadProductFilesJob" parent="abstractJobPerformable">
+        <property name="performJobStrategies" ref="miraklDownloadProductFilesStrategies"/>
+    </bean>
+
+    <alias name="defaultImportOfferStatesJob" alias="importOfferStatesJob"/>
+    <bean id="defaultImportOfferStatesJob" class="com.mirakl.hybris.core.product.jobs.MiraklImportOfferStatesJob" parent="abstractJobPerformable">
+        <property name="offerStateImportService" ref="offerStateImportService"/>
+    </bean>
+
+    <alias name="defaultImportCustomFieldsJob" alias="importCustomFieldsJob"/>
+    <bean id="defaultImportCustomFieldsJob" class="com.mirakl.hybris.core.customfields.jobs.MiraklImportCustomFieldsJob"
+          parent="abstractJobPerformable">
+        <property name="customFieldImportService" ref="customFieldImportService"/>
+    </bean>
+
+    <alias name="defaultMiraklImportOffersPollingJob" alias="miraklImportOffersPollingJob"/>
+    <bean id="defaultMiraklImportOffersPollingJob" class="com.mirakl.hybris.core.product.jobs.MiraklImportOffersPollingJob"
+    parent="abstractJobPerformable">
+        <property name="miraklAsyncTaskService" ref="miraklAsyncTaskService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="asyncOfferImportStrategies" ref="miraklAsyncOfferImportStrategies"/>
+        <property name="mmpApi" ref="mmpFrontApiClient"/>
+        <property name="userService" ref="userService"/>
+        <property name="offerDao" ref="offerDao"/>
+    </bean>
+
+    <!-- services -->
+
+    <alias name="defaultOfferImportService" alias="offerImportService"/>
+    <bean id="defaultOfferImportService" class="com.mirakl.hybris.core.product.services.impl.DefaultOfferImportService">
+        <property name="modelService" ref="modelService"/>
+        <property name="offerConverter" ref="offerConverter"/>
+        <property name="offerDao" ref="offerDao"/>
+        <property name="miraklOperatorApi" ref="mmpFrontApiClient"/>
+        <property name="errorHandler" ref="offerImportErrorHandler"/>
+    </bean>
+
+    <alias name="defaultOfferStateImportService" alias="offerStateImportService"/>
+    <bean id="defaultOfferStateImportService" class="com.mirakl.hybris.core.product.services.impl.DefaultOfferStateImportService">
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="mmpFrontApi" ref="mmpFrontApiClient"/>
+    </bean>
+
+    <alias name="defaultCsvService" alias="csvService"/>
+    <bean id="defaultCsvService" class="com.mirakl.hybris.core.util.services.impl.DefaultCsvService"/>
+
+    <alias alias="shopImportService" name="defaultShopImportService"/>
+    <bean id="defaultShopImportService"
+          class="com.mirakl.hybris.core.shop.services.impl.DefaultShopImportService">
+        <property name="miraklOperatorApi" ref="mmpFrontApiClient"/>
+        <property name="shopConverter" ref="miraklShopConverter"/>
+        <property name="shopService" ref="shopService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="shopValidationStrategy" ref="shopImportValidationStrategy"/>
+    </bean>
+
+    <alias name="defaultShopService" alias="shopService" />
+    <bean id="defaultShopService" class="com.mirakl.hybris.core.shop.services.impl.DefaultShopService">
+        <property name="shopDao" ref="shopDao"/>
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <alias name="defaultCountryService" alias="countryService" />
+    <bean id="defaultCountryService" class="com.mirakl.hybris.core.i18n.services.impl.DefaultCountryService">
+        <property name="countryDao" ref="miraklCountryDao"/>
+    </bean>
+
+    <alias name="defaultCurrencyService" alias="currencyService" />
+    <bean id="defaultCurrencyService" class="com.mirakl.hybris.core.i18n.services.impl.DefaultCurrencyService">
+        <property name="currencyDao" ref="currencyDao"/>
+    </bean>
+
+    <alias name="defaultOfferService" alias="offerService"/>
+    <bean id="defaultOfferService" class="com.mirakl.hybris.core.product.services.impl.DefaultOfferService">
+        <property name="offerDao" ref="offerDao"/>
+        <property name="sortingStrategy" ref="offerRelevanceSortingStrategy"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="searchRestrictionService" ref="searchRestrictionService" />
+        <property name="sessionService" ref="sessionService"/>
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="miraklOfferUpdateConverter" ref="miraklOfferUpdateConverter"/>
+    </bean>
+
+    <alias name="defaultProductImportService" alias="productImportService"/>
+    <bean id="defaultProductImportService" class="com.mirakl.hybris.core.product.services.impl.DefaultProductImportService" abstract="true">
+        <property name="modelService" ref="modelService"/>
+        <property name="productCreationStrategy" ref="productCreationStrategy"/>
+        <property name="productIdentificationStrategy" ref="productIdentificationStrategy"/>
+        <property name="productUpdateStrategy" ref="productUpdateStrategy"/>
+        <property name="postProcessProductLineImportStrategies" ref="postProcessProductLineImportStrategies"/>
+        <property name="errorDataConverter" ref="productImportErrorDataConverter"/>
+    </bean>
+
+    <alias name="defaultExportJobReportService" alias="exportJobReportService"/>
+    <bean id="defaultExportJobReportService" class="com.mirakl.hybris.core.jobs.services.impl.DefaultExportJobReportService">
+        <property name="exportTypeStrategies" ref="exportTypeStrategies"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="miraklJobReportFactory" ref="miraklJobReportFactory"/>
+    </bean>
+
+    <alias name="defaultShippingOptionsService" alias="shippingOptionsService" />
+    <bean id="defaultShippingOptionsService" class="com.mirakl.hybris.core.order.services.impl.DefaultShippingOptionsService" >
+        <property name="modelService" ref="modelService" />
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+    </bean>
+
+    <alias name="defaultMiraklCalculationService" alias="calculationService"/>
+    <alias name="defaultMiraklCalculationService" alias="miraklCalculationService"/>
+    <bean id="defaultMiraklCalculationService" class="com.mirakl.hybris.core.order.services.impl.DefaultMiraklCalculationService" parent="defaultCalculationService">
+        <property name="commonI18nService" ref="commonI18NService"/>
+        <property name="miraklFindPriceStrategy" ref="miraklFindPriceStrategy"/>
+    </bean>
+
+    <alias name="defaultJsonMarshallingService" alias="jsonMarshallingService"/>
+    <bean id="defaultJsonMarshallingService" class="com.mirakl.hybris.core.util.services.impl.DefaultJsonMarshallingService">
+        <property name="mapper" ref="miraklCustomObjectMapper"/>
+    </bean>
+
+    <alias name="defaultShippingFeeService" alias="shippingFeeService"/>
+    <bean id="defaultShippingFeeService" class="com.mirakl.hybris.core.order.services.impl.DefaultShippingFeeService">
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="shippingRatesRequestFactory" ref="miraklGetShippingRatesRequestFactory"/>
+        <property name="miraklOperatorApi" ref="mmpFrontApiClient" />
+        <property name="shippingZoneStrategy" ref="shippingZoneStrategy"/>
+        <property name="orderEntryShippingConverter" ref="miraklOrderEntryShippingConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklOrderService" alias="miraklOrderService"/>
+    <bean id="defaultMiraklOrderService" class="com.mirakl.hybris.core.order.services.impl.DefaultMiraklOrderService">
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="miraklCreateOrderConverter" ref="miraklCreateOrderConverter"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="offerService" ref="offerService"/>
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="miraklOrderModelConverter" ref="miraklOrderModelConverter"/>
+        <property name="offerPricingToDataConverter" ref="miraklOfferPricingToDataConverter"/>
+    </bean>
+
+    <alias name="defaultMarketplaceConsignmentService" alias="marketplaceConsignmentService"/>
+    <bean id="defaultMarketplaceConsignmentService" class="com.mirakl.hybris.core.ordersplitting.services.impl.DefaultMarketplaceConsignmentService">
+        <property name="modelService" ref="modelService" />
+        <property name="miraklCreateConsignmentConverter" ref="miraklCreateConsignmentConverter" />
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="marketplaceConsignmentDao" ref="marketplaceConsignmentDao"/>
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+        <property name="consignmentEntryDao" ref="consignmentEntryDao"/>
+    </bean>
+
+    <alias name="defaultMiraklProductService" alias="customProductService"/>
+    <alias name="defaultMiraklProductService" alias="miraklProductService"/>
+    <bean id="defaultMiraklProductService" class="com.mirakl.hybris.core.product.services.impl.DefaultMiraklProductService">
+        <property name="baseStoreService" ref="baseStoreService"/>
+        <property name="commercePriceService" ref="commercePriceService"/>
+        <property name="commerceStockService" ref="commerceStockService"/>
+        <property name="typeService" ref="typeService"/>
+        <property name="miraklProductDao" ref="miraklProductDao"/>
+    </bean>
+
+    <alias name="defaultIncidentService" alias="incidentService"/>
+    <bean id="defaultIncidentService" class="com.mirakl.hybris.core.order.services.impl.DefaultIncidentService">
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="reasonService" ref="reasonService"/>
+    </bean>
+
+    <alias name="defaultReasonService" alias="reasonService"/>
+    <bean id="defaultReasonService" class="com.mirakl.hybris.core.setting.services.impl.DefaultReasonService">
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+    </bean>
+
+    <alias name="defaultMarketplaceConsignmentMessagesService" alias="marketplaceConsignmentMessagesService"/>
+    <bean id="defaultMarketplaceConsignmentMessagesService" class="com.mirakl.hybris.core.order.services.impl.DefaultMarketplaceConsignmentMessagesService">
+        <property name="consignmentService" ref="marketplaceConsignmentService"/>
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <alias name="defaultMiraklDocumentService" alias="miraklDocumentService"/>
+    <bean id="defaultMiraklDocumentService" class="com.mirakl.hybris.core.order.services.impl.DefaultMiraklDocumentService">
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+    </bean>
+
+    <alias name="defaultMiraklCatalogService" alias="miraklCatalogService"/>
+    <bean id="defaultMiraklCatalogService" class="com.mirakl.hybris.core.catalog.services.impl.DefaultMiraklCatalogService">
+        <property name="mciApi" ref="mciFrontApiClient"/>
+    </bean>
+
+    <alias name="defaultMiraklExportCatalogService" alias="miraklExportCatalogService"/>
+    <bean id="defaultMiraklExportCatalogService" class="com.mirakl.hybris.core.catalog.services.impl.DefaultMiraklExportCatalogService">
+        <property name="eventService" ref="eventService"/>
+        <property name="exportCoreAttributesStrategy" ref="miraklExportCoreAttributesStrategy"/>
+        <property name="prepareCatalogExportStrategy" ref="miraklPrepareCatalogExportStrategy"/>
+        <property name="deleteCatalogEntriesStrategy" ref="miraklDeleteCatalogEntriesStrategy"/>
+        <property name="mciApi" ref="mciFrontApiClient"/>
+        <property name="contextDuplicatorConverter" ref="catalogContextCopyConverter"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultMiraklDebitService" alias="miraklDebitService"/>
+    <bean id="defaultMiraklDebitService" class="com.mirakl.hybris.core.payment.services.impl.DefaultMiraklDebitService">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultMiraklRefundService" alias="miraklRefundService"/>
+    <bean id="defaultMiraklRefundService" class="com.mirakl.hybris.core.payment.services.impl.DefaultMiraklRefundService">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="returnService" ref="returnService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="validationStrategy" ref="miraklRefundValidationStrategy"/>
+    </bean>
+
+    <!-- Performs payment operations during the fulfilment process -->
+    <alias name="defaultTakePaymentService" alias="takePaymentService"/>
+    <bean id="defaultTakePaymentService" class="com.mirakl.hybris.core.order.services.impl.DefaultTakePaymentService">
+        <property name="paymentService" ref="paymentService"/>
+    </bean>
+
+    <alias name="defaultPostProcessProductLineImportStrategies" alias="postProcessProductLineImportStrategies"/>
+    <util:list id="defaultPostProcessProductLineImportStrategies" value-type="com.mirakl.hybris.core.product.strategies.PostProcessProductLineImportStrategy">
+        <ref bean="postProcessProductLineImportStrategy"/>
+    </util:list>
+
+    <alias name="defaultSamplePostProcessProductLineImportStrategies" alias="postSampleProcessProductLineImportStrategies"/>
+    <util:list id="defaultSamplePostProcessProductLineImportStrategies" value-type="com.mirakl.hybris.core.product.strategies.PostProcessProductLineImportStrategy"/>
+
+    <alias name="defaultMiraklCoreAttributeService" alias="miraklCoreAttributeService"/>
+    <bean id="defaultMiraklCoreAttributeService" class="com.mirakl.hybris.core.catalog.services.impl.DefaultMiraklCoreAttributeService">
+        <property name="miraklCoreAttributeDao" ref="miraklCoreAttributeDao"/>
+        <property name="categoryService" ref="categoryService"/>
+    </bean>
+
+    <alias name="defaultMiraklRawProductService" alias="miraklRawProductService"/>
+    <bean id="defaultMiraklRawProductService" class="com.mirakl.hybris.core.product.services.impl.DefaultMiraklRawProductService">
+        <property name="rawProductDao" ref="miraklRawProductDao"/>
+    </bean>
+
+    <alias name="defaultMiraklPriceService" alias="miraklPriceService"/>
+    <bean id="defaultMiraklPriceService" class="com.mirakl.hybris.core.product.services.impl.DefaultMiraklPriceService"
+          parent="defaultPriceService">
+        <property name="miraklProductService" ref="miraklProductService"/>
+        <property name="offerService" ref="offerService"/>
+        <property name="userService" ref="userService"/>
+        <property name="offerPricingSelectionStrategy" ref="offerPricingSelectionStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklMediaService" alias="miraklMediaService"/>
+    <bean id="defaultMiraklMediaService" class="com.mirakl.hybris.core.media.services.impl.DefaultMiraklMediaService">
+        <property name="modelService" ref="modelService"/>
+        <property name="mediaService" ref="mediaService"/>
+    </bean>
+
+    <alias name="defaultMiraklEnvironmentService" alias="miraklEnvironmentService"/>
+    <bean id="defaultMiraklEnvironmentService" class="com.mirakl.hybris.core.environment.services.impl.DefaultMiraklEnvironmentService">
+        <property name="miraklEnvironmentDao" ref="miraklEnvironmentDao"/>
+    </bean>
+
+    <alias name="defaultCustomFieldImportService" alias="customFieldImportService"/>
+    <bean id="defaultCustomFieldImportService" class="com.mirakl.hybris.core.customfields.services.impl.DefaultCustomFieldImportService">
+        <property name="mmpFrontApi" ref="mmpFrontApiClient"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="miraklCustomFieldDao" ref="miraklCustomFieldDao"/>
+        <property name="miraklCustomFieldConverter" ref="miraklCustomFieldConverter"/>
+    </bean>
+
+    <alias name="defaultCustomFieldService" alias="customFieldService"/>
+    <bean id="defaultCustomFieldService" class="com.mirakl.hybris.core.customfields.services.impl.DefaultCustomFieldService">
+        <property name="miraklCustomFieldDao" ref="miraklCustomFieldDao"/>
+    </bean>
+
+    <alias name="defaultMessagingThreadService" alias="messagingThreadService"/>
+    <bean id="defaultMessagingThreadService" class="com.mirakl.hybris.core.message.services.impl.DefaultMessagingThreadService">
+        <property name="userService" ref="userService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="miraklCustomerIdDefinitionStrategy" ref="miraklCustomerIdDefinitionStrategy"/>
+        <property name="mmpApi" ref="mmpFrontApiClient"/>
+    </bean>
+
+    <alias name="defaultMiraklAsyncTaskService" alias="miraklAsyncTaskService"/>
+    <bean id="defaultMiraklAsyncTaskService" class="com.mirakl.hybris.core.jobs.services.impl.DefaultMiraklAsyncTaskService">
+        <property name="miraklAsyncTaskDao" ref="miraklAsyncTaskDao"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultMiraklRealtimeOfferService" alias="miraklRealtimeOfferService"/>
+    <bean id="defaultMiraklRealtimeOfferService"
+          class="com.mirakl.hybris.core.product.services.impl.DefaultMiraklRealtimeOfferService">
+        <property name="miraklFrontApi" ref="mmpFrontApiClient"/>
+        <property name="offersOnProductsRequestFactory" ref="miraklGetOffersOnProductsRequestFactory"/>
+        <property name="offerRequestFactory" ref="miraklGetOfferRequestFactory"/>
+        <property name="realtimeOffersFilteringStrategy" ref="miraklRealtimeOffersFilteringStrategy"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultMiraklRealtimePriceService" alias="miraklRealtimePriceService"/>
+    <bean id="defaultMiraklRealtimePriceService" class="com.mirakl.hybris.core.product.services.impl.DefaultMiraklRealtimePriceService">
+        <property name="modelService" ref="modelService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="realtimeOfferService" ref="miraklRealtimeOfferService"/>
+        <property name="priceService" ref="miraklPriceService"/>
+        <property name="offerPricingDataConverter" ref="miraklOfferPricingToDataConverter"/>
+    </bean>
+
+    <!-- converters -->
+
+    <alias name="defaultOfferConverter" alias="offerConverter"/>
+    <bean id="defaultOfferConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.OfferModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="offerPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultAsyncOfferCoreConverter" alias="asyncOfferCoreConverter"/>
+    <bean id="defaultAsyncOfferCoreConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.OfferModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="asyncOfferCorePopulator"/>
+                <ref bean="asyncOfferPricePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklShopConverter" alias="miraklShopConverter" />
+    <bean id="defaultMiraklShopConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.ShopModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="shopPopulator"/>
+                <ref bean="shopInformationPopulator"/>
+                <ref bean="shopMediaPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderConverter" alias="miraklCreateOrderConverter"/>
+    <bean id="defaultMiraklCreateOrderConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.front.domain.order.create.MiraklCreateOrder"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateOrderPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderOfferConverter" alias="miraklCreateOrderOfferConverter"/>
+    <bean id="defaultMiraklCreateOrderOfferConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.front.domain.order.create.MiraklCreateOrderOffer"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateOrderOfferPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultOfferOrderingConditionsConverter" alias="offerOrderingConditionsConverter"/>
+    <bean id="defaultOfferOrderingConditionsConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferOrderingConditions"/>
+        <property name="populators">
+            <list>
+                <ref bean="offerOrderingConditionsPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderPaymentInfoConverter" alias="miraklCreateOrderPaymentInfoConverter"/>
+    <bean id="defaultMiraklCreateOrderPaymentInfoConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.front.domain.order.create.MiraklCreateOrderPaymentInfo"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateOrderPaymentInfoPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderCustomerConverter" alias="miraklOrderCustomerConverter"/>
+    <bean id="defaultMiraklOrderCustomerConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.domain.order.MiraklOrderCustomer"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOrderCustomerPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCustomerAddressConverter" alias="miraklCustomerAddressConverter"/>
+     <bean id="defaultMiraklCustomerAddressConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.domain.order.MiraklCustomerShippingAddress"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCustomerAddressPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderTaxAmountConverter" alias="miraklOrderTaxAmountConverter"/>
+     <bean id="defaultMiraklOrderTaxAmountConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.domain.order.tax.MiraklOrderTaxAmount"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOrderTaxAmountPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateConsignmentConverter" alias="miraklCreateConsignmentConverter"/>
+    <bean id="defaultMiraklCreateConsignmentConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.MarketplaceConsignmentModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateConsignmentPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateConsignmentEntryConverter" alias="miraklCreateConsignmentEntryConverter"/>
+    <bean id="defaultMiraklCreateConsignmentEntryConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.ordersplitting.model.ConsignmentEntryModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateConsignmentEntryPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklExportCatalogConfigConverter" alias="miraklExportCatalogConfigConverter"/>
+    <bean id="defaultMiraklExportCatalogConfigConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.MiraklExportCatalogConfig"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklExportCatalogConfigPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderLineRefundConverter" alias="miraklOrderLineRefundConverter"/>
+    <bean id="defaultMiraklOrderLineRefundConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.domain.payment.refund.MiraklOrderLineRefund"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOrderLineRefundPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultProductImportGlobalContextDataConverter" alias="productImportGlobalContextDataConverter"/>
+    <bean id="defaultProductImportGlobalContextDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ProductImportGlobalContextData"/>
+        <property name="populators">
+            <list>
+                <ref bean="productImportGlobalContextDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultProductImportErrorDataConverter" alias="productImportErrorDataConverter"/>
+    <bean id="defaultProductImportErrorDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ProductImportErrorData"/>
+        <property name="populators">
+            <list>
+                <ref bean="productImportErrorDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultAttributeValueDataConverter" alias="attributeValueDataConverter"/>
+    <bean id="defaultAttributeValueDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.AttributeValueData"/>
+        <property name="populators">
+            <list>
+                <ref bean="attributeValueDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultCatalogContextCopyConverter" alias="catalogContextCopyConverter"/>
+    <bean id="defaultCatalogContextCopyConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.catalog.services.MiraklExportCatalogContext"/>
+        <property name="populators">
+            <list>
+                <ref bean="exportCatalogContextCopyPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultCatalogContextConverter" alias="catalogContextConverter"/>
+    <bean id="defaultCatalogContextConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.catalog.services.MiraklExportCatalogContext"/>
+        <property name="populators">
+            <list>
+                <ref bean="exportCatalogContextPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderPaymentConverter" alias="miraklOrderPaymentConverter"/>
+    <bean id="defaultMiraklOrderPaymentConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.domain.payment.debit.MiraklOrderPayment"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOrderPaymentPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklRefundRequestDataConverter" alias="miraklRefundRequestDataConverter"/>
+    <bean id="defaultMiraklRefundRequestDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="java.util.ArrayList"/>
+         <property name="populators">
+            <list>
+                <ref bean="miraklRefundRequestDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklComparableOfferDataConverter" alias="miraklComparableOfferDataConverter"/>
+    <bean id="defaultMiraklComparableOfferDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ComparableOfferData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklComparableOfferDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklComparableOfferOverviewDataConverter" alias="miraklComparableOfferOverviewDataConverter"/>
+    <bean id="defaultMiraklComparableOfferOverviewDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ComparableOfferData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklComparableOfferOverviewDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <alias name="defaultMiraklOfferUpdateConverter" alias="miraklOfferUpdateConverter"/>
+    <bean id="defaultMiraklOfferUpdateConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.OfferModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOfferUpdatePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklAbstractOrderEntryModelConverter" alias="miraklAbstractOrderEntryModelConverter"/>
+    <bean id="defaultMiraklAbstractOrderEntryModelConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.core.model.order.AbstractOrderEntryModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklAbstractOrderEntryModelPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCustomFieldConverter" alias="miraklCustomFieldConverter"/>
+    <bean id="defaultMiraklCustomFieldConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.MiraklCustomFieldModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCustomFieldPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderModelConverter" alias="miraklOrderModelConverter"/>
+    <bean id="defaultMiraklOrderModelConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.core.model.order.AbstractOrderModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOrderModelPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklMarketplaceConsignmentModelConverter" alias="miraklMarketplaceConsignmentModelConverter"/>
+    <bean id="defaultMiraklMarketplaceConsignmentModelConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.MarketplaceConsignmentModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklMarketplaceConsignmentModelPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklConsignmentEntryModelConverter" alias="miraklConsignmentEntryModelConverter"/>
+    <bean id="defaultMiraklConsignmentEntryModelConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.ordersplitting.model.ConsignmentEntryModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklConsignmentEntryModelPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderEntryShippingConverter" alias="miraklOrderEntryShippingConverter"/>
+    <bean id="defaultMiraklOrderEntryShippingConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.core.model.order.AbstractOrderEntryModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOrderEntryShippingPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+     <alias name="defaultMiraklOfferPricingToDataConverter" alias="miraklOfferPricingToDataConverter"/>
+    <bean id="defaultMiraklOfferPricingToDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferPricingData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOfferPricingToDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+     <alias name="defaultMiraklVolumePriceToDataConverter" alias="miraklVolumePriceToDataConverter"/>
+    <bean id="defaultMiraklVolumePriceToDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferVolumePricingData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklVolumePriceToDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultAsyncOfferPriceDetailsConverter" alias="asyncOfferPriceDetailsConverter"/>
+    <bean id="defaultAsyncOfferPriceDetailsConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferPricingData"/>
+        <property name="populators">
+            <list>
+                <ref bean="asyncOfferPriceDetailsPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- populators -->
+
+    <alias name="defaultShopPopulator" alias="shopPopulator" />
+    <bean id="defaultShopPopulator" class="com.mirakl.hybris.core.shop.populators.ShopPopulator">
+        <property name="currencyService" ref="currencyService"/>
+        <property name="countryService" ref="countryService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <alias name="defaultOfferPopulator" alias="offerPopulator"/>
+    <bean id="defaultOfferPopulator" class="com.mirakl.hybris.core.product.populators.OfferPopulator">
+        <property name="shopDao" ref="shopDao"/>
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="currencyService" ref="currencyService"/>
+        <property name="offerService" ref="offerService"/>
+        <property name="customFieldService" ref="customFieldService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="offerPricingToDataConverter" ref="miraklOfferPricingToDataConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklOfferUpdatePopulator" alias="miraklOfferUpdatePopulator"/>
+    <bean id="defaultMiraklOfferUpdatePopulator" class="com.mirakl.hybris.core.product.populators.MiraklOfferUpdatePopulator">
+        <property name="offerService" ref="offerService"/>
+        <property name="offerPricingToDataConverter" ref="miraklOfferPricingToDataConverter"/>
+    </bean>
+
+    <alias name="defaultOfferOrderingConditionsPopulator" alias="offerOrderingConditionsPopulator"/>
+    <bean id="defaultOfferOrderingConditionsPopulator" class="com.mirakl.hybris.core.product.populators.OfferOrderingConditionsPopulator"/>
+
+    <alias name="defaultShopInformationPopulator" alias="shopInformationPopulator" />
+    <bean id="defaultShopInformationPopulator" class="com.mirakl.hybris.core.shop.populators.ShopContactInformationPopulator">
+        <property name="countryService" ref="countryService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultShopMediaPopulator" alias="shopMediaPopulator" />
+    <bean id="defaultShopMediaPopulator" class="com.mirakl.hybris.core.shop.populators.ShopMediaPopulator">
+        <property name="miraklMediaService" ref="miraklMediaService"/>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderPopulator" alias="miraklCreateOrderPopulator"/>
+    <bean id="defaultMiraklCreateOrderPopulator" class="com.mirakl.hybris.core.order.populators.MiraklCreateOrderPopulator">
+        <property name="shippingZoneStrategy" ref="shippingZoneStrategy" />
+        <property name="miraklCreateOrderOfferConverter" ref="miraklCreateOrderOfferConverter" />
+        <property name="miraklCreateOrderPaymentInfoConverter" ref="miraklCreateOrderPaymentInfoConverter" />
+        <property name="miraklOrderCustomerConverter" ref="miraklOrderCustomerConverter" />
+        <property name="scoringAlreadyDone" value="${mirakl.orders.scoring.alreadydone}"/>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderOfferPopulator" alias="miraklCreateOrderOfferPopulator"/>
+    <bean id="defaultMiraklCreateOrderOfferPopulator" class="com.mirakl.hybris.core.order.populators.MiraklCreateOrderOfferPopulator">
+        <property name="offerService" ref="offerService" />
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="miraklOrderTaxAmountConverter" ref="miraklOrderTaxAmountConverter" />
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderPaymentInfoPopulator" alias="miraklCreateOrderPaymentInfoPopulator"/>
+    <bean id="defaultMiraklCreateOrderPaymentInfoPopulator" class="com.mirakl.hybris.core.order.populators.MiraklCreateOrderPaymentInfoPopulator" />
+
+    <alias name="defaultMiraklOrderCustomerPopulator" alias="miraklOrderCustomerPopulator"/>
+    <bean id="defaultMiraklOrderCustomerPopulator" class="com.mirakl.hybris.core.order.populators.MiraklOrderCustomerPopulator">
+        <property name="localeMappingStrategy" ref="miraklLocaleMappingStrategy" />
+        <property name="customerNameStrategy" ref="customerNameStrategy" />
+        <property name="miraklCustomerAddressConverter" ref="miraklCustomerAddressConverter" />
+        <property name="miraklCustomerIdDefinitionStrategy" ref="miraklCustomerIdDefinitionStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklCustomerAddressPopulator" alias="miraklCustomerAddressPopulator"/>
+    <bean id="defaultMiraklCustomerAddressPopulator" class="com.mirakl.hybris.core.order.populators.MiraklCustomerAddressPopulator" />
+
+    <alias name="defaultMiraklCreateConsignmentPopulator" alias="miraklCreateConsignmentPopulator"/>
+    <bean id="defaultMiraklCreateConsignmentPopulator" class="com.mirakl.hybris.core.ordersplitting.populators.MiraklCreateConsignmentPopulator">
+        <property name="consignmentEntryConverter" ref="miraklCreateConsignmentEntryConverter" />
+        <property name="defaultMarketplaceWarehouseCode" value="${mirakl.warehouse.code}"/>
+        <property name="warehouseService" ref="warehouseService"/>
+    </bean>
+
+    <alias name="defaultMiraklCreateConsignmentEntryPopulator" alias="miraklCreateConsignmentEntryPopulator"/>
+    <bean id="defaultMiraklCreateConsignmentEntryPopulator" class="com.mirakl.hybris.core.ordersplitting.populators.MiraklCreateConsignmentEntryPopulator"/>
+
+    <alias name="defaultShippingStates" alias="shippingStates"/>
+    <util:set id="defaultShippingStates" value-type="com.mirakl.client.mmp.domain.order.state.AbstractMiraklOrderStatus.State">
+        <value>SHIPPED</value>
+        <value>RECEIVED</value>
+        <value>TO_COLLECT</value>
+    </util:set>
+
+    <alias name="defaultCancellationStates" alias="cancellationStates"/>
+    <util:set id="defaultCancellationStates" value-type="com.mirakl.client.mmp.domain.order.state.AbstractMiraklOrderStatus.State">
+        <value>REFUSED</value>
+        <value>CANCELED</value>
+    </util:set>
+
+    <alias name="defaultMiraklUpdateConsignmentPopulator" alias="miraklUpdateConsignmentPopulator"/>
+    <bean id="defaultMiraklUpdateConsignmentPopulator" class="com.mirakl.hybris.core.ordersplitting.populators.MiraklUpdateConsignmentPopulator">
+        <property name="consignmentEntryPopulator" ref="miraklUpdateConsignmentEntryPopulator"/>
+        <property name="shippingStates" ref="shippingStates"/>
+        <property name="cancellationStates" ref="cancellationStates"/>
+    </bean>
+
+    <alias name="defaultMiraklUpdateRefundEntryPopulator" alias="miraklUpdateRefundEntryPopulator"/>
+    <bean id="defaultMiraklUpdateRefundEntryPopulator" class="com.mirakl.hybris.core.ordersplitting.populators.MiraklUpdateRefundEntryPopulator">
+        <property name="enumerationService" ref="enumerationService"/>
+    </bean>
+
+    <alias name="defaultMiraklUpdateConsignmentEntryPopulator" alias="miraklUpdateConsignmentEntryPopulator"/>
+    <bean id="defaultMiraklUpdateConsignmentEntryPopulator" class="com.mirakl.hybris.core.ordersplitting.populators.MiraklUpdateConsignmentEntryPopulator">
+        <property name="refundEntryPopulator" ref="miraklUpdateRefundEntryPopulator"/>
+        <property name="shippingStates" ref="shippingStates"/>
+        <property name="cancellationStates" ref="cancellationStates"/>
+    </bean>
+
+    <alias name="defaultMiraklOrderTaxAmountPopulator" alias="miraklOrderTaxAmountPopulator"/>
+    <bean id="defaultMiraklOrderTaxAmountPopulator" class="com.mirakl.hybris.core.order.populators.MiraklOrderTaxAmountPopulator" />
+
+    <alias name="defaultMiraklAbstractOrderEntryModelPopulator" alias="miraklAbstractOrderEntryModelPopulator"/>
+    <bean id="defaultMiraklAbstractOrderEntryModelPopulator" class="com.mirakl.hybris.core.order.populators.MiraklAbstractOrderEntryModelPopulator" />
+
+    <alias name="defaultMiraklExportCatalogConfigPopulator" alias="miraklExportCatalogConfigPopulator"/>
+    <bean id="defaultMiraklExportCatalogConfigPopulator" class="com.mirakl.hybris.core.catalog.populators.impl.MiraklExportCatalogConfigPopulator">
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="categoryService" ref="categoryService"/>
+    </bean>
+
+    <alias name="defaultAbstractMiraklJobReportPopulator" alias="abstractMiraklJobReportPopulator"/>
+    <bean id="defaultAbstractMiraklJobReportPopulator" class="com.mirakl.hybris.core.jobs.populators.AbstractMiraklJobReportPopulator" abstract="true">
+        <property name="mciApi" ref="mciFrontApiClient"/>
+        <property name="mmpApi" ref="mmpFrontApiClient"/>
+        <property name="mediaService" ref="mediaService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="exportStatuses" ref="exportStatuses"/>
+    </bean>
+
+    <alias name="defaultAbstractMiraklCatalogExportReportPopulator" alias="abstractMiraklCatalogExportReportPopulator"/>
+    <bean id="defaultAbstractMiraklCatalogExportReportPopulator" class="com.mirakl.hybris.core.catalog.populators.impl.AbstractMiraklCatalogExportReportPopulator" parent="abstractMiraklJobReportPopulator" abstract="true"/>
+
+    <alias name="defaultAttributeExportReportPopulator" alias="attributeExportReportPopulator"/>
+    <bean id="defaultAttributeExportReportPopulator" class="com.mirakl.hybris.core.catalog.populators.impl.DefaultAttributeExportReportPopulator" parent="abstractMiraklCatalogExportReportPopulator"/>
+
+    <alias name="defaultCatalogCategoryExportReportPopulator" alias="catalogCategoryExportReportPopulator"/>
+    <bean id="defaultCatalogCategoryExportReportPopulator" class="com.mirakl.hybris.core.catalog.populators.impl.DefaultCatalogCategoryExportReportPopulator" parent="abstractMiraklCatalogExportReportPopulator"/>
+
+    <alias name="defaultValueListExportReportPopulator" alias="valueListExportReportPopulator"/>
+    <bean id="defaultValueListExportReportPopulator" class="com.mirakl.hybris.core.catalog.populators.impl.DefaultValueListExportReportPopulator" parent="abstractMiraklCatalogExportReportPopulator"/>
+
+    <alias name="defaultMiraklOrderLineRefundPopulator" alias="miraklOrderLineRefundPopulator"/>
+    <bean id="defaultMiraklOrderLineRefundPopulator" class="com.mirakl.hybris.core.payment.populators.MiraklOrderLineRefundPopulator"/>
+
+    <alias name="defaultProductImportFileHeaderContextDataPopulator" alias="productImportFileHeaderContextDataPopulator"/>
+    <bean id="defaultProductImportFileHeaderContextDataPopulator" class="com.mirakl.hybris.core.product.populators.ProductImportHeaderFileContextDataPopulator">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultProductImportGlobalContextDataPopulator" alias="productImportGlobalContextDataPopulator"/>
+    <bean id="defaultProductImportGlobalContextDataPopulator" class="com.mirakl.hybris.core.product.populators.ProductImportGlobalContextDataPopulator">
+        <property name="variantsService" ref="variantsService"/>
+        <property name="miraklProductService" ref="miraklProductService"/>
+        <property name="coreAttributeService" ref="miraklCoreAttributeService"/>
+        <property name="categoryService" ref="categoryService"/>
+    </bean>
+
+    <alias name="defaultProductImportErrorDataPopulator" alias="productImportErrorDataPopulator"/>
+    <bean id="defaultProductImportErrorDataPopulator" class="com.mirakl.hybris.core.product.populators.ProductImportErrorDataPopulator"/>
+
+    <alias name="defaultAttributeValueDataPopulator" alias="attributeValueDataPopulator"/>
+    <bean id="defaultAttributeValueDataPopulator"
+          class="com.mirakl.hybris.core.catalog.populators.impl.AttributeValueDataPopulator">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultExportCatalogContextCopyPopulator" alias="exportCatalogContextCopyPopulator"/>
+    <bean id="defaultExportCatalogContextCopyPopulator" class="com.mirakl.hybris.core.catalog.populators.impl.ExportCatalogContextCopyPopulator"/>
+
+    <alias name="defaultExportCatalogContextPopulator" alias="exportCatalogContextPopulator"/>
+    <bean id="defaultExportCatalogContextPopulator" class="com.mirakl.hybris.core.catalog.populators.impl.ExportCatalogContextPopulator">
+        <property name="miraklCatalogService" ref="miraklCatalogService"/>
+    </bean>
+
+    <alias name="defaultAbstractMiraklRawProductPopulator" alias="abstractMiraklRawProductPopulator"/>
+    <bean id="defaultAbstractMiraklRawProductPopulator"  class="com.mirakl.hybris.core.product.populators.AbstractMiraklRawProductPopulator" abstract="true">
+        <property name="checksumCalculationStrategy" ref="checksumCalculationStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklOrderPaymentPopulator" alias="miraklOrderPaymentPopulator"/>
+    <bean id="defaultMiraklOrderPaymentPopulator"  class="com.mirakl.hybris.core.payment.populators.MiraklOrderPaymentPopulator"/>
+
+    <alias name="defaultMiraklRefundRequestDataPopulator" alias="miraklRefundRequestDataPopulator"/>
+    <bean id="defaultMiraklRefundRequestDataPopulator"  class="com.mirakl.hybris.core.payment.populators.MiraklRefundRequestDataPopulator"/>
+
+    <alias name="defaultMiraklComparableOfferDataPopulator" alias="miraklComparableOfferDataPopulator"/>
+    <bean id="defaultMiraklComparableOfferDataPopulator" class="com.mirakl.hybris.core.product.populators.MiraklComparableOfferDataPopulator">
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+    </bean>
+
+    <alias name="defaultMiraklComparableOfferOverviewDataPopulator" alias="miraklComparableOfferOverviewDataPopulator"/>
+    <bean id="defaultMiraklComparableOfferOverviewDataPopulator" class="com.mirakl.hybris.core.product.populators.MiraklComparableOfferOverviewDataPopulator">
+    	<property name="miraklPriceService" ref="miraklPriceService"/>
+    </bean>
+
+    <alias name="defaultMiraklCustomFieldPopulator" alias="miraklCustomFieldPopulator"/>
+    <bean id="defaultMiraklCustomFieldPopulator" class="com.mirakl.hybris.core.customfields.populators.MiraklCustomFieldPopulator"/>
+
+    <alias name="defaultMiraklOrderModelPopulator" alias="miraklOrderModelPopulator"/>
+    <bean id="defaultMiraklOrderModelPopulator" class="com.mirakl.hybris.core.order.populators.MiraklOrderModelPopulator">
+        <property name="jsonMarshallingService" ref="jsonMarshallingService" />
+        <property name="consignmentModelConverter" ref="miraklMarketplaceConsignmentModelConverter" />
+    </bean>
+
+    <alias name="defaultMiraklMarketplaceConsignmentModelPopulator" alias="miraklMarketplaceConsignmentModelPopulator"/>
+    <bean id="defaultMiraklMarketplaceConsignmentModelPopulator" class="com.mirakl.hybris.core.order.populators.MiraklMarketplaceConsignmentModelPopulator">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService" />
+        <property name="consignmentEntriesConverter" ref="miraklConsignmentEntryModelConverter" />
+    </bean>
+
+    <alias name="defaultMiraklConsignmentEntryModelPopulator" alias="miraklConsignmentEntryModelPopulator"/>
+    <bean id="defaultMiraklConsignmentEntryModelPopulator" class="com.mirakl.hybris.core.order.populators.MiraklConsignmentEntryModelPopulator">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService" />
+    </bean>
+
+    <alias name="defaultMiraklOrderEntryShippingPopulator" alias="miraklOrderEntryShippingPopulator"/>
+    <bean id="defaultMiraklOrderEntryShippingPopulator" class="com.mirakl.hybris.core.order.populators.MiraklAbstractOrderEntryShippingPopulator" />
+
+    <alias name="defaultAsyncOfferCorePopulator" alias="asyncOfferCorePopulator"/>
+    <bean id="defaultAsyncOfferCorePopulator" class="com.mirakl.hybris.core.product.populators.AsyncOfferCorePopulator">
+        <property name="currencyService" ref="currencyService"/>
+        <property name="shopDao" ref="shopDao"/>
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="customFieldService" ref="customFieldService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <alias name="defaultAsyncOfferPricePopulator" alias="asyncOfferPricePopulator"/>
+    <bean id="defaultAsyncOfferPricePopulator" class="com.mirakl.hybris.core.product.populators.AsyncOfferPricePopulator">
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="asyncOfferPriceDetailsConverter" ref="asyncOfferPriceDetailsConverter"/>
+        <property name="priceImportCompatibilityStrategy" ref="priceImportCompatibilityStrategy"/>
+    </bean>
+
+    <alias name="defaultAsyncOfferPriceDetailsPopulator" alias="asyncOfferPriceDetailsPopulator"/>
+    <bean id="defaultAsyncOfferPriceDetailsPopulator" class="com.mirakl.hybris.core.product.populators.AsyncOfferPriceDetailsPopulator"/>
+
+    <alias name="defaultMiraklOfferPricingToDataPopulator" alias="miraklOfferPricingToDataPopulator"/>
+    <bean id="defaultMiraklOfferPricingToDataPopulator" class="com.mirakl.hybris.core.product.populators.MiraklOfferPricingToDataPopulator">
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="offerVolumePricingDataConverter" ref="miraklVolumePriceToDataConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklVolumePriceToDataPopulator" alias="miraklVolumePriceToDataPopulator"/>
+    <bean id="defaultMiraklVolumePriceToDataPopulator" class="com.mirakl.hybris.core.product.populators.MiraklVolumePriceToDataPopulator">
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+    </bean>
+
+
+    <!-- DAOs -->
+
+    <alias name="defaultOfferDao" alias="offerDao"/>
+    <bean id="defaultOfferDao" class="com.mirakl.hybris.core.product.daos.impl.DefaultOfferDao">
+        <property name="queryDecorators" ref="offerDaoQueryDecorators"/>
+    </bean>
+
+    <alias name="defaultOfferDaoQueryDecorators" alias="offerDaoQueryDecorators"/>
+    <util:list id="defaultOfferDaoQueryDecorators" value-type="com.mirakl.hybris.core.util.flexiblesearch.QueryDecorator"/>
+
+    <alias name="defaultShopDao" alias="shopDao"/>
+    <bean id="defaultShopDao" class="com.mirakl.hybris.core.shop.daos.impl.DefaultShopDao">
+            <property name="queryDecorators" ref="shopDaoQueryDecorators"/>
+    </bean>
+
+    <alias name="defaultShopDaoQueryDecorators" alias="shopDaoQueryDecorators"/>
+    <util:list id="defaultShopDaoQueryDecorators" value-type="com.mirakl.hybris.core.util.flexiblesearch.QueryDecorator"/>
+
+    <alias name="defaultCustomProductDao" alias="customProductDao"/>
+    <alias name="defaultCustomProductDao" alias="miraklProductDao"/>
+    <bean id="defaultCustomProductDao" class="com.mirakl.hybris.core.product.daos.impl.DefaultMiraklProductDao" />
+
+    <alias name="defaultMiraklCountryDao" alias="miraklCountryDao"/>
+    <bean id="defaultMiraklCountryDao" class="de.hybris.platform.servicelayer.internal.dao.DefaultGenericDao">
+        <constructor-arg value="Country"/>
+    </bean>
+
+    <alias name="defaultMiraklJobReportDao" alias="miraklJobReportDao"/>
+    <bean id="defaultMiraklJobReportDao" class="com.mirakl.hybris.core.jobs.dao.impl.DefaultMiraklJobReportDao"/>
+
+    <alias name="defaultMiraklAbstractOrderEntryDao" alias="miraklAbstractOrderEntryDao"/>
+    <bean id="defaultMiraklAbstractOrderEntryDao" class="com.mirakl.hybris.core.order.daos.impl.DefaultMiraklAbstractOrderEntryDao" abstract="true"/>
+
+    <alias name="defaultMiraklCartEntryDao" alias="miraklCartEntryDao"/>
+    <bean id="defaultMiraklCartEntryDao" class="com.mirakl.hybris.core.order.daos.impl.DefaultMiraklCartEntryDao" parent="miraklAbstractOrderEntryDao"/>
+
+    <alias name="miraklOrderDao" alias="orderDao"/>
+    <bean id="miraklOrderDao" class="com.mirakl.hybris.core.order.daos.impl.DefaultMiraklOrderDao" parent="defaultOrderDao"/>
+
+    <alias name="defaultMarketplaceConsignmentDao" alias="marketplaceConsignmentDao"/>
+    <bean id="defaultMarketplaceConsignmentDao" class="com.mirakl.hybris.core.ordersplitting.daos.impl.DefaultMarketplaceConsignmentDao"/>
+
+    <alias name="defaultMiraklRefundEntryDao" alias="miraklRefundEntryDao"/>
+    <bean id="defaultMiraklRefundEntryDao" class="com.mirakl.hybris.core.returns.dao.impl.DefaultMiraklRefundEntryDao"/>
+
+    <alias name="defaultConsignmentEntryDao" alias="consignmentEntryDao"/>
+    <bean id="defaultConsignmentEntryDao" class="com.mirakl.hybris.core.ordersplitting.daos.impl.DefaultConsignmentEntryDao"/>
+
+    <alias name="defaultMiraklCoreAttributeDao" alias="miraklCoreAttributeDao"/>
+    <bean id="defaultMiraklCoreAttributeDao" class="com.mirakl.hybris.core.catalog.daos.impl.DefaultMiraklCoreAttributeDao"/>
+
+    <alias name="defaultMiraklRawProductDao" alias="miraklRawProductDao"/>
+    <bean id="defaultMiraklRawProductDao" class="com.mirakl.hybris.core.product.daos.impl.DefaultMiraklRawProductDao"/>
+
+    <alias name="defaultMiraklCoreAttributeConfigurationDao" alias="miraklCoreAttributeConfigurationDao"/>
+    <bean id="defaultMiraklCoreAttributeConfigurationDao"  class="com.mirakl.hybris.core.catalog.daos.impl.DefaultMiraklCoreAttributeConfigurationDao"/>
+
+    <alias name="defaultMiraklEnvironmentDao" alias="miraklEnvironmentDao"/>
+    <bean id="defaultMiraklEnvironmentDao" class="com.mirakl.hybris.core.environment.daos.impl.DefaultMiraklEnvironmentDao"/>
+
+    <alias name="defaultMiraklCustomFieldDao" alias="miraklCustomFieldDao"/>
+    <bean id="defaultMiraklCustomFieldDao" class="com.mirakl.hybris.core.customfields.daos.impl.DefaultMiraklCustomFieldDao"/>
+
+    <alias name="defaultMiraklAsyncTaskDao" alias="miraklAsyncTaskDao"/>
+    <bean id="defaultMiraklAsyncTaskDao" class="com.mirakl.hybris.core.jobs.dao.impl.DefaultMiraklAsyncTaskDao"/>
+
+    <!-- Mirakl SDK -->
+
+    <alias name="defaultMiraklConnectionFactory" alias="miraklConnectionFactory"/>
+    <bean id="defaultMiraklConnectionFactory" class="com.mirakl.hybris.core.beans.factories.impl.DefaultMiraklConnectionBeanFactory">
+        <property name="requestDecorators" ref="miraklRequestDecorators"/>
+        <property name="miraklEnvironmentSelectionStrategy" ref="miraklEnvironmentSelectionStrategy"/>
+        <property name="mmpFrontApiClientConfigurationStrategy" ref="miraklApiClientConfigurationStrategy"/>
+        <property name="mmpOperatorApiClientConfigurationStrategy" ref="miraklApiClientConfigurationStrategy"/>
+        <property name="mciFrontApiClientConfigurationStrategy" ref="miraklApiClientConfigurationStrategy"/>
+    </bean>
+
+    <alias name="defaultMmpFrontApiClient" alias="mmpFrontApiClient"/>
+    <bean id="defaultMmpFrontApiClient" class="com.mirakl.client.mmp.front.core.MiraklMarketplacePlatformFrontApiClient"
+          factory-bean="miraklConnectionFactory" factory-method="getMmpFrontApiClient" scope="prototype">
+        <aop:scoped-proxy />
+    </bean>
+
+    <alias name="defaultMciFrontApiClient" alias="mciFrontApiClient"/>
+    <bean id="defaultMciFrontApiClient" class="com.mirakl.client.mci.front.core.MiraklCatalogIntegrationFrontApiClient"
+          factory-bean="miraklConnectionFactory" factory-method="getMciFrontApiClient" scope="prototype">
+        <aop:scoped-proxy />
+    </bean>
+
+    <alias name="defaultMmpOperatorApiClient" alias="mmpOperatorApiClient"/>
+    <bean id="defaultMmpOperatorApiClient" class="com.mirakl.client.mmp.operator.core.MiraklMarketplacePlatformOperatorApiClient"
+          factory-bean="miraklConnectionFactory" factory-method="getMmpOperatorApiClient" scope="prototype">
+        <aop:scoped-proxy />
+    </bean>
+
+    <alias name="defaultMiraklCustomObjectMapper" alias="miraklCustomObjectMapper"/>
+    <bean id="defaultMiraklCustomObjectMapper" class="com.mirakl.client.core.internal.mapper.CustomObjectMapper" factory-method="getInstance"/>
+
+    <!-- Decorators -->
+
+    <alias name="defaultMiraklRequestDecorators" alias="miraklRequestDecorators"/>
+    <util:list id="defaultMiraklRequestDecorators" value-type="com.mirakl.client.core.filter.internal.MiraklRequestDecorator">
+        <ref bean="miraklUserAgentRequestDecorator" />
+    </util:list>
+
+    <alias name="defaultMiraklUserAgentRequestDecorator" alias="miraklUserAgentRequestDecorator"/>
+    <bean id="defaultMiraklUserAgentRequestDecorator" class="com.mirakl.hybris.core.request.decorators.MiraklUserAgentRequestDecorator">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <!-- Strategies -->
+
+    <alias name="defaultMiraklFindPriceStrategy" alias="miraklFindPriceStrategy"/>
+    <bean id="defaultMiraklFindPriceStrategy" class="com.mirakl.hybris.core.order.strategies.calculation.impl.DefaultMiraklFindPriceStrategy">
+        <property name="sessionService" ref="sessionService"/>
+        <property name="searchRestrictionService" ref="searchRestrictionService"/>
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="realtimeOfferDataRetrievalMode" ref="miraklRealtimeOfferDataRetrievalMode"/>
+        <property name="realtimePriceService" ref="miraklRealtimePriceService"/>
+    </bean>
+
+    <bean id="abstractExportReportStrategy" class="com.mirakl.hybris.core.jobs.strategies.impl.AbstractExportReportStrategy" abstract="true">
+        <property name="miraklJobReportDao" ref="miraklJobReportDao"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="mciApi" ref="mciFrontApiClient"/>
+        <property name="mmpApi" ref="mmpFrontApiClient"/>
+        <property name="exportStatuses" ref="exportStatuses"/>
+    </bean>
+
+    <alias name="defaultMiraklValueListExportReportStrategy" alias="miraklValueListExportReportStrategy"/>
+    <bean id="defaultMiraklValueListExportReportStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultValueListExportReportStrategy" parent="abstractExportReportStrategy">
+        <property name="reportPopulator" ref="valueListExportReportPopulator"/>
+    </bean>
+
+    <alias name="defaultMiraklCatalogCategoryExportReportStrategy" alias="miraklCatalogCategoryExportReportStrategy"/>
+    <bean id="defaultMiraklCatalogCategoryExportReportStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultCatalogCategoryExportReportStrategy" parent="abstractExportReportStrategy">
+        <property name="reportPopulator" ref="catalogCategoryExportReportPopulator"/>
+    </bean>
+
+    <alias name="defaultMiraklAttributeExportReportStrategy" alias="miraklAttributeExportReportStrategy"/>
+    <bean id="defaultMiraklAttributeExportReportStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultAttributeExportReportStrategy" parent="abstractExportReportStrategy">
+        <property name="reportPopulator" ref="attributeExportReportPopulator"/>
+    </bean>
+
+    <alias name="miraklFindDeliveryCostStrategy" alias="findDeliveryCostStrategy"/>
+    <bean id="miraklFindDeliveryCostStrategy" class="com.mirakl.hybris.core.order.strategies.impl.MiraklFindDeliveryCostStrategy">
+        <property name="operatorFindDeliveryCostStrategy" ref="defaultFindDeliveryCostStrategy"/>
+        <property name="marketplaceDeliveryCostStrategy" ref="marketplaceDeliveryCostStrategy"/>
+    </bean>
+
+    <alias name="defaultMarketplaceDeliveryCostStrategy" alias="marketplaceDeliveryCostStrategy"/>
+    <bean id="defaultMarketplaceDeliveryCostStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultMarketplaceDeliveryCostStrategy"/>
+
+    <alias name="miraklDeliveryModeLookupStrategy" alias="deliveryModeLookupStrategy"/>
+    <bean id="miraklDeliveryModeLookupStrategy" class="com.mirakl.hybris.core.order.strategies.impl.MiraklDeliveryModeLookupStrategy" parent="defaultDeliveryModeLookupStrategy">
+        <property name="defaultFreeDeliveryModeCode" value="${mirakl.default.free.delivery}"/>
+        <property name="deliveryService" ref="deliveryService"/>
+    </bean>
+
+    <alias name="defaultOfferRelevanceSortingStrategy" alias="offerRelevanceSortingStrategy"/>
+    <bean id="defaultOfferRelevanceSortingStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultOfferRelevanceSortingStrategy">
+        <property name="offerComparisonBeanConverter" ref="miraklComparableOfferDataConverter"/>
+        <property name="sortingStrategy" ref="offerComparisonBeanSortingStrategy"/>
+    </bean>
+
+    <alias name="defaultOfferOverviewRelevanceSortingStrategy" alias="offerOverviewRelevanceSortingStrategy"/>
+    <bean id="defaultOfferOverviewRelevanceSortingStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultOfferOverviewRelevanceSortingStrategy">
+        <property name="offerComparisonBeanConverter" ref="miraklComparableOfferOverviewDataConverter"/>
+        <property name="sortingStrategy" ref="offerComparisonBeanSortingStrategy"/>
+    </bean>
+
+    <alias name="defaultOfferComparisonBeanSortingStrategy" alias="offerComparisonBeanSortingStrategy"/>
+    <bean name="defaultOfferComparisonBeanSortingStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultOfferComparisonBeanSortingStrategy">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultShippingZoneStrategy" alias="shippingZoneStrategy" />
+    <bean id="defaultShippingZoneStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultShippingZoneStrategy">
+        <property name="baseStoreService" ref="baseStoreService"/>
+    </bean>
+
+    <alias name="defaultExportStatuses" alias="exportStatuses"/>
+    <util:map id="defaultExportStatuses" key-type="com.mirakl.client.domain.common.MiraklProcessTrackingStatus" value-type="com.mirakl.hybris.core.enums.MiraklExportStatus">
+        <entry key="WAITING" value="PENDING"/>
+        <entry key="QUEUED" value="PENDING"/>
+        <entry key="RUNNING" value="PENDING"/>
+        <entry key="CANCELLED" value="CANCELLED"/>
+        <entry key="COMPLETE" value="COMPLETE"/>
+        <entry key="FAILED" value="FAILED"/>
+    </util:map>
+
+    <alias name="defaultExportTypeStrategies" alias="exportTypeStrategies"/>
+    <util:list id="defaultExportTypeStrategies" value-type="com.mirakl.hybris.core.jobs.strategies.ExportReportStrategy">
+        <ref bean="miraklValueListExportReportStrategy"/>
+        <ref bean="miraklAttributeExportReportStrategy"/>
+        <ref bean="miraklCatalogCategoryExportReportStrategy"/>
+    </util:list>
+
+    <alias name="defaultShopImportValidationStrategy" alias="shopImportValidationStrategy"/>
+    <bean id="defaultShopImportValidationStrategy" class="com.mirakl.hybris.core.shop.strategies.impl.DefaultShopValidationStrategy"/>
+
+
+    <alias name="defaultCommonMiraklCartStrategy" alias="commonMiraklCartStrategy"/>
+    <bean id="defaultCommonMiraklCartStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultCommonMiraklCartStrategy" parent="abstractCommerceCartStrategy">
+        <property name="miraklCartEntryDao" ref="miraklCartEntryDao" />
+        <property name="offerOrderingConditionsConverter" ref="offerOrderingConditionsConverter"/>
+        <property name="miraklApi" ref="mmpFrontApiClient"/>
+        <property name="synchronousCartUpdateActivationStrategy" ref="miraklSynchronousCartUpdateActivationStrategy"/>
+    </bean>
+
+    <alias name="miraklCommerceAddToCartStrategy" alias="commerceAddToCartStrategy"/>
+    <bean id="miraklCommerceAddToCartStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultMiraklAddToCartStrategy" parent="defaultCommerceAddToCartStrategy">
+        <property name="miraklCartEntryDao" ref="miraklCartEntryDao"/>
+        <property name="offerService" ref="offerService" />
+        <property name="commonCartStrategy" ref="commonMiraklCartStrategy" />
+        <property name="updateCartEntryStrategy" ref="commerceUpdateCartEntryStrategy" />
+        <property name="abstractOrderEntryModelConverter" ref="miraklAbstractOrderEntryModelConverter"/>
+        <property name="offerOrderingConditionsConverter" ref="offerOrderingConditionsConverter"/>
+    </bean>
+
+    <alias name="miraklCommerceUpdateCartEntryStrategy" alias="commerceUpdateCartEntryStrategy"/>
+    <bean id="miraklCommerceUpdateCartEntryStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultMiraklUpdateCartEntryStrategy" parent="defaultCommerceUpdateCartEntryStrategy">
+        <property name="commonCartStrategy" ref="commonMiraklCartStrategy" />
+        <property name="offerService" ref="offerService" />
+    </bean>
+
+    <alias name="defaultOfferCodeGenerationStrategy" alias="offerCodeGenerationStrategy"/>
+    <bean id="defaultOfferCodeGenerationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultOfferCodeGenerationStrategy">
+        <property name="offerCodePrefix" value="${mirakl.offers.internalcode.prefix}" />
+    </bean>
+
+    <alias name="miraklCartValidationStrategy" alias="cartValidationStrategy"/>
+    <bean id="miraklCartValidationStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultMiraklCartValidationStrategy" parent="defaultCartValidationStrategy">
+        <property name="offerService" ref="offerService" />
+        <property name="validationHook" ref="miraklCartValidationHook"/>
+    </bean>
+
+    <alias name="defaultOfferImportErrorHandler" alias="offerImportErrorHandler"/>
+    <bean id="defaultOfferImportErrorHandler" class="com.mirakl.hybris.core.product.strategies.impl.DefaultOfferImportErrorHandler"/>
+
+    <alias name="defaultMarketplaceConsignmentMessagesStrategy" alias="marketplaceConsignmentMessagesStrategy"/>
+    <bean id="defaultMarketplaceConsignmentMessagesStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultMarketplaceConsignmentMessagesStrategy"/>
+
+
+    <alias name="defaultMiraklRefundLookupStrategy" alias="miraklRefundLookupStrategy" />
+    <bean id="defaultMiraklRefundLookupStrategy" class="com.mirakl.hybris.core.returns.strategies.impl.DefaultMiraklRefundLookupStrategy">
+        <property name="miraklRefundEntryDao" ref="miraklRefundEntryDao"/>
+    </bean>
+
+    <alias name="defaultMiraklRefundValidationStrategy" alias="miraklRefundValidationStrategy"/>
+    <bean id="defaultMiraklRefundValidationStrategy" class="com.mirakl.hybris.core.returns.strategies.impl.DefaultMiraklRefundValidationStrategy">
+        <property name="refundEntryDao" ref="miraklRefundEntryDao"/>
+    </bean>
+
+    <alias name="defaultMiraklRefundProcessingStrategy" alias="miraklRefundProcessingStrategy"/>
+    <bean id="defaultMiraklRefundProcessingStrategy" class="com.mirakl.hybris.core.returns.strategies.impl.DefaultMiraklRefundProcessingStrategy">
+        <property name="paymentService" ref="paymentService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultMiraklValueListNamingStrategy" alias="miraklValueListNamingStrategy"/>
+    <bean id="defaultMiraklValueListNamingStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultValueListNamingStrategy"/>
+
+    <alias name="defaultMiraklAttributeVarianceStrategy" alias="miraklAttributeVarianceStrategy"/>
+    <bean id="defaultMiraklAttributeVarianceStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultAttributeVarianceStrategy"/>
+
+    <alias name="defaultMiraklAttributeDefaultValueStrategy" alias="miraklAttributeDefaultValueStrategy"/>
+    <bean id="defaultMiraklAttributeDefaultValueStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultAttributeDefaultValueStrategy"/>
+
+    <alias name="defaultMiraklExportCoreAttributesStrategy" alias="miraklExportCoreAttributesStrategy"/>
+    <bean name="defaultMiraklExportCoreAttributesStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultExportCoreAttributesStrategy">
+        <property name="coreAttributeHandlerResolver" ref="coreAttributeHandlerResolver"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="exportCatalogService" ref="miraklExportCatalogService"/>
+    </bean>
+
+    <alias name="defaultMiraklPrepareCatalogExportStrategy" alias="miraklPrepareCatalogExportStrategy"/>
+    <bean name="defaultMiraklPrepareCatalogExportStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultPrepareCatalogExportStrategy"/>
+
+    <alias name="defaultMiraklDeleteCatalogEntriesStrategy" alias="miraklDeleteCatalogEntriesStrategy"/>
+    <bean name="defaultMiraklDeleteCatalogEntriesStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultDeleteCatalogEntriesStrategy">
+        <property name="csvService" ref="csvService"/>
+    </bean>
+
+    <alias name="defaultMiraklPostProcessExportCatalogStrategy" alias="miraklPostProcessExportCatalogStrategy"/>
+    <bean id="defaultMiraklPostProcessExportCatalogStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultPostProcessExportCatalogStrategy">
+        <property name="mediaService" ref="mediaService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultProcessOperatorPaymentStrategy" alias="processOperatorPaymentStrategy"/>
+    <bean id="defaultProcessOperatorPaymentStrategy" class="com.mirakl.hybris.core.fulfilment.strategies.impl.DefaultProcessOperatorPaymentStrategy">
+        <property name="takePaymentService" ref="takePaymentService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="miraklCalculationService" ref="miraklCalculationService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultProcessMarketplacePaymentStrategy" alias="processMarketplacePaymentStrategy"/>
+    <bean id="defaultProcessMarketplacePaymentStrategy" class="com.mirakl.hybris.core.fulfilment.strategies.impl.DefaultProcessMarketplacePaymentStrategy">
+        <property name="modelService" ref="modelService"/>
+        <property name="takePaymentService" ref="takePaymentService"/>
+        <property name="mmpApi" ref="mmpFrontApiClient"/>
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+    </bean>
+
+    <alias name="defaultChecksumCalculationStrategy" alias="checksumCalculationStrategy"/>
+    <bean id="defaultChecksumCalculationStrategy" class="com.mirakl.hybris.core.util.strategies.impl.DefaultChecksumCalculationStrategy"/>
+
+
+    <alias name="defaultMiraklLocaleMappingStrategy" alias="miraklLocaleMappingStrategy"/>
+    <bean id="defaultMiraklLocaleMappingStrategy" class="com.mirakl.hybris.core.util.strategies.impl.DefaultLocaleMappingStrategy">
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultAbstractProductImportValidationStrategy" alias="abstractProductImportValidationStrategy"/>
+    <bean id="defaultAbstractProductImportValidationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.AbstractProductImportValidationStrategy"
+          abstract="true"/>
+
+    <alias name="defaultVariantTypeResolutionStrategy" alias="variantTypeResolutionStrategy"/>
+    <bean id="defaultVariantTypeResolutionStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultVariantTypeResolutionStrategy">
+        <property name="typeService" ref="typeService"/>
+    </bean>
+
+    <bean id="defaultMultidimensionalVariantTypeResolutionStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMultidimensionalVariantTypeResolutionStrategy">
+        <property name="typeService" ref="typeService"/>
+    </bean>
+
+    <alias name="defaultProductIdentificationStrategy" alias="productIdentificationStrategy"/>
+    <bean id="defaultProductIdentificationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductIdentificationStrategy">
+    </bean>
+
+    <alias name="defaultProductCreationStrategy" alias="productCreationStrategy"/>
+    <bean id="defaultProductCreationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductCreationStrategy">
+        <property name="modelService" ref="modelService"/>
+        <property name="variantsService" ref="variantsService"/>
+        <property name="variantTypeResolutionStrategy" ref="variantTypeResolutionStrategy"/>
+        <property name="typeService" ref="typeService"/>
+        <property name="productCodeGenerationStrategy" ref="productCodeGenerationStrategy"/>
+    </bean>
+
+    <alias name="defaultProductUpdateStrategy" alias="productUpdateStrategy"/>
+    <bean id="defaultProductUpdateStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductUpdateStrategy">
+        <property name="classificationAttributeUpdateStrategy" ref="classificationAttributeUpdateStrategy"/>
+        <property name="coreAttributeHandlerResolver" ref="coreAttributeHandlerResolver"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="attributeValueDataConverter" ref="attributeValueDataConverter"/>
+    </bean>
+
+    <alias name="defaultCoreAttributeHandlerResolver" alias="coreAttributeHandlerResolver"/>
+    <bean id="defaultCoreAttributeHandlerResolver" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultCoreAttributeHandlerResolver">
+        <property name="aliasHandlersPerCatalogSystem" ref="aliasHandlersPerCatalogSystem"/>
+        <property name="roleAttributeHandlersPerCatalogSystem" ref="roleAttributeHandlersPerCatalogSystem"/>
+        <property name="defaultHandlerPerCatalogSystem" ref="handlerPerCatalogSystem"/>
+        <property name="defaultRoleAttributeHandlers" ref="roleAttributeHandlers"/>
+        <property name="defaultHandler" ref="coreAttributeHandler"/>
+    </bean>
+
+    <alias name="defaultAliasHandlersPerCatalogSystem" alias="aliasHandlersPerCatalogSystem"/>
+    <util:map id="defaultAliasHandlersPerCatalogSystem" key-type="com.mirakl.hybris.core.enums.MiraklCatalogSystem" />
+
+    <alias name="defaultRoleAttributeHandlersPerCatalogSystem" alias="roleAttributeHandlersPerCatalogSystem"/>
+    <util:map id="defaultRoleAttributeHandlersPerCatalogSystem" key-type="com.mirakl.hybris.core.enums.MiraklCatalogSystem" />
+
+    <alias name="defaultHandlerPerCatalogSystem" alias="handlerPerCatalogSystem"/>
+    <util:map id="defaultHandlerPerCatalogSystem" key-type="com.mirakl.hybris.core.enums.MiraklCatalogSystem" />
+
+    <alias name="defaultRoleAttributeHandlers" alias="roleAttributeHandlers"/>
+    <util:map id="defaultRoleAttributeHandlers" key-type="com.mirakl.hybris.core.enums.MiraklAttributeRole">
+        <entry key="CATEGORY_ATTRIBUTE" value-ref="categoryAttributeHandler"/>
+    </util:map>
+
+    <alias name="defaultAbstractCoreAttributeHandler" alias="abstractCoreAttributeHandler"/>
+    <bean id="defaultAbstractCoreAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.AbstractCoreAttributeHandler" abstract="true">
+        <property name="modelService" ref="modelService"/>
+        <property name="coreAttributeOwnerStrategy" ref="coreAttributeOwnerStrategy"/>
+    </bean>
+
+    <alias name="defaultCoreAttributeHandler" alias="coreAttributeHandler"/>
+    <bean id="defaultCoreAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultCoreAttributeHandler" parent="abstractCoreAttributeHandler">
+        <property name="attributeValueTranslationStrategy" ref="coreAttributeValueTranslationStrategy"/>
+        <property name="typeService" ref="typeService"/>
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="valueListNamingStrategy" ref="miraklValueListNamingStrategy"/>
+    </bean>
+
+    <alias name="defaultCategoryAttributeHandler" alias="categoryAttributeHandler"/>
+    <bean id="defaultCategoryAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultCategoryAttributeHandler" parent="abstractCoreAttributeHandler">
+        <property name="categoryService" ref="categoryService"/>
+    </bean>
+
+    <alias name="defaultCategoryWithExportableValuesAttributeHandler" alias="categoryWithExportableValuesAttributeHandler"/>
+    <bean id="defaultCategoryWithExportableValuesAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultCategoryWithExportableValuesAttributeHandler" parent="categoryAttributeHandler">
+        <property name="valueListNamingStrategy" ref="miraklValueListNamingStrategy"/>
+    </bean>
+
+    <alias name="defaultVariantCategoryAttributeHandler" alias="variantCategoryAttributeHandler"/>
+    <bean id="defaultVariantCategoryAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultVariantCategoryAttributeHandler" parent="categoryWithExportableValuesAttributeHandler"/>
+
+    <alias name="defaultGalleryImagesAttributeHandler" alias="galleryImagesAttributeHandler"/>
+    <bean id="defaultGalleryImagesAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultGalleryImagesAttributeHandler" parent="abstractCoreAttributeHandler">
+        <property name="mediaService" ref="mediaService"/>
+        <property name="l10nService" ref="l10nService"/>
+        <property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+
+    <alias name="defaultReplicatedAttributeHandler" alias="replicatedAttributeHandler"/>
+    <bean id="defaultReplicatedAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultReplicatedAttributeHandler" parent="coreAttributeHandler"/>
+
+    <alias name="defaultClassificationAttributeUpdateStrategy" alias="classificationAttributeUpdateStrategy"/>
+    <bean id="defaultClassificationAttributeUpdateStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultClassificationAttributeUpdateStrategy">
+        <property name="classificationService" ref="classificationService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultCoreAttributeOwnerStrategy" alias="coreAttributeOwnerStrategy"/>
+    <bean id="defaultCoreAttributeOwnerStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultCoreAttributeOwnerStrategy">
+        <property name="typeService" ref="typeService"/>
+    </bean>
+
+    <alias name="defaultProductCodeGenerationStrategy" alias="productCodeGenerationStrategy"/>
+    <bean id="defaultProductCodeGenerationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductCodeGenerationStrategy">
+        <property name="keyGenerator" ref="productCodeGenerator"/>
+    </bean>
+
+    <bean id="defaultAcceleratorLikeProductCodeGenerationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.AcceleratorLikeProductCodeGenerationStrategy">
+        <property name="keyGenerator" ref="productCodeGenerator"/>
+    </bean>
+
+    <alias name="defaultLookupExportableAttributesStrategy" alias="lookupExportableAttributesStrategy"/>
+    <bean id="defaultLookupExportableAttributesStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultLookupExportableAttributesStrategy">
+        <property name="eventService" ref="eventService"/>
+    </bean>
+
+    <alias name="defaultWriteCategoryStrategy" alias="writeCategoryStrategy"/>
+    <bean id="defaultWriteCategoryStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultWriteCategoryStrategy">
+        <property name="exportCatalogService" ref="miraklExportCatalogService"/>
+    </bean>
+
+    <alias name="defaultWriteAttributeStrategy" alias="writeAttributeStrategy"/>
+    <bean id="defaultWriteAttributeStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultWriteAttributeStrategy">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="exportCatalogService" ref="miraklExportCatalogService"/>
+        <property name="valueListNamingStrategy" ref="miraklValueListNamingStrategy"/>
+        <property name="attributeVarianceStrategy" ref="miraklAttributeVarianceStrategy"/>
+        <property name="attributeDefaultValueStrategy" ref="miraklAttributeDefaultValueStrategy"/>
+        <property name="attributeExportEligibilityStrategy" ref="classificationAttributeExportEligibilityStrategy"/>
+    </bean>
+
+    <alias name="defaultWriteValueListStrategy" alias="writeValueListStrategy"/>
+    <bean id="defaultWriteValueListStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultWriteValueListStrategy">
+        <property name="namingStrategy" ref="miraklValueListNamingStrategy"/>
+    </bean>
+
+    <alias name="defaultClassificationAttributeExportEligibilityStrategy" alias="classificationAttributeExportEligibilityStrategy"/>
+    <bean id="defaultClassificationAttributeExportEligibilityStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultClassificationAttributeExportEligibilityStrategy"/>
+
+    <alias name="defaultDebitRequestEventHandlingStrategy" alias="debitRequestEventHandlingStrategy"/>
+    <bean id="defaultDebitRequestEventHandlingStrategy" class="com.mirakl.hybris.core.payment.strategies.impl.DefaultDebitRequestEventHandlingStrategy">
+        <property name="miraklDebitService" ref="miraklDebitService"/>
+    </bean>
+
+    <alias name="defaultRefundRequestEventHandlingStrategy" alias="refundRequestEventHandlingStrategy"/>
+    <bean id="defaultRefundRequestEventHandlingStrategy" class="com.mirakl.hybris.core.payment.strategies.impl.DefaultRefundRequestEventHandlingStrategy">
+        <property name="miraklRefundService" ref="miraklRefundService"/>
+    </bean>
+
+    <alias name="defaultNotShippableOffersHandlingStrategy" alias="notShippableOffersHandlingStrategy"/>
+    <bean id="defaultNotShippableOffersHandlingStrategy" class="com.mirakl.hybris.core.fulfilment.strategies.impl.DefaultNotShippableOffersHandlingStrategy">
+        <property name="miraklOrderService" ref="miraklOrderService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultCoreAttributeValueTranslationStrategy" alias="coreAttributeValueTranslationStrategy"/>
+    <bean id="defaultCoreAttributeValueTranslationStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultCoreAttributeValueTranslationStrategy">
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="typeService" ref="typeService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultPostProcessProductLineImportStrategy" alias="postProcessProductLineImportStrategy"/>
+    <bean id="defaultPostProcessProductLineImportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultPostProcessProductLineImportStrategy" />
+
+    <alias name="defaultPostProcessProductFileImportStrategy" alias="postProcessProductFileImportStrategy"/>
+    <bean id="defaultPostProcessProductFileImportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultPostProcessProductFileImportStrategy" />
+
+    <alias name="defaultMaintenanceCleanupRawProductsStrategy" alias="maintenanceCleanupRawProductsStrategy"/>
+    <bean id="defaultMaintenanceCleanupRawProductsStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMaintenanceCleanupRawProductsStrategy">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultCleanupRawProductsStrategy" alias="cleanupRawProductsStrategy"/>
+    <bean id="defaultCleanupRawProductsStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultCleanupRawProductsStrategy">
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultMiraklPromotionsActivationStrategy" alias="miraklPromotionsActivationStrategy"/>
+    <bean id="defaultMiraklPromotionsActivationStrategy" class="com.mirakl.hybris.core.promotions.strategies.impl.DefaultMiraklPromotionActivationStrategy">
+        <property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+
+    <alias name="defaultSynchronousCartUpdateActivationStrategy" alias="miraklSynchronousCartUpdateActivationStrategy"/>
+    <bean id="defaultSynchronousCartUpdateActivationStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultSynchronousCartUpdateActivationStrategy">
+        <property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+
+	<alias name="defaultSellableProductExportStrategies" alias="sellableProductExportStrategies"/>
+    <util:map id="defaultSellableProductExportStrategies" key-type="com.mirakl.hybris.core.enums.MiraklCatalogSystem" />
+
+    <alias name="defaultProductExportAttributeValueFormattingStrategy" alias="productExportAttributeValueFormattingStrategy"/>
+    <bean id="defaultProductExportAttributeValueFormattingStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductExportAttributeValueFormattingStrategy"/>
+
+
+    <alias name="defaultAbstractProductImportStrategy" alias="abstractProductImportStrategy"/>
+    <bean id="defaultAbstractProductImportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.AbstractProductImportStrategy" abstract="true">
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="userService" ref="userService"/>
+        <property name="rawProductService" ref="miraklRawProductService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="postProcessProductFileImportStrategy" ref="postProcessProductFileImportStrategy"/>
+        <property name="globalContextConverter" ref="productImportGlobalContextDataConverter"/>
+        <property name="cleanupRawProductsStrategy" ref="cleanupRawProductsStrategy"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="tenantAwareThreadFactory" ref="miraklTenantAwareThreadFactory"/>
+    </bean>
+
+    <alias name="defaultDownloadProductFilesDirectorySelectionStrategy" alias="downloadProductFilesDirectorySelectionStrategy"/>
+    <bean id="defaultDownloadProductFilesDirectorySelectionStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultDownloadProductFilesDirectorySelectionStrategy">
+    	<property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultAbstractDownloadProductFilesStrategy" alias="abstractDownloadProductFilesStrategy"/>
+    <bean id="defaultAbstractDownloadProductFilesStrategy" class="com.mirakl.hybris.core.product.strategies.impl.AbstractDownloadProductFilesStrategy" abstract="true">
+        <property name="modelService" ref="modelService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="directorySelectionStrategy" ref="downloadProductFilesDirectorySelectionStrategy" />
+    </bean>
+
+    <alias name="defaultArticleApprovalStatusMapping" alias="articleApprovalStatusMapping"/>
+    <util:map id="defaultArticleApprovalStatusMapping" value-type="com.mirakl.client.mci.domain.product.MiraklSynchronizedProductDataSheetAcceptanceStatus">
+        <entry key="UNAPPROVED" value="REJECTED"/>
+        <entry key="APPROVED" value="ACCEPTED"/>
+    </util:map>
+
+    <alias name="defaultCatalogResolutionStrategies" alias="catalogResolutionStrategies"/>
+    <util:list id="defaultCatalogResolutionStrategies" value-type="com.mirakl.hybris.core.jobs.strategies.ExportProductsCatalogResolutionStrategy"/>
+
+    <!-- Needs to be populated with the preferred media format qualifiers. See the alias redefinition in miraklsampledataaddon extension for more information  -->
+    <alias name="emptyPreferredMediaFormatQualifiers" alias="preferredMediaFormatQualifiers"/>
+    <util:list id="emptyPreferredMediaFormatQualifiers" value-type="java.lang.String"/>
+
+    <alias name="defaultProductPrimaryImageSelectionStrategy" alias="productPrimaryImageSelectionStrategy"/>
+    <bean id="defaultProductPrimaryImageSelectionStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductPrimaryImageSelectionStrategy">
+        <property name="preferredMediaFormatQualifiers" ref="preferredMediaFormatQualifiers"/>
+    </bean>
+
+    <alias name="defaultOfferPricingSelectionStrategy" alias="offerPricingSelectionStrategy"/>
+    <bean id="defaultOfferPricingSelectionStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultOfferPricingSelectionStrategy">
+        <property name="offerService" ref="offerService"/>
+    </bean>
+
+     <alias name="defaultMiraklEnvironmentSelectionStrategy" alias="miraklEnvironmentSelectionStrategy"/>
+     <bean id="defaultMiraklEnvironmentSelectionStrategy" class="com.mirakl.hybris.core.environment.strategies.impl.DefaultMiraklEnvironmentSelectionStrategy">
+         <property name="miraklEnvironmentService" ref="miraklEnvironmentService"/>
+     </bean>
+
+    <alias name="defaultLookupMiraklDebitsToProcessStrategy" alias="lookupMiraklDebitsToProcessStrategy"/>
+    <bean id="defaultLookupMiraklDebitsToProcessStrategy" class="com.mirakl.hybris.core.payment.strategies.impl.DefaultLookupMiraklDebitsToProcessStrategy">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+    </bean>
+
+    <alias name="defaultUserDeliveryDetailsStrategy" alias="miraklUserDeliveryDetailsStrategy"/>
+    <bean id="defaultUserDeliveryDetailsStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultUserDeliveryDetailsStrategy">
+        <property name="baseStoreService" ref="baseStoreService"/>
+    </bean>
+
+    <alias name="defaultMiraklExportHeaderResolverStrategy" alias="miraklExportHeaderResolverStrategy"/>
+    <bean id="defaultMiraklExportHeaderResolverStrategy" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMiraklExportHeaderResolverStrategy">
+        <property name="miraklExportHeaders" ref="miraklExportHeaders"/>
+    </bean>
+
+    <alias name="defaultMiraklApiClientConfigurationStrategy" alias="miraklApiClientConfigurationStrategy"/>
+    <bean id="defaultMiraklApiClientConfigurationStrategy" class="com.mirakl.hybris.core.beans.strategies.impl.DefaultMiraklApiClientConfigurationStrategy">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultMiraklCustomerIdDefinitionStrategy" alias="miraklCustomerIdDefinitionStrategy"/>
+    <bean id="defaultMiraklCustomerIdDefinitionStrategy" class="com.mirakl.hybris.core.order.strategies.impl.DefaultMiraklCustomerIdDefinitionStrategy"/>
+
+    <alias name="defaultMiraklCatalogCategoryExportHeader" alias="miraklCatalogCategoryExportHeader"/>
+    <util:set id="defaultMiraklCatalogCategoryExportHeader" value-type="com.mirakl.hybris.core.enums.MiraklCatalogCategoryExportHeader">
+        <value>HIERARCHY_CODE</value>
+        <value>HIERARCHY_LABEL</value>
+        <value>HIERARCHY_PARENT_CODE</value>
+        <value>UPDATE_DELETE</value>
+    </util:set>
+
+    <alias name="defaultMiraklAttributeExportHeader" alias="miraklAttributeExportHeader"/>
+    <util:set id="defaultMiraklAttributeExportHeader" value-type="com.mirakl.hybris.core.enums.MiraklAttributeExportHeader">
+        <value>CODE</value>
+        <value>LABEL</value>
+        <value>HIERARCHY_CODE</value>
+        <value>DESCRIPTION</value>
+        <value>EXAMPLE</value>
+        <value>REQUIREMENT_LEVEL</value>
+        <value>TYPE</value>
+        <value>TYPE_PARAMETERS</value>
+        <value>VARIANT</value>
+        <value>DEFAULT_VALUE</value>
+        <value>UPDATE_DELETE</value>
+    </util:set>
+
+    <alias name="defaultMiraklCategoryExportHeader" alias="miraklCategoryExportHeader"/>
+    <util:set id="defaultMiraklCategoryExportHeader" value-type="com.mirakl.hybris.core.enums.MiraklCategoryExportHeader">
+        <value>CATEGORY_CODE</value>
+        <value>CATEGORY_LABEL</value>
+        <value>PARENT_CODE</value>
+    </util:set>
+
+    <alias name="defaultMiraklProductExportHeader" alias="miraklProductExportHeader"/>
+    <util:set id="defaultMiraklProductExportHeader" value-type="com.mirakl.hybris.core.enums.MiraklProductExportHeader">
+        <value>PRODUCT_SKU</value>
+        <value>PRODUCT_DESCRIPTION</value>
+        <value>PRODUCT_TITLE</value>
+        <value>CATEGORY_CODE</value>
+        <value>ACTIVE</value>
+        <value>PRODUCT_REFERENCES</value>
+        <value>BRAND</value>
+        <value>PRODUCT_URL</value>
+        <value>MEDIA_URL</value>
+        <value>VARIANT_GROUP_CODE</value>
+        <value>SHOP_SKUS</value>
+    </util:set>
+
+    <alias name="defaultMiraklValueListExportHeader" alias="miraklValueListExportHeader"/>
+    <util:set id="defaultMiraklValueListExportHeader" value-type="com.mirakl.hybris.core.enums.MiraklValueListExportHeader">
+        <value>LIST_CODE</value>
+        <value>LIST_LABEL</value>
+        <value>VALUE_CODE</value>
+        <value>VALUE_LABEL</value>
+        <value>UPDATE_DELETE</value>
+    </util:set>
+
+    <alias name="defaultMiraklExportHeaders" alias="miraklExportHeaders"/>
+    <util:map id="defaultMiraklExportHeaders" key-type="java.lang.Class" value-type="java.util.Set">
+        <entry key="com.mirakl.hybris.core.enums.MiraklCatalogCategoryExportHeader" value-ref="miraklCatalogCategoryExportHeader"/>
+        <entry key="com.mirakl.hybris.core.enums.MiraklAttributeExportHeader" value-ref="miraklAttributeExportHeader"/>
+        <entry key="com.mirakl.hybris.core.enums.MiraklCategoryExportHeader" value-ref="miraklCategoryExportHeader"/>
+        <entry key="com.mirakl.hybris.core.enums.MiraklProductExportHeader" value-ref="miraklProductExportHeader"/>
+        <entry key="com.mirakl.hybris.core.enums.MiraklValueListExportHeader" value-ref="miraklValueListExportHeader"/>
+    </util:map>
+
+    <bean id="asyncTaskSchedulingStrategy" class="com.mirakl.hybris.core.jobs.strategies.impl.AbstractAsyncTaskSchedulingStrategy"
+    abstract="true">
+        <property name="miraklAsyncTaskService" ref="miraklAsyncTaskService"/>
+    </bean>
+
+    <alias name="defaultMiraklAsyncOfferImportSchedulingStrategy" alias="asyncOfferImportSchedulingStrategy"/>
+    <bean id="defaultMiraklAsyncOfferImportSchedulingStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultAsyncOfferImportSchedulingStrategy"
+    parent="asyncTaskSchedulingStrategy">
+        <property name="mmpApi" ref="mmpFrontApiClient"/>
+        <property name="realtimeOfferPriceRetrievalMode" ref="miraklRealtimeOfferDataRetrievalMode"/>
+    </bean>
+
+    <alias name="defaultMiraklSyncOfferImportStrategy" alias="syncOfferImportStrategy"/>
+    <bean id="defaultMiraklSyncOfferImportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultSyncOfferImportStrategy">
+        <property name="modelService" ref="modelService"/>
+        <property name="offerImportService" ref="offerImportService"/>
+    </bean>
+
+    <alias name="defaultMiraklAsyncOfferImportStrategy" alias="miraklAsyncOfferImportStrategy"/>
+    <bean id="defaultMiraklAsyncOfferImportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultAsyncOfferImportStrategy">
+        <property name="modelService" ref="modelService"/>
+        <property name="offerDao" ref="offerDao"/>
+        <property name="asyncOfferCoreConverter" ref="asyncOfferCoreConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklAsyncOfferImportStrategies" alias="miraklAsyncOfferImportStrategies"/>
+    <util:list id="defaultMiraklAsyncOfferImportStrategies"
+               value-type="com.mirakl.hybris.core.product.strategies.AsyncOfferImportStrategy">
+        <ref bean="miraklAsyncOfferImportStrategy"/>
+    </util:list>
+
+    <alias name="defaultMiraklPricingFeatures" alias="miraklPricingFeatures"/>
+    <util:list id="defaultMiraklPricingFeatures" value-type="com.mirakl.hybris.core.util.feature.MiraklPriceFeature">
+        <value>ADVANCED_PRICING</value>
+        <value>CHANNEL_PRICING</value>
+    </util:list>
+
+    <alias name="defaultMiraklPricingEnabledFeatures" alias="miraklPricingEnabledFeatures"/>
+    <util:list id="defaultMiraklPricingEnabledFeatures" value-type="com.mirakl.hybris.core.util.feature.MiraklPriceFeature">
+    </util:list>
+
+    <alias name="defaultPriceImportCompatibilityStrategy" alias="priceImportCompatibilityStrategy"/>
+    <bean id="defaultPriceImportCompatibilityStrategy"
+          class="com.mirakl.hybris.core.util.strategies.MiraklPriceImportCompatibilityStrategy">
+        <constructor-arg ref="miraklPricingFeatures"/>
+        <property name="enabledFeatures" ref="miraklPricingEnabledFeatures"/>
+        <property name="realtimeOfferPriceRetrievalMode" ref="miraklRealtimeOfferDataRetrievalMode"/>
+    </bean>
+
+
+    <alias name="defaultMiraklRealtimeOfferDataRetrievalMode" alias="miraklRealtimeOfferDataRetrievalMode"/>
+    <bean id="defaultMiraklRealtimeOfferDataRetrievalMode" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMiraklRealtimeOfferPriceRetrievalMode">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultMiraklCustomerGroupResolvingStrategy" alias="miraklCustomerGroupResolvingStrategy"/>
+    <bean id="defaultMiraklCustomerGroupResolvingStrategy" class="com.mirakl.hybris.core.user.strategies.impl.DefaultMiraklCustomerGroupResolvingStrategy"/>
+
+    <alias name="defaultMiraklCustomerOrganizationResolvingStrategy" alias="miraklCustomerOrganizationResolvingStrategy"/>
+    <bean id="defaultMiraklCustomerOrganizationResolvingStrategy" class="com.mirakl.hybris.core.user.strategies.impl.DefaultMiraklCustomerOrganizationResolvingStrategy"/>
+
+    <alias name="defaultMiraklRealtimeOffersFilteringStrategy" alias="miraklRealtimeOffersFilteringStrategy"/>
+    <bean id="defaultMiraklRealtimeOffersFilteringStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMiraklRealtimeOffersFilteringStrategy">
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="offerDao" ref="offerDao"/>
+    </bean>
+
+    <!-- Handlers -->
+
+    <alias name="defaultAbstractProductImportResultHandler" alias="abstractProductImportResultHandler"/>
+    <bean id="defaultAbstractProductImportResultHandler" class="com.mirakl.hybris.core.product.strategies.impl.AbstractProductImportResultHandler"
+          abstract="true">
+        <property name="mciApi" ref="mciFrontApiClient"/>
+    </bean>
+
+    <alias name="defaultErrorReportPreviewHandler" alias="errorReportPreviewHandler"/>
+    <bean id="defaultErrorReportPreviewHandler" class="com.mirakl.hybris.core.jobs.attributes.DefaultErrorReportPreviewHandler">
+        <property name="mediaService" ref="mediaService"/>
+    </bean>
+
+    <alias name="defaultMarketplaceOrderEntriesDynamicHandler" alias="marketplaceOrderEntriesDynamicHandler" />
+    <bean id="defaultMarketplaceOrderEntriesDynamicHandler" class="com.mirakl.hybris.core.order.attributes.DefaultMarketplaceOrderEntriesDynamicHandler" />
+
+    <alias name="defaultMarketplaceConsignmentsDynamicHandler" alias="marketplaceConsignmentsDynamicHandler" />
+    <bean id="defaultMarketplaceConsignmentsDynamicHandler" class="com.mirakl.hybris.core.order.attributes.DefaultMarketplaceConsignmentsDynamicHandler" />
+
+    <alias name="defaultOperatorOrderEntriesForDeliveryDynamicHandler" alias="operatorOrderEntriesForDeliveryDynamicHandler" />
+    <bean id="defaultOperatorOrderEntriesForDeliveryDynamicHandler" class="com.mirakl.hybris.core.order.attributes.DefaultOperatorOrderEntriesForDeliveryDynamicHandler" />
+
+    <alias name="defaultOperatorOrderEntriesDynamicHandler" alias="operatorOrderEntriesDynamicHandler" />
+    <bean id="defaultOperatorOrderEntriesDynamicHandler" class="com.mirakl.hybris.core.order.attributes.DefaultOperatorOrderEntriesDynamicHandler" />
+
+    <alias name="defaultMarketplaceOrderDynamicHandler" alias="marketplaceOrderDynamicHandler" />
+    <bean id="defaultMarketplaceOrderDynamicHandler" class="com.mirakl.hybris.core.order.attributes.DefaultMarketplaceOrderDynamicHandler" />
+
+    <alias name="defaultConsignmentDeliveryModeDisplayNameDynamicHandler" alias="consignmentDeliveryModeDisplayNameDynamicHandler"/>
+    <bean id="defaultConsignmentDeliveryModeDisplayNameDynamicHandler" class="com.mirakl.hybris.core.ordersplitting.attributes.ConsignmentDeliveryModeDisplayNameDynamicHandler"/>
+
+    <alias name="defaultConsignmentStatusDisplayNameDynamicHandler" alias="consignmentStatusDisplayNameDynamicHandler"/>
+    <bean id="defaultConsignmentStatusDisplayNameDynamicHandler" class="com.mirakl.hybris.core.ordersplitting.attributes.ConsignmentStatusDisplayNameDynamicHandler"/>
+
+    <alias name="defaultConsignmentShopDisplayNameDynamicHandler" alias="consignmentShopDisplayNameDynamicHandler"/>
+    <bean id="defaultConsignmentShopDisplayNameDynamicHandler" class="com.mirakl.hybris.core.ordersplitting.attributes.ConsignmentShopDisplayNameDynamicHandler"/>
+
+    <alias name="defaultOrderSourceDynamicHandler" alias="orderSourceDynamicHandler"/>
+    <bean id="defaultOrderSourceDynamicHandler" class="com.mirakl.hybris.core.order.attributes.OrderSourceDynamicHandler"/>
+
+    <alias name="defaultCoreAttributeConfigurationRootCategoryDynamicHandler" alias="coreAttributeConfigurationRootCategoryDynamicHandler"/>
+    <bean id="defaultCoreAttributeConfigurationRootCategoryDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.CoreAttributeConfigurationRootCategoryDynamicHandler"/>
+
+    <alias name="defaultExportCatalogCoreAttributesDynamicHandler" alias="exportCatalogCoreAttributesDynamicHandler"/>
+    <bean id="defaultExportCatalogCoreAttributesDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.ExportCatalogCoreAttributesDynamicHandler"/>
+
+    <alias name="defaultProductImportCoreAttributesDynamicHandler" alias="productImportCoreAttributesDynamicHandler"/>
+    <bean id="defaultProductImportCoreAttributesDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.ProductImportCoreAttributesDynamicHandler"/>
+
+    <alias name="defaultOffersPreviewHandler" alias="offersPreviewHandler"/>
+    <bean id="defaultOffersPreviewHandler" class="com.mirakl.hybris.core.product.attributes.DefaultOffersPreviewHandler">
+        <property name="offerService" ref="offerService"/>
+    </bean>
+
+    <alias name="defaultRequirementLevelForCoreAttributeDynamicHandler" alias="requirementLevelForCoreAttributeDynamicHandler"/>
+    <bean id="defaultRequirementLevelForCoreAttributeDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.RequirementLevelForCoreAttributeDynamicHandler"/>
+
+    <alias name="defaultRequirementLevelForClassAttributeAssignmentDynamicHandler" alias="requirementLevelForClassAttributeAssignmentDynamicHandler"/>
+    <bean id="defaultRequirementLevelForClassAttributeAssignmentDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.RequirementLevelForClassAttributeAssignmentDynamicHandler"/>
+
+    <alias name="defaultTypeParametersForCoreAttributeDynamicHandler" alias="typeParametersForCoreAttributeDynamicHandler"/>
+    <bean id="defaultTypeParametersForCoreAttributeDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.TypeParametersForCoreAttributeDynamicHandler">
+    	<property name="configurationService" ref="configurationService"/>
+        <property name="valueListNamingStrategy" ref="miraklValueListNamingStrategy"/>
+    </bean>
+
+    <alias name="defaultTypeParametersForClassAttributeAssignmentDynamicHandler" alias="typeParametersForClassAttributeAssignmentDynamicHandler"/>
+    <bean id="defaultTypeParametersForClassAttributeAssignmentDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.TypeParametersForClassAttributeAssignmentDynamicHandler">
+    	<property name="configurationService" ref="configurationService"/>
+        <property name="valueListNamingStrategy" ref="miraklValueListNamingStrategy"/>
+    </bean>
+
+    <!-- Factories -->
+
+    <alias name="defaultMiraklJobReportFactory" alias="miraklJobReportFactory"/>
+    <bean id="defaultMiraklJobReportFactory" class="com.mirakl.hybris.core.jobs.factories.DefaultMiraklJobReportFactory">
+        <property name="modelService" ref="modelService"/>
+        <property name="defaultReportClassType" value="com.mirakl.hybris.core.model.MiraklJobReportModel"/>
+        <property name="reportClassTypes" ref="jobReportClassTypes"/>
+    </bean>
+
+    <alias name="defaultJobReportClassTypes" alias="jobReportClassTypes"/>
+    <util:map id="defaultJobReportClassTypes" key-type="com.mirakl.hybris.core.enums.MiraklExportType" value-type="java.lang.Class"/>
+
+    <alias name="defaultMiraklGetShippingRatesRequestFactory" alias="miraklGetShippingRatesRequestFactory"/>
+    <bean id="defaultMiraklGetShippingRatesRequestFactory" class="com.mirakl.hybris.core.order.factories.impl.DefaultMiraklGetShippingRatesRequestFactory">
+        <property name="requestPopulators" ref="miraklGetShippingRatesRequestPopulators"/>
+    </bean>
+
+    <alias name="defaultMiraklGetShippingRatesRequestPopulators" alias="miraklGetShippingRatesRequestPopulators"/>
+    <util:list id="defaultMiraklGetShippingRatesRequestPopulators" value-type="com.mirakl.hybris.core.order.factories.MiraklGetShippingRatesRequestPopulator"/>
+
+    <alias name="defaultMiraklGetOffersOnProductsRequestFactory" alias="miraklGetOffersOnProductsRequestFactory"/>
+    <bean id="defaultMiraklGetOffersOnProductsRequestFactory" class="com.mirakl.hybris.core.product.factories.impl.DefaultMiraklGetOffersOnProductsRequestFactory">
+        <property name="searchRequestPopulators" ref="miraklGetOffersOnProductsRequestPopulators"/>
+    </bean>
+
+    <alias name="defaultMiraklGetOffersOnProductsRequestPopulators" alias="miraklGetOffersOnProductsRequestPopulators"/>
+    <util:list id="defaultMiraklGetOffersOnProductsRequestPopulators" value-type="com.mirakl.hybris.core.product.populators.MiraklGetOffersOnProductsRequestPopulator"/>
+
+    <alias name="defaultMiraklCustomerOrganizationGetOffersOnProductsRequestPopulator" alias="miraklCustomerOrganizationMiraklGetOffersOnProductsRequestPopulator"/>
+    <bean id="defaultMiraklCustomerOrganizationGetOffersOnProductsRequestPopulator" class="com.mirakl.hybris.core.product.populators.MiraklCustomerOrganizationGetOffersOnProductsRequestPopulator">
+        <property name="customerOrganizationResolvingStrategy" ref="miraklCustomerOrganizationResolvingStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklMaxPaginationSizeGetOffersOnProductsRequestPopulator" alias="miraklMaxPaginationSizeGetOffersOnProductsRequestPopulator"/>
+    <bean id="defaultMiraklMaxPaginationSizeGetOffersOnProductsRequestPopulator" class="com.mirakl.hybris.core.product.populators.MiraklMaxPaginationSizeGetOffersOnProductsRequestPopulator">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <bean id="miraklCustomerOrganizationGetOffersOnProductsRequestPopulators" depends-on="miraklGetOffersOnProductsRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklCustomerOrganizationMiraklGetOffersOnProductsRequestPopulator"/>
+    </bean>
+
+    <bean id="miraklPaginationSizeGetOffersOnProductsRequestPopulators" depends-on="miraklGetOffersOnProductsRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklMaxPaginationSizeGetOffersOnProductsRequestPopulator"/>
+    </bean>
+
+    <alias name="defaultMiraklGetOfferRequestFactory" alias="miraklGetOfferRequestFactory"/>
+    <bean id="defaultMiraklGetOfferRequestFactory" class="com.mirakl.hybris.core.product.factories.impl.DefaultMiraklGetOfferRequestFactory">
+        <property name="searchRequestPopulators" ref="miraklGetOfferRequestPopulators"/>
+    </bean>
+
+    <alias name="defaultMiraklGetOfferRequestPopulators" alias="miraklGetOfferRequestPopulators"/>
+    <util:list id="defaultMiraklGetOfferRequestPopulators" value-type="com.mirakl.hybris.core.product.populators.MiraklGetOfferRequestPopulator"/>
+
+    <alias name="defaultMiraklCustomerOrganizationGetOfferRequestPopulator" alias="miraklCustomerOrganizationGetOfferRequestPopulator"/>
+    <bean id="defaultMiraklCustomerOrganizationGetOfferRequestPopulator" class="com.mirakl.hybris.core.product.populators.MiraklCustomerOrganizationGetOfferRequestPopulator">
+        <property name="customerOrganizationResolvingStrategy" ref="miraklCustomerOrganizationResolvingStrategy"/>
+    </bean>
+    <bean id="miraklCustomerOrganizationGetOfferRequestPopulators" depends-on="miraklGetOfferRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklCustomerOrganizationGetOfferRequestPopulator"/>
+    </bean>
+
+
+    <!-- System -->
+
+    <bean id="miraklCoreSystemSetup" parent="abstractCoreSystemSetup" class="com.mirakl.hybris.core.setup.MiraklCoreSystemSetup">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="miraklEnvironmentSelectionStrategy" ref="miraklEnvironmentSelectionStrategy"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <!-- Listeners -->
+
+    <bean id="notShippableOffersEventListener" class="com.mirakl.hybris.core.fulfilment.events.listeners.NotShippableOffersEventListener" parent="abstractEventListener">
+        <property name="notShippableOffersHandlingStrategy" ref="notShippableOffersHandlingStrategy"/>
+    </bean>
+
+    <bean id="debitRequestReceivedEventListener" class="com.mirakl.hybris.core.payment.events.listeners.DebitRequestReceivedEventListener" parent="abstractEventListener">
+        <property name="debitRequestEventHandlingStrategy" ref="debitRequestEventHandlingStrategy"/>
+    </bean>
+
+    <bean id="refundRequestReceivedEventListener" class="com.mirakl.hybris.core.payment.events.listeners.RefundRequestReceivedEventListener" parent="abstractEventListener">
+        <property name="refundRequestEventHandlingStrategy" ref="refundRequestEventHandlingStrategy"/>
+    </bean>
+
+    <bean id="exportCategoryEventListener" class="com.mirakl.hybris.core.catalog.events.listeners.WriteCategoryEventListener" parent="abstractEventListener">
+        <property name="writeCategoryStrategy" ref="writeCategoryStrategy"/>
+    </bean>
+
+    <bean id="exportAttributeEventListener" class="com.mirakl.hybris.core.catalog.events.listeners.WriteAttributeEventListener" parent="abstractEventListener">
+        <property name="writeAttributeStrategy" ref="writeAttributeStrategy"/>
+    </bean>
+
+    <bean id="browseAttributeEventListener" class="com.mirakl.hybris.core.catalog.events.listeners.LookupExportableAttributeEventListener" parent="abstractEventListener">
+        <property name="lookupExportableAttributesStrategy" ref="lookupExportableAttributesStrategy"/>
+    </bean>
+
+    <bean id="exportValueListEventListener" class="com.mirakl.hybris.core.catalog.events.listeners.WriteValueListEventListener" parent="abstractEventListener">
+        <property name="writeValueListStrategy" ref="writeValueListStrategy"/>
+    </bean>
+
+    <!-- Interceptors -->
+    <bean id="miraklCoreAttributeValidateInterceptor" class="com.mirakl.hybris.core.catalog.interceptors.MiraklCoreAttributeValidateInterceptor">
+        <property name="typeService" ref="typeService"/>
+    </bean>
+
+    <bean id="miraklCoreAttributeValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="miraklCoreAttributeValidateInterceptor"/>
+        <property name="typeCode" value="MiraklCoreAttribute"/>
+    </bean>
+
+    <bean id="miraklCoreAttributePrepareInterceptor" class="com.mirakl.hybris.core.catalog.interceptors.MiraklCoreAttributePrepareInterceptor"/>
+
+    <bean id="miraklCoreAttributePrepareInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="miraklCoreAttributePrepareInterceptor"/>
+        <property name="typeCode" value="MiraklCoreAttribute"/>
+    </bean>
+
+    <bean id="miraklCatalogValidateInterceptor" class="com.mirakl.hybris.core.catalog.interceptors.MiraklCatalogValidateInterceptor">
+        <property name="typeService" ref="typeService"/>
+    </bean>
+
+    <bean id="miraklCatalogValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="miraklCatalogValidateInterceptor"/>
+        <property name="typeCode" value="Catalog"/>
+    </bean>
+
+    <bean id="miraklCoreAttributeConfigurationValidateInterceptor" class="com.mirakl.hybris.core.catalog.interceptors.MiraklCoreAttributeConfigurationValidateInterceptor"/>
+
+    <bean id="miraklCoreAttributeConfigurationValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="miraklCoreAttributeConfigurationValidateInterceptor"/>
+        <property name="typeCode" value="MiraklCoreAttributeConfiguration"/>
+    </bean>
+
+    <bean id="miraklEnvironmentInterceptor" class="com.mirakl.hybris.core.environment.interceptors.MiraklEnvironmentInterceptor">
+        <property name="miraklEnvironmentService" ref="miraklEnvironmentService"/>
+    </bean>
+
+    <bean id="miraklEnvironmentInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="miraklEnvironmentInterceptor"/>
+        <property name="typeCode" value="MiraklEnvironment"/>
+    </bean>
+
+    <!-- code generators -->
+
+    <!-- product -->
+    <bean id="productCodeGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+        <property name="key" value="${mirakl.keygen.product.code.name}"/>
+        <property name="digits" value="${mirakl.keygen.product.code.digits}"/>
+        <property name="start" value="${mirakl.keygen.product.code.start}"/>
+        <property name="type" value="${mirakl.keygen.product.code.type}"/>
+        <property name="template" value="${mirakl.keygen.product.code.template}"/>
+    </bean>
+
+    <!-- Hooks -->
+
+    <alias name="defaultMiraklCartValidationHook" alias="miraklCartValidationHook"/>
+    <bean id="defaultMiraklCartValidationHook" class="com.mirakl.hybris.core.order.strategies.hooks.impl.DefaultMiraklCartValidationHook">
+       <property name="offerService" ref="offerService" />
+       <property name="modelService" ref="modelService" />
+       <property name="commonI18NService" ref="commonI18NService"/>
+    </bean>
+
+    <alias name="defaultMiraklCommerceCartCalculationMethodHook" alias="miraklCommerceCartCalculationMethodHook"/>
+    <bean id="defaultMiraklCommerceCartCalculationMethodHook" class="com.mirakl.hybris.core.order.hook.MiraklCommerceCartCalculationMethodHook">
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="miraklPromotionsActivationStrategy" ref="miraklPromotionsActivationStrategy"/>
+        <property name="shippingZoneStrategy" ref="shippingZoneStrategy"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <bean id="miraklCommerceCartCalculationMethodHookMergeDirective" depends-on="commerceCartCalculationMethodHooks" parent="listMergeDirective">
+        <property name="add" ref="miraklCommerceCartCalculationMethodHook" />
+    </bean>
+
+    <alias name="defaultMiraklCommerceUpdateCartEntryHook" alias="miraklCommerceUpdateCartEntryHook"/>
+    <bean id="defaultMiraklCommerceUpdateCartEntryHook" class="com.mirakl.hybris.core.order.hook.MiraklCommerceUpdateCartEntryHook">
+        <property name="offerService" ref="offerService"/>
+        <property name="shippingOptionsService" ref="shippingOptionsService"/>
+        <property name="commerceCartCalculationStrategy" ref="defaultCommerceCartCalculationStrategy"/>
+        <property name="synchronousCartUpdateActivationStrategy" ref="defaultSynchronousCartUpdateActivationStrategy"/>
+    </bean>
+
+    <bean id="defaultMiraklCommerceUpdateCartEntryHookMethodHooksListMergeDirective" depends-on="commerceUpdateCartEntryMethodHooks"
+          parent="listMergeDirective">
+        <property name="add" ref="miraklCommerceUpdateCartEntryHook" />
+    </bean>
+
+    <alias name="defaultMiraklCommerceAddToCartMethodHook" alias="miraklCommerceAddToCartMethodHook"/>
+    <bean id="defaultMiraklCommerceAddToCartMethodHook"
+          class="com.mirakl.hybris.core.order.hook.MiraklCommerceAddToCartMethodHook">
+        <property name="offerService" ref="offerService"/>
+        <property name="shippingOptionsService" ref="shippingOptionsService"/>
+        <property name="commerceCartCalculationStrategy" ref="defaultCommerceCartCalculationStrategy"/>
+        <property name="synchronousCartUpdateActivationStrategy" ref="defaultSynchronousCartUpdateActivationStrategy"/>
+    </bean>
+
+    <bean id="defaultMiraklCommerceAddToCartHookMethodHooksListMergeDirective" depends-on="commerceAddToCartMethodHooks" parent="listMergeDirective" >
+        <property name="add" ref="miraklCommerceAddToCartMethodHook" />
+    </bean>
+
+    <!-- Prototype scope -->
+
+    <alias name="defaultExportCatalogWriter" alias="exportCatalogWriter"/>
+    <bean id="defaultExportCatalogWriter" class="com.mirakl.hybris.core.catalog.writer.DefaultExportCatalogWriter" scope="prototype">
+        <property name="csvService" ref="csvService"/>
+        <property name="miraklExportHeaderResolverStrategy" ref="miraklExportHeaderResolverStrategy"/>
+    </bean>
+
+    <alias name="defaultProductImportSuccessLineHandler" alias="productImportSuccessLineResultHandler"/>
+    <bean id="defaultProductImportSuccessLineHandler" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductImportSuccessLineResultHandler" scope="prototype">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="csvService" ref="csvService"/>
+    </bean>
+
+    <alias name="defaultProductImportErrorLineResultHandler" alias="productImportErrorLineResultHandler"/>
+    <bean id="defaultProductImportErrorLineResultHandler" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductImportErrorLineResultHandler" scope="prototype">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="csvService" ref="csvService"/>
+    </bean>
+
+    <!-- Duplicated the thead factory bean as it is not in the spring context before SAP Commerce 6.4 -->
+    <bean id="miraklTenantAwareThreadFactory" class="de.hybris.platform.core.TenantAwareThreadFactory">
+        <constructor-arg name="tenant" ref="tenantFactory"/>
+    </bean>
+
+    <beans profile="fix-18.11">
+        <alias name="miraklSLFindDeliveryCostStrategy" alias="slFindDeliveryCostStrategy"/>
+        <bean id="miraklSLFindDeliveryCostStrategy"
+              class="com.mirakl.hybris.core.order.strategies.impl.MiraklFindDeliveryCostStrategy"
+              parent="miraklFindDeliveryCostStrategy">
+            <property name="operatorFindDeliveryCostStrategy" ref="defaultSLFindDeliveryCostStrategy"/>
+        </bean>
+    </beans>
+
+    <!--     Implementations to be used in a not shared Mirakl environment (pprod, prod,..) -->
+    <beans profile="!dev">
+        <bean id="defaultMiraklRetrieveDebitRequestsJob" class="com.mirakl.hybris.core.payment.jobs.MiraklRetrieveDebitRequestsJob" parent="abstractJobPerformable">
+            <property name="miraklApi" ref="mmpFrontApiClient"/>
+            <property name="miraklDebitService" ref="miraklDebitService"/>
+            <property name="miraklOrderPaymentConverter" ref="miraklOrderPaymentConverter"/>
+            <property name="configurationService" ref="configurationService"/>
+        </bean>
+        <bean id="defaultMiraklRetrieveRefundRequestsJob" class="com.mirakl.hybris.core.payment.jobs.MiraklRetrieveRefundRequestsJob" parent="abstractJobPerformable">
+            <property name="miraklApi" ref="mmpFrontApiClient"/>
+            <property name="miraklRefundService" ref="miraklRefundService"/>
+            <property name="miraklRefundRequestDataConverter" ref="miraklRefundRequestDataConverter"/>
+            <property name="configurationService" ref="configurationService"/>
+        </bean>
+    </beans>
+
+    <!--     Implementations to be used in a shared Mirakl environment (dev,..) where unkown orders related items can be received   -->
+    <beans profile="dev">
+        <bean id="defaultMiraklRetrieveDebitRequestsJob" class="com.mirakl.hybris.core.payment.jobs.MiraklRetrieveDebitRequestsIgnoreUnknownJob" parent="abstractJobPerformable">
+            <property name="miraklApi" ref="mmpFrontApiClient"/>
+            <property name="miraklDebitService" ref="miraklDebitService"/>
+            <property name="miraklOrderPaymentConverter" ref="miraklOrderPaymentConverter"/>
+            <property name="configurationService" ref="configurationService"/>
+        </bean>
+        <bean id="defaultMiraklRetrieveRefundRequestsJob" class="com.mirakl.hybris.core.payment.jobs.MiraklRetrieveRefundRequestsIgnoreUnknownJob" parent="abstractJobPerformable">
+            <property name="miraklApi" ref="mmpFrontApiClient"/>
+            <property name="miraklRefundService" ref="miraklRefundService"/>
+            <property name="miraklRefundRequestDataConverter" ref="miraklRefundRequestDataConverter"/>
+            <property name="configurationService" ref="configurationService"/>
+        </bean>
+    </beans>
+
+</beans>

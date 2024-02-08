@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:list id="testMiraklPricingEnabledFeatures" value-type="com.mirakl.hybris.core.util.feature.MiraklPriceFeature">
+        <value type="com.mirakl.hybris.core.util.feature.MiraklPriceFeature">ADVANCED_PRICING</value>
+        <value type="com.mirakl.hybris.core.util.feature.MiraklPriceFeature">CHANNEL_PRICING</value>
+    </util:list>
+
+    <bean id="testPriceImportCompatibilityStrategy"
+          class="com.mirakl.hybris.core.util.strategies.MiraklPriceImportCompatibilityStrategy"
+          parent="priceImportCompatibilityStrategy">
+        <property name="enabledFeatures" ref="testMiraklPricingEnabledFeatures"/>
+    </bean>
+
+    <bean id="testAsyncOfferCoreConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.OfferModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="asyncOfferCorePopulator"/>
+                <ref bean="asyncOfferChannelsPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="testMiraklAsyncOfferImportStrategy"
+          class="com.mirakl.hybris.core.product.strategies.impl.DefaultAsyncOfferImportStrategy"
+          parent="miraklAsyncOfferImportStrategy">
+        <property name="asyncOfferCoreConverter" ref="testAsyncOfferCoreConverter"/>
+    </bean>
+
+    <bean id="testMiraklAdvancedPricingImportStrategy"
+          class="com.mirakl.hybris.advancedpricing.product.strategies.impl.DefaultAdvancedPricingImportStrategy"
+          parent="miraklAdvancedPricingImportStrategy">
+        <property name="priceImportCompatibilityStrategy" ref="testPriceImportCompatibilityStrategy"/>
+    </bean>
+
+    <util:list id="testMiraklAsyncOfferImportStrategies"
+               value-type="com.mirakl.hybris.core.product.strategies.AsyncOfferImportStrategy">
+        <ref bean="testMiraklAsyncOfferImportStrategy"/>
+        <ref bean="testMiraklAdvancedPricingImportStrategy"/>
+    </util:list>
+
+    <bean id="testMiraklImportOffersPollingJob" class="com.mirakl.hybris.core.product.jobs.MiraklImportOffersPollingJob"
+          parent="miraklImportOffersPollingJob">
+        <property name="asyncOfferImportStrategies" ref="testMiraklAsyncOfferImportStrategies"/>
+    </bean>
+
+</beans>

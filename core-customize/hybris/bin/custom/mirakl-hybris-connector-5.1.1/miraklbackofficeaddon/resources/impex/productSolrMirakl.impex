@@ -1,0 +1,10 @@
+$solrIndexedType = solrIndexedType(identifier)[unique = true, default = 'BackofficeProduct'];
+
+# Facet properties
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklbackofficeaddon"")"
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); includeInResponse[default = true]; facet[default = true]; backofficeDisplayName[lang = en]; facetType(code)[unique = true, default = 'MultiSelectOr']; fieldValueProvider         ; visible[default = true]
+                                 ; hasMiraklOffer     ;                 ; boolean   ;                                  ;                      ; Has Mirakl Offer                ;                                                          ; hasMiraklOfferValueProvider;
+
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); fieldValueProvider ; includeInResponse[default = true]; facet[default = true]; backofficeDisplayName[lang = en]; facetType(code)[default = 'MultiSelectOr']; rangeSets(name)
+                                 ; origin             ;                 ; string    ; originValueProvider;                                  ;                      ; Origin                          ;                                           ;
+#% endif:

@@ -1,0 +1,570 @@
+.order-condition-info {
+	position: absolute;
+	padding: 10px;
+	border: 1px solid #bbbbbb;
+	color: #636363;
+	text-align: center;
+	white-space: nowrap;
+	transition: margin-left 0.3s;
+	background-color: white;
+	z-index: 1000;
+	border-radius: 3px;
+	box-shadow: 0 0 5px #e4e4e4;
+}
+
+.order-condition-info:after {
+	content: " ";
+	top: 100%;
+	left: 48%;
+	width: 0;
+	height: 0;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-top: 7px solid #bbbbbb;
+	position: absolute;
+}
+
+.addtocart-component .order-conditions {
+	font-size: 0.9em;
+	opacity: 0.4;
+}
+
+#tab-offers-body {
+	padding: 0;
+}
+
+.tab-offers {
+	width: 100%;
+}
+
+.tab-offers .offer-line {
+	padding: 10px 30px;
+	border-top: 1px solid rgb(204, 204, 204);
+	background-color: white;
+	vertical-align: middle;
+}
+
+.tab-offers .offer-line .mirakl-promotion {
+	color: rgb(170, 17, 17);
+	font-weight: bold;
+}
+
+.tab-offers .rating .rating-stars span.active {
+	color: rgb(170, 17, 17);
+}
+
+.tab-offers .head .row {
+	background-color: transparent;
+	color: rgba(0, 0, 0, 0.7);
+	font-weight: bold;
+	text-transform: uppercase;
+	border-bottom: 1px solid rgb(204, 204, 204);
+	padding: 15px 30px;
+}
+
+.tab-offers .offer-tab-quantity {
+	width: 40px;
+	border: 1px solid rgb(204, 204, 204);
+	padding: 2px;
+	text-align: center;
+}
+
+.tab-offers .price-additional-info {
+	color: rgb(170, 17, 17);
+}
+
+a.js-expand-button {
+	text-decoration: none;
+}
+
+.tab-offers .offer-volume-prices {
+	overflow: hidden;
+	transition: max-height 0.5s;
+}
+
+.tab-offers .offer-volume-prices.collapsed {
+	max-height: 0;
+}
+
+.tab-offers .offer-volume-prices th {
+	background-color: transparent;
+	font-size: 1em;
+	font-weight: normal;
+	text-align: left;
+	color: darkgray;
+	text-transform: none;
+}
+
+.tab-offers .offer-volume-prices td {
+	color: #565656;
+}
+
+.tab-offers .offer-volume-prices {
+	padding-left: 11px;
+	border-left: 5px solid #eaeaea;
+}
+
+.tab-offers .offer-volume-prices table td, .tab-offers .offer-volume-prices table th {
+	padding: 2px 2px 2px 0;
+}
+
+.product-details .offer-volume-prices {
+	margin-top: 10px;
+}
+
+.offer-volume-prices .price-description {
+	margin-bottom: 8px;
+}
+
+.shipping-errors {
+	padding: 1.25em;
+}
+
+.shipping-info {
+	text-align: center;
+	margin-top: 1em;
+}
+
+.product-details .price-origin {
+	font-size: 25px;
+	text-decoration: line-through;
+}
+
+.product-details .price-description {
+	color: rgb(170, 17, 17);
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.shop-stats table tr td:first-child {
+	width: 35%;
+}
+
+.shop-grade table tr td {
+	padding: 0;
+}
+
+.slist {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.light-cell {
+	background-color: #f2f2f2;
+	font-size: 0.95em;
+}
+
+.stitle {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 1.1em;
+	display: block;
+}
+
+.spaced-content {
+	padding: 10px;
+}
+
+.tabs .tab-mirakl-review {
+	padding: 0;
+}
+
+.tab-mirakl-review .review-list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.tab-mirakl-review .review-list .review-entry {
+	padding: 0;
+}
+
+.tab-mirakl-review .review-list .review-entry .content {
+	padding-bottom: 10px;
+}
+
+.tab-mirakl-review .review-list .review-separator {
+	border-bottom: 1px solid #e0e0e0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.tabs .tab-mirakl-review {
+	background-color: white;
+}
+
+@media only screen and (min-width: 768px) {
+	.same-height {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.same-height>[class*='col-'] {
+		height: 100%;
+	}
+}
+
+.checkout__confirmation__content .consignment-actions, 
+.checkout__confirmation__content .consignment-entry-actions {
+	display: none;
+}
+
+.well.well-tertiary .consignment-actions .row a {
+	color: #bce1e7;
+}
+
+.well.well-tertiary .consignment-actions .row a:hover {
+	color: white;
+}
+
+.consignment-actions .btn {
+	margin-bottom: 10px;
+	border: 0px;
+}
+
+.consignment-actions .documents-popup-holder {
+	display: none;
+}
+
+.documents-popup-content table thead tr td {
+	font-weight: bold;
+}
+
+.documents-popup-content table .document-line:hover {
+	cursor: pointer;
+}
+
+.account-orderdetail .account-consignment-id .label-order {
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom: 2px;
+}
+
+.consignment-status .text-danger, .product-item a.text-danger {
+	color: #a94442;
+}
+
+.consignment-status .text-uppercase {
+	margin-bottom: 5px;
+	display: block;
+}
+
+.product-list .bg-warning.product-item {
+	background-color: #fcf8e3;
+}
+
+.reception-confirmation-content {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.offer-states-hidden .offer-states-prices, .offer-states-hidden .more-offers {
+	display: none;
+}
+
+.offer-states-prices {
+	font-size: 10px;
+	color: #154259;
+}
+
+.more-offers {
+	font-size: 12px;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+.origin-price-value {
+	text-decoration: line-through;
+	color: red;
+}
+
+.incident-item {
+	margin-bottom: 20px;
+	min-height: 65px;
+}
+
+.incident-item .details {
+	font-size: 16px;
+	margin-left: 75px;
+	color: black;
+	font-weight: bold;
+}
+
+.incident-item .thumb {
+	float: left;
+	margin-right: 20px;
+}
+
+.monospaced {
+	font-family: Monospace, serif;
+	font-size: 90%;
+}
+
+.messaging-form .form-description {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.messaging-pane .bubble {
+	padding: 20px;
+}
+
+.messaging-pane .bubble .subject {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.messaging-pane .bubble .body {
+	margin-top: 5px;
+}
+
+.messaging-pane .bubble .documents {
+	margin-top: 15px;
+}
+
+.messaging-pane .bubble .documents .attachment {
+	margin-top: 3px;
+	margin-right: 3px;
+	background-color: rgba(0, 0, 0, 0.03);
+	padding: 7px 9px;
+	display: inline-block;
+}
+
+.messaging-pane .bubble .documents .attachment:hover {
+	background-color: rgba(0, 0, 0, 0.15);
+}
+
+.messaging-pane .bubble .documents a.attachment .file-size {
+	color: black;
+}
+
+.messaging-pane .bubble .date, .messaging-pane .bubble .recipient {
+	text-align: right;
+	font-style: italic;
+	opacity: 0.4;
+}
+
+.title-conversation-participants {
+    color: gray;
+    padding-left: 40px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.messaging-pane .bubble .recipient {
+	font-size: 11px;
+}
+
+.messaging-pane .seller .bubble {
+	background-color: #e2e2e2;
+}
+
+.messaging-pane .client .bubble {
+	border-right-width: 1px;
+	border-right-style: solid;
+	color: white;
+}
+
+.messaging-pane .author {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 30px;
+	font-size: 1.5em;
+	font-weight: bold;
+	opacity: 0.8;
+	text-transform: uppercase;
+	color: #333333;
+}
+
+.messaging-pane .client .author {
+	text-align: right;
+	padding-right: 30px;
+	color: #07254b;
+}
+
+@media ( min-width : 1024px) {
+	.messaging-pane {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		margin-left: 30px;
+		margin-right: 30px;
+	}
+	.messaging-pane .bubble:before {
+		position: absolute;
+		content: "";
+		top: 7px;
+		bottom: auto;
+		border-style: solid;
+	}
+	.messaging-pane .seller .bubble:before {
+		left: auto;
+		right: -15px;
+		border-width: 15px 0 15px 30px;
+		border-color: transparent #e2e2e2;
+	}
+	.messaging-pane .client .bubble:before {
+		right: auto;
+		left: -15px;
+		border-width: 15px 30px 15px 0;
+	}
+	.messaging-pane .row {
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+	.messaging-pane .bubble {
+		border-radius: 25px;
+	}
+}
+
+@media ( max-width : 1024px) {
+	.messaging-pane .bubble {
+		border-top: 1px solid #eeeeee;
+	}
+	.messaging-pane .seller .bubble {
+		border-left-: 3px solid #bfbfbf;
+	}
+	.messaging-pane .client .bubble {
+		border-right-style: solid;
+		border-right-width: 3px;
+	}
+}
+
+,
+@media ( min-width : 1024px) {
+	.product-listing .addtocart .actions-container-for-MiraklProductGridComponent>div, 
+	.product-listing .addtocart .actions-container-for-MiraklSearchResultsGridComponent>div {
+		display: inline-block;
+		width: 100%;
+	}
+	.product-listing .addtocart .pickup-in-store-available .MiraklProductGridComponent-ListPickUpInStoreAction, 
+	.product-listing .addtocart .pickup-in-store-available .MiraklProductGridComponent-MiraklListAddToCartAction,
+	.product-listing .addtocart .pickup-in-store-available .MiraklSearchResultsGridComponent-ListPickUpInStoreAction, 
+	.product-listing .addtocart .pickup-in-store-available .MiraklSearchResultsGridComponent-MiraklListAddToCartAction
+		{
+		width: 49%;
+	}
+}
+
+.file-attachment {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid transparent;
+	border-radius: 0;
+	margin-top: 8px;
+}
+
+.remove-attachments {
+	border: none;
+	font-size: 21px;
+	font-style: italic;
+}
+
+.remove-attachment {
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 1;
+	color: #000000;
+	text-shadow: 0 1px 0 #ffffff;
+	opacity: 0.2;
+	filter: alpha(opacity = 20);
+	border: none;
+}
+
+.filename {
+	color: #565656;
+}
+
+.filesize {
+	color: #565656;
+	font-style: italic;
+	margin-left: 5px;
+	font-size: 11px;
+}
+
+#recipients, #topicCode {
+	text-transform: inherit;
+}
+
+#recipients, #topicCode, #topicValue, #body {
+    border-radius: 7px;
+}
+
+#threadlist-content .btn {
+	margin-top: 10px;
+}
+
+#threadlist-content .blockMsg, #threadMessageForm .blockMsg {
+	border-style: none !important;
+	background-color: transparent !important;
+}
+
+.thread-input-error {
+	background-color: #ffcccc52;
+	border: 1px solid #CC0000;
+}
+
+.thread-error-message {
+	color: #CC0000;
+	font-style: italic;
+}
+
+/* ---------- COMPATIBILITY CLASSES ---------- */
+
+/* HYBRIS 6.1+ */
+.hybris-6-1-plus.product-item {
+	padding-bottom: 13px;
+	border-bottom: 1px solid #e5e5e5;
+	list-style-type: none;
+}
+
+.hybris-6-1-plus.product-item .thumb, .hybris-6-1-plus.product-item .details {
+	padding: 20px 13px 5px 20px;
+	float: left;
+}
+
+.hybris-6-1-plus.product-item .consignment-status {
+	padding: 13px 20px 13px 13px;
+}
+
+.hybris-6-1-plus.product-item .details.price-line {
+	width: 100%;
+}
+
+.hybris-6-1-plus.product-item .details .name {
+	font-weight: bold;
+}
+
+.hybris-6-1-plus.product-item .details .item-price {
+	float: right;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.hybris-6-1-plus.product-item .details .qty .qtyValue {
+	padding-right: 25px;
+}
+
+.item-list .item-list-header .product-list-header, .item__list .item__list--header .product-list-header {
+	padding-left: 30px;
+}
+
+.account-section .account-section-content .consignment-actions form {
+	padding: 0;
+}
+
+/* HYBRIS 6.0 */
+.tab-offers .row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.tab-offers .row>div {
+	padding: 0;
+}
+
+.display-none {
+	display: none;
+}

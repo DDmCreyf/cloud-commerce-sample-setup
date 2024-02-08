@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+   <type name="MiraklExportSellableProductsCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append" position="0">
+                    <section name="hmc.section.mcm" mode="append">
+                        <listlayout>
+                            <attribute name="productOrigins"/>
+                            <attribute name="catalogVersion"/>
+                            <attribute name="coreAttributeConfiguration"/>
+                            <attribute name="coreAttributes">
+                                <referencecollectioneditor resortable="true" create="true" remove="true" autosave="false" editable="true">
+                                    <itemlayout>
+                                        <attribute name="code"/>
+                                        <attribute name="label"/>
+                                        <attribute name="localized"/>
+                                        <attribute name="variant"/>
+                                        <attribute name="required"/>
+                                        <attribute name="type"/>
+                                        <attribute name="typeParameter"/>
+                                        <attribute name="role"/>
+                                        <attribute name="category"/>
+                                        <attribute name="importExportHandlerStringId"/>
+                                        <attribute name="uniqueIdentifier"/>
+                                        <attribute name="defaultValue"/>
+                                    </itemlayout>
+                                </referencecollectioneditor>
+                            </attribute>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+    
+    <type name="MiraklDownloadProductFilesCronjob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append">
+                    <section name="hmc.section.mcm" mode="append">
+                        <listlayout>
+                            <attribute name="acceptanceStatuses"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+</configuration>

@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryOrderEntryGroupWsDTO">
+        <property name="shopId" type="String">
+            <description>The shop identifier</description>
+        </property>
+        <property name="shopName" type="String">
+            <description>The shop name</description>
+        </property>
+        <property name="selectedShippingOption" type="de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeWsDTO">
+            <description>The selected shipping options</description>
+        </property>
+        <property name="availableShippingOptions" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeWsDTO>">
+            <description>The available shipping options</description>
+        </property>
+        <property name="leadTimeToShip" type="Integer">
+            <description>The lead time to shop</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.offer.OfferOverviewWsDTO">
+        <property name="code" type="String">
+            <description>Code of the offer</description>
+        </property>
+        <property name="shopId" type="String">
+            <description>Identifier of the shop which proposes the offer</description>
+        </property>
+        <property name="shopName" type="String">
+            <description>Name of the shop which proposes the offer</description>
+        </property>
+        <property name="shopGrade" type="Double">
+            <description>Grade of the shop which proposes the offer</description>
+        </property>
+        <property name="price" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Price of the offer</description>
+        </property>
+        <property name="originPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Original price of the offer</description>
+        </property>
+        <property name="totalPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Total price of the offer</description>
+        </property>
+        <property name="minShippingPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Unit price of the minimum shipping rate</description>
+        </property>
+        <property name="quantity" type="Integer">
+            <description>Available quantity of the offer</description>
+        </property>
+        <property name="minPurchasableQty" type="Integer">
+            <description>Lowest quantity of product items per order</description>
+        </property>
+        <property name="maxPurchasableQty" type="Integer">
+            <description>Maximum quantity of product items per order</description>
+        </property>
+        <property name="packageQty" type="Integer">
+            <description>Ordered quantity must be a multiple of this value</description>
+        </property>
+        <property name="stateCode" type="String">
+            <description>Offer state code</description>
+        </property>
+        <property name="allOfferPricingsJSON" type="String">
+            <description>All the offer prices stored as JSON</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.offer.OfferStateSummaryWsDTO">
+        <property name="stateCode" type="String">
+            <description>Offer state code</description>
+        </property>
+        <property name="stateLabel" type="String">
+            <description>Offer state label</description>
+        </property>
+        <property name="offerCount" type="long">
+            <description>Offer count for this state</description>
+        </property>
+        <property name="minPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Offer minimum price</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.offer.OffersSummaryWsDTO">
+        <property name="bestOffer" type="com.mirakl.hybris.dto.offer.OfferOverviewWsDTO">
+            <description>Best offer overview</description>
+        </property>
+        <property name="states" type="java.util.List&lt;com.mirakl.hybris.dto.offer.OfferStateSummaryWsDTO>">
+            <description>Offers summary by states</description>
+        </property>
+        <property name="offerCount" type="int">
+            <description>Offer count</description>
+        </property>
+    </bean>
+
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+        <property name="offersSummary" type="com.mirakl.hybris.dto.offer.OffersSummaryWsDTO">
+            <description>Offers summary for this product</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.offer.OfferWsDTO">
+        <property name="id" type="String">
+            <description>Identifier of the offer</description>
+        </property>
+        <property name="code" type="String">
+            <description>Code of the offer</description>
+        </property>
+        <property name="productCode" type="String">
+            <description>Product code of the offer</description>
+        </property>
+        <property name="minShippingPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Unit price of the minimum shipping rate</description>
+        </property>
+        <property name="minShippingPriceAdditional" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Additional unit price associated to the minimum shipping rate</description>
+        </property>
+        <property name="price" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Price of the offer</description>
+        </property>
+        <property name="totalPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Total price of the offer</description>
+        </property>
+        <property name="originPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Origin price of the offer</description>
+        </property>
+        <property name="priceAdditionalInfo" type="String">
+            <description>Additional price information for the offer</description>
+        </property>
+        <property name="quantity" type="Integer">
+            <description>Available quantity of the offer</description>
+        </property>
+        <property name="description" type="String">
+            <description>Offer description</description>
+        </property>
+        <property name="stateLabel" type="String">
+            <description>Offer state label</description>
+        </property>
+        <property name="discountStartDate" type="java.util.Date">
+            <description>Discount start date</description>
+        </property>
+        <property name="discountEndDate" type="java.util.Date">
+            <description>Discount end date</description>
+        </property>
+        <property name="discountPrice" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO">
+            <description>Discount price. Not to be read if discount with ranges is specified (i.e. discount with at least one
+                range with quantity threshold greater than one).
+            </description>
+        </property>
+        <property name="availableStartDate" type="java.util.Date">
+            <description>Available start date</description>
+        </property>
+        <property name="availableEndDate" type="java.util.Date">
+            <description>Available end date</description>
+        </property>
+        <property name="leadTimeToShip" type="Integer">
+            <description>Leadtime to ship of the offer, in days</description>
+        </property>
+        <property name="shopId" type="String">
+            <description>Identifier of the shop which proposes the offer</description>
+        </property>
+        <property name="shopName" type="String">
+            <description>Name of the shop which proposes the offer</description>
+        </property>
+        <property name="shopGrade" type="Double">
+            <description>Grade of the shop which proposes the offer</description>
+        </property>
+        <property name="shopEvaluationCount" type="Integer">
+            <description>Number of evaluations for the shop</description>
+        </property>
+        <property name="volumePrices" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO>">
+            <description>Volume prices for each quantity threshold. Returns at least the price for a quantity threshold of one.
+            </description>
+        </property>
+        <property name="volumeOriginPrices" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO>">
+            <description>Volume origin prices for each quantity threshold. Returns at least the price for a quantity threshold of
+                one.
+            </description>
+        </property>
+        <property name="packageQuantity" type="Integer">
+            <description>Indivisible quantity of the same product</description>
+        </property>
+        <property name="minOrderQuantity" type="Integer">
+            <description>Lowest quantity of product items per order</description>
+        </property>
+        <property name="maxOrderQuantity" type="Integer">
+            <description>Highest quantity of product items per order</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.offer.OfferListWsDTO">
+        <property name="offers" type="java.util.List&lt;com.mirakl.hybris.dto.offer.OfferWsDTO>">
+            <description>Offers list</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.OfferDataList">
+        <property name="offers" type="java.util.List&lt;com.mirakl.hybris.beans.OfferData>" />
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductsOffers">
+        <property name="products" type="java.util.List&lt;com.mirakl.hybris.beans.ProductWithOffers>"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductWithOffers">
+        <property name="code" type="String"/>
+        <property name="offers" type="java.util.List&lt;com.mirakl.hybris.beans.OfferData>"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.offer.ProductsWithOffersListWsDTO">
+        <property name="productsWithOffers" type="java.util.List&lt;com.mirakl.hybris.dto.offer.ProductWithOffersWsDTO>">
+            <description>List of products along with their offers</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.offer.ProductWithOffersWsDTO">
+        <property name="productCode" type="String"/>
+        <property name="offers" type="java.util.List&lt;com.mirakl.hybris.dto.offer.OfferWsDTO>"/>
+    </bean>
+
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+        <property name="offerId" type="String">
+            <description>Identifier of the offer</description>
+        </property>
+        <property name="shopId" type="String">
+            <description>Identifier of the shop which proposes the offer</description>
+        </property>
+        <property name="shopName" type="String">
+            <description>Name of the shop which proposes the offer</description>
+        </property>
+        <property name="lineShippingPrice" type="double">
+            <description>Total Line Shipping Price</description>
+        </property>
+        <property name="lineShippingCode" type="java.lang.String">
+            <description>Selected Shipping Code</description>
+        </property>
+        <property name="lineShippingLabel" type="java.lang.String">
+            <description>Selected Shipping Label</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.order.ShippingOfferDiscrepancyWsDTO">
+        <property name="missingQuantity" type="Long">
+            <description>The quantity that is missing for the order entry</description>
+        </property>
+        <property name="message" type="String">
+            <description>Message to explain the discrepancy</description>
+        </property>
+        <property name="entry" type="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+            <description>The order entry related to the discrepancy</description>
+        </property>
+    </bean>
+
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentWsDTO">
+        <property name="shippingModeLabel" type="String">
+            <description>Label of shipping's type</description>
+        </property>
+        <property name="marketplaceStatus" type="String">
+            <description>Order's state</description>
+        </property>
+        <property name="marketplaceStatusLabel" type="String">
+            <description>Reason's label of the order state</description>
+        </property>
+        <property name="canEvaluate" type="Boolean">
+            <description>Indicates if the order can be evaluated by the customer</description>
+        </property>
+        <property name="canWriteMessage" type="Boolean">
+            <description>Indicates if the customer can write a message</description>
+        </property>
+        <property name="documents" type="java.util.List&lt;com.mirakl.hybris.dto.order.DocumentWsDTO>">
+            <description>All the documents available on the order</description>
+        </property>
+        <property name="customerDebited" type="Boolean">
+            <description>Indicates if the customer has been debited</description>
+        </property>
+    </bean>
+
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentEntryWsDTO">
+        <property name="miraklOrderLineId" type="String">
+            <description>The mirakl order line's identifier</description>
+        </property>
+        <property name="consignmentCode" type="String">
+            <description>The consignment code</description>
+        </property>
+        <property name="miraklOrderLineStatus" type="String">
+            <description>Order line's state</description>
+        </property>
+        <property name="miraklOrderLineStatusLabel" type="String">
+            <description>Reason's label of the order line's state</description>
+        </property>
+        <property name="canOpenIncident" type="Boolean">
+            <description>Indicate if an incident can be opened on the order line</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.order.DocumentWsDTO">
+        <property name="dateUploaded" type="java.util.Date">
+            <description>Document uploaded date</description>
+        </property>
+        <property name="fileName" type="String">
+            <description>Document file name</description>
+        </property>
+        <property name="fileSize" type="Long">
+            <description>Document file size</description>
+        </property>
+        <property name="code" type="String">
+            <description>Document identifier</description>
+        </property>
+        <property name="type" type="String">
+            <description>Document type code</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.setting.ReasonListWsDTO">
+        <property name="reasons" type="java.util.List&lt;com.mirakl.hybris.dto.setting.ReasonWsDTO>">
+            <description>Reasons list</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ReasonDataList">
+        <property name="reasons" type="java.util.List&lt;com.mirakl.hybris.beans.ReasonData>" />
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.setting.ReasonWsDTO">
+        <property name="code" type="String">
+            <description>Reason code</description>
+        </property>
+        <property name="label" type="String">
+            <description>Reason label</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.shop.ShopWsDTO">
+        <property name="id" type="String">
+            <description>Identifier of the shop</description>
+        </property>
+        <property name="name" type="String">
+            <description>Name of the shop</description>
+        </property>
+        <property name="premium" type="Boolean">
+            <description>Whether or not the shop is premium</description>
+        </property>
+        <property name="grade" type="Double">
+            <description>Global grade of the shop</description>
+        </property>
+        <property name="evaluationCount" type="Integer">
+            <description>Number of evaluations for the shop</description>
+        </property>
+        <property name="registrationDate" type="java.util.Date">
+            <description>Creation date of the shop</description>
+        </property>
+        <property name="approvalDelay" type="Long">
+            <description>Average time for a shop to accept or refuse an order (in seconds)</description>
+        </property>
+        <property name="approvalRate" type="Double">
+            <description>Rate of accepted orders</description>
+        </property>
+        <property name="shippingCountry" type="String">
+            <description>Code ISO 3166-1 alpha-3 of the shipping country</description>
+        </property>
+        <property name="availableShippingOptions" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.DeliveryModeWsDTO>">
+            <description>All the pair shipping zone / shipping type accepted by the shop</description>
+        </property>
+        <property name="description" type="String">
+            <description>The description of the shop, max length: 3000 characters.</description>
+        </property>
+        <property name="returnPolicy" type="String">
+            <description>Terms of restitution, max length: 5000 characters.</description>
+        </property>
+        <property name="logo" type="String">
+            <description>Url of the shop's logo image</description>
+        </property>
+        <property name="banner" type="String">
+            <description>Url of the shop's banner image</description>
+        </property>
+        <property name="offersPageUrl" type="String">
+            <description>Whether or not the shop is premium</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.AssessmentDataList">
+        <property name="assessments" type="java.util.List&lt;com.mirakl.hybris.beans.AssessmentData>" />
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.evaluation.AssessmentWsDTO">
+        <property name="code" type="String">
+            <description>Assessment code</description>
+        </property>
+        <property name="label" type="String">
+            <description>Assessment label</description>
+        </property>
+        <property name="response" type="String">
+            <description>Response associated with the assessment</description>
+        </property>
+        <property name="type" type="String">
+            <description>Assessment type</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.evaluation.EvaluationWsDTO">
+        <property name="assessments" type="java.util.List&lt;com.mirakl.hybris.dto.evaluation.AssessmentWsDTO>">
+            <description>Assessment type</description>
+        </property>
+        <property name="comment" type="String">
+            <description>Evaluation comment</description>
+        </property>
+        <property name="date" type="java.util.Date">
+            <description>Evaluation creation date</description>
+        </property>
+        <property name="firstName" type="String">
+            <description>First name of the customer who posted the evaluation</description>
+        </property>
+        <property name="lastName" type="String">
+            <description>Last name of the customer who posted the evaluation</description>
+        </property>
+        <property name="grade" type="Integer">
+            <description>Evaluation grade</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.evaluation.EvaluationPageWsDTO">
+        <property name="evaluations" type="java.util.List&lt;com.mirakl.hybris.dto.evaluation.EvaluationWsDTO>">
+            <description>Evaluations list</description>
+        </property>
+        <property name="evaluationPageCount" type="Integer">
+            <description>Total count of elements returned by the query</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.evaluation.AssessmentsWsDTO">
+        <property name="assessments" type="java.util.List&lt;com.mirakl.hybris.dto.evaluation.AssessmentWsDTO>">
+            <description>Assessments list</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadListWsDTO">
+        <property name="threads" type="java.util.List&lt;com.mirakl.hybris.dto.message.ThreadWsDTO>">
+            <description>Thread list</description>
+        </property>
+        <property name="nextPageToken" type="String">
+            <description>Token to access the next page. Absent if the current page is the last one.</description>
+        </property>
+        <property name="previousPageToken" type="String">
+            <description>Token to access the previous page. Absent if the current page is the first one.</description>
+        </property>
+        <property name="consignmentCode" type="String">
+            <description>The consignment code</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadWsDTO">
+        <property name="id" type="String">
+            <description>Thread id</description>
+        </property>
+        <property name="topic" type="com.mirakl.hybris.dto.message.ThreadTopicWsDTO">
+            <description>Thread topic</description>
+        </property>
+        <property name="authorizedParticipants" type="java.util.List&lt;com.mirakl.hybris.dto.message.ThreadRecipientWsDTO>">
+            <description>
+                Thread authorized participants.
+                Those are the participants who are authorized to join the thread.
+            </description>
+        </property>
+        <property name="selectableParticipants" type="java.util.List&lt;com.mirakl.hybris.dto.message.ThreadRecipientWsDTO>">
+            <description>
+                Thread selectable participants.
+            </description>
+        </property>
+        <property name="currentParticipants" type="java.util.List&lt;com.mirakl.hybris.dto.message.ThreadRecipientWsDTO>">
+            <description>
+                Thread current participants.
+                Those are the participants who have actually participated in the thread, meaning that they are either sender or receivers of at least one message of the thread.
+                These participants must be on the list of the authorized_participants.
+            </description>
+        </property>
+        <property name="currentParticipantsDisplayValue" type="String">
+            <description>
+                Thread current participants display value.
+                Those are the participants who have actually participated in the thread, meaning that they are either sender or receivers of at least one message of the thread.
+                These participants must be on the list of the authorized_participants.
+            </description>
+        </property>
+        <property name="dateCreated" type="java.util.Date">
+            <description>Thread created date</description>
+        </property>
+        <property name="dateUpdated" type="java.util.Date">
+            <description>Thread updated date</description>
+        </property>
+        <property name="entityType" type="String">
+            <description>Entity id</description>
+        </property>
+        <property name="entityLabel" type="String">
+            <description>Entity label</description>
+        </property>
+        <property name="entityId" type="String">
+            <description>Entity type</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.CreateThreadMessageWsDTO">
+        <hints>
+            <hint name="wsRelated" />
+        </hints>
+        <property name="topic" type="String">
+            <description>Thread topic</description>
+            <hints>
+                <hint name="required">true</hint>
+            </hints>
+        </property>
+        <property name="body" type="String">
+            <description>Message body, min length: 3 - max length: 50000</description>
+            <hints>
+                <hint name="required">true</hint>
+            </hints>
+        </property>
+        <property name="to" type="String">
+            <description>Message recipient: OPERATOR, SHOP or CUSTOMER, comma-separated.</description>
+            <hints>
+                <hint name="required">true</hint>
+            </hints>
+        </property>
+        <property name="attachments" type="java.util.List&lt;org.springframework.web.multipart.MultipartFile>">
+            <description>List of attachments</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadDetailsWsDTO" extends="com.mirakl.hybris.dto.message.ThreadWsDTO">
+        <property name="messages" type="java.util.List&lt;com.mirakl.hybris.dto.message.ThreadMessageWsDTO>">
+            <description>Thread messages</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadMessageWsDTO">
+        <property name="senderType" type="String">
+            <description>Sender type, one of: OPERATOR_USER, SHOP_USER, CUSTOMER_USER</description>
+        </property>
+        <property name="senderDisplayName" type="String">
+            <description>Sender display name</description>
+        </property>
+        <property name="body" type="String">
+            <description>Message body</description>
+        </property>
+        <property name="dateCreated" type="java.util.Date">
+            <description>Message creation date</description>
+        </property>
+        <property name="attachments" type="java.util.List&lt;com.mirakl.hybris.dto.message.ThreadMessageAttachmentWsDTO>">
+            <description>Message attachments</description>
+        </property>
+        <property name="to" type="java.util.List&lt;com.mirakl.hybris.dto.message.ThreadRecipientWsDTO>">
+            <description>Message recipients</description>
+        </property>
+        <property name="isFromCustomer" type="Boolean">
+            <description>If the message is from the customer</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadMessageAttachmentWsDTO">
+        <property name="id" type="String">
+            <description>Total count of elements returned by the query</description>
+        </property>
+        <property name="name" type="String">
+            <description>Total count of elements returned by the query</description>
+        </property>
+        <property name="size" type="Long">
+            <description>Total count of elements returned by the query</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadRecipientWsDTO">
+        <property name="id" type="String">
+            <description>
+                Participant id.
+                When type equals OPERATOR, no id will be returned.
+            </description>
+        </property>
+        <property name="type" type="String">
+            <description>Participant type, one of: OPERATOR, SHOP, CUSTOMER</description>
+        </property>
+        <property name="displayName" type="String">
+            <description>Participant display name</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadTopicWsDTO">
+        <property name="code" type="String">
+            <description>Topic type, one of: FREE_TEXT, REASON_CODE</description>
+        </property>
+        <property name="displayValue" type="String">
+            <description>Topic display value</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.ThreadRequestWsDTO">
+        <property name="consignmentCode" type="String">
+            <description>The consignment code</description>
+        </property>
+        <property name="pageToken" type="String">
+            <description>The page token</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.MiraklThreadReplyCreatedWsDTO">
+        <property name="messageId" type="java.util.UUID">
+            <description>The message identifier</description>
+        </property>
+        <property name="threadId" type="java.util.UUID">
+            <description>The thread identifier</description>
+        </property>
+    </bean>
+
+    <bean class="com.mirakl.hybris.dto.message.MiraklThreadCreatedWsDTO">
+        <property name="messageId" type="java.util.UUID">
+            <description>The message identifier</description>
+        </property>
+        <property name="threadId" type="java.util.UUID">
+            <description>The thread identifier</description>
+        </property>
+    </bean>
+</beans>

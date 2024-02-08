@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<!-- Relations typecodes : 29300-29400 -->
+	<!-- itemtype typecodes : 29400-29500 -->
+
+	<relations>
+		<relation code="MiraklChannel2ShopRel" localized="false">
+			<description>The many to many relation between a Mirakl channel and a base site</description>
+			<deployment table="MklChannel2ShopRel" typecode="29300"/>
+			<sourceElement type="MiraklChannel" cardinality="many" qualifier="channels" collectiontype="set">
+				<description>The mirakl channels linked to the shop (received from S20)</description>
+			</sourceElement>
+			<targetElement type="Shop" cardinality="many" navigable="false">
+				<description>The shop to which a Mirakl channel is associated</description>
+			</targetElement>
+		</relation>
+
+		<relation code="MiraklChannel2OfferRel" localized="false">
+			<description>The many to many relation between a Mirakl channel and an offer</description>
+			<deployment table="MklChannel2OfferRel" typecode="29301"/>
+			<sourceElement type="MiraklChannel" cardinality="many" qualifier="channels" collectiontype="set">
+				<description>The mirakl channels linked to the offer (received from OF51)</description>
+			</sourceElement>
+			<targetElement type="Offer" cardinality="many" navigable="false">
+				<description>The offer to which a Mirakl channel is associated</description>
+			</targetElement>
+		</relation>
+	</relations>
+
+	<itemtypes>
+		<itemtype code="MiraklChannel" jaloclass="com.mirakl.hybris.channels.jalo.MiraklChannel">
+			<deployment table="miraklchannels" typecode="29400"/>
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>The Mirakl channel code</description>
+					<modifiers unique="true" optional="false" initial="true" write="false"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="label" type="java.lang.String">
+					<description>The Mirakl channel label</description>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+			<indexes>
+				<index name="IdxMiraklChannelCode" unique="true">
+					<key attribute="code"/>
+				</index>
+			</indexes>
+		</itemtype>
+	</itemtypes>
+
+</items>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+	<!-- DTO -->
+
+    <bean class="com.mirakl.hybris.webservices.dto.DebitRequestWsDTO">
+        <import type="javax.xml.bind.annotation.XmlElement"/>
+        <property name="orders" type="java.util.List&lt;MiraklOrderPaymentWsDTO>">
+            <annotations>@XmlElement(name = "order")</annotations>
+        </property>
+    </bean>
+    
+    <bean class="com.mirakl.hybris.webservices.dto.RefundRequestWsDTO">
+        <import type="javax.xml.bind.annotation.XmlElement"/>
+        <property name="orders" type="java.util.List&lt;MiraklOrderPaymentWsDTO>">
+            <annotations>@XmlElement(name = "order")</annotations>
+        </property>
+    </bean>
+    
+    <bean class="com.mirakl.hybris.webservices.dto.MiraklOrderPaymentWsDTO">
+        <import type="javax.xml.bind.annotation.XmlElement"/>
+        <import type="javax.xml.bind.annotation.XmlElementWrapper"/>
+        <property name="customer_id" type="String"/>
+        <property name="order_commercial_id" type="String"/>
+        <property name="amount" type="java.math.BigDecimal"/>
+        <property name="currency_iso_code" type="String"/>
+        <property name="orderLines" type="java.util.List&lt;com.mirakl.hybris.webservices.dto.MiraklOrderLinePaymentWsDTO>">
+            <annotations>
+                @XmlElement(name = "order_line")
+                @XmlElementWrapper(name = "order_lines")
+            </annotations>
+        </property>
+        <property name="shop_id" type="String"/>
+        <property name="payment_workflow" type="String"/>
+        <property name="order_id" type="String"/>
+    </bean>
+    
+     <bean class="com.mirakl.hybris.webservices.dto.MiraklOrderLinePaymentWsDTO">
+        <import type="javax.xml.bind.annotation.XmlElement"/>
+        <import type="javax.xml.bind.annotation.XmlElementWrapper"/>
+        <property name="orderLineAmount" type="double">
+            <annotations>@XmlElement(name = "order_line_amount")</annotations>
+        </property>
+        <property name="offer_id" type="String"/>
+        <property name="order_line_id" type="String"/>
+        <property name="order_line_quantity" type="int"/>
+        <property name="refunds" type="java.util.List&lt;com.mirakl.hybris.webservices.dto.MiraklRefundWsDto>">
+            <annotations>
+                @XmlElement(name = "refund")
+                @XmlElementWrapper(name = "refunds")
+            </annotations>
+        </property>
+    </bean>
+    
+    <bean class="com.mirakl.hybris.webservices.dto.MiraklRefundWsDto">
+        <property name="id" type="String"/>
+        <property name="amount" type="double"/>
+    </bean>
+    
+</beans>

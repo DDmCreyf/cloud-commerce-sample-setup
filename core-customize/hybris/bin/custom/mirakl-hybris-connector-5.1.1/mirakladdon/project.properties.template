@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform 
+# 
+# Copyright (c) 2000-2016 hybris AG
+# All rights reserved.
+#  
+# This software is the confidential and proprietary information of hybris 
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with hybris.
+#
+#  
+# -----------------------------------------------------------------------
+
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+mirakladdon.key=value
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+mirakladdon.application-context=mirakladdon-spring.xml
+yacceleratorstorefront.additionalWebSpringConfigs.mirakladdon=classpath\:/mirakladdon/web/spring/mirakladdon-web-spring.xml
+
+mirakladdon.javascript.paths.responsive=/responsive/common/js/miraklratingstars.js;/responsive/common/js/mirakltabs.js;/responsive/common/js/miraklpopups.js;/responsive/common/js/miraklexpandable.js;/responsive/common/js/miraklorderconditions.js;/responsive/common/js/miraklthreaddetails.js;/responsive/common/js/miraklthreadinbox.js
+mirakladdon.css.paths.responsive=/responsive/common/css/mirakladdon.css
+
+mirakl.shops.evaluation.pagesize=10
+mirakl.order.condition.front.validation.enabled=true
+mirakl.attachment.file.max.size.bytes=10485760
+mirakl.inbox.topic.other.code=26

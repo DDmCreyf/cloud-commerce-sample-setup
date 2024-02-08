@@ -1,0 +1,14 @@
+$dateFormat = 'dd.MM.yyyy HH:mm:ss'
+
+# This offer should be erased
+INSERT_UPDATE Offer; id[unique = true]; productCode;
+                   ; 12000            ; 12000
+
+# These pricings are bound to offer 12000 and should also be erased
+INSERT_UPDATE OfferPricing; offerId[unique = true]; channelCode[unique = true]; customerOrganizationId[unique = true]; customerGroupId[unique = true]; priceDetailsJSON
+                          ; 12000                 ;                           ;                                      ;                               ; {"price": 10, "unit_origin_price": 10, "volume_prices":[{"unit_origin_price": 10, "quantity_threshold":1}]}
+                          ; 12000                 ;                           ;                                      ; 1000                          ; {"price": 20, "unit_origin_price": 20, "volume_prices":[{"unit_origin_price": 20, "quantity_threshold":1}]}
+                          ; 12000                 ;                           ; 2000                                 ;                               ; {"price": 30, "unit_origin_price": 30, "volume_prices":[{"unit_origin_price": 30, "quantity_threshold":1}]}
+                          ; 12000                 ; CHAN1                     ;                                      ;                               ; {"price": 50, "unit_origin_price": 50, "volume_prices":[{"unit_origin_price": 50, "quantity_threshold":1}]}
+                          ; 12000                 ; CHAN1                     ;                                      ; 1000                          ; {"price": 60, "unit_origin_price": 60, "volume_prices":[{"unit_origin_price": 60, "quantity_threshold":1}]}
+                          ; 12000                 ; CHAN1                     ; 2000                                 ;                               ; {"price": 70, "unit_origin_price": 70, "volume_prices":[{"unit_origin_price": 70, "quantity_threshold":1}]}

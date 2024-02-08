@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/>
+
+	<!-- Expose /acceleratoraddon/web/webroot/WEB-INF/messages/base.js.properties  resource bundle as javascript variables -->
+	<bean id="defaultMirakladdonJavaScriptMessageResourceAccessor" parent="abstractJavaScriptMessageResourceAccessor">
+		<property name="addOnName" value="mirakladdon"/>
+	</bean>
+
+	<bean id="defaultMirakladdonBeforeViewJsPropsHandlerAdaptee" parent="abstractBeforeViewJsPropsHandlerAdaptee" class="de.hybris.platform.addonsupport.interceptors.ExportJsPropertiesBeforeViewHandler">
+		<property name="messageSource" ref="defaultMirakladdonJavaScriptMessageResourceAccessor"/>
+	</bean>
+
+	<bean id="getMirakladdonBeforeViewHandler" parent="beforeViewHandlerAdapter">
+		<property name="adaptee" ref="defaultMirakladdonBeforeViewJsPropsHandlerAdaptee"/>
+	</bean>
+	<bean id="mirakladdonBeforeViewHandlerListMergeDirective" depends-on="beforeViewHandlersList" parent="listMergeDirective">
+		<property name="add" ref="getMirakladdonBeforeViewHandler"/>
+	</bean>
+
+    <bean name="miraklDeliveryMethodController" class="com.mirakl.hybris.addon.controllers.pages.MiraklDeliveryMethodCheckoutStepController">
+        <property name="redirectToDeliveryAddress" ref="REDIRECT_TO_DELIVERY_ADDRESS"/>
+        <property name="redirectToDeliveryMethod" ref="REDIRECT_TO_DELIVERY_METHOD"/>
+        <property name="shippingFacade" ref="shippingFacade"/>
+    </bean>
+
+    <bean id="shopPageController" class="com.mirakl.hybris.addon.controllers.pages.ShopPageController">
+        <property name="cmsPageService" ref="cmsPageService"/>
+        <property name="resourceBreadcrumbBuilder" ref="simpleBreadcrumbBuilder"/>
+        <property name="shopFacade" ref="shopFacade"/>
+        <property name="evaluationPageSize" value="${mirakl.shops.evaluation.pagesize}"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props merge="true">
+                <prop key="/checkout/multi/mirakl/delivery-method">miraklDeliveryMethodController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <alias name="MIRAKL_REDIRECT_TO_DELIVERY_METHOD" alias="REDIRECT_TO_DELIVERY_METHOD"/>
+    <bean id="MIRAKL_REDIRECT_TO_DELIVERY_METHOD" class="java.lang.String">
+        <constructor-arg value="redirect:/checkout/multi/mirakl/delivery-method/choose"/>
+    </bean>
+
+    <alias alias="abstractCMSOfferComponentController" name="defaultAbstractCMSOfferComponentController" />
+    <bean id="defaultAbstractCMSOfferComponentController"
+    class="com.mirakl.hybris.addon.controllers.cms.AbstractCMSOfferComponentController" abstract="true">
+        <property name="offerFacade" ref="offerFacade" />
+        <property name="modelService" ref="modelService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias alias="CMSTabOfferListComponentController" name="defaultCMSTabOfferListComponentController" />
+    <bean id="defaultCMSTabOfferListComponentController"
+    class="com.mirakl.hybris.addon.controllers.cms.CMSTabOfferListComponentController"
+    parent="abstractCMSOfferComponentController"/>
+
+    <alias alias="CMSBuyBoxComponentController" name="defaultCMSBuyBoxComponentController" />
+    <bean id="defaultCMSBuyBoxComponentController" class="com.mirakl.hybris.addon.controllers.cms.CMSBuyBoxComponentController"
+    parent="abstractCMSOfferComponentController"/>
+
+    <alias alias="CMSProductDetailsComponentController" name="defaultCMSProductDetailsComponentController" />
+    <bean id="defaultCMSProductDetailsComponentController" class="com.mirakl.hybris.addon.controllers.cms.CMSProductDetailsComponentController"
+    parent="abstractCMSOfferComponentController"/>
+
+    <alias alias="MiraklCMSProductListComponentController" name="defaultMiraklCMSProductListComponentController" />
+    <bean id="defaultMiraklCMSProductListComponentController" class="com.mirakl.hybris.addon.controllers.cms.MiraklCMSProductListComponentController"/>
+
+    <alias alias="MiraklSearchResultsListComponentController" name="defaultMiraklSearchResultsListComponentController" />
+    <bean id="defaultMiraklSearchResultsListComponentController" class="com.mirakl.hybris.addon.controllers.cms.MiraklSearchResultsListComponentController"/>
+
+    <bean id="offerAddToCartActionRendererMapping"
+          class="de.hybris.platform.addonsupport.renderer.impl.AddOnCMSComponentRendererMapping" >
+        <property name="renderer" ref="genericAddOnCMSComponentRenderer"/>
+        <property name="typeCode" value="OfferAddToCartAction"/>
+    </bean>
+    
+    <bean id="miraklListAddToCartActionRendererMapping"
+          class="de.hybris.platform.addonsupport.renderer.impl.AddOnCMSComponentRendererMapping" >
+        <property name="renderer" ref="genericAddOnCMSComponentRenderer"/>
+        <property name="typeCode" value="MiraklListAddToCartAction"/>
+    </bean>
+
+    <bean id="consignmentEvaluationValidator" class="com.mirakl.hybris.addon.forms.validation.ConsignmentEvaluationValidator"/>
+
+    <bean id="threadFormValidator" class="com.mirakl.hybris.addon.forms.validation.ThreadFormValidator">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias alias="miraklConsignmentEvaluationController" name="defaultMiraklConsignmentEvaluationController"/>
+    <bean id="defaultMiraklConsignmentEvaluationController" class="com.mirakl.hybris.addon.controllers.pages.MiraklConsignmentEvaluationController">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="resourceBreadcrumbBuilder" ref="simpleBreadcrumbBuilder"/>
+        <property name="userService" ref="defaultUserService"/>
+        <property name="marketplaceOrderFacade" ref="marketplaceOrderFacade"/>
+        <property name="marketplaceConsignmentFacade" ref="marketplaceConsignmentFacade"/>
+        <property name="formValidator" ref="consignmentEvaluationValidator"/>
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+    <alias alias="orderIncidentController" name="defaultOrderIncidentController"/>
+    <bean id="defaultOrderIncidentController" class="com.mirakl.hybris.addon.controllers.pages.OrderIncidentController">
+        <property name="incidentFacade" ref="incidentFacade"/>
+        <property name="reasonFacade" ref="reasonFacade"/>
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="userService" ref="userService"/>
+        <property name="marketplaceConsignmentFacade" ref="marketplaceConsignmentFacade"/>
+    </bean>
+
+    <alias alias="miraklConsignmentMessagesController" name="defaultMiraklConsignmentMessagesController"/>
+    <bean id="defaultMiraklConsignmentMessagesController"
+          class="com.mirakl.hybris.addon.controllers.pages.MarketplaceConsignmentMessagesController">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="marketplaceConsignmentMessagesFacade" ref="marketplaceConsignmentMessagesFacade"/>
+        <property name="userService" ref="userService"/>
+        <property name="resourceBreadcrumbBuilder" ref="simpleBreadcrumbBuilder"/>
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+    <alias alias="miraklInboxPageController" name="defaultMiraklInboxPageController"/>
+    <bean id="defaultMiraklInboxPageController" class="com.mirakl.hybris.addon.controllers.pages.InboxPageController">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="miraklDocumentService" ref="miraklDocumentService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="threadFormValidator" ref="threadFormValidator"/>
+        <property name="messageSource" ref="messageSource"/>
+        <property name="messagingThreadFacade" ref="messagingThreadFacade"/>
+        <property name="reasonFacade" ref="reasonFacade"/>
+    </bean>
+
+    <alias alias="marketplaceConsignmentDocumentsController" name="defaultMarketplaceConsignmentDocumentsController"/>
+    <bean id="defaultMarketplaceConsignmentDocumentsController"
+          class="com.mirakl.hybris.addon.controllers.pages.MarketplaceConsignmentDocumentsController">
+        <property name="documentService" ref="miraklDocumentService"/>
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+    </bean>
+
+    <alias alias="MiraklProductGridComponentController" name="defaultMiraklProductGridComponentController"/>
+    <bean id="defaultMiraklProductGridComponentController" class="com.mirakl.hybris.addon.controllers.cms.MiraklProductGridComponentController"/>
+
+    <alias alias="MiraklSearchResultsGridComponentController" name="defaultMiraklSearchResultsGridComponentController"/>
+    <bean id="defaultMiraklSearchResultsGridComponentController" class="com.mirakl.hybris.addon.controllers.cms.MiraklSearchResultsGridComponentController"/>
+    
+    <bean id="importInboxAttachmentMultipartFilter" class="org.springframework.web.multipart.support.MultipartFilter">
+        <property name="multipartResolverBeanName" value="importInboxAttachmentMultipartResolver"/>
+    </bean>
+
+    <bean id="importInboxAttachmentMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+    
+    <bean depends-on="defaultFileUploadUrlFilterMappings" parent="mapMergeDirective">
+        <property name="key" value="/my-account/inbox/**"/>
+        <property name="value" ref="importInboxAttachmentMultipartFilter" />
+    </bean>
+    
+</beans>

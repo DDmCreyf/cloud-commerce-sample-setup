@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+			  http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Field mapping configuration -->
+	<bean id="dataMapper" class="de.hybris.platform.webservicescommons.mapping.impl.DefaultDataMapper">
+		<property name="fieldSetBuilder" ref="fieldSetBuilder" />
+	</bean>
+
+	<bean id="fieldSetBuilder"
+		class="de.hybris.platform.webservicescommons.mapping.impl.DefaultFieldSetBuilder">
+		<property name="defaultRecurrencyLevel" value="4" />
+		<property name="defaultMaxFieldSetSize" value="50000" />
+		<property name="fieldSetLevelHelper" ref="fieldSetLevelHelper" />
+	</bean>
+
+	<alias alias="fieldSetLevelHelper" name="defaultFieldSetLevelHelper" />
+	<bean id="defaultFieldSetLevelHelper"
+		class="de.hybris.platform.webservicescommons.mapping.impl.DefaultFieldSetLevelHelper">
+	</bean>
+	
+	<bean class="de.hybris.platform.webservicescommons.mapping.filters.GeneralFieldFilter">
+		<property name="fieldSelectionStrategy" ref="fieldSelectionStrategy"/>
+	</bean>
+
+	<!-- Field mapping -->
+ 
+    <bean parent="fieldMapper">
+        <property name="sourceClass" value="com.mirakl.hybris.webservices.dto.MiraklOrderPaymentWsDTO"/>
+        <property name="destClass"   value="com.mirakl.client.mmp.domain.payment.debit.MiraklOrderPayment"/>
+        <property name="fieldMapping">
+            <map>
+                <entry key="customer_id" value="customerId"/>
+                <entry key="currency_iso_code" value="currencyIsoCode"/>
+                <entry key="order_id" value="orderId"/>
+            </map>
+        </property>
+    </bean>
+
+	<!-- Fieldset mapping -->
+    
+    <bean id="miraklOrderPaymentWsDTOFieldSetLevelMapping" parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.mirakl.hybris.webservices.dto.MiraklOrderPaymentWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="customer_id,amount,currency_iso_code,order_id"/>
+                <entry key="DEFAULT" value="customer_id,amount,currency_iso_code,order_id"/>
+                <entry key="FULL" value="customer_id,amount,currency_iso_code,order_id"/>
+            </map>
+        </property>
+    </bean>
+    
+</beans>

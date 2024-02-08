@@ -1,0 +1,29 @@
+$productCatalog = powertoolsProductCatalog
+$online = catalogVersion(catalog(id[default = $productCatalog]), version[default = Online])[unique = true, default = $productCatalog:Online]
+$staged = catalogVersion(catalog(id[default = $productCatalog]), version[default = Staged])[unique = true, default = $productCatalog:Staged]
+
+
+"#% import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+     flexibleSearchService = Registry.getApplicationContext().getBean(""flexibleSearchService"");"
+
+UPDATE Product[batchmode=true] ; code[unique=true] ; $staged ; origin(code)[default=OPERATOR]
+"#% query = ""SELECT {pk} FROM {Product} WHERE {origin} IS NULL "";
+    flexibleSearchQuery = new FlexibleSearchQuery(query);
+    resultIterator = flexibleSearchService.search(flexibleSearchQuery).getResult().iterator();
+    while (resultIterator.hasNext()) {
+      currentLine = new HashMap();
+      currentLine.put(Integer.valueOf(1), resultIterator.next().getCode());
+      impex.insertLine(currentLine);
+    }
+"
+
+UPDATE Product[batchmode=true] ; code[unique=true] ; $online ; origin(code)[default=OPERATOR]
+"#% query = ""SELECT {pk} FROM {Product} WHERE {origin} IS NULL "";
+    flexibleSearchQuery = new FlexibleSearchQuery(query);
+    resultIterator = flexibleSearchService.search(flexibleSearchQuery).getResult().iterator();
+    while (resultIterator.hasNext()) {
+      currentLine = new HashMap();
+      currentLine.put(Integer.valueOf(1), resultIterator.next().getCode());
+      impex.insertLine(currentLine);
+    }
+"

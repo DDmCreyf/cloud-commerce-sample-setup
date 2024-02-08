@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- Converters -->
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="asyncOfferCoreConverter"/>
+        <property name="remove" ref="asyncOfferPricePopulator"/>
+    </bean>
+
+    <alias name="defaultOfferPricingModelToDataConverter" alias="offerPricingModelToDataConverter"/>
+    <bean id="defaultOfferPricingModelToDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferPricingData"/>
+        <property name="populators">
+            <list>
+                <ref bean="offerPricingModelToDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Populators -->
+
+    <alias name="defaultAsyncOfferPricingPopulator" alias="asyncOfferPricingPopulator"/>
+    <bean id="defaultAsyncOfferPricingPopulator" class="com.mirakl.hybris.advancedpricing.product.populators.AsyncOfferPricingPopulator"/>
+
+    <alias name="defaultOfferPricingModelToDataPopulator" alias="offerPricingModelToDataPopulator"/>
+    <bean id="defaultOfferPricingModelToDataPopulator" class="com.mirakl.hybris.advancedpricing.product.populators.OfferPricingModelToDataPopulator">
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService" />
+    </bean>
+
+    <alias name="defaultCustomerOfferPricingCriteriaBuilderPopulator" alias="customerOfferPricingCriteriaBuilderPopulator"/>
+    <bean id="defaultCustomerOfferPricingCriteriaBuilderPopulator" class="com.mirakl.hybris.advancedpricing.product.populators.CustomerOfferPricingCriteriaBuilderPopulator">
+        <property name="customerGroupResolvingStrategy" ref="miraklCustomerGroupResolvingStrategy" />
+        <property name="customerOrganizationResolvingStrategy" ref="miraklCustomerOrganizationResolvingStrategy" />
+    </bean>
+
+    <alias name="defaultOfferPricingCriteriaBuilderPopulators" alias="offerPricingCriteriaBuilderPopulators"/>
+    <util:list id="defaultOfferPricingCriteriaBuilderPopulators" value-type="com.mirakl.hybris.advancedpricing.product.populators.OfferPricingCriteriaBuilderPopulator">
+        <ref bean="customerOfferPricingCriteriaBuilderPopulator"/>
+    </util:list>
+
+    <alias name="defaultMiraklOfferOverviewDataAdvancedPricePopulator" alias="miraklOfferOverviewDataPricePopulator"/>
+    <bean id="defaultMiraklOfferOverviewDataAdvancedPricePopulator" class="com.mirakl.hybris.advancedpricing.search.solrfacetsearch.populators.impl.MiraklOfferOverviewDataAdvancedPricePopulator"
+          parent="defaultMiraklOfferOverviewDataPricePopulator">
+        <property name="offerPricingFacade" ref="offerPricingFacade"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <alias name="defaultMiraklAdvancedPricingGetShippingRatesRequestPopulator" alias="miraklAdvancedPricingGetShippingRatesRequestPopulator"/>
+    <bean id="defaultMiraklAdvancedPricingGetShippingRatesRequestPopulator" class="com.mirakl.hybris.advancedpricing.order.populators.DefaultMiraklAdvancedPricingGetShippingRatesRequestPopulator">
+        <property name="customerOrganizationResolvingStrategy" ref="miraklCustomerOrganizationResolvingStrategy"/>
+    </bean>
+
+    <bean id="miraklAdvancedPricingGetShippingRatesRequestPopulators" depends-on="miraklGetShippingRatesRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklAdvancedPricingGetShippingRatesRequestPopulator" />
+    </bean>
+
+    <alias name="defaultAdvancedPricingMiraklOfferUpdatePopulator" alias="miraklOfferUpdatePopulator"/>
+    <bean id="defaultAdvancedPricingMiraklOfferUpdatePopulator"
+          class="com.mirakl.hybris.advancedpricing.product.populators.MiraklAdvancedPricingOfferUpdatePopulator"/>
+
+
+    <!-- Facades -->
+
+    <alias name="defaultOfferPricingFacade" alias="offerPricingFacade"/>
+    <bean id="defaultOfferPricingFacade" class="com.mirakl.hybris.advancedpricing.product.facades.impl.DefaultOfferPricingFacade">
+        <property name="offerPricingService" ref="offerPricingService"/>
+        <property name="offerPricingDataConverter" ref="offerPricingModelToDataConverter"/>
+    </bean>
+
+    <!-- Services -->
+
+    <alias name="defaultOfferPricingService" alias="offerPricingService"/>
+    <bean id="defaultOfferPricingService"
+          class="com.mirakl.hybris.advancedpricing.product.services.impl.DefaultOfferPricingService">
+        <property name="offerPricingDao" ref="offerPricingDao"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <!-- DAOs -->
+
+    <alias name="defaultOfferPricingDao" alias="offerPricingDao"/>
+    <bean id="defaultOfferPricingDao" class="com.mirakl.hybris.advancedpricing.product.daos.impl.DefaultOfferPricingDao"/>
+
+    <!-- Comparators -->
+    <alias name="defaultOfferPricingComparator" alias="oferPricingComparator"/>
+    <alias name="defaultOfferPricingComparator" alias="offerPricingComparator"/>
+    <bean id="defaultOfferPricingComparator" class="com.mirakl.hybris.advancedpricing.comparators.DefaultOfferPricingComparator"/>
+
+    <alias name="defaultOfferPricingPriceComparator" alias="offerPricingPriceComparator"/>
+    <bean id="defaultOfferPricingPriceComparator" class="com.mirakl.hybris.advancedpricing.comparators.DefaultOfferPricingPriceComparator"/>
+
+    <alias name="defaultOfferPricingComparators" alias="offerPricingComparators"/>
+    <util:list id="defaultOfferPricingComparators" value-type="java.util.Comparator">
+        <ref bean="oferPricingComparator"/>
+        <ref bean="offerPricingPriceComparator"/>
+    </util:list>
+
+    <!-- Dynamic attribute handlers -->
+
+    <alias name="defaultOfferPricingDynamicPrice" alias="offerPricingDynamicPrice"/>
+    <bean id="defaultOfferPricingDynamicPrice" class="com.mirakl.hybris.advancedpricing.product.attributes.DefaultOfferPricingDynamicPrice">
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <alias name="defaultOfferPricingDynamicPriceDetailJSONPretty" alias="offerPricingDynamicPriceDetailJSONPretty"/>
+    <bean id="defaultOfferPricingDynamicPriceDetailJSONPretty" class="com.mirakl.hybris.advancedpricing.product.attributes.DefaultOfferPricingDynamicPriceDetailJSONPretty">
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <!-- Strategies -->
+
+    <alias name="defaultMiraklAdvancedPricingImportStrategy" alias="miraklAdvancedPricingImportStrategy"/>
+    <bean id="defaultMiraklAdvancedPricingImportStrategy" class="com.mirakl.hybris.advancedpricing.product.strategies.impl.DefaultAdvancedPricingImportStrategy">
+        <property name="offerPricingService" ref="offerPricingService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="asyncOfferPriceDetailsConverter" ref="asyncOfferPriceDetailsConverter"/>
+        <property name="asyncOfferPricingPopulator" ref="asyncOfferPricingPopulator"/>
+        <property name="priceImportCompatibilityStrategy" ref="priceImportCompatibilityStrategy"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <bean id="miraklAsyncOfferImportStrategiesMergeDirective" depends-on="miraklAsyncOfferImportStrategies" parent="listMergeDirective">
+        <property name="add" ref="miraklAdvancedPricingImportStrategy"/>
+    </bean>
+
+    <alias name="defaultOfferPricingSortingStrategy" alias="offerPricingSortingStrategy"/>
+    <bean id="defaultOfferPricingSortingStrategy" class="com.mirakl.hybris.advancedpricing.product.strategies.impl.DefaultOfferPricingSortingStrategy">
+        <property name="orderedComparators" ref="offerPricingComparators"/>
+    </bean>
+
+    <alias name="defaultAdvancedOfferPricingSelectionStrategy" alias="offerPricingSelectionStrategy" />
+    <bean id="defaultAdvancedOfferPricingSelectionStrategy" class="com.mirakl.hybris.advancedpricing.product.strategies.impl.DefaultAdvancedOfferPricingSelectionStrategy">
+        <property name="offerPricingFacade" ref="offerPricingFacade" />
+        <property name="offerPricingSortingStrategy" ref="offerPricingSortingStrategy" />
+        <property name="pricingCriteriaPopulators" ref="offerPricingCriteriaBuilderPopulators" />
+    </bean>
+
+    <!-- Features -->
+
+    <bean id="miraklAdvancedPricingFeatureMergeDirective" depends-on="miraklPricingEnabledFeatures" parent="listMergeDirective">
+        <property name="add">
+            <value type="com.mirakl.hybris.core.util.feature.MiraklPriceFeature">ADVANCED_PRICING</value>
+        </property>
+    </bean>
+
+
+</beans>

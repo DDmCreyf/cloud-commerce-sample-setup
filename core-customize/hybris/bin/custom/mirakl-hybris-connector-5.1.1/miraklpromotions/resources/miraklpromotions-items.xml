@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+    <!-- Relations typecodes : 28300-28400 -->
+    <!-- itemtype typecodes : 28400-28500 -->
+
+    <collectiontypes>
+        <collectiontype elementtype="MiraklPromotion" code="MiraklPromotionCollection" type="set" />
+    </collectiontypes>
+
+    <enumtypes>
+        <enumtype code="MiraklPromotionState" dynamic="true">
+            <value code="ACTIVE" />
+            <value code="PENDING" />
+            <value code="EXPIRED" />
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="MiraklPromotionActionType" dynamic="true">
+            <value code="PERCENTAGE_OFF" />
+            <value code="AMOUNT_OFF" />
+            <value code="FREE_ITEMS" />
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+    </enumtypes>
+
+
+    <itemtypes>
+        <itemtype code="MiraklPromotion" jaloclass="com.mirakl.hybris.promotions.jalo.MiraklPromotion">
+            <description>Entity holding the promotion definition defined in Mirakl</description>
+            <deployment table="miraklpromotions" typecode="28400" />
+            <attributes>
+                <attribute qualifier="internalId" type="java.lang.String">
+                    <description>Identifier of the promotion for the shop. This identifier is unique per shop, not platform-wide.</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="startDate" type="java.util.Date">
+                    <description>The promotion start date</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="endDate" type="java.util.Date">
+                    <description>The promotion end date</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="miraklCreationDate" type="java.util.Date">
+                    <description>The creation date in Mirakl</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="internalDescription" type="java.lang.String">
+                    <description>The internal description of the promotion, set by the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="state" type="MiraklPromotionState">
+                    <description>The promotion state</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="type" type="MiraklPromotionActionType">
+                    <description>The promotion type of discount</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="publicDescription" type="localized:java.lang.String">
+                    <description>The public description</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="mediaUrl" type="localized:java.lang.String">
+                    <description>The medias associated with this promotion, with the locales they apply to</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="percentageOff" type="java.math.BigDecimal">
+                    <description>The percentage off of the promotion. Only applicable when promotion is of type PERCENTAGE_OFF, null otherwise</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="amountOff" type="java.math.BigDecimal">
+                    <description>The amount off of the promotion. Only applicable when promotion is of type AMOUNT_OFF, null otherwise</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="freeItemsQuantity" type="java.lang.Integer">
+                    <description>The free item target quantity of the promotion. Only applicable when promotion is of type FREE_ITEMS, null otherwise</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="rewardOnPurchasedItems" type="boolean">
+                    <description>Specifies if the promotion's reward applies to purchased items or to a specific selection</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="shopId" type="java.lang.String">
+                    <description>Unique identifier of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxMiraklPromotion" unique="true">
+                    <key attribute="internalId"/>
+                    <key attribute="shopId"/>
+                </index>
+            </indexes>
+        </itemtype>
+        
+        <itemtype code="Offer" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="triggerPromotions" type="MiraklPromotionCollection">
+                    <description>The promotions triggered by the offer</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="rewardPromotions" type="MiraklPromotionCollection">
+                    <description>The promotions defining the offer as a reward</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklImportPromotionsCronJob" jaloclass="com.mirakl.hybris.promotions.jalo.MiraklImportPromotionsCronJob" extends="CronJob">
+            <description>Cronjob for Synchronzing promotions from Mirakl into Hybris</description>
+        </itemtype>
+        
+        <itemtype code="MiraklImportPromotionsOfferMappingCronJob" jaloclass="com.mirakl.hybris.promotions.jalo.MiraklImportPromotionsOfferMappingCronJob" extends="CronJob">
+            <description>Cronjob for importing the mapping between promotions and offers.</description>
+            <attributes>
+                <attribute qualifier="lastExecutionDate" type="java.util.Date">
+                    <description>The last execution date of the cronjob</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklRuleBasedOrderAdjustTotalAction" extends="RuleBasedOrderAdjustTotalAction">
+            <attributes>
+                <attribute qualifier="shopId" type="java.lang.String">
+                    <persistence type="property" />
+                    <description>The id of the shop which created the promotion</description>
+                </attribute>
+                <attribute qualifier="promotionId" type="java.lang.String">
+                    <persistence type="property" />
+                    <description>The id of the promotion</description>
+                </attribute>
+            </attributes>
+        </itemtype>
+    </itemtypes>
+</items>

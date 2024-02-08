@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- Features -->
+    <bean id="miraklChannelsFeatureMergeDirective" depends-on="miraklPricingEnabledFeatures" parent="listMergeDirective">
+        <property name="add">
+            <value type="com.mirakl.hybris.core.util.feature.MiraklPriceFeature">CHANNEL_PRICING</value>
+        </property>
+    </bean>
+
+    <!-- Converters -->
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="miraklOffersSummaryDataConverter"/>
+        <property name="add" ref="miraklChannelsOffersSummaryDataPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="documentSearchResultConverter"/>
+        <property name="add" ref="miraklDocumentSearchResultValuePopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="commerceSolrSearchResponseConverter"/>
+        <property name="add" ref="miraklSearchResponseFacetChannelFilterPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="miraklShopConverter"/>
+        <property name="add" ref="shopChannelsPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="offerConverter"/>
+        <property name="add" ref="offerChannelsPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="asyncOfferCoreConverter"/>
+        <property name="add" ref="asyncOfferChannelsPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="miraklOfferOverviewDataConverter"/>
+        <property name="add" ref="miraklChannelsOfferOverviewDataPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="miraklCreateOrderConverter"/>
+        <property name="add" ref="miraklCreateOrderChannelPopulator"/>
+    </bean>
+
+    <!-- Populators -->
+
+    <alias name="defaultMiraklChannelsOffersSummaryDataPopulator" alias="miraklChannelsOffersSummaryDataPopulator"/>
+    <bean id="defaultMiraklChannelsOffersSummaryDataPopulator" class="com.mirakl.hybris.channels.search.facades.solrfacetsearch.populators.impl.MiraklChannelsOffersSummaryDataPopulator">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <alias name="defaultMiraklSearchResultProductWithChannelsPopulator" alias="miraklSearchResultProductPopulator"/>
+    <bean id="defaultMiraklSearchResultProductWithChannelsPopulator" class="com.mirakl.hybris.channels.search.facades.solrfacetsearch.populators.impl.MiraklSearchResultProductWithChannelsPopulator"
+          parent="defaultMiraklSearchResultProductPopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+        <property name="offersSummaryDataConverter" ref="miraklOffersSummaryDataConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklChannelDocumentSearchResultValuePopulator" alias="miraklDocumentSearchResultValuePopulator"/>
+    <bean id="defaultMiraklChannelDocumentSearchResultValuePopulator" class="com.mirakl.hybris.channels.search.facades.solrfacetsearch.populators.impl.DefaultMiraklChannelDocumentSearchResultValuePopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <alias name="defaultMiraklSearchResponseFacetChannelFilterPopulator" alias="miraklSearchResponseFacetChannelFilterPopulator"/>
+    <bean id="defaultMiraklSearchResponseFacetChannelFilterPopulator" class="com.mirakl.hybris.channels.search.facades.solrfacetsearch.populators.impl.MiraklSearchResponseFacetChannelFilterPopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <alias name="defaultShopChannelsPopulator" alias="shopChannelsPopulator" />
+    <bean id="defaultShopChannelsPopulator" class="com.mirakl.hybris.channels.shop.populators.ShopChannelsPopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <alias name="defaultOfferChannelsPopulator" alias="offerChannelsPopulator"/>
+    <bean id="defaultOfferChannelsPopulator" class="com.mirakl.hybris.channels.product.populators.OfferChannelsPopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <alias name="defaultAsyncOfferChannelsPopulator" alias="asyncOfferChannelsPopulator"/>
+    <bean id="defaultAsyncOfferChannelsPopulator" class="com.mirakl.hybris.channels.product.populators.AsyncOfferChannelsPopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <alias name="defaultMiraklChannelsOfferOverviewDataPopulator" alias="miraklChannelsOfferOverviewDataPopulator"/>
+    <bean id="defaultMiraklChannelsOfferOverviewDataPopulator" class="com.mirakl.hybris.channels.search.facades.solrfacetsearch.populators.impl.MiraklChannelsOfferOverviewDataPopulator"/>
+
+    <alias name="defaultMiraklCreateOrderChannelPopulator" alias="miraklCreateOrderChannelPopulator"/>
+    <bean id="defaultMiraklCreateOrderChannelPopulator" class="com.mirakl.hybris.channels.order.populators.MiraklCreateOrderChannelPopulator">
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+    </bean>
+
+    <bean id="miraklChannelsProductsOffersSearchRequestPopulators" depends-on="miraklGetOffersOnProductsRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklChannelsGetOffersOnProductsRequestPopulator"/>
+    </bean>
+
+    <alias name="defaultChannelsGetOffersOnProductsRequestPopulator" alias="miraklChannelsGetOffersOnProductsRequestPopulator"/>
+    <bean id="defaultChannelsGetOffersOnProductsRequestPopulator" class="com.mirakl.hybris.channels.product.populators.MiraklChannelsGetOffersOnProductsRequestPopulator">
+        <property name="channelResolvingStrategy" ref="miraklChannelResolvingStrategy"/>
+    </bean>
+
+    <bean id="miraklChannelGetOfferRequestPopulators" depends-on="miraklGetOfferRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklChannelGetOfferRequestPopulator"/>
+    </bean>
+    <alias name="defaultMiraklChannelGetOfferRequestPopulator" alias="miraklChannelGetOfferRequestPopulator"/>
+    <bean id="defaultMiraklChannelGetOfferRequestPopulator" class="com.mirakl.hybris.channels.product.populators.MiraklChannelGetOfferRequestPopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <!-- Strategies -->
+
+    <alias name="defaultChannelOfferPricingSelectionStrategy" alias="offerPricingSelectionStrategy"/>
+    <bean id="defaultChannelOfferPricingSelectionStrategy" class="com.mirakl.hybris.channels.product.strategies.impl.DefaultChannelOfferPricingSelectionStrategy">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+        <property name="offerService" ref="offerService"/>
+    </bean>
+
+    <alias name="defaultMiraklChannelResolvingStrategy" alias="miraklChannelResolvingStrategy"/>
+    <bean id="defaultMiraklChannelResolvingStrategy" class="com.mirakl.hybris.channels.channel.strategies.impl.DefaultMiraklChannelResolvingStrategy">
+        <property name="userService" ref="userService"/>
+        <property name="baseSiteService" ref="baseSiteService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <bean id="miraklChannelsGetShippingRatesRequestPopulators" depends-on="miraklGetShippingRatesRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklChannelsGetShippingRatesRequestPopulator" />
+    </bean>
+
+    <alias name="defaultMiraklChannelsGetShippingRatesRequestPopulator" alias="miraklChannelsGetShippingRatesRequestPopulator"/>
+    <bean id="defaultMiraklChannelsGetShippingRatesRequestPopulator" class="com.mirakl.hybris.channels.order.populators.DefaultMiraklChannelsGetShippingRatesRequestPopulator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <!-- Services -->
+
+    <alias name="defaultMiraklChannelService" alias="miraklChannelService"/>
+    <bean id="defaultMiraklChannelService" class="com.mirakl.hybris.channels.channel.services.impl.DefaultMiraklChannelService">
+        <property name="modelService" ref="modelService"/>
+        <property name="sessionService" ref="sessionService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="miraklChannelDao" ref="miraklChannelDao"/>
+    </bean>
+
+    <!-- Daos -->
+
+    <alias name="defaultMiraklChannelDao" alias="miraklChannelDao"/>
+    <bean id="defaultMiraklChannelDao" class="com.mirakl.hybris.channels.channel.daos.impl.DefaultMiraklChannelDao" />
+
+    <alias name="defaultOfferDaoChannelQueryDecorator" alias="offerDaoChannelQueryDecorator"/>
+    <bean id="defaultOfferDaoChannelQueryDecorator" class="com.mirakl.hybris.channels.product.daos.impl.OfferDaoChannelQueryDecorator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <bean id="offerDaoChannelQueryDecorators"  depends-on="offerDaoQueryDecorators" parent="listMergeDirective">
+        <property name="add" ref="offerDaoChannelQueryDecorator" />
+    </bean>
+
+    <alias name="defaultShopDaoChannelQueryDecorator" alias="shopDaoChannelQueryDecorator"/>
+    <bean id="defaultShopDaoChannelQueryDecorator" class="com.mirakl.hybris.channels.shop.daos.impl.ShopDaoChannelQueryDecorator">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+    <bean id="shopDaoChannelQueryDecorators"  depends-on="shopDaoQueryDecorators" parent="listMergeDirective">
+        <property name="add" ref="shopDaoChannelQueryDecorator" />
+    </bean>
+
+    <!-- Listeners -->
+
+    <bean id="miraklchannelsaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+        <property name="supportedChannels">
+            <list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+                <value>B2C</value>
+                <!--
+                                <value>B2B</value>
+                -->
+            </list>
+        </property>
+        <property name="addonExtensionMetadata">
+            <bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+                <property name="suffixChannel" value="false"/>
+                <property name="baseExtensionName" value="miraklchannelsaddon"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="miraklchannelsaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+        <property name="extensionName" value="miraklchannelsaddon" />
+    </bean>
+
+    <bean id="miraklChannelsListener" class="com.mirakl.hybris.channels.search.facades.solrfacetsearch.indexer.listeners.MiraklChannelListener">
+        <property name="miraklChannelService" ref="miraklChannelService" />
+        <property name="miraklChannelResolvingStrategy" ref="miraklChannelResolvingStrategy" />
+    </bean>
+
+    <bean id="miraklChannelsListenerDefinition" parent="solrListenerDefinition">
+        <property name="priority" value="-1" />
+        <property name="listener" ref="miraklChannelsListener" />
+    </bean>
+
+    <!-- Aspects  -->
+
+    <aop:aspectj-autoproxy/>
+    <aop:config>
+        <aop:aspect id="channelFieldValueProviderAspect" ref="fieldValueProviderAspect">
+            <aop:pointcut id="getFieldValuesPointCut" expression="execution(* de.hybris.platform.solrfacetsearch.provider.FieldValueProvider.getFieldValues(..)) and args(indexConfig,indexedProperty,object)" />
+            <aop:around method="aroundGetFieldValues" pointcut-ref="getFieldValuesPointCut" arg-names="indexConfig,indexedProperty,object"/>
+        </aop:aspect>
+    </aop:config>
+
+    <alias name="defaultFieldValueProviderAspect" alias="fieldValueProviderAspect"/>
+    <bean id="defaultFieldValueProviderAspect" class="com.mirakl.hybris.channels.search.facades.solrfacetsearch.provider.aspects.DefaultFieldValueProviderAspect">
+        <property name="miraklChannelService" ref="miraklChannelService"/>
+    </bean>
+
+</beans>

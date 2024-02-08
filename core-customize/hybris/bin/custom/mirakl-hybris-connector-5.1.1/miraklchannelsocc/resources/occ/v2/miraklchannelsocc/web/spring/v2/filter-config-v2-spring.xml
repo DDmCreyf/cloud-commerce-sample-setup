@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<alias name="defaultMiraklOccChannelFilter" alias="miraklOccChannelFilter"/>
+	<bean id="defaultMiraklOccChannelFilter" class="com.mirakl.hybris.channels.filters.MiraklOCCChannelFilter">
+		<property name="miraklChannelResolvingStrategy" ref="miraklChannelResolvingStrategy"/>
+		<property name="miraklChannelService" ref="miraklChannelService"/>
+	</bean>
+
+	<bean depends-on="commerceWebServicesFilterChainListV2" parent="listMergeDirective">
+		<property name="add" ref="miraklOccChannelFilter" />
+	</bean>
+
+</beans>

@@ -1,0 +1,29 @@
+.MiraklProductListComponent-ListPickUpInStoreAction,
+.MiraklProductListComponent-MiraklListAddToCartAction,
+.MiraklSearchResultsListComponent-ListPickUpInStoreAction,
+.MiraklSearchResultsListComponent-MiraklListAddToCartAction {
+  .make-xs-column(6);
+  .make-sm-column(4);
+  .make-sm-column-push(4);
+}
+
+@media (max-width: @screen-xs-max) {
+  .addtocart-component .order-conditions {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: @screen-xs-max) {
+  .tab-offers .offer-line {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.messaging-pane .client .bubble {
+	background-color: @meta-nav-background;
+}
+
+.messaging-pane .client .bubble:before {
+	border-color: transparent @meta-nav-background;
+}

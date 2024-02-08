@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<items  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xsi:noNamespaceSchemaLocation="items.xsd">
+            
+    <!-- Relations typecodes : 28900-29000 -->
+    <!-- itemtype typecodes : 29000-29100 -->
+    
+    <collectiontypes>
+        <collectiontype code="MiraklCatalogSet" elementtype="java.lang.String" autocreate="true" generate="true" type="set"/>
+    </collectiontypes>
+    
+    <enumtypes>
+        <enumtype code="MiraklCatalogSystem" autocreate="false" generate="false" dynamic="true">
+            <description>Sets of APIs used to synchronize your catalog with Mirakl</description>
+            <value code="MCM"/>
+        </enumtype>
+        
+        <enumtype code="MiraklProductRejectionReason" dynamic="true">
+            <description>Reason of rejection for MCM products</description>
+            <value code="QUALITY"/>
+            <value code="EXCLUSIVITY"/>
+        </enumtype>
+        
+        <enumtype code="MarketplaceProductAcceptanceStatus">
+            <description>Acceptance status of the product in MCM</description>
+            <value code="NEW"/>
+            <value code="REJECTED"/>
+            <value code="ACCEPTED"/>
+        </enumtype>
+        
+        <enumtype code="MiraklExportType" autocreate="false" generate="false">
+            <description>Export Job Type</description>
+            <value code="PRODUCT_DATASHEET_EXPORT"/>
+        </enumtype>
+        
+    </enumtypes>
+    
+    <relations>
+        <relation code="MiraklDownloadProductFiles2AcceptanceStatus" localized="false">
+            <description>One to Many relation between the product import cronjob and the product acceptance statuses</description>
+            <deployment table="prodFile2AcceptRel" typecode="28900"/>
+            <sourceElement type="MiraklDownloadProductFilesCronjob" cardinality="many" navigable="false">
+                <description>The product files download job</description>
+            </sourceElement>
+            <targetElement type="MarketplaceProductAcceptanceStatus" qualifier="acceptanceStatuses" cardinality="many" collectiontype="set">
+                <description>The MCM acceptance status of the products to import</description>
+            </targetElement>
+        </relation>
+    </relations>
+    
+    <itemtypes>
+        <itemtype code="MiraklExportSellableProductsCronJob" autocreate="false" generate="false">
+            <description>Products Export Job</description>
+            <attributes>
+	            <attribute qualifier="catalogVersion" type="CatalogVersion">
+	                <description>The catalog version used for the export.</description>
+	                <persistence type="property" />
+	            </attribute>
+	            <attribute qualifier="productOrigins" type="ProductOriginList">
+	                <description>The origin of the products to export</description>
+	                <persistence type="property" />
+	            </attribute>
+	            <attribute qualifier="coreAttributeConfiguration" type="MiraklCoreAttributeConfiguration">
+	                <description>The core attribute configuration to be used for the CM21 export</description>
+	                    <persistence type="property"/>
+	                </attribute>
+	            <attribute qualifier="coreAttributes" type="MiraklCoreAttributeList">
+	                <description>The core Attributes included in the configuration</description>
+	                <persistence type="dynamic" attributeHandler="productExportCoreAttributesDynamicHandler" />
+	            </attribute>
+            </attributes>
+        </itemtype>
+    
+        <itemtype code="MiraklExportProductDataSheetJobReport" extends="MiraklJobReport">
+            <attributes>
+                <attribute qualifier="catalogVersion" type="CatalogVersion">
+                    <description>Catalog version used during the export</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+    
+        <itemtype code="Product" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="miraklProductId" type="java.lang.String">
+                    <description>ID of the product in Mirakl</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="miraklVariantGroupCode" type="java.lang.String">
+                    <description>MCM variant group code of the product</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="checksum" type="java.lang.String">
+                    <description>A checksum of the product received from MCM</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="rejectionReason" type="MiraklProductRejectionReason">
+                    <description>Reason of the rejection for Mirakl products</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="rejectionMessage" type="java.lang.String">
+                    <description>Message to explain the product rejection</description>
+                    <persistence type="property"/>
+                </attribute>
+                
+            </attributes>
+            <indexes>
+                <index name="IdxProductMiraklId">
+                    <key attribute="miraklProductId"/>
+                    <key attribute="catalogVersion"/>
+                </index>
+                <index name="IdxProductChecksum">
+                    <key attribute="checksum"/>
+                    <key attribute="catalogVersion"/>
+                </index>
+                <index name="IdxProductMiraklVGC">
+                    <key attribute="miraklVariantGroupCode"/>
+                    <key attribute="catalogVersion"/>
+                </index>
+            </indexes>
+        </itemtype>
+       
+       <itemtype code="MiraklRawProduct" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="miraklProductId" type="java.lang.String">
+                     <description>ID of the product in Mirakl</description>
+                     <persistence type="property"/>
+                 </attribute>
+                 <attribute qualifier="acceptanceStatus" type="MarketplaceProductAcceptanceStatus">
+                     <description>Acceptance status of the product in MCM</description>
+                     <persistence type="property"/>
+                 </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxRawProduct" replace="true">
+                    <key attribute="miraklProductId"/>
+                    <key attribute="shopId"/>
+                    <key attribute="variantGroupCode"/>
+                    <key attribute="importId"/>
+                </index>
+            </indexes>
+       </itemtype>
+       
+       <itemtype code="MiraklDownloadProductFilesCronjob" autocreate="false" generate="false">
+            <attributes>
+                 <attribute qualifier="miraklCatalogs" type="MiraklCatalogSet">
+                     <description>The Mirakl catalogs to download files for</description>
+                     <persistence type="property"/>
+                 </attribute>
+            </attributes>
+       </itemtype>
+       
+    </itemtypes>
+</items>

@@ -1,0 +1,12 @@
+$productCatalog=apparelProductCatalog
+$currencies=GBP
+$net=false
+$storeUid=apparel-uk
+$defaultCurrency=GBP
+$languages=en
+$defaultLanguage=en
+$orderProcessCode=mirakl-order-process
+$defaultDeliveryCountry=FR
+
+INSERT_UPDATE BaseStore ; uid[unique=true] ; submitOrderProcessCode ; defaultDeliveryCountry(isocode)
+                        ; $storeUid        ; $orderProcessCode      ; $defaultDeliveryCountry        

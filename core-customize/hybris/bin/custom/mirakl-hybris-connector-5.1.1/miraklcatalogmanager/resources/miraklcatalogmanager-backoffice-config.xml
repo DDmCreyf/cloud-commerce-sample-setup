@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+
+    <!-- MiraklExportSellableProductsCronJob -->
+
+    <context component="editor-area" type="MiraklExportSellableProductsCronJob" merge-by="type">
+        <editorArea:editorArea name="MiraklExportSellableProductsCronJobEditor">
+            <editorArea:tab name="hmc.tab.common" position="0">
+                <editorArea:section name="hmc.section.mcm">
+                    <editorArea:panel colspan="1">
+                        <editorArea:attribute qualifier="productOrigins"/>
+                        <editorArea:attribute qualifier="catalogVersion"/>
+                        <editorArea:attribute qualifier="coreAttributeConfiguration"/>
+                    </editorArea:panel>
+                    <editorArea:panel name="coreAttributesPanel" colspan="4" position="3">
+                        <editorArea:attribute qualifier="coreAttributes" editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>listConfigContext</editorArea:name>
+                                <editorArea:value>inLineEditorConfig</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>inlineEditing</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    
+    <!-- MiraklDownloadProductFilesCronjob -->
+   
+    <context component="editor-area" type="MiraklDownloadProductFilesCronjob" merge-by="type">
+        <editorArea:editorArea name="MiraklDownloadProductFilesCronjobEditor">
+            <editorArea:tab name="hmc.tab.common" position="0">
+                <editorArea:section name="hmc.section.mcm">
+                    <editorArea:attribute qualifier="acceptanceStatuses"/>
+                    <editorArea:attribute qualifier="miraklCatalogs"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    
+    <!-- Product -->
+    
+    <context merge-by="type" component="editor-area" type="Product">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:panel name="hmc.section.common">
+                            <editorArea:attribute qualifier="miraklProductId"/>
+                            <editorArea:attribute qualifier="miraklVariantGroupCode"/>
+                            <editorArea:attribute qualifier="checksum"/>
+                            <editorArea:attribute qualifier="rejectionReason"/>
+                            <editorArea:attribute qualifier="rejectionMessage"/>
+                    </editorArea:panel>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    
+    <!-- MiraklRawProduct -->
+    
+    <context merge-by="type" parent="GenericItem" type="MiraklRawProduct" component="editor-area">
+        <editorArea:editorArea>
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="miraklProductId"/>
+                    <editorArea:attribute qualifier="acceptanceStatus"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+   
+</config>

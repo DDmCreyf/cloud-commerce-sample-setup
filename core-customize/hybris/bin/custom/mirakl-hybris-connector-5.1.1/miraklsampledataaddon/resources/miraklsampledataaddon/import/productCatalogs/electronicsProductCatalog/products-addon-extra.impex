@@ -1,0 +1,118 @@
+$productCatalog = electronicsProductCatalog
+$online = catalogVersion(catalog(id[default = $productCatalog]), version[default = Online])[unique = true, default = $productCatalog:Online]
+$staged = catalogVersion(catalog(id[default = $productCatalog]), version[default = Staged])[unique = true, default = $productCatalog:Staged]
+$classificationCatalog = ElectronicsClassification
+$systemVersion = systemVersion(catalog(id[default = $classificationCatalog]), version[default = 1.0])[unique = true, default = $classificationCatalog:1.0]
+$productRootCategoryCode = 1
+$brandRootCategoryCode = brands
+$colorRootCategoryCode = B2C_Color
+$rootCategory = rootCategory(code, $online)[default = $productRootCategoryCode]
+$rootBrandCategory = rootBrandCategory(code, $online)[default = $brandRootCategoryCode]
+$sessionUser = mirakl-system-user
+$mediaConversionUser = mirakl-mediaconversion-user
+$sessionCurrency = USD
+$lang = en
+$productFilesInputDirectory = productImport/electronics/input
+
+INSERT_UPDATE Catalog ; miraklCatalogSystem(code) ; translatableLanguages(isocode) ; rootProductType(code) ; id[unique = true, default = $productCatalog]
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+                      ; MCI                       ; en,de                          ; Product               
+#% endif:             
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogmanager"")"
+                      ; MCM                       ; en,de                          ; Product               
+#% endif:                                 
+
+INSERT_UPDATE MiraklCoreAttribute ; uid[unique = true] ; code             ; label[lang = $lang] ; description[lang = $lang] ; role(code)                   ; localized ; requirementLevelInternal(code) ; variant ; uniqueIdentifier ; type(code) ; typeParameter ; importExportHandlerStringId   ; category(code, $online) ; composedTypeOwners(code)[mode = append]
+                                  ; name               ; name             ; Name                ; The product name          ; TITLE_ATTRIBUTE              ; true      ; REQUIRED                       ; false   ; false            ; TEXT       ;               ; replicatedAttributeHandler    ;                         ;                                        
+                                  ; description        ; description      ; Description         ; The product description   ;                              ; true      ; RECOMMENDED                    ; false   ; false            ; LONG_TEXT  ;               ;                               ;                         ;                                        
+                                  ; ean                ; ean              ; EAN                 ; The product EAN           ;                              ; false     ; REQUIRED                       ; false   ; true             ; TEXT       ;               ;                               ;                         ;                                        
+                                  ; color              ; color            ; Color               ; The product color         ;                              ; false     ; OPTIONAL                       ; true    ; false            ; TEXT       ;               ;                               ;                         ;                                        
+                                  ; media              ; media            ; Media               ; The product image         ;                              ; false     ; OPTIONAL                       ; false   ; false            ; MEDIA      ; 10240         ; galleryImagesAttributeHandler ;                         ; ElectronicsColorVariantProduct,Product         
+                                  ; media-md           ; media            ; Media               ; The product image         ;                              ; false     ; OPTIONAL                       ; false   ; false            ; MEDIA      ; 10240         ; galleryImagesAttributeHandler ;                         ; GenericVariantProduct,Product                  
+                                  ; variantGroupCode   ; variantGroupCode ; Variant Group Code  ; The variant group code    ; VARIANT_GROUP_CODE_ATTRIBUTE ; false     ; OPTIONAL                       ; false   ; false            ; TEXT       ;               ;                               ;                         ;                                        
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+                                  ; shop_sku           ; shop_sku         ; Shop sku            ; The shop sku              ; SHOP_SKU_ATTRIBUTE           ; false     ; REQUIRED                       ; false   ; false            ; TEXT       ;               ;                               ;                         ;                                        
+#% endif:                                                                          
+
+INSERT_UPDATE MiraklCategoryCoreAttribute ; uid[unique = true]                ; code     ; label[lang = $lang] ; description[lang = $lang] ; requirementLevelInternal(code) ; variant ; importExportHandlerStringId                  ; rootCategoryCode         ; type(code) ; typeParameter ; role(code)        
+                                          ; category-$productRootCategoryCode ; category ; Category            ; The product category      ; REQUIRED                       ; false   ; categoryAttributeHandler                     ; $productRootCategoryCode ; TEXT       ;               ; CATEGORY_ATTRIBUTE
+                                          ; brand-$brandRootCategoryCode      ; brand    ; Brand               ; The product brand         ; OPTIONAL                       ; false   ; categoryWithExportableValuesAttributeHandler ; $brandRootCategoryCode   ; LIST       ; brand-values  ;                   
+                                          ; color-$colorRootCategoryCode      ; color    ; Color               ; The product color         ; OPTIONAL                       ; true    ; variantCategoryAttributeHandler              ; $colorRootCategoryCode   ; LIST       ;               ;                   
+
+INSERT_UPDATE MiraklCoreAttributeConfiguration ; code[unique = true]                        ; coreAttributes(uid)                                                                                                                       
+                                               ; electronics-coreAttributesConfiguration    ; name,description,ean,variantGroupCode,color,media,category-$productRootCategoryCode,brand-$brandRootCategoryCode                          
+                                               ; electronics-md-coreAttributesConfiguration ; name,description,ean,variantGroupCode,media-md,category-$productRootCategoryCode,brand-$brandRootCategoryCode,color-$colorRootCategoryCode
+
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+INSERT_UPDATE CoreAttributeConfig2CoreAttributesRel ; source(code)[unique = true]                ; target(uid)[unique = true]
+                                                    ; electronics-coreAttributesConfiguration    ; shop_sku                  
+                                                    ; electronics-md-coreAttributesConfiguration ; shop_sku                  
+#% endif:                                           
+
+INSERT_UPDATE MiraklExportCatalogCronJob ; $online ; code[unique = true]                    ; job(code)                     ; coreAttributeConfiguration(code)        ; defaultLanguage(isocode) ; additionalLanguages(isocode) ; exportCategories ; exportAttributes ; exportValueLists ; categoriesFileName ; attributesFileName ; valueListsFileName ; importTimeout ; importCheckInterval ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                         ;         ; electronics-MiraklExportCatalogCronJob ; defaultMiraklExportCatalogJob ; electronics-coreAttributesConfiguration ; en                       ; de                           ; true             ; true             ; true             ; catalog-categories ; attributes         ; value-lists        ; 3600          ; 5                   
+
+INSERT_UPDATE MiraklExportSellableProductsCronJob ; code[unique = true]                                         ; job(code)                ; baseSite(uid) ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; fullExport ; synchronizationFileName                      ; sessionUser(uid)[default = $sessionUser] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                  ; electronics-MiraklExportSellableProductsCronJob-full        ; defaultExportProductsJob ; electronics   ;                                           ;                                                      ; true       ; electronicsProductCatalog-online-full        ;                                          
+                                                  ; electronics-MiraklExportSellableProductsCronJob-incremental ; defaultExportProductsJob ; electronics   ;                                           ;                                                      ; false      ; electronicsProductCatalog-online-incremental ;                                          
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogmanager"")"
+UPDATE MiraklExportSellableProductsCronJob ; code[unique = true]                                         ; coreAttributeConfiguration(code)[default=electronics-coreAttributesConfiguration] ; productOrigins(code)[default=OPERATOR] ; catalogVersion(catalog(id[default = $productCatalog]), version[default = Online])[default = $productCatalog:Online]
+                                           ; electronics-MiraklExportSellableProductsCronJob-full        ;                                                                                   
+                                           ; electronics-MiraklExportSellableProductsCronJob-incremental ;                                                                                   
+#% endif:                                         
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+UPDATE MiraklExportSellableProductsCronJob ; code[unique = true]                                         ; $rootCategory ; $rootBrandCategory ;  
+                                           ; electronics-MiraklExportSellableProductsCronJob-full        ;               
+                                           ; electronics-MiraklExportSellableProductsCronJob-incremental ;               
+
+INSERT_UPDATE MiraklExportCommissionCategoriesCronJob ; code[unique = true]                ; job(code)                  ; $rootCategory ; synchronizationFileName          ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                      ; electronicsExportCategoriesCronJob ; defaultExportCategoriesJob ; 1             ; electronicsProductCatalog-online ;                                          ;                                           ;                                                      ;                          
+#% endif:                                             
+                                                      
+INSERT_UPDATE MiraklProductImportCronJob ; code[unique = true]                   ; inputDirectory                  ; archiveDirectory                  ; inputFilePattern          ; numberOfWorkers ; coreAttributeConfiguration(code)        ; mediaDownloadHttpHeaders[map-delimiter=','][key2value-delimiter=':'] ; $online ; $systemVersion ; job(code)[default = defaultMiraklProductImportJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1] ; cleanupRawProducts[default = true]
+                                         ; miraklElectronicsProductImportCronJob ; productImport/electronics/input ; productImport/electronics/archive ; ([^-]+)-([^-]+)-(.*)\.csv ;                 ; electronics-coreAttributesConfiguration ; Accept:*, Accept-Language:*, Accept-Encoding:*                       
+
+INSERT_UPDATE MiraklDownloadProductFilesCronjob ; code[unique = true]                          ; productimportCronJob(code)           ; job(code)[default = defaultMiraklDownloadProductFilesJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                ; miraklElectronicsDownloadProductFilesCronJob ; miraklElectronicsProductImportCronJob
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+INSERT_UPDATE MiraklDownloadProductFilesCronjob ; code[unique = true]                          ; importStatuses(code)[default = 'SENT,FAILED,RUNNING']
+                                                ; miraklElectronicsDownloadProductFilesCronJob ;                                                      
+#% endif:                                       
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogmanager"")"
+INSERT_UPDATE MiraklDownloadProductFilesCronjob ; code[unique = true]                          ; acceptanceStatuses(code)[default = 'ACCEPTED']
+                                                ; miraklElectronicsDownloadProductFilesCronJob ;                                               
+#% endif:                                       
+
+INSERT_UPDATE MediaConversionCronJob ; code[unique = true]                          ; job(code)                       ; maxThreads ; sessionLanguage(isocode)[default = $lang] ; sessionUser(uid)[default = $mediaConversionUser] ; $online
+                                     ; electronicsMarketplaceMediaConversionCronjob ; defaultMiraklMediaConversionJob ; 4          ;                                           
+
+INSERT_UPDATE CompositeEntry ; code[unique = true]                        ; executableCronJob(code)                     ;  
+                             ; miraklElectronicsDownloadProductFilesEntry ; miraklElectronicsDownloadProductFilesCronJob
+                             ; miraklElectronicsImportProductEntry        ; miraklElectronicsProductImportCronJob       
+                             ; miraklElectronicsMediaConversionEntry      ; electronicsMarketplaceMediaConversionCronjob
+
+INSERT_UPDATE MiraklProductImportCompositeCronJob ; code[unique = true]                            ; compositeEntries(code)                                                                                              ; job(code)[default = compositeJobPerformable] ; sessionUser(uid)[default = $mediaConversionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                  ; miraklElectronicsProductImportCompositeCronJob ; miraklElectronicsDownloadProductFilesEntry,miraklElectronicsImportProductEntry,miraklElectronicsMediaConversionEntry
+
+INSERT_UPDATE Trigger ; cronJob(code)[unique = true]                                ; second ; minute ; hour ; day ; month ; year ; relative ; active[default = false] ; maxAcceptableDelay ;  
+#% afterEach: impex.getLastImportedItem().setActivationTime(org.apache.commons.lang.time.DateUtils.addMinutes(new Date(),1));
+
+#P21 - Recommended every 15 minute
+                      ; electronics-MiraklExportSellableProductsCronJob-incremental ; 0      ; 15     ; -1   ; -1  ; -1    ; -1   ; true     ;                         ; -1                 
+                      ; electronics-MiraklExportSellableProductsCronJob-full        ; 0      ; -1     ; -1   ; 1   ; -1    ; -1   ; true     ;                         ; -1                 
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+INSERT_UPDATE Trigger ; cronJob(code)[unique = true]       ; second ; minute ; hour ; day ; month ; year ; relative ; active[default = false] ; maxAcceptableDelay ;  
+#% afterEach: impex.getLastImportedItem().setActivationTime(org.apache.commons.lang.time.DateUtils.addMinutes(new Date(),1));
+
+#CA01 - Maximum every 1 minute
+                      ; electronicsExportCategoriesCronJob ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; true     ;                         ; -1                 
+#% endif:             
+
+# Fixes the default Solr indexation jobs
+UPDATE SolrIndexerCronJob ; code [unique = true]           ; sessionCurrency(isocode)[default = $sessionCurrency]
+                          ; full-electronicsIndex-cronJob  
+                          ; update-electronicsIndex-cronJob

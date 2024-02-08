@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+
+    <!-- Base Store -->
+
+    <context merge-by="type" parent="GenericItem" type="BaseStore" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:attribute qualifier="miraklTaxConnectorEnabled"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+</config>

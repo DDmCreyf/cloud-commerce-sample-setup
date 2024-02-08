@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Orika : Converters -->
+
+    <bean class="com.mirakl.hybris.occ.mapping.converters.AssessmentTypeEnumConverter"/>
+    <bean class="com.mirakl.hybris.occ.mapping.converters.MultipartFileToFileConverter"/>
+    <bean class="com.mirakl.hybris.occ.mapping.converters.StringToThreadRecipientDataConverter"/>
+
+    <!-- Offer overview -->
+
+    <alias name="defaultMiraklOfferOverviewDataToDTOFieldMapper" alias="miraklOfferOverviewDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklOfferOverviewDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.OfferOverviewData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.offer.OfferOverviewWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklOfferStateSummaryDataToDTOFieldMapper" alias="miraklOfferStateSummaryDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklOfferStateSummaryDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.OfferStateSummaryData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.offer.OfferStateSummaryWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklOffersSummaryDataToDTOFieldMapper" alias="miraklOffersSummaryDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklOffersSummaryDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.OffersSummaryData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.offer.OffersSummaryWsDTO"/>
+    </bean>
+
+    <!-- Offer list -->
+
+    <alias name="defaultMiraklOfferDataToDTOFieldMapper" alias="miraklOfferDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklOfferDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.OfferData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.offer.OfferWsDTO"/>
+        <property name="fieldMapping">
+            <map>
+                <entry key="shopCode" value="shopId"/>
+                <entry key="state" value="stateLabel"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <alias name="defaultMiraklProductWithOfferDataToDTOFieldMapper" alias="miraklProductWithOfferDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklProductWithOfferDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ProductWithOffers"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.offer.ProductWithOffersWsDTO"/>
+        <property name="fieldMapping">
+        <map>
+            <entry key="code" value="productCode"/>
+        </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklProductsWithOfferDataToDTOFieldMapper" alias="miraklProductsWithOfferDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklProductsWithOfferDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ProductsOffers"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.offer.ProductsWithOffersListWsDTO"/>
+        <property name="fieldMapping">
+            <map>
+                <entry key="products" value="productsWithOffers"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Order history -->
+
+    <alias name="defaultMiraklConsignmentDataToDTOFieldMapper" alias="miraklConsignmentDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklConsignmentDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="de.hybris.platform.commercefacades.order.data.ConsignmentData"/>
+        <property name="destClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklConsignmentEntryDataToDTOFieldMapper" alias="miraklConsignmentEntryDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklConsignmentEntryDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="de.hybris.platform.commercefacades.order.data.ConsignmentEntryData"/>
+        <property name="destClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.ConsignmentEntryWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklDocumentDataToDTOFieldMapper" alias="miraklDocumentDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklDocumentDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.DocumentData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.order.DocumentWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklReasonDataListToDTOFieldMapper" alias="miraklReasonDataListToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklReasonDataListToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ReasonDataList"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.setting.ReasonListWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklReasonDataToDTOFieldMapper" alias="miraklReasonDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklReasonDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ReasonData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.setting.ReasonWsDTO"/>
+    </bean>
+
+    <!-- Shop -->
+
+    <alias name="defaultMiraklAssessmentDataToDTOFieldMapper" alias="miraklAssessmentDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklAssessmentDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.AssessmentData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.evaluation.AssessmentWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklEvaluationDataToDTOFieldMapper" alias="miraklEvaluationDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklEvaluationDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.EvaluationData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.evaluation.EvaluationWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklEvaluationPageDataToDTOFieldMapper" alias="miraklEvaluationPageDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklEvaluationPageDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.EvaluationPageData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.evaluation.EvaluationPageWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklShopDataToDTOFieldMapper" alias="miraklShopDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklShopDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ShopData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.shop.ShopWsDTO"/>
+    </bean>
+
+	<!-- Messaging -->
+
+	<alias name="defaultThreadListDataToDTOFieldMapper" alias="miraklThreadListDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultThreadListDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadListData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadListWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadDataToDTOFieldMapper" alias="miraklThreadDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklCreateThreadMessageDataToDTOFieldMapper" alias="miraklCreateThreadMessageDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklCreateThreadMessageDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.CreateThreadMessageData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.CreateThreadMessageWsDTO"/>
+        <property name="fieldMapping">
+            <map>
+                <entry key="attachements" value="attachments"/>
+            </map>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadDetailsDataToDTOFieldMapper" alias="miraklThreadDetailsDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadDetailsDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadDetailsData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadDetailsWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadMessageDataToDTOFieldMapper" alias="miraklThreadMessageDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadMessageDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadMessageData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadMessageWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadMessageAttachmentDataToDTOFieldMapper" alias="miraklThreadMessageAttachmentDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadMessageAttachmentDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadMessageAttachmentData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadMessageAttachmentWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadRecipientDataToDTOFieldMapper" alias="miraklThreadRecipientDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadRecipientDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadRecipientData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadRecipientWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadTopicDataToDTOFieldMapper" alias="miraklThreadTopicDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadTopicDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadTopicData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadTopicWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadRequestDataToDTOFieldMapper" alias="miraklThreadRequestDataToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadRequestDataToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.hybris.beans.ThreadRequestData"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.ThreadRequestWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadReplyCreatedToDTOFieldMapper" alias="miraklThreadReplyCreatedToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadReplyCreatedToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.client.mmp.domain.message.thread.MiraklThreadReplyCreated"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.MiraklThreadReplyCreatedWsDTO"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadCreatedToDTOFieldMapper" alias="miraklThreadCreatedToDTOFieldMapper"/>
+    <bean parent="fieldMapper" id="defaultMiraklThreadCreatedToDTOFieldMapper">
+        <property name="sourceClass"
+                  value="com.mirakl.client.mmp.domain.message.MiraklThreadCreated"/>
+        <property name="destClass"
+                  value="com.mirakl.hybris.dto.message.MiraklThreadCreatedWsDTO"/>
+    </bean>
+
+</beans>

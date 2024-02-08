@@ -1,0 +1,25 @@
+INSERT_UPDATE Language ; isocode[unique = true] ; fallbackLanguages(isocode) ; active[default = true]
+                       ; en                     ;                            ;                       ;  
+                       ; fr                     ; en                         ;                       ;  
+
+INSERT_UPDATE Currency ; isocode[unique = true] ; conversion ; digits ; symbol
+                       ; EUR                    ; 1          ; 2      ; €     
+                       ; USD                    ; 1          ; 2      ; $     
+
+INSERT_UPDATE Shop ; id[unique = true]
+                   ; 2002             
+
+INSERT_UPDATE OfferState ; code[unique = true] ; name           
+                         ; 1                   ; Used - Like New
+                         ; 10                  ; Refurbished    
+                         ; 11                  ; New            
+
+INSERT_UPDATE Offer ; id[unique = true] ; productCode ; state(code) ; currency(isocode)[default = 'USD'] ; shop(id) ; deleted[default = false]
+                    ; 12103             ; 3794514     ; 11          ;                                    ; 2002     
+                    ; 12175             ; 3794514     ; 11          ;                                    ; 2002     
+                    ; 12258             ; 3780171     ; 11          ;                                    ; 2002     
+
+
+
+INSERT_UPDATE OfferPricing ; offerId[unique = true] ; priceDetailsJSON                                                                                                    
+                           ; 12103                  ; {"price": 35,64, "unit_origin_price": 35,64, "volume_prices":[{"unit_origin_price": 35,64, "quantity_threshold":1}]}

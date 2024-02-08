@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+    <explorertree>
+        <group name="mirakl">
+            <group name="mirakl.jobs">
+                <typeref type="MiraklExportSellableProductsCronJob" description="typeref.miraklexportsellableproductscronjob.description"/>
+                <typeref type="MiraklImportCustomFieldsCronJob" description="typeref.miraklimportcustomfieldscronjob.description"/>
+                <typeref type="MiraklImportShopOfferStatesCronJob" description="typeref.miraklimportshopofferstatescronjob.description"/>
+		        <typeref type="MiraklImportShopOffersCompositeCronJob" description="typeref.miraklimportshopofferscompositecronjob.description"/>
+                <typeref type="MiraklRetrieveConsignmentUpdatesCronJob" description="typeref.miraklretrieveconsignmentupdatescronjob.description"/>
+                <typeref type="MiraklRetrieveProcessDebitsCompositeCronJob" description="typeref.miraklretrieveprocessdebitscompositecronjob.description"/>
+                <typeref type="MiraklRetrieveProcessRefundsCompositeCronJob" description="typeref.miraklretrieveprocessrefundscompositecronjob.description"/>
+                <typeref type="MiraklExportCatalogCronJob" description="typeref.miraklexportcatalogcronjob.description"/>
+                <typeref type="MiraklDownloadProductFilesCronjob" description="typeref.mirakldownloadproductfilescronjob.description"/>
+                <typeref type="MiraklProductImportCronJob" description="typeref.miraklimportproductscronjob.description"/>
+                <typeref type="MiraklProductImportCompositeCronJob" description="typeref.miraklproductimportcompositecronjob.description"/>
+                <typeref type="MiraklCleanupRawProductsCronjob" description="typeref.miraklcleanuprawproductscronjob.description"/>
+                <typeref type="MiraklExportStatusCronJob" description="typeref.miraklexportstatuscronjob.description"/>
+            </group>
+            <typeref type="Offer" description="typeref.offer.description"/>
+			<typeref type="Shop"/>
+            <typeref type="MiraklCoreAttribute" description="typeref.miraklcoreattribute.description"/>
+            <typeref type="MiraklCoreAttributeConfiguration" description="typeref.miraklcoreattributeconfiguration.description"/>
+            <typeref type="MiraklRawProduct" description="typeref.miraklrawproduct.description"/>
+            <typeref type="MiraklJobReport" description="typeref.miraklJobReport.description"/>
+            <typeref type="MiraklEnvironment" description="typeref.miraklenvironment.description"/>
+            <typeref type="MiraklCustomField" description="typeref.miraklcustonfield.description"/>
+        </group>
+
+        <group name="order" expand="">
+            <typeref type="MarketplaceConsignment" description="typeref.marketplaceConsignment.description" position="4"/>
+        </group>
+    </explorertree>
+
+	<type name="Shop" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="id" operator="contains" />
+				<condition attribute="name" operator="contains" />
+				<condition attribute="state" operator="equal" />
+			</search>
+			<result>
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="id" width="120" />
+						<attribute name="name" width="180" />
+						<attribute name="state" width="180" />
+					</itemlayout>
+				</listview>
+				<editview>
+					<itemlayout>
+						<attribute name="id" width="120" />
+						<attribute name="name" width="180" />
+						<attribute name="state" width="180" />
+					</itemlayout>
+				</editview>
+				<treeview>
+					<itemlayout>
+						<attribute name="id" width="120" />
+						<attribute name="name" width="180" />
+						<attribute name="state" width="180" />
+					</itemlayout>
+				</treeview>
+			</result>
+			<editor>
+				<essentials>
+					<columnlayout>
+						<row>
+							<attribute name="id" />
+							<attribute name="name" />
+						</row>
+					</columnlayout>
+				</essentials>
+				<tab name="properties" position="0">
+					<section name="properties">
+						<listlayout>
+							<attribute name="description" width="595" />
+							<attribute name="internalId" width="595" />
+							<attribute name="currency" width="595" />
+							<attribute name="state" width="595" />
+							<attribute name="professional" width="595" />
+							<attribute name="premium" width="595" />
+							<attribute name="premiumState" width="595" />
+							<attribute name="approvalDelay" width="595" />
+							<attribute name="approvalRate" width="595" />
+							<attribute name="evaluationCount" width="595" />
+							<attribute name="logo" width="595" >
+								<mediaeditor />
+							</attribute>
+							<attribute name="banner" width="595" >
+								<mediaeditor />
+							</attribute>
+							<attribute name="freeShipping" width="595" />
+                            <attribute name="customFieldsJSON" width="595" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference searchattribute="id" mode="replace">
+			<itemlayout>
+				<attribute name="id" />
+				<attribute name="name" />
+				<attribute name="state" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+
+	<type name="MiraklImportShopsCronjob" mode="append">
+		<organizer>
+			<editor>
+				<essentials>
+					<columnlayout>
+						<row>
+							<attribute name="lastExecutionDate" />
+							<attribute name="fullImport" />
+						</row>
+					</columnlayout>
+				</essentials>
+			</editor>
+		</organizer>
+	</type>
+
+    <type name="MiraklImportOffersCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append">
+                    <section name="section.cronjob.common" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="fullImport"/>
+                                <attribute name="lastImportTime"/>
+                            </row>
+                            <row>
+                                <attribute name="includeInactiveOffers"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklRetrieveConsignmentUpdatesCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append" position="0">
+                    <section name="section.cronjob.common" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="lastUpdateTime"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="Offer" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="id"/>
+                <condition attribute="shop"/>
+                <condition attribute="productCode"/>
+                <condition attribute="active"/>
+                <condition attribute="state"/>
+                <condition attribute="availableStartDate"/>
+                <condition attribute="availableEndDate"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="id" width="50"/>
+                        <attribute name="shop" width="150"/>
+                        <attribute name="productCode" width="150"/>
+                        <attribute name="active" width="150"/>
+                        <attribute name="state" width="150"/>
+                        <attribute name="deleted" width="150"/>
+                        <attribute name="availableStartDate" width="150"/>
+                        <attribute name="availableEndDate" width="150"/>
+                        <attribute name="minOrderQuantity" width="150"/>
+                        <attribute name="availableEndDate" width="150"/>
+                        <attribute name="packageQuantity" width="150"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <columnlayout>
+                        <row>
+                            <attribute name="id"/>
+                            <attribute name="productCode"/>
+                        </row>
+                        <row>
+                            <attribute name="active"/>
+                            <attribute name="state"/>
+                        </row>
+                        <row>
+                            <attribute name="availableStartDate"/>
+                            <attribute name="availableEndDate"/>
+                        </row>
+                        <row>
+                            <attribute name="shop"/>
+                            <attribute name="currency"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+
+                <tab name="tab.offer.properties" position="1">
+                    <section name="hmc.offer.general">
+                        <listlayout>
+                            <attribute name="quantity"/>
+                            <attribute name="favoriteRank"/>
+                            <attribute name="leadTimeToShip"/>
+                            <attribute name="description"/>
+                            <attribute name="deleted"/>
+                            <attribute name="customFieldsJSON"/>
+                        </listlayout>
+                    </section>
+                    <section name="hmc.offer.prices">
+                        <columnlayout>
+                            <row>
+                                <attribute name="price"/>
+                                <attribute name="totalPrice"/>
+                            </row>
+                            <row>
+                                <attribute name="minShippingPrice"/>
+                                <attribute name="minShippingPriceAdditional"/>
+                            </row>
+                            <row>
+                                <attribute name="originPrice"/>
+                                <attribute name="priceAdditionalInfo"/>
+                            </row>
+                            <row>
+                                <attribute name="allOfferPricingsJSON"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                    <section name="hmc.offer.discount">
+                        <columnlayout>
+                            <row>
+                                <attribute name="discountPrice"/>
+                            </row>
+                            <row>
+                                <attribute name="discountStartDate"/>
+                                <attribute name="discountEndDate"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklExportSellableProductsCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <essentials>
+                    <columnlayout>
+                        <row>
+                            <attribute name="baseSite"/>
+                            <attribute name="synchronizationFileName"/>
+                       </row>
+                        <row>
+                            <attribute name="fullExport"/>
+                            <attribute name="lastExportDate"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklJobReport" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="jobId"/>
+                <condition attribute="status"/>
+                <condition attribute="reportType"/>
+                <condition attribute="hasErrorReport"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="creationDate" width="150"/>
+                        <attribute name="jobId" width="50"/>
+                        <attribute name="status" width="70"/>
+                        <attribute name="reportType" width="150"/>
+                        <attribute name="hasErrorReport" width="70"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <columnlayout>
+                        <row>
+                            <attribute name="jobId"/>
+                            <attribute name="status"/>
+                        </row>
+                        <row>
+                            <attribute name="reportType"/>
+                            <attribute name="hasErrorReport"/>
+                        </row>
+                        <row>
+                            <attribute name="creationDate"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+                <tab name="tab.miraklJobReport.properties" position="1">
+                    <section name="hmc.mirakljobreport.items">
+                        <listlayout>
+                            <attribute name="itemsUpdated"/>
+                            <attribute name="itemsInserted"/>
+                            <attribute name="itemsDeleted"/>
+                        </listlayout>
+                    </section>
+                    <section name="hmc.mirakljobreport.lines">
+                        <listlayout>
+                            <attribute name="linesRead"/>
+                            <attribute name="linesInSuccess"/>
+                            <attribute name="linesInError"/>
+                        </listlayout>
+                    </section>
+                </tab>
+                <tab name="tab.mirakljobreport.errors" position="2">
+                    <section name="hmc.mirakljobreport.errorreport">
+                        <listlayout>
+                            <attribute name="errorReportPreview" width="300">
+                                <textareaeditor expanded="true" wrap="false" cols="200" rows="20"/>
+                            </attribute>
+                            <attribute name="errorReport"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+     <type name="AbstractOrder" mode="append">
+        <organizer>
+            <editor>
+                <tab name="hmc.tab.marketplace" mode="append">
+                    <section name="properties">
+                        <listlayout>
+                                <attribute name="shippingFeesJSON" editable="false"/>
+                                <attribute name="createdOrdersJSON" editable="false"/>
+                                <attribute name="cartCalculationJSON" editable="false"/>
+                                <attribute name="marketplaceConsignments" />
+                                <attribute name="marketplaceEntries" />
+                                <attribute name="operatorEntries" />
+                                <attribute name="operatorEntriesForDelivery" />
+                                <attribute name="marketplaceOrder" />
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+     </type>
+
+    <type name="AbstractOrderEntry" mode="append">
+        <organizer>
+            <search mode="append">
+                <condition attribute="offerId"/>
+            </search>
+            <result>
+                <listview>
+                    <itemlayout mode="append">
+                        <attribute name="offerId" width="70"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <tab name="common" position="0">
+                    <section name="orderentries">
+                        <columnlayout>
+                            <row>
+                                <attribute name="quantity"/>
+                                <attribute name="unit"/>
+                            </row>
+                            <row>
+                                <attribute name="offerId"/>
+                                <attribute name="lineShippingPrice"/>
+                            </row>
+                            <row>
+                                <attribute name="lineShippingCode"/>
+                                <attribute name="lineShippingLabel"/>
+                            </row>
+                            <row>
+                                <attribute name="shopId"/>
+                                <attribute name="shopName"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MarketplaceConsignment" mode="append">
+        <organizer>
+            <search mode="append">
+                <condition attribute="code" operator="equal" />
+                <condition attribute="shopId" operator="contains" />
+                <condition attribute="shopName" operator="contains" />
+                <condition attribute="miraklOrderStatus" operator="equal" />
+                <condition attribute="paymentStatus" operator="equal" />
+            </search>
+            <result>
+                <listview>
+                    <itemlayout>
+                        <attribute name="shopId" width="50" />
+                        <attribute name="shopName" width="100" />
+                        <attribute name="miraklOrderStatus" width="180" />
+                        <attribute name="paymentStatus" width="100" />
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor mode="append">
+                <essentials>
+                    <columnlayout>
+                        <row>
+                            <attribute name="shopId" editable="false"/>
+                            <attribute name="shopName" editable="false"/>
+                        </row>
+                        <row>
+                            <attribute name="miraklOrderStatus" editable="false"/>
+                            <attribute name="paymentStatus" editable="false"/>
+                        </row>
+                        <row>
+                            <attribute name="totalPrice" editable="false"/>
+                            <attribute name="shippingCost" editable="false"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+                <tab name="properties" position="0" mode="append">
+                    <section name="consignment.details">
+                        <listlayout>
+                            <attribute name="canCancel" editable="false"/>
+                            <attribute name="canEvaluate" editable="false"/>
+                            <attribute name="leadTimeToShip" width="70" editable="false"/>
+                            <attribute name="imprintNumber" width="180" editable="false"/>
+                            <attribute name="debitRequestPayload" width="300" editable="false"/>
+                            <attribute name="consignmentUpdatePayload" width="300" editable="false"/>
+                            <attribute name="lastUpdateProcessed" editable="false"/>
+                            <attribute name="shippingTypeCode" width="50" editable="false"/>
+                            <attribute name="shippingTypeLabel" width="100" editable="false"/>
+                            <attribute name="customerDebitDate" editable="false"/>
+                            <attribute name="customFieldsJSON" editable="false"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+        <defaultreference>
+            <itemlayout>
+                <attribute name="shopId" />
+                <attribute name="shopName" />
+                <attribute name="miraklOrderStatus" />
+            </itemlayout>
+        </defaultreference>
+    </type>
+
+    <type name="ConsignmentEntry" mode="append">
+        <organizer>
+            <search mode="append">
+                <condition attribute="miraklOrderLineStatus" />
+            </search>
+            <result defaultview="list">
+                <listview>
+                    <itemlayout mode="append">
+                        <attribute name="miraklOrderLineStatus" width="200"></attribute>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <columnlayout mode="append">
+                        <row>
+                            <attribute name="miraklOrderLineStatus" editable="false"/>
+                            <attribute name="customFieldsJSON" editable="false"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklExportCatalogCronJob" mode="append">
+        <organizer>
+            <editor>
+                <tab name="properties" mode="append" position="0">
+                    <section name="hmc.section.miraklexportcatalogcronjob.configuration" mode="append">
+                        <listlayout mode="replace">
+                            <attribute name="coreAttributeConfiguration"/>
+                            <attribute name="catalogVersion"/>
+                            <attribute name="dryRunMode"/>
+                            <attribute name="excludeRootCategory"/>
+                        </listlayout>
+                    </section>
+                    <section name="hmc.section.miraklexportcatalogcronjob.coreattributes" mode="append">
+                        <listlayout>
+                            <attribute name="coreAttributes">
+                                <referencecollectioneditor resortable="true" create="true" remove="true" autosave="false" editable="true">
+                                    <itemlayout>
+                                        <attribute name="code"/>
+                                        <attribute name="label"/>
+                                        <attribute name="localized"/>
+                                        <attribute name="variant"/>
+                                        <attribute name="requirementLevel"/>
+                                        <attribute name="type"/>
+                                        <attribute name="typeParameter"/>
+                                        <attribute name="role"/>
+                                        <attribute name="category"/>
+                                        <attribute name="importExportHandlerStringId"/>
+                                        <attribute name="uniqueIdentifier"/>
+                                        <attribute name="defaultValue"/>
+                                    </itemlayout>
+                                </referencecollectioneditor>
+                            </attribute>
+                        </listlayout>
+                    </section>
+                    <section name="hmc.section.miraklexportcatalogcronjob.i18n" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="defaultLanguage"/>
+                                <attribute name="additionalLanguages"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                    <section name="hmc.section.miraklexportcatalogcronjob.timing" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="importTimeout"/>
+                                <attribute name="importCheckInterval"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                    <section name="hmc.section.miraklexportcatalogcronjob.categories" mode="append">
+                        <columnlayout mode="append">
+                            <row>
+                                <attribute name="exportCategories"/>
+                                <attribute name="categoriesFileName"/>
+                            </row>
+                            <row>
+                                <attribute name="categoriesMedia"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                    <section name="hmc.section.miraklexportcatalogcronjob.attributes" mode="append">
+                        <columnlayout mode="append">
+                            <row>
+                                <attribute name="exportAttributes"/>
+                                <attribute name="attributesFileName"/>
+                            </row>
+                            <row>
+                                <attribute name="attributesMedia"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                    <section name="hmc.section.miraklexportcatalogcronjob.valuelists" mode="append">
+                        <columnlayout mode="append">
+                            <row>
+                                <attribute name="exportValueLists"/>
+                                <attribute name="valueListsFileName"/>
+                            </row>
+                            <row>
+                                <attribute name="valueListsMedia"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklProductImportCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append" position="0">
+                    <section name="hmc.section.miraklproductimportcronjob.configuration" mode="append">
+                        <listlayout>
+                            <attribute name="numberOfWorkers"/>
+                            <attribute name="coreAttributeConfiguration"/>
+                            <attribute name="cleanupRawProducts"/>
+                            <attribute name="forceProductUpdate"/>
+                            <attribute name="mediaDownloadHttpHeaders" width="300">
+	                            <textareaeditor expanded="true" wrap="false" cols="200" rows="20"/>
+	                        </attribute>
+                        </listlayout>
+                    </section>
+                    <section name="hmc.section.miraklproductimportcronjob.coreattributes" mode="append">
+                        <listlayout>
+                            <attribute name="coreAttributes">
+                                <referencecollectioneditor resortable="true" create="true" remove="true" autosave="false" editable="true">
+                                    <itemlayout>
+                                        <attribute name="code"/>
+                                        <attribute name="label"/>
+                                        <attribute name="localized"/>
+                                        <attribute name="variant"/>
+                                        <attribute name="requirementLevel"/>
+                                        <attribute name="type"/>
+                                        <attribute name="typeParameter"/>
+                                        <attribute name="role"/>
+                                        <attribute name="category"/>
+                                        <attribute name="importExportHandlerStringId"/>
+                                        <attribute name="uniqueIdentifier"/>
+                                        <attribute name="defaultValue"/>
+                                    </itemlayout>
+                                </referencecollectioneditor>
+                            </attribute>
+                        </listlayout>
+                    </section>
+                    <section name="hmc.section.miraklproductimportcronjob.versioning" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="catalogVersion"/>
+                                <attribute name="systemVersion"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                    <section name="hmc.section.miraklproductimportcronjob.io" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="inputDirectory"/>
+                                <attribute name="archiveDirectory"/>
+                            </row>
+                            <row>
+                                <attribute name="inputFilePattern"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklCleanupRawProductsCronjob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append" position="0">
+                    <section name="hmc.section.miraklproductimportcronjob.configuration" mode="append">
+                        <listlayout>
+                            <attribute name="daysBeforeDeletion"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklCoreAttribute" mode="append">
+        <organizer>
+            <search mode="append">
+                <condition attribute="code" />
+                <condition attribute="label" />
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout mode="append">
+                        <attribute name="uid" width="150"/>
+                        <attribute name="code" width="150"/>
+                        <attribute name="label" width="150"/>
+                        <attribute name="type" width="70" />
+                        <attribute name="variant" width="20"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <columnlayout>
+                        <row>
+                            <attribute name="code"/>
+                            <attribute name="label"/>
+                        </row>
+                        <row>
+                            <attribute name="description"/>
+                        </row>
+                    </columnlayout>
+                </essentials>
+                <tab name="hmc.tab.miraklcoreattribute.configuration" mode="append">
+                    <section name="hmc.section.miraklcoreattribute.configuration" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="variant"/>
+                                <attribute name="requirementLevel"/>
+                            </row>
+                            <row>
+                                <attribute name="type"/>
+                                <attribute name="typeParameter"/>
+                            </row>
+                            <row>
+                                <attribute name="role"/>
+                                <attribute name="category"/>
+                            </row>
+                            <row>
+                                <attribute name="defaultValue"/>
+                                <attribute name="uniqueIdentifier"/>
+                            </row>
+                            <row>
+                                <attribute name="localized"/>
+                            </row>
+                        </columnlayout>
+                        <listlayout>
+                            <attribute name="importExportHandlerStringId" />
+                            <attribute name="composedTypeOwners"/>
+                            <attribute name="uid"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+        <defaultreference>
+            <itemlayout mode="replace">
+                <attribute name="code" />
+                <attribute name="label" />
+                <attribute name="type" />
+                <attribute name="variant" />
+            </itemlayout>
+        </defaultreference>
+    </type>
+
+    <type name="MiraklCategoryCoreAttribute" mode="append">
+        <organizer>
+            <editor>
+                <essentials>
+                    <listlayout mode="append">
+                        <attribute name="rootCategoryCode"/>
+                    </listlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklCoreAttributeConfiguration" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="code" operator="contains"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="code" width="200"/>
+                        <attribute name="productRootCategoryCode" width="200"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout mode="append">
+                        <attribute name="code" mode="append"/>
+                        <attribute name="productRootCategoryCode" mode="append" editable="false"/>
+                        <attribute name="coreAttributes">
+                            <referencecollectioneditor resortable="true" create="true" remove="true" autosave="false" editable="true">
+                                <itemlayout>
+                                    <attribute name="code"/>
+                                    <attribute name="label"/>
+                                    <attribute name="localized"/>
+                                    <attribute name="variant"/>
+                                    <attribute name="requirementLevel"/>
+                                    <attribute name="type"/>
+                                    <attribute name="typeParameter"/>
+                                    <attribute name="role"/>
+                                    <attribute name="category"/>
+                                    <attribute name="importExportHandlerStringId"/>
+                                    <attribute name="uniqueIdentifier"/>
+                                    <attribute name="defaultValue"/>
+                                </itemlayout>
+                            </referencecollectioneditor>
+                        </attribute>
+                    </listlayout>
+                </essentials>
+            </editor>
+        </organizer>
+        <defaultreference mode="replace">
+            <itemlayout>
+                <attribute name="code"/>
+            </itemlayout>
+        </defaultreference>
+    </type>
+
+    <type name="MiraklRawProduct" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="sku"/>
+                <condition attribute="rowNumber"/>
+                <condition attribute="shopId"/>
+                <condition attribute="importId"/>
+                <condition attribute="variantGroupCode"/>
+                <condition attribute="checksum"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="sku" width="150"/>
+                        <attribute name="shopId" width="200"/>
+                        <attribute name="importId" width="350"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout>
+                        <attribute name="sku"/>
+                        <attribute name="shopId"/>
+                        <attribute name="importId"/>
+                        <attribute name="rowNumber"/>
+                        <attribute name="variantGroupCode"/>
+                        <attribute name="checksum"/>
+                        <attribute name="values"/>
+                        <attribute name="rawData" width="300">
+                            <textareaeditor expanded="true" wrap="false" cols="200" rows="20"/>
+                        </attribute>
+                    </listlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="Category" mode="append">
+        <organizer>
+            <editor>
+                <tab name="hmc.tab.marketplace" mode="append">
+                    <section name="hmc.section.catalog.integration" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="operatorExclusive"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="Product" mode="append">
+        <organizer>
+            <editor>
+                <tab name="hmc.tab.marketplace" mode="append">
+                    <section name="properties" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="miraklProductId"/>
+                                <attribute name="origin"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                    <section name="hmc.section.product.approval.status" mode="append">
+                        <listlayout>
+                            <attribute name="approvalStatus"/>
+                            <attribute name="rejectionReason"/>
+                            <attribute name="rejectionMessage" width="300">
+                                <textareaeditor expanded="true" wrap="false" cols="200" rows="20"/>
+                            </attribute>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="Catalog" mode="append">
+        <organizer>
+            <editor>
+                <tab name="hmc.tab.marketplace" mode="append">
+                    <section name="hmc.section.catalog.integration" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="rootProductType"/>
+                                <attribute name="translatableLanguages"/>
+                            </row>
+                            <row>
+                                <attribute name="miraklCatalogSystem"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="ClassificationAttribute" mode="append">
+        <organizer>
+            <editor>
+                <tab name="hmc.tab.marketplace" mode="append">
+                    <section name="hmc.section.catalog.integration" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="operatorExclusive"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="ClassAttributeAssignment" mode="append">
+        <organizer>
+            <editor>
+                <tab name="hmc.tab.marketplace" mode="append">
+                    <section name="hmc.section.catalog.integration" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="operatorExclusive"/>
+                                <attribute name="marketplaceRequirementLevel"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklDownloadProductFilesCronjob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append" position="0">
+                    <section name="section.cronjob.common" mode="append" position="0">
+                        <columnlayout>
+                            <row>
+                                <attribute name="lastExecutionDate"/>
+                                <attribute name="fullDownload"/>
+                            </row>
+                            <row>
+                                <attribute name="productimportCronJob"/>
+                                <attribute name="downloadDirectory"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="BaseStore" mode="append">
+        <organizer>
+            <editor>
+                <tab name="hmc.tab.marketplace" mode="append">
+                    <section name="properties">
+                        <listlayout>
+                            <attribute name="defaultDeliveryCountry" />
+                            <attribute name="miraklPromotionsEnabled" />
+                            <attribute name="synchronousCartUpdateEnabled" />
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+
+    <type name="MiraklEnvironment" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="apiUrl"/>
+                <condition attribute="frontApiKey"/>
+                <condition attribute="operatorApiKey"/>
+                <condition attribute="default"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="apiUrl" width="200"/>
+                        <attribute name="frontApiKey" width="300"/>
+                        <attribute name="operatorApiKey" width="300"/>
+                        <attribute name="default" width="50"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout>
+                        <attribute name="apiUrl"/>
+                        <attribute name="frontApiKey"/>
+                        <attribute name="operatorApiKey"/>
+                        <attribute name="default"/>
+                    </listlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklImportCustomFieldsCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append" position="0">
+                    <section name="hmc.section.miraklimportcustomfieldscronjob.configuration" mode="append">
+                        <listlayout>
+                            <attribute name="entities"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklCustomField" mode="append">
+        <organizer>
+            <search>
+                <condition attribute="code"/>
+                <condition attribute="label"/>
+                <condition attribute="type"/>
+                <condition attribute="required"/>
+                <condition attribute="entity"/>
+            </search>
+            <result mode="replace">
+                <listview>
+                    <itemlayout>
+                        <attribute name="code" width="100"/>
+                        <attribute name="label" width="150"/>
+                        <attribute name="type" width="100"/>
+                        <attribute name="required" width="50"/>
+                        <attribute name="entity" width="100"/>
+                        <attribute name="acceptedValues" width="300"/>
+                        <attribute name="regex" width="50"/>
+                        <attribute name="shopPermissions" width="50"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout>
+                        <attribute name="code"/>
+                        <attribute name="label"/>
+                        <attribute name="type"/>
+                        <attribute name="required"/>
+                        <attribute name="entity"/>
+                        <attribute name="acceptedValues"/>
+                        <attribute name="regex"/>
+                        <attribute name="shopPermissions"/>
+                    </listlayout>
+                </essentials>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="MiraklImportCustomFieldsCronJob" mode="append">
+        <organizer>
+            <editor mode="append">
+                <tab name="properties" mode="append">
+                    <section name="section.cronjob.common" mode="append">
+                        <columnlayout>
+                            <row>
+                                <attribute name="entities"/>
+                            </row>
+                        </columnlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+</configuration>

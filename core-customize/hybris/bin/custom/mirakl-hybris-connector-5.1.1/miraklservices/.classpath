@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="/platform"/>
+	<classpathentry exported="true" kind="src" path="/acceleratorservices"/>
+	<classpathentry exported="true" kind="src" path="/commerceservices"/>
+	<classpathentry exported="true" kind="src" path="/solrfacetsearch"/>
+	<classpathentry exported="true" kind="lib" path="resources"/>
+	<classpathentry exported="true" kind="lib" path="lib/mci-sdk-front-6.32.0-jar-with-dependencies.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mmp-sdk-front-6.32.0-jar-with-dependencies.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mmp-sdk-operator-6.32.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="src"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="testsrc"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="gensrc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+</classpath>

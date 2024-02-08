@@ -1,0 +1,35 @@
+INSERT_UPDATE Order ; code[unique=true] ; user(uid) ; date[dateformat=dd.MM.yyyy HH:mm] ; currency(isocode) ; net   ; deliveryMode(code) ; Discounts(code) ; calculated
+                    ; order1            ; ahertz    ; 01.01.2017 01:13                  ; USD               ; false ;                    ;                 ; false     
+"#%   impex.getLastImportedItem().setDeliveryAddress(impex.getLastImportedItem().getUser().getDefaultDeliveryAddress());impex.getLastImportedItem().setPaymentAddress(impex.getLastImportedItem().getUser().getDefaultPaymentAddress());";
+                    ; order2            ; abrode    ; 01.01.2016 04:32                  ; USD               ; false ;                    ;                 ; false     
+"#%   impex.getLastImportedItem().setDeliveryAddress(impex.getLastImportedItem().getUser().getDefaultDeliveryAddress());impex.getLastImportedItem().setPaymentAddress(impex.getLastImportedItem().getUser().getDefaultPaymentAddress());";
+
+
+INSERT_UPDATE OrderEntry ; order(code)[unique=true] ; product(code,catalogVersion(catalog(id),version))[unique=true] ; quantity ; calculated ; unit(code) ; entryNumber ;  
+                         ; order1                   ; HW2110-0019:hwcatalog:Online                                   ; 1        ; false      ; pieces     ; 0           
+                         ; order1                   ; HW2110-0027:hwcatalog:Online                                   ; 1        ; false      ; pieces     ; 1           
+                         ; order1                   ; HW2200-0623:hwcatalog:Online                                   ; 3        ; false      ; pieces     ; 2           
+                         ; order2                   ; HW2110-0019:hwcatalog:Online                                   ; 2        ; false      ; pieces     ; 0           
+                         ; order2                   ; HW2200-0878:hwcatalog:Online                                   ; 1        ; false      ; pieces     ; 1           
+
+INSERT_UPDATE PaymentTransaction ; code[unique=true] ; order(code)
+                                 ; payment-txn1      ; order2     
+                                 ; payment-txn2      ; order2     
+                                 ; payment-txn3      ; order2     
+
+INSERT_UPDATE PaymentTransactionEntry ; code[unique=true]  ; paymentTransaction(code) ; type(code)[default='REFUND_FOLLOW_ON']
+                                      ; payment-txn-entry1 ; payment-txn1             
+                                      ; payment-txn-entry2 ; payment-txn2             
+                                      ; payment-txn-entry3 ; payment-txn3             
+
+INSERT_UPDATE ReturnRequest ; code[unique=true] ; order(code)
+                            ; return-request1   ; order1     
+                            ; return-request2   ; order2     
+
+INSERT_UPDATE RefundEntry ; miraklRefundId[unique=true] ; returnRequest(code) ; orderEntry(order(code),product(code,catalogVersion(catalog(id),version))) ; status(code)     ; reason(code)              ; paymentTransactionEntry(code) ; confirmedToMirakl[default=false] ; action(code)[default='IMMEDIATE']
+                          ; 1                           ; return-request1     ; order1:HW2110-0027:hwcatalog:Online                                       ; WAIT             ; MARKETPLACE_SELLER_REFUND ;                               
+                          ; 2                           ; return-request1     ; order1:HW2110-0027:hwcatalog:Online                                       ; COMPLETED        ; MARKETPLACE_SELLER_REFUND ;                               
+                          ; 3                           ; return-request2     ; order2:HW2200-0878:hwcatalog:Online                                       ; WAIT             ; MARKETPLACE_SELLER_REFUND ;                               
+                          ; 4                           ; return-request2     ; order2:HW2110-0019:hwcatalog:Online                                       ; PAYMENT_REVERSED ; MARKETPLACE_SELLER_REFUND ; payment-txn-entry1            ; false                            
+                          ; 5                           ; return-request2     ; order2:HW2110-0019:hwcatalog:Online                                       ; PAYMENT_REVERSED ; MARKETPLACE_SELLER_REFUND ; payment-txn-entry2            ; true                             ;                                  
+                          ; 6                           ; return-request2     ; order2:HW2110-0019:hwcatalog:Online                                       ; PAYMENT_REVERSED ; MARKETPLACE_SELLER_REFUND ; payment-txn-entry3            ; true                             ;                                  

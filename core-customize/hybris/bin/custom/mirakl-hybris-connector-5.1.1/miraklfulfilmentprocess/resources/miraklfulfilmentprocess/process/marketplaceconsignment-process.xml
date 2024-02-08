@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="processLogisticOrderUpdate" name="marketplaceconsignment-process" processClass="com.mirakl.hybris.core.model.MarketplaceConsignmentProcessModel">
+
+    <action id="processLogisticOrderUpdate" bean="processLogisticOrderUpdateAction">
+        <transition name="WAIT" to="waitForLogisticOrderUpdate"/>
+        <transition name="CANCEL" to="cancelMarketplaceConsignment"/>
+        <transition name="CLOSE" to="closeMarketplaceConsignment"/>
+        <transition name="REFUSE" to="refuseMarketplaceConsignment"/>
+    </action>
+
+    <wait id="waitForLogisticOrderUpdate" then="processLogisticOrderUpdate" prependProcessCode="false">
+        <event>${process.code}_UpdateReceived</event>
+    </wait>
+    
+    <action id="cancelMarketplaceConsignment" bean="cancelMarketplaceConsignmentAction">
+        <transition name="OK" to="cancelled"/>
+    </action>
+    
+    <action id="refuseMarketplaceConsignment" bean="refuseMarketplaceConsignmentAction">
+        <transition name="OK" to="refused"/>
+    </action>
+    
+    <action id="closeMarketplaceConsignment" bean="closeMarketplaceConsignmentAction">
+        <transition name="OK" to="closed"/>
+    </action>
+    
+	<end id="cancelled" state="SUCCEEDED">Order cancelled.</end>
+	<end id="closed" state="SUCCEEDED">Order closed.</end>
+	<end id="refused" state="SUCCEEDED">Order refused.</end>
+</process>

@@ -1,0 +1,10 @@
+$dateFormat = 'dd.MM.yyyy HH:mm:ss'
+INSERT_UPDATE Offer; id[unique = true]; productCode;
+                   ; 10000            ; 10000
+
+# For some reason, these pricing rows are duplicated (3 default prices).
+# The offer import should solve this
+INSERT_UPDATE OfferPricing; offerId; channelCode; customerOrganizationId; customerGroupId; priceDetailsJSON[unique = true]
+                          ; 10000  ;            ;                       ;                ; {"price": 10, "unit_origin_price": 10, "volume_prices":[{"unit_origin_price": 10, "quantity_threshold":1}]}
+                          ; 10000  ;            ;                       ;                ; {"price": 11, "unit_origin_price": 10, "volume_prices":[{"unit_origin_price": 10, "quantity_threshold":1}]}
+                          ; 10000  ;            ;                       ;                ; {"price": 12, "unit_origin_price": 10, "volume_prices":[{"unit_origin_price": 10, "quantity_threshold":1}]}

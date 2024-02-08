@@ -1,0 +1,39 @@
+$defaultPassword = 1234
+
+INSERT_UPDATE Employee; uid[unique = true] ; groups(uid); description                          ; name        ; password
+                      ; mirakl-system-user ; admingroup ; Administration of Mirakl integration ; Mirakl User ; $defaultPassword
+
+
+INSERT_UPDATE Usergroup; uid[unique = true];
+                       ; customergroup     ;
+
+
+INSERT_UPDATE Language; isocode[unique = true]; fallbackLanguages(isocode); active[default = true]
+                      ; en                    ;                           ; ;
+                      ; fr                    ; en                        ; ;
+
+
+INSERT_UPDATE Currency; isocode[unique = true]; conversion; digits; symbol
+                      ; EUR                   ; 1         ; 2     ; €
+                      ; USD                   ; 1         ; 2     ; $
+
+INSERT_UPDATE Shop; id[unique = true]
+                  ; 2000
+
+
+INSERT_UPDATE OfferState; code[unique = true]; name[lang = en]
+                        ; 1                  ; Used - Like New
+                        ; 2                  ; Refurbiehd
+                        ; 3                  ; Collector
+                        ; 4                  ; Broken
+                        ; 5                  ; Very Bad State
+                        ; 6                  ; As New
+                        ; 7                  ; Nearly As New
+                        ; 8                  ; Who Cares ?
+                        ; 9                  ; Are You Still
+                        ; 10                 ; Reading these states ?
+                        ; 11                 ; New
+
+INSERT_UPDATE MiraklCustomField; shopPermission(code)[default = READ_WRITE]; code[unique = true]; label           ; type(code); required; entity(code)[unique = true]
+                               ;                                           ; "STRING_FIELD"     ; "String field"  ; STRING    ; false   ; OFFER
+                               ;                                           ; "BOOLEAN_FIELD"    ; "Boolean field" ; BOOLEAN   ; true    ; OFFER

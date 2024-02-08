@@ -1,0 +1,25 @@
+INSERT_UPDATE Currency; isocode[unique = true]; symbol; base[default = true]; conversion[default = 1]; digits[default = 2]; active[default = true]
+                      ; USD                   ; $
+                      ; EUR                   ; €
+                      ; CURR                  ; $€
+
+
+INSERT_UPDATE OfferState; code[unique = true]; name[lang = en]
+                        ; 1                  ; Used - Like New
+                        ; 11                 ; New
+
+INSERT_UPDATE Offer; id[unique = true]; productCode  ; state(code); currency(isocode)[default = 'USD']; deleted[default = false]
+                   ; testOffer1       ; testProduct1 ; 1          ;                                   ;
+                   ; testOffer2       ; testProduct2 ; 11         ; EUR                               ;
+                   ; testOffer3       ; testProduct2 ; 1          ;                                   ; true
+                   ; testOffer4       ; testProduct3 ; 11         ; CURR                              ;
+                   ; testOffer5       ; testProduct3 ; 1          ; CURR                              ;
+                   ; testOffer6       ; testProduct4 ; 11         ; CURR                              ;
+                   ; testOffer7       ; testProduct4 ; 1          ; EUR                               ;
+                   ; testOffer8       ; testProduct5 ; 1          ; EUR                               ;
+                   ; testOffer9       ; testProduct6 ; 1          ; EUR                               ;
+                   ; testOffer10      ; testProduct6 ; 1          ; EUR                               ;
+                   ; testOffer11      ; testProduct6 ; 1          ; EUR                               ;
+                   ; testOffer12      ; testProduct6 ; 1          ; USD                               ;
+                   ; testOffer13      ; testProduct6 ; 1          ; USD                               ;
+                   ; testOffer14      ; testProduct6 ; 1          ; USD                               ;

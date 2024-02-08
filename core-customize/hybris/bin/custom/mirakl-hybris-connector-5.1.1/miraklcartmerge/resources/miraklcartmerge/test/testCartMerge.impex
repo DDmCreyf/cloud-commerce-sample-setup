@@ -1,0 +1,31 @@
+$catalog-id=testCatalog
+$catalog-version=Online
+$catalogversion=catalogversion(catalog(id),version)[unique=true,default=$catalog-id:$catalog-version]
+
+$cartId1=cart-id-1
+$cartId2=cart-id-2
+$testProduct1=testProduct1
+$testProduct2=testProduct2
+$testProduct3=testProduct3
+
+INSERT_UPDATE Customer ; uid[unique=true] ; name       ; sessionLanguage(isocode) ; sessionCurrency(isocode) ; groups(uid)  
+                       ; customer-1       ; John Smith ; en                       ; EUR                      ; customergroup
+                       ; anonymous        ; John Smith ; en                       ; EUR                      ; customergroup
+                       
+
+INSERT_UPDATE Cart ; user(uid)  ; code[unique=true] ; currency(isocode) ; date[dateformat=dd.MM.yyyy HH:mm:ss]
+                   ; customer-1 ; $cartId1          ; EUR               ; 27.04.2020 00:00:00                 
+                   ; anonymous  ; $cartId2          ; EUR               ; 27.04.2020 00:00:00                 
+
+INSERT_UPDATE CartEntry ; order(code)[unique=true] ; product(code)[unique=true] ; offerId ; entryNumber[unique=true] ; quantity ; unit(code)
+# User Cart             
+                        ; $cartId1                 ; $testProduct1              ;         ; 1                        ; 1        ; pieces    
+                        ; $cartId1                 ; $testProduct1              ; 2000    ; 2                        ; 1        ; pieces    
+                        ; $cartId1                 ; $testProduct1              ; 2001    ; 3                        ; 1        ; pieces    
+                        ; $cartId1                 ; $testProduct2              ;         ; 4                        ; 1        ; pieces    
+# Anonymous Cart        
+                        ; $cartId2                 ; $testProduct1              ;         ; 1                        ; 1        ; pieces    
+                        ; $cartId2                 ; $testProduct1              ; 2001    ; 2                        ; 1        ; pieces    
+                        ; $cartId2                 ; $testProduct1              ; 2002    ; 3                        ; 1        ; pieces    
+                        ; $cartId2                 ; $testProduct3              ;         ; 4                        ; 1        ; pieces    
+                        ; $cartId2                 ; $testProduct2              ; 2003    ; 5                        ; 1        ; pieces    

@@ -1,0 +1,70 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform 
+# 
+# Copyright (c) 2000-2016 hybris AG
+# All rights reserved.
+#  
+# This software is the confidential and proprietary information of hybris 
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with hybris.
+#
+#  
+# -----------------------------------------------------------------------
+
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+powertoolsProductCatalog.tax.group.code=us-sales-tax-full
+apparelProductCatalog.tax.group.code=eu-vat-full
+electronicsProductCatalog.tax.group.code=jp-vat-full
+default.tax.group.code=eu-vat-full
+
+miraklsampledataaddon.key=value
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+miraklsampledataaddon.application-context=miraklsampledataaddon-spring.xml
+
+yacceleratorstorefront.additionalWebSpringConfigs.miraklsampledataaddon=classpath:/miraklsampledataaddon/web/spring/miraklsampledataaddon-web-spring.xml
+
+# Specifies the location of the spring context file putted automatically to the global platform application context.
+miraklsampledata.application-context=miraklsampledata-spring.xml
+
+mirakl.offers.state.new.code=11
+
+# Specifies the priority of offer states (comma separated if multiple values)
+mirakl.offers.state.facetpriority=11
+
+# Specifies a default marketplace warehouse (used for the creation of marketplace consignments) 
+mirakl.warehouse.code=marketplace-warehouse
+
+# Locale mapping - Hybris --> Mirakl
+mirakl.locales.mapping.hybristomirakl.en=en_US
+mirakl.locales.mapping.hybristomirakl.fr=fr_FR
+mirakl.locales.mapping.hybristomirakl.de=de_DE
+
+# Locale mapping - Mirakl --> Hybris 
+# If no mapping provided, the Mirakl Locale language code will be used for the resolution
+# mirakl.locales.mapping.mirakltohybris.en_US=en
+
+# Mirakl default shipping for full marketplace orders
+mirakl.default.free.delivery=mirakl-default-shipping
+
+
+# Media
+media.url.secure=true
+
+# Price group channels
+# mirakl.channels.<site_id>.<user_price_group>=<Mirakl channel id for the price group>
+mirakl.channels.electronics.MIRAKL_SAMPLE_VIP_PRICE_GROUP=VIP
+mirakl.channels.apparel-uk.MIRAKL_SAMPLE_VIP_PRICE_GROUP=VIP
+mirakl.channels.apparel-de.MIRAKL_SAMPLE_VIP_PRICE_GROUP=VIP
+mirakl.channels.powertools.MIRAKL_SAMPLE_VIP_PRICE_GROUP=VIP
+
+# Website channels
+# mirakl.channels.<site_id>=<Mirakl channel id for the website>
+mirakl.channels.electronics=ELECTRONICS
+mirakl.channels.apparel-uk=APPAREL-UK
+mirakl.channels.apparel-de=APPAREL-DE
+mirakl.channels.powertools=POWERTOOLS
+

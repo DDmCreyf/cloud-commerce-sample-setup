@@ -1,0 +1,14 @@
+INSERT_UPDATE Currency; isocode[unique = true]
+                      ; EUR
+                      ; USD
+
+INSERT_UPDATE OfferState; code[unique = true]; name[lang = en]
+                        ; 1                  ; Used - Like New
+                        ; 11                 ; New
+INSERT_UPDATE Shop; id[unique = true]
+                  ; 2002
+INSERT_UPDATE Offer; id[unique = true]; productCode; state(code); currency(isocode)[default = 'EUR']; shop(id); allOfferPricingsJSON; deleted[default = false];
+                   ; S_3794514_1      ; 3794514A   ; 11         ;                                   ; 2002    ; "[{""price"": 10, ""unit_origin_price"": 10, ""volume_prices"":[{""unit_origin_price"": 10, ""quantity_threshold"":1}]}]"
+
+INSERT_UPDATE OfferPricing; offerId[unique = true]; priceDetailsJSON;
+                          ; S_3794514_1           ; {"price": 10, "unit_origin_price": 10, "volume_prices":[{"unit_origin_price": 10, "quantity_threshold":1}]}

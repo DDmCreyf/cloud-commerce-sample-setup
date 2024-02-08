@@ -1,0 +1,1330 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+
+    <context component="explorer-tree" merge-by="module">
+        <explorer-tree:explorer-tree>
+            <explorer-tree:navigation-node id="hmc_treenode_mirakl">
+                <explorer-tree:navigation-node id="hmc_treenode_mirakl_jobs">
+                    <explorer-tree:type-node id="hmc_type_tree_miraklexportsellableproductscronjob" code="MiraklExportSellableProductsCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklimportcustomfieldscronjob" code="MiraklImportCustomFieldsCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklimportshopofferstatescronjob" code="MiraklImportOfferStatesCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklimportshopofferscompositecronjob" code="MiraklImportShopOffersCompositeCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklretrieveconsignmentupdatescronjob" code="MiraklRetrieveConsignmentUpdatesCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklretrieveprocessdebitscompositecronjob" code="MiraklRetrieveProcessDebitsCompositeCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklretrieveprocessrefundscompositecronjob" code="MiraklRetrieveProcessRefundsCompositeCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklexportcatalogcronjob" code="MiraklExportCatalogCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_mirakldownloadproductfilescronjob" code="MiraklDownloadProductFilesCronjob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklproductimportcronjob" code="MiraklProductImportCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklproductimportcompositecronjob" code="MiraklProductImportCompositeCronjob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_pollasynctaskscronjob" code="MiraklAsyncTaskPoller"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklcleanuprawproductscronjob" code="MiraklCleanupRawProductsCronjob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_exportreportupdate" code="MiraklExportStatusCronJob"/>
+                </explorer-tree:navigation-node>
+                <explorer-tree:type-node id="hmc_type_tree_offer" code="Offer" position="1"/>
+                <explorer-tree:type-node id="hmc_type_tree_shops" code="Shop"/>
+                <explorer-tree:type-node id="hmc_type_tree_miraklcoreattribute" code="MiraklCoreAttribute"/>
+                <explorer-tree:type-node id="hmc_type_tree_miraklcoreattributeconfiguration" code="MiraklCoreAttributeConfiguration"/>
+                <explorer-tree:type-node id="hmc_type_tree_miraklrawproduct" code="MiraklRawProduct"/>
+                <explorer-tree:type-node id="hmc_type_tree_mirakljobreport" code="MiraklJobReport"/>
+                <explorer-tree:type-node id="hmc_type_tree_miraklenvironment" code="MiraklEnvironment"/>
+                <explorer-tree:type-node id="hmc_type_tree_miraklcustomfield" code="MiraklCustomField"/>
+                <explorer-tree:type-node id="hmc_type_tree_miraklasynctask" code="MiraklAsyncTask"/>
+            </explorer-tree:navigation-node>
+
+            <explorer-tree:navigation-node id="hmc_treenode_order">
+                <explorer-tree:type-node id="MarketplaceConsignment" code="MarketplaceConsignment" position="4"/>
+            </explorer-tree:navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+
+    <context type="MiraklExportSellableProductsCronJob" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="baseSite" operator="equals" selected="true"/>
+                <advanced-search:field name="fullExport" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context component="editor-area" type="MiraklExportSellableProductsCronJob" merge-by="type">
+        <editorArea:editorArea name="MiraklExportSellableProductsCronJobEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="baseSite"/>
+                    <editorArea:attribute qualifier="lastExportDate"/>
+                    <editorArea:attribute qualifier="fullExport"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="hmc.tab.common" position="0">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:attribute qualifier="synchronizationFileName"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context component="editor-area" type="MiraklImportOffersCronJob" merge-by="type">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+                               name="miraklImportOffersCronJobEditor">
+            <editorArea:tab name="hmc.tab.properties">
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="fullImport"/>
+                    <editorArea:attribute qualifier="lastImportTime"/>
+                    <editorArea:attribute qualifier="includeInactiveOffers"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context component="editor-area" type="MiraklRetrieveConsignmentUpdatesCronJob" merge-by="type">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+                               name="MiraklRetrieveConsignmentUpdatesCronJobEditor">
+            <editorArea:tab name="hmc.tab.properties" position="0">
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="lastUpdateTime"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Offer -->
+
+    <context merge-by="type" parent="GenericItem" type="Offer" component="base" module="miraklservices">
+        <y:base>
+            <y:labels>
+                <y:label>id + ' - ' + productCode + ' - ' + active</y:label>
+                <y:description>description != null ? description : ''</y:description>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="Offer" component="simple-search">
+        <simple-search:simple-search>
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="id"/>
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="productCode"/>
+        </simple-search:simple-search>
+    </context>
+
+    <context type="Offer" component="advanced-search" merge-by="type" parent="GenericItem">
+        <advanced-search:advanced-search>
+            <advanced-search:field-list>
+                <advanced-search:field name="id" selected="true" operator="contains"/>
+                <advanced-search:field name="productCode" selected="true" operator="contains"/>
+                <advanced-search:field name="shop" selected="true" operator="contains"/>
+                <advanced-search:field name="state" selected="true" operator="equals"/>
+                <advanced-search:field name="active" selected="true" operator="equals"/>
+                <advanced-search:field name="deleted" selected="false" operator="equals"/>
+                <advanced-search:field name="currency" selected="false"/>
+                <advanced-search:field name="availableStartDate" selected="true"/>
+                <advanced-search:field name="availableEndDate" selected="true"/>
+                <advanced-search:field name="minShippingPrice" selected="false"/>
+                <advanced-search:field name="minShippingPriceAdditional" selected="false"/>
+                <advanced-search:field name="price" selected="false"/>
+                <advanced-search:field name="totalPrice" selected="false"/>
+                <advanced-search:field name="originPrice" selected="false"/>
+                <advanced-search:field name="priceAdditionalInfo" selected="false"/>
+                <advanced-search:field name="quantity" selected="false"/>
+                <advanced-search:field name="description" selected="false"/>
+                <advanced-search:field name="favoriteRank" selected="false"/>
+                <advanced-search:field name="discountStartDate" selected="false"/>
+                <advanced-search:field name="discountEndDate" selected="false"/>
+                <advanced-search:field name="discountPrice" selected="false"/>
+                <advanced-search:field name="leadTimeToShip" selected="false"/>
+                <advanced-search:field name="creationtime" selected="false"/>
+                <advanced-search:field name="itemtype" selected="false"/>
+                <advanced-search:field name="modifiedtime" selected="false"/>
+                <advanced-search:field name="owner" selected="false"/>
+                <advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="Offer" component="listview">
+        <list-view:list-view>
+            <list-view:column qualifier="" spring-bean="previewListCellRenderer" width="26px"/>
+            <list-view:column qualifier="id" width="150px"/>
+            <list-view:column qualifier="shop"/>
+            <list-view:column qualifier="productCode"/>
+            <list-view:column qualifier="active"/>
+            <list-view:column qualifier="state"/>
+            <list-view:column qualifier="deleted"/>
+        </list-view:list-view>
+    </context>
+
+
+    <context type="Offer" component="inLineEditorConfig" merge-by="type">
+        <list-view:list-view>
+            <list-view:column qualifier="shop" width="200px"/>
+            <list-view:column qualifier="quantity"/>
+            <list-view:column qualifier="state"/>
+            <!--  setScale(int newScale, int roundingMode)
+                  setScale(2 , java.math.BigDecimal.ROUND_HALF_UP) -->
+            <list-view:column qualifier="price.setScale(2, 4)" label="backoffice.offer.price" width="100px"/>
+            <list-view:column qualifier="minShippingPrice.setScale(2, 4)" label="backoffice.offer.minshippingprice" width="175px"/>
+            <list-view:column qualifier="currency.isocode" label="backoffice.offer.currency.isocode" width="100px"/>
+            <list-view:column qualifier="active" width="75px"/>
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="Offer" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="id"/>
+                    <editorArea:attribute qualifier="shop"/>
+                    <editorArea:attribute qualifier="productCode"/>
+                    <editorArea:attribute qualifier="active"/>
+                    <editorArea:attribute qualifier="state"/>
+                    <editorArea:attribute qualifier="currency"/>
+                    <editorArea:attribute qualifier="availableStartDate"/>
+                    <editorArea:attribute qualifier="availableEndDate"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="hmc.tab.offer.properties" position="2">
+                <editorArea:section name="hmc.offer.general">
+                    <editorArea:attribute qualifier="quantity"/>
+                    <editorArea:attribute qualifier="favoriteRank"/>
+                    <editorArea:attribute qualifier="leadTimeToShip"/>
+                    <editorArea:attribute qualifier="description"/>
+                    <editorArea:attribute qualifier="deleted"/>
+                    <editorArea:attribute qualifier="minOrderQuantity"/>
+                    <editorArea:attribute qualifier="maxOrderQuantity"/>
+                    <editorArea:attribute qualifier="packageQuantity"/>
+                    <editorArea:attribute qualifier="customFieldsJSON"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.offer.prices">
+                    <editorArea:attribute qualifier="price">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>numberFormat</editorArea:name>
+                            <editorArea:value>##0.00</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute qualifier="totalPrice">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>numberFormat</editorArea:name>
+                            <editorArea:value>##0.00</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute qualifier="minShippingPrice">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>numberFormat</editorArea:name>
+                            <editorArea:value>##0.00</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute qualifier="minShippingPriceAdditional">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>numberFormat</editorArea:name>
+                            <editorArea:value>##0.00</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute qualifier="originPrice">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>numberFormat</editorArea:name>
+                            <editorArea:value>##0.00</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute qualifier="priceAdditionalInfo"/>
+                    <editorArea:attribute qualifier="allOfferPricingsJSON"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.offer.discount">
+                    <editorArea:attribute qualifier="discountPrice">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>numberFormat</editorArea:name>
+                            <editorArea:value>##0.00</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute qualifier="discountStartDate"/>
+                    <editorArea:attribute qualifier="discountEndDate"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Shop -->
+
+    <context type="Shop" component="listview">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="id"/>
+            <list:column qualifier="name"/>
+            <list:column qualifier="state"/>
+        </list:list-view>
+    </context>
+
+    <context type="Shop" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="name"/>
+            <yss:sort-field name="name" asc="true"/>
+        </yss:simple-search>
+    </context>
+
+    <context type="Shop" component="advanced-search">
+        <as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="AND">
+            <as:field-list>
+                <as:field name="id" operator="contains" selected="false"/>
+                <as:field name="name" operator="contains" selected="true"/>
+                <as:field name="state" selected="true"/>
+            </as:field-list>
+            <as:sort-field name="id" asc="false"/>
+        </as:advanced-search>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="Shop" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="id"/>
+                    <editorArea:attribute qualifier="name"/>
+                    <editorArea:attribute qualifier="description"/>
+                    <editorArea:attribute qualifier="currency"/>
+                    <editorArea:attribute qualifier="state"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+
+            <editorArea:tab name="hmc.tab.shop.properties" position="2">
+                <editorArea:section name="hmc.shop.general">
+                    <editorArea:attribute qualifier="internalId"/>
+                    <editorArea:attribute qualifier="professional"/>
+                    <editorArea:attribute qualifier="premium"/>
+                    <editorArea:attribute qualifier="premiumState"/>
+                    <editorArea:attribute qualifier="approvalDelay"/>
+                    <editorArea:attribute qualifier="approvalRate"/>
+                    <editorArea:attribute qualifier="evaluationCount"/>
+                    <editorArea:attribute qualifier="freeShipping"/>
+                    <editorArea:attribute qualifier="customFieldsJSON"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.shop.contact">
+                    <editorArea:attribute qualifier="contactInformation"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.shop.medias">
+                    <editorArea:attribute qualifier="logo"/>
+                    <editorArea:attribute qualifier="banner"/>
+                </editorArea:section>
+            </editorArea:tab>
+
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="Shop" component="base" module="miraklservices">
+        <y:base>
+            <y:labels>
+                <y:label>id + ' - ' + name</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <!-- MiraklJobReport -->
+
+    <context merge-by="type" parent="GenericItem" type="MiraklJobReport" component="base" module="miraklservices">
+        <y:base>
+            <y:labels>
+                <y:label>jobId + ' - ' + reportType + ' - ' + status</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="MiraklJobReport" component="simple-search">
+        <simple-search:simple-search>
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="jobId"/>
+            <simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="reportType"/>
+        </simple-search:simple-search>
+    </context>
+
+    <context type="MiraklJobReport" component="advanced-search" merge-by="type" parent="GenericItem">
+        <advanced-search:advanced-search>
+            <advanced-search:field-list>
+                <advanced-search:field name="jobId" selected="true" operator="contains"/>
+                <advanced-search:field name="status" selected="true"/>
+                <advanced-search:field name="reportType" selected="true"/>
+                <advanced-search:field name="hasErrorReport" selected="true"/>
+                <advanced-search:field name="creationtime" selected="true"/>
+                <advanced-search:field name="itemsUpdated" selected="false" operator="equals"/>
+                <advanced-search:field name="itemsInserted" selected="false" operator="equals"/>
+                <advanced-search:field name="itemsDeleted" selected="false" operator="equals"/>
+                <advanced-search:field name="linesRead" selected="false" operator="equals"/>
+                <advanced-search:field name="linesInSuccess" selected="false" operator="equals"/>
+                <advanced-search:field name="linesInError" selected="false" operator="equals"/>
+                <advanced-search:field name="itemtype" selected="false"/>
+                <advanced-search:field name="modifiedtime" selected="false"/>
+                <advanced-search:field name="owner" selected="false"/>
+                <advanced-search:field name="pk" selected="false" editor="com.hybris.cockpitng.editor.defaultlong"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="MiraklJobReport" component="listview">
+        <list-view:list-view>
+            <list-view:column qualifier="" spring-bean="previewListCellRenderer" width="26px"/>
+            <list-view:column qualifier="creationDate"/>
+            <list-view:column qualifier="jobId"/>
+            <list-view:column qualifier="status"/>
+            <list-view:column qualifier="reportType"/>
+            <list-view:column qualifier="hasErrorReport"/>
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="MiraklJobReport" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="jobId"/>
+                    <editorArea:attribute qualifier="status"/>
+                    <editorArea:attribute qualifier="reportType"/>
+                    <editorArea:attribute qualifier="hasErrorReport"/>
+                    <editorArea:attribute qualifier="creationDate"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="hmc.tab.mirakljobreport.properties" position="2">
+                <editorArea:section name="hmc.mirakljobreport.errorreport">
+                    <editorArea:attribute qualifier="errorReport"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.mirakljobreport.items">
+                    <editorArea:attribute qualifier="itemsUpdated"/>
+                    <editorArea:attribute qualifier="itemsInserted"/>
+                    <editorArea:attribute qualifier="itemsDeleted"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.mirakljobreport.lines">
+                    <editorArea:attribute qualifier="linesRead"/>
+                    <editorArea:attribute qualifier="linesInSuccess"/>
+                    <editorArea:attribute qualifier="linesInError"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- AbstractOrderEntry -->
+
+    <context merge-by="type" parent="GenericItem" type="AbstractOrderEntry" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:tab name="hmc.common">
+                <editorArea:section name="hmc.orderentries">
+                    <editorArea:attribute qualifier="lineShippingPrice"/>
+                    <editorArea:attribute qualifier="lineShippingCode"/>
+                    <editorArea:attribute qualifier="lineShippingLabel"/>
+                    <editorArea:attribute qualifier="shopId"/>
+                    <editorArea:attribute qualifier="shopName"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- AbstractOrder -->
+
+    <context merge-by="type" parent="GenericItem" type="AbstractOrder" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:attribute qualifier="shippingFeesJSON"/>
+                    <editorArea:attribute qualifier="createdOrdersJSON"/>
+                    <editorArea:attribute qualifier="cartCalculationJSON"/>
+                    <editorArea:attribute qualifier="marketplaceConsignments"/>
+                    <editorArea:attribute qualifier="marketplaceEntries"/>
+                    <editorArea:attribute qualifier="operatorEntries"/>
+                    <editorArea:attribute qualifier="operatorEntriesForDelivery"/>
+                    <editorArea:attribute qualifier="marketplaceOrder"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- MarketplaceConsignment -->
+
+    <context type="MarketplaceConsignment" component="base" merge-by="type" parent="Consignment">
+        <y:base>
+            <y:labels>
+                <y:label>code + ' - ' + shopId + ' - ' + miraklOrderStatus</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="MarketplaceConsignment" component="listview" merge-by="type" parent="Consignment">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="shopId"/>
+            <list:column qualifier="shopName"/>
+            <list:column qualifier="miraklOrderStatus"/>
+            <list:column qualifier="paymentStatus"/>
+        </list:list-view>
+    </context>
+
+    <context type="MarketplaceConsignment" component="simple-search" merge-by="type" parent="Consignment">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="shopId"/>
+            <yss:field name="miraklOrderStatus"/>
+            <yss:field name="paymentStatus"/>
+            <yss:sort-field name="shopId" asc="true"/>
+            <yss:sort-field name="shopName" asc="true"/>
+            <yss:sort-field name="miraklOrderStatus" asc="true"/>
+        </yss:simple-search>
+    </context>
+
+    <context type="MarketplaceConsignment" component="advanced-search" merge-by="type" parent="Consignment">
+        <as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="AND">
+            <as:field-list>
+                <as:field name="shopId" operator="contains" selected="true"/>
+                <as:field name="shopName" operator="contains" selected="true"/>
+                <as:field name="miraklOrderStatus" selected="true"/>
+            </as:field-list>
+            <as:sort-field name="shopId" asc="true"/>
+            <as:sort-field name="shopName" asc="true"/>
+            <as:sort-field name="miraklOrderStatus" asc="true"/>
+        </as:advanced-search>
+    </context>
+
+    <context merge-by="type" parent="Consignment" type="MarketplaceConsignment" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="shopId"/>
+                    <editorArea:attribute qualifier="shopName"/>
+                    <editorArea:attribute qualifier="miraklOrderStatus"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+
+            <editorArea:tab name="hmc.properties">
+                <editorArea:section name="hmc.consignment.details">
+                    <editorArea:attribute qualifier="canCancel"/>
+                    <editorArea:attribute qualifier="canEvaluate"/>
+                    <editorArea:attribute qualifier="leadTimeToShip"/>
+                    <editorArea:attribute qualifier="imprintNumber"/>
+                    <editorArea:attribute qualifier="consignmentUpdatePayload"/>
+                    <editorArea:attribute qualifier="lastUpdateProcessed"/>
+                    <editorArea:attribute qualifier="debitRequestPayload"/>
+                    <editorArea:attribute qualifier="customerDebitDate"/>
+                    <editorArea:attribute qualifier="customFieldsJSON"/>
+                </editorArea:section>
+            </editorArea:tab>
+
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Consignment Entry -->
+
+    <context merge-by="type" parent="GenericItem" type="ConsignmentEntry" component="advanced-search">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <advanced-search:field-list>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch"
+                                       name="miraklOrderLineStatus" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context merge-by="type" type="ConsignmentEntry" component="referenceListView">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="miraklOrderLineStatus"/>
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="ConsignmentEntry" component="listview">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="miraklOrderLineStatus"/>
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="ConsignmentEntry" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea"
+                                          qualifier="miraklOrderLineStatus"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea"
+                                          qualifier="customFieldsJSON"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+
+    <!-- Mirakl Export Catalog Job -->
+
+    <context type="MiraklExportCatalogCronJob" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="exportCategories" operator="equals" selected="true"/>
+                <advanced-search:field name="exportAttributes" operator="equals" selected="true"/>
+                <advanced-search:field name="exportValueLists" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context component="editor-area" type="MiraklExportCatalogCronJob" merge-by="type">
+        <editorArea:editorArea name="MiraklExportCatalogCronJobEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="dryRunMode"/>
+                    <editorArea:attribute qualifier="excludeRootCategory"/>
+                    <editorArea:attribute qualifier="catalogVersion"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="hmc.tab.common" position="0">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:attribute qualifier="coreAttributeConfiguration"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklexportcatalogcronjob.coreattributes">
+                    <editorArea:panel name="coreAttributesPanel" colspan="4" position="3">
+                        <editorArea:attribute qualifier="coreAttributes" editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>listConfigContext</editorArea:name>
+                                <editorArea:value>inLineEditorConfig</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>inlineEditing</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklexportcatalogcronjob.i18n">
+                    <editorArea:attribute qualifier="defaultLanguage"/>
+                    <editorArea:attribute qualifier="additionalLanguages"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklexportcatalogcronjob.timing">
+                    <editorArea:attribute qualifier="importTimeout"/>
+                    <editorArea:attribute qualifier="importCheckInterval"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklexportcatalogcronjob.categories">
+                    <editorArea:attribute qualifier="exportCategories"/>
+                    <editorArea:attribute qualifier="categoriesFileName"/>
+                    <editorArea:attribute qualifier="categoriesMedia"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklexportcatalogcronjob.attributes">
+                    <editorArea:attribute qualifier="exportAttributes"/>
+                    <editorArea:attribute qualifier="attributesFileName"/>
+                    <editorArea:attribute qualifier="attributesMedia"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklexportcatalogcronjob.valuelists">
+                    <editorArea:attribute qualifier="exportValueLists"/>
+                    <editorArea:attribute qualifier="valueListsFileName"/>
+                    <editorArea:attribute qualifier="valueListsMedia"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Mirakl Core Attribute -->
+
+    <context type="MiraklCoreAttribute" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="uid" operator="equals" selected="true"/>
+                <advanced-search:field name="code" operator="equals" selected="true"/>
+                <advanced-search:field name="label" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context type="MiraklCoreAttribute" component="editor-area" merge-by="type">
+        <editorArea:editorArea name="MiraklCoreAttributeEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code"/>
+                    <editorArea:attribute qualifier="label"/>
+                    <editorArea:attribute qualifier="description"/>
+                    <editorArea:attribute qualifier="uid"/>
+                    <editorArea:attribute qualifier="variant"/>
+                    <editorArea:attribute qualifier="uniqueIdentifier"/>
+                    <editorArea:attribute qualifier="localized"/>
+                    <editorArea:attribute qualifier="requirementLevel"/>
+                    <editorArea:attribute qualifier="type"/>
+                    <editorArea:attribute qualifier="typeParameters"/>
+                    <editorArea:attribute qualifier="role"/>
+                    <editorArea:attribute qualifier="category"/>
+                    <editorArea:attribute qualifier="importExportHandlerStringId"/>
+                    <editorArea:attribute qualifier="defaultValue"/>
+                    <editorArea:attribute qualifier="composedTypeOwners"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="MiraklCoreAttribute" component="listview">
+        <list-view:list-view>
+            <list-view:column qualifier="uid"/>
+            <list-view:column qualifier="code"/>
+            <list-view:column qualifier="label"/>
+            <list-view:column qualifier="description"/>
+            <list-view:column qualifier="variant"/>
+            <list-view:column qualifier="uniqueIdentifier"/>
+            <list-view:column qualifier="localized"/>
+            <list-view:column qualifier="requirementLevel"/>
+            <list-view:column qualifier="type"/>
+            <list-view:column qualifier="typeParameters"/>
+            <list-view:column qualifier="role"/>
+            <list-view:column qualifier="category"/>
+            <list-view:column qualifier="importExportHandlerStringId"/>
+            <list-view:column qualifier="defaultValue"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklCoreAttribute" component="inLineEditorConfig">
+        <list-view:list-view>
+            <list-view:column qualifier="uid"/>
+            <list-view:column qualifier="code"/>
+            <list-view:column qualifier="label"/>
+            <list-view:column qualifier="localized"/>
+            <list-view:column qualifier="variant"/>
+            <list-view:column qualifier="requirementLevel"/>
+            <list-view:column qualifier="type"/>
+            <list-view:column qualifier="typeParameters"/>
+            <list-view:column qualifier="role"/>
+            <list-view:column qualifier="category"/>
+            <list-view:column qualifier="importExportHandlerStringId"/>
+            <list-view:column qualifier="defaultValue"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklCoreAttribute" component="create-wizard">
+        <wz:flow id="miraklCoreAttributeWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="miraklCoreAttributePrepare">
+                <wz:initialize property="miraklCoreAttribute" type="ctx.TYPE_CODE"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.discountrow.essential.label">
+                <wz:content id="step1.content">
+                    <wz:property-list root="miraklCoreAttribute">
+                        <wz:property qualifier="code"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:next/>
+                    <wz:done>
+                        <wz:save property="miraklCoreAttribute"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+            <wz:step id="step2" label="miraklcoreattribute.optional.label">
+                <wz:content id="step2.content">
+                    <wz:property-list root="miraklCoreAttribute">
+                        <wz:property qualifier="role"/>
+                        <wz:property qualifier="type"/>
+                        <wz:property qualifier="typeParameters"/>
+                        <wz:property qualifier="importExportHandlerStringId"/>
+                        <wz:property qualifier="requirementLevel"/>
+                        <wz:property qualifier="variant"/>
+                        <wz:property qualifier="uniqueIdentifier"/>
+                        <wz:property qualifier="localized"/>
+                        <wz:property qualifier="uid"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step2.navigation">
+                    <wz:cancel/>
+                    <wz:back/>
+                    <wz:done>
+                        <wz:save property="miraklCoreAttribute"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="MiraklCoreAttribute" component="base" module="miraklservices">
+        <y:base>
+            <y:labels>
+                <y:label>label != null ? code + ' - ' + label : code</y:label>
+                <y:description>description != null ? description : ''</y:description>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <!-- MiraklCategoryCoreAttribute -->
+
+    <context type="MiraklCategoryCoreAttribute" component="editor-area" merge-by="type">
+        <editorArea:editorArea name="MiraklCategoryCoreAttributeEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="rootCategoryCode"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="MiraklCategoryCoreAttribute" component="listview" merge-by="type">
+        <list-view:list-view>
+            <list-view:column qualifier="rootCategoryCode"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklCategoryCoreAttribute" component="inLineEditorConfig">
+        <list-view:list-view>
+            <list-view:column qualifier="rootCategoryCode"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklCategoryCoreAttribute" component="create-wizard" merge-by="type">
+        <wz:flow id="miraklCategoryCoreAttributeWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="miraklCategoryCoreAttributePrepare">
+                <wz:initialize property="miraklCoreAttribute" type="ctx.TYPE_CODE"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.discountrow.essential.label">
+                <wz:content id="step1.content">
+                    <wz:property-list root="miraklCoreAttribute">
+                        <wz:property qualifier="rootCategoryCode"/>
+                    </wz:property-list>
+                </wz:content>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+    <!-- MiraklCoreAttributeConfiguration -->
+
+    <context type="MiraklCoreAttributeConfiguration" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search>
+            <advanced-search:field-list>
+                <advanced-search:field name="code" operator="contains" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context type="MiraklCoreAttributeConfiguration" component="listview">
+        <list-view:list-view>
+            <list-view:column qualifier="code"/>
+            <list-view:column qualifier="productRootCategoryCode"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklCoreAttributeConfiguration" component="editor-area" merge-by="type">
+        <editorArea:editorArea name="MiraklCoreAttributeConfigurationEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code" position="0"/>
+                    <editorArea:attribute qualifier="productRootCategoryCode" position="1"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="hmc.tab.common">
+                <editorArea:section name="hmc.section.miraklcoreattributeconfiguration.coreattributes">
+                    <editorArea:panel name="coreAttributesPanel" colspan="4" position="3">
+                        <editorArea:attribute qualifier="coreAttributes"
+                                              editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>listConfigContext</editorArea:name>
+                                <editorArea:value>inLineEditorConfig</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>inlineEditing</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="MiraklCoreAttributeConfiguration" component="create-wizard">
+        <wz:flow id="miraklCoreAttributeConfigurationWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="miraklCoreAttributeConfigurationPrepare">
+                <wz:initialize property="miraklCoreAttributeConfiguration" type="ctx.TYPE_CODE"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.discountrow.essential.label">
+                <wz:content id="step1.content">
+                    <wz:property-list root="miraklCoreAttributeConfiguration">
+                        <wz:property qualifier="code"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:done>
+                        <wz:save property="miraklCoreAttributeConfiguration"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="MiraklCoreAttributeConfiguration" component="base" module="miraklservices">
+        <y:base>
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <!-- MiraklProductImportCronJob -->
+
+    <context type="MiraklProductImportCronJob" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="inputDirectory" operator="equals" selected="true"/>
+                <advanced-search:field name="archiveDirectory" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context type="MiraklProductImportCronJob" component="editor-area" merge-by="type">
+        <editorArea:editorArea name="MiraklProductImportCronJobEditor">
+            <editorArea:tab name="hmc.tab.common" position="0">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:attribute qualifier="numberOfWorkers"/>
+                    <editorArea:attribute qualifier="coreAttributeConfiguration"/>
+                    <editorArea:attribute qualifier="cleanupRawProducts"/>
+                    <editorArea:attribute qualifier="forceProductUpdate"/>
+                    <editorArea:attribute qualifier="mediaDownloadHttpHeaders"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklproductimportcronjob.coreattributes">
+                    <editorArea:panel name="coreAttributesPanel" colspan="4" position="3">
+                        <editorArea:attribute qualifier="coreAttributes" editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>listConfigContext</editorArea:name>
+                                <editorArea:value>inLineEditorConfig</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>inlineEditing</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklproductimportcronjob.versioning">
+                    <editorArea:attribute qualifier="catalogVersion"/>
+                    <editorArea:attribute qualifier="systemVersion"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.miraklproductimportcronjob.io">
+                    <editorArea:attribute qualifier="inputDirectory"/>
+                    <editorArea:attribute qualifier="archiveDirectory"/>
+                    <editorArea:attribute qualifier="inputFilePattern"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- MiraklRawProduct -->
+
+    <context merge-by="type" parent="GenericItem" type="MiraklRawProduct" component="advanced-search">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="sku" operator="equals" selected="true"/>
+                <advanced-search:field name="rowNumber" operator="equals" selected="true"/>
+                <advanced-search:field name="shopId" operator="equals" selected="true"/>
+                <advanced-search:field name="importId" operator="equals" selected="true"/>
+                <advanced-search:field name="variantGroupCode" operator="equals" selected="true"/>
+                <advanced-search:field name="checksum" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context merge-by="type" type="MiraklRawProduct" component="referenceListView">
+        <list-view:list-view>
+            <list-view:column qualifier="sku"/>
+            <list-view:column qualifier="shopId"/>
+            <list-view:column qualifier="importId"/>
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="MiraklRawProduct" component="listview">
+        <list-view:list-view>
+            <list-view:column qualifier="sku"/>
+            <list-view:column qualifier="shopId"/>
+            <list-view:column qualifier="importId"/>
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="MiraklRawProduct" component="editor-area">
+        <editorArea:editorArea>
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="sku"/>
+                    <editorArea:attribute qualifier="shopId"/>
+                    <editorArea:attribute qualifier="importId"/>
+                    <editorArea:attribute qualifier="rowNumber"/>
+                    <editorArea:attribute qualifier="variantGroupCode"/>
+                    <editorArea:attribute qualifier="checksum"/>
+                    <editorArea:attribute qualifier="values"/>
+                    <editorArea:attribute qualifier="rawData"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- MiraklCleanupRawProducts -->
+
+    <context merge-by="type" component="editor-area" type="MiraklCleanupRawProductsCronjob">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+                               name="miraklCleanupRawProductsCronjobEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="daysBeforeDeletion"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Category -->
+
+    <context merge-by="type" component="editor-area" type="Category">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.section.catalog.integration">
+                    <editorArea:attribute qualifier="operatorExclusive"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Catalog -->
+
+    <context merge-by="type" component="editor-area" type="Catalog">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.section.catalog.integration">
+                    <editorArea:attribute qualifier="rootProductType"/>
+                    <editorArea:attribute qualifier="translatableLanguages"/>
+                    <editorArea:attribute qualifier="miraklCatalogSystem"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Product -->
+
+    <context merge-by="type" component="editor-area" type="Product">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:panel name="hmc.section.common">
+                        <editorArea:attribute qualifier="origin"/>
+                        <editorArea:attribute qualifier="offers" editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>listConfigContext</editorArea:name>
+                                <editorArea:value>inLineEditorConfig</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>inlineEditing</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                </editorArea:section>
+                <editorArea:section name="hmc.section.product.approval.status">
+                    <editorArea:attribute qualifier="approvalStatus"/>
+                    <editorArea:attribute qualifier="rejectionReason"/>
+                    <editorArea:attribute qualifier="rejectionMessage"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- ClassificationAttribute -->
+
+    <context merge-by="type" component="editor-area" type="ClassificationAttribute">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.section.catalog.integration">
+                    <editorArea:attribute qualifier="operatorExclusive"/>
+                    <editorArea:attribute qualifier="requiredForMarketplace"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- ClassAttributeAssignment -->
+
+    <context merge-by="type" component="editor-area" type="ClassAttributeAssignment">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.section.catalog.integration">
+                    <editorArea:attribute qualifier="operatorExclusive"/>
+                    <editorArea:attribute qualifier="marketplaceRequirementLevel"/>
+                    <editorArea:attribute qualifier="marketplaceTypeParameters"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- MiraklDownloadProductFilesCronjob -->
+
+    <context type="MiraklDownloadProductFilesCronjob" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="code" operator="equals" selected="true"/>
+                <advanced-search:field name="productimportCronJob" operator="equals" selected="true"/>
+                <advanced-search:field name="lastExecutionDate" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context component="editor-area" type="MiraklDownloadProductFilesCronjob" merge-by="type">
+        <editorArea:editorArea name="MiraklDownloadProductFilesCronjobEditor">
+            <editorArea:tab name="hmc.tab.common" position="0">
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="fullDownload"/>
+                    <editorArea:attribute qualifier="lastExecutionDate"/>
+                    <editorArea:attribute qualifier="productimportCronJob"/>
+                    <editorArea:attribute qualifier="downloadDirectory"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Base Store -->
+
+    <context merge-by="type" parent="GenericItem" type="BaseStore" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:tab name="hmc.tab.marketplace">
+                <editorArea:section name="hmc.properties">
+                    <editorArea:attribute qualifier="defaultDeliveryCountry"/>
+                    <editorArea:attribute qualifier="miraklPromotionsEnabled"/>
+                    <editorArea:attribute qualifier="synchronousCartUpdateEnabled"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    <!-- MiraklEnvironment -->
+
+    <context type="MiraklEnvironment" component="editor-area"  parent="GenericItem" merge-by="type">
+        <editorArea:editorArea name="MiraklEnvironmentEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="apiUrl"/>
+                    <editorArea:attribute qualifier="frontApiKey" editor="com.hybris.cockpitng.editor.defaultpassword" />
+                    <editorArea:attribute qualifier="operatorApiKey" editor="com.hybris.cockpitng.editor.defaultpassword" />
+                    <editorArea:attribute qualifier="default"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="MiraklEnvironment" component="listview" merge-by="type">
+        <list-view:list-view>
+            <list-view:column qualifier="apiUrl"/>
+            <list-view:column qualifier="default"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklEnvironment" component="base" module="miraklservices"  merge-by="type">
+        <y:base>
+            <y:labels>
+                <y:label>'Mirakl Environment - ' + apiUrl</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="MiraklEnvironment" component="simple-search" merge-by="type">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="apiUrl"/>
+            <yss:field name="default"/>
+            <yss:sort-field name="apiUrl" asc="true"/>
+            <yss:sort-field name="default" asc="true"/>
+        </yss:simple-search>
+    </context>
+
+    <context type="MiraklEnvironment" component="advanced-search" merge-by="type">
+        <as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <as:field-list>
+                <as:field name="apiUrl" operator="contains" selected="true"/>
+                <as:field name="default" selected="true"/>
+            </as:field-list>
+            <as:sort-field name="apiUrl" asc="true"/>
+            <as:sort-field name="default" asc="true"/>
+        </as:advanced-search>
+    </context>
+
+    <context type="MiraklEnvironment" component="create-wizard">
+        <wz:flow id="ItemWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="itemPrepare">
+                <wz:initialize property="newObject" type="ctx.TYPE_CODE"/>
+            </wz:prepare>
+            <wz:step id="step1" label="flow.allmanadatory">
+                <wz:content id="step1.content">
+                    <wz:property-list root="newObject">
+                        <wz:property qualifier="apiUrl" />
+                        <wz:property qualifier="frontApiKey" editor="com.hybris.cockpitng.editor.defaultpassword" />
+                        <wz:property qualifier="operatorApiKey" editor="com.hybris.cockpitng.editor.defaultpassword"/>
+                        <wz:property qualifier="default" />
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:done>
+                        <wz:save property="newObject"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+    <!-- MiraklCustomField -->
+
+    <context type="MiraklCustomField" component="editor-area"  parent="GenericItem" merge-by="type">
+        <editorArea:editorArea name="MiraklCustomFieldEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code"/>
+                    <editorArea:attribute qualifier="label"/>
+                    <editorArea:attribute qualifier="type"/>
+                    <editorArea:attribute qualifier="required"/>
+                    <editorArea:attribute qualifier="entity"/>
+                    <editorArea:attribute qualifier="acceptedValues"/>
+                    <editorArea:attribute qualifier="regex"/>
+                    <editorArea:attribute qualifier="shopPermission"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="MiraklCustomField" component="listview" merge-by="type">
+        <list-view:list-view>
+            <list-view:column qualifier="code"/>
+            <list-view:column qualifier="label"/>
+            <list-view:column qualifier="type"/>
+            <list-view:column qualifier="required"/>
+            <list-view:column qualifier="entity"/>
+            <list-view:column qualifier="acceptedValues"/>
+            <list-view:column qualifier="regex"/>
+            <list-view:column qualifier="shopPermission"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklCustomField" component="base" module="miraklservices"  merge-by="type">
+        <y:base>
+            <y:labels>
+                <y:label>code + ' - ' + entity</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="MiraklCustomField" component="simple-search" merge-by="type">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="code"/>
+            <yss:field name="label"/>
+            <yss:field name="type"/>
+            <yss:field name="required"/>
+            <yss:field name="entity"/>
+            <yss:sort-field name="code" asc="true"/>
+            <yss:sort-field name="label" asc="true"/>
+            <yss:sort-field name="type" asc="true"/>
+            <yss:sort-field name="required" asc="true"/>
+            <yss:sort-field name="entity" asc="true"/>
+        </yss:simple-search>
+    </context>
+
+    <context type="MiraklCustomField" component="advanced-search" merge-by="type">
+        <as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <as:field-list>
+                <as:field name="code" operator="contains" selected="true"/>
+                <as:field name="label" operator="contains" selected="true"/>
+                <as:field name="type" selected="true"/>
+                <as:field name="required" selected="true"/>
+                <as:field name="entity" operator="contains" selected="true"/>
+                <as:field name="acceptedValues" selected="true"/>
+                <as:field name="regex" selected="true"/>
+                <as:field name="shopPermission" selected="true"/>
+            </as:field-list>
+            <as:sort-field name="code" asc="true"/>
+            <as:sort-field name="label" asc="true"/>
+            <as:sort-field name="type" asc="true"/>
+            <as:sort-field name="required" asc="true"/>
+            <as:sort-field name="entity" asc="true"/>
+            <as:sort-field name="acceptedValues" asc="true"/>
+            <as:sort-field name="regex" asc="true"/>
+            <as:sort-field name="shopPermission" asc="true"/>
+        </as:advanced-search>
+    </context>
+
+    <!-- Mirakl Import Custom Fields Job -->
+
+    <context type="MiraklImportCustomFieldsCronJob" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="entities" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context component="editor-area" type="MiraklImportCustomFieldsCronJob" merge-by="type">
+        <editorArea:editorArea name="MiraklImportCustomFieldsCronJobEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="entities"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Mirakl task polling & process job -->
+    <context type="MiraklAsyncTaskPoller" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="schedulerInstance" operator="equals" selected="true"/>
+                <advanced-search:field name="cleanupMiraklAsyncTask" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+
+    <context component="editor-area" type="MiraklAsyncTaskPoller" merge-by="type">
+        <editorArea:editorArea name="MiraklAsyncTaskPollerEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="schedulerInstance"/>
+                    <editorArea:attribute qualifier="cleanupMiraklAsyncTask"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <context component="editor-area" type="MiraklImportOfferPoller" merge-by="type">
+        <editorArea:editorArea name="MiraklAsyncTaskPollerEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="numberOfWorkers"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Mirakl async task -->
+    <context type="MiraklAsyncTask" component="editor-area"  parent="GenericItem" merge-by="type">
+        <editorArea:editorArea name="MiraklAsyncTaskEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="trackingId"/>
+                    <editorArea:attribute qualifier="type"/>
+                    <editorArea:attribute qualifier="status"/>
+                    <editorArea:attribute qualifier="requestDate"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="MiraklAsyncTask" component="listview" merge-by="type">
+        <list-view:list-view>
+            <list-view:column qualifier="type"/>
+            <list-view:column qualifier="trackingId"/>
+            <list-view:column qualifier="status"/>
+            <list-view:column qualifier="requestDate"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklAsyncTask" component="simple-search" merge-by="type">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="type"/>
+            <yss:field name="trackingId"/>
+            <yss:field name="status"/>
+            <yss:field name="requestDate"/>
+            <yss:sort-field name="type" asc="true"/>
+            <yss:sort-field name="trackingId" asc="true"/>
+            <yss:sort-field name="status" asc="true"/>
+            <yss:sort-field name="requestDate" asc="true"/>
+        </yss:simple-search>
+    </context>
+
+    <context type="MiraklAsyncTask" component="advanced-search" merge-by="type">
+        <as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <as:field-list>
+                <as:field name="type" selected="true"/>
+                <as:field name="trackingId"/>
+                <as:field name="status" selected="true"/>
+                <as:field name="requestDate"/>
+            </as:field-list>
+            <as:sort-field name="type" asc="true"/>
+            <as:sort-field name="trackingId" asc="true"/>
+            <as:sort-field name="status" asc="true"/>
+            <as:sort-field name="requestDate" asc="false"/>
+        </as:advanced-search>
+    </context>
+
+</config>

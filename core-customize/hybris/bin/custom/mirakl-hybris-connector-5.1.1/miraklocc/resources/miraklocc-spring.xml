@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <alias name="defaultMiraklCommerceCartParameterConverter" alias="commerceCartParameterConverter"/>
+    <bean name="defaultMiraklCommerceCartParameterConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.commerceservices.service.data.CommerceCartParameter"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCartParameterPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCartParameterPopulator" alias="miraklCartParameterPopulator"/>
+    <bean id="defaultMiraklCartParameterPopulator" class="com.mirakl.hybris.occ.order.populators.DefaultMiraklCartParameterPopulator" parent="commerceCartParameterBasicPopulator">
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+        <property name="offerFacade" ref="offerFacade"/>
+    </bean>
+
+    <alias name="defaultMiraklCreateThreadMessageDataPopulator" alias="miraklCreateThreadMessageDataPopulator"/>
+    <bean id="defaultMiraklCreateThreadMessageDataPopulator" class="com.mirakl.hybris.occ.order.populators.DefaultMiraklCreateThreadMessageDataPopulator">
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+    </bean>
+
+    <alias name="defaultMiraklReplyThreadMessageDataPopulator" alias="miraklReplyThreadMessageDataPopulator"/>
+    <bean id="defaultMiraklReplyThreadMessageDataPopulator" class="com.mirakl.hybris.occ.order.populators.DefaultMiraklReplyThreadMessageDataPopulator">
+        <property name="messagingThreadFacade" ref="messagingThreadFacade"/>
+    </bean>
+
+    <alias name="defaultMiraklCommerceStockFacade" alias="commerceStockFacade"/>
+    <bean id="defaultMiraklCommerceStockFacade" class="com.mirakl.hybris.occ.stock.impl.DefaultMiraklCommerceStockFacade" parent="defaultCommerceStockFacade">
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+        <property name="offerFacade" ref="offerFacade"/>
+        <property name="miraklStockLevelStatusStrategy" ref="miraklStockLevelStatusStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklStockLevelStatusStrategy" alias="miraklStockLevelStatusStrategy"/>
+    <bean id="defaultMiraklStockLevelStatusStrategy" class="com.mirakl.hybris.occ.order.strategies.impl.DefaultMiraklStockLevelStatusStrategy"/>
+
+
+</beans>

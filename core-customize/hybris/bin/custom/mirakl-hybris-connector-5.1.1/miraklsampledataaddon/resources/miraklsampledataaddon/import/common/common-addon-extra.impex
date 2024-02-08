@@ -1,0 +1,472 @@
+$lang=en
+$sessionUser=mirakl-system-user
+$sessionCurrency=EUR
+$ukCurrency=GBP
+$jpCurrency=JPY
+$usCurrency=USD
+$europeCurrency=EUR
+$solrIndexedType = solrIndexedType(identifier)[unique = true, default = 'BackofficeProduct'];
+
+#### Jobs ####
+
+# Custom Field Import Job
+INSERT_UPDATE MiraklImportCustomFieldsCronJob ; code[unique = true]      ; job(code)[default = defaultImportCustomFieldsJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                              ; importCustomFieldsCronJob
+
+
+# Offer Import Job                            
+INSERT_UPDATE MiraklImportOffersCronJob ; &jobRef                       ; code[unique = true]        ; fullImport ; job(code)[default = defaultImportOffersJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                        ; fullImportOffersCronJobRef    ; fullImportOffersCronJob    ; true       
+                                        ; partialImportOffersCronJobRef ; partialImportOffersCronJob ; false      
+
+INSERT_UPDATE MiraklImportOfferPoller ; code[unique = true]              ; numberOfWorkers ; schedulerInstance(&jobRef)   ; job(code)[default = defaultMiraklImportOffersPollingJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                      ; fullImportOffersPollerCronJob    ; 4               ; fullImportOffersCronJobRef   
+                                      ; partialImportOffersPollerCronJob ; 4               ; partialImportOffersCronJobRef
+
+# Offer State Import Job                
+INSERT_UPDATE MiraklImportOfferStatesCronJob ; code[unique = true]     ; job(code)[default = defaultImportOfferStatesJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                             ; importOfferStatesCronJob
+
+# Shop Import Job                            
+INSERT_UPDATE MiraklImportShopsCronjob ; code[unique = true]             ; fullImport ; job(code)[default = defaultShopImportJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isoCode)[default = $lang] ; active[default = true] ;  
+                                       ; fullMiraklImportShopsCronjob    ; true       
+                                       ; partialMiraklImportShopsCronjob ; false      
+
+# Export Status Job                    
+INSERT_UPDATE MiraklExportStatusCronJob ; code[unique = true] ; job(code)[default = defaultExportStatusJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                        ; exportStatusCronJob 
+
+# Retrieve Consignment updates Job      
+INSERT_UPDATE MiraklRetrieveConsignmentUpdatesCronJob ; code[unique=true]            ; job(code)[default = defaultRetrieveConsignmentUpdatesJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                      ; retrieveConsignmentUpdatesJob
+
+# Shops -> Offers CompositeJob                        
+INSERT_UPDATE CompositeEntry ; code[unique = true]                    ; executableCronJob(code)        
+                             ; partialMiraklImportShopsCompositeEntry ; partialMiraklImportShopsCronjob
+                             ; partialImportOffersCompositeEntry      ; partialImportOffersCronJob     
+                             ; fullMiraklImportShopsCompositeEntry    ; fullMiraklImportShopsCronjob   
+                             ; fullImportOffersCompositeEntry         ; fullImportOffersCronJob        
+
+INSERT_UPDATE MiraklImportShopOffersCompositeCronJob ; code[unique = true]                            ; compositeEntries(code)                                                   ; job(code)[default = compositeJobPerformable] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                     ; partialMiraklImportShopsOffersCompositeCronJob ; partialMiraklImportShopsCompositeEntry, partialImportOffersCompositeEntry
+                                                     ; fullMiraklImportShopsOffersCompositeCronJob    ; fullMiraklImportShopsCompositeEntry, fullImportOffersCompositeEntry      
+
+# Retrieve Debits Job                                
+INSERT_UPDATE MiraklRetrieveDebitRequestsCronJob ; code[unique = true]               ; job(code)[default = defaultMiraklRetrieveDebitRequestsJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                 ; miraklRetrieveDebitRequestsCronJob
+
+# Mirakl Debits processing job                   
+INSERT_UPDATE MiraklProcessDebitsCronJob ; code[unique=true]         ; job(code)[default = defaultMiraklProcessDebitsJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                         ; miraklProcessDebitsCronJob
+
+# Retrieve Debits --> Process Debits CompositeJob
+INSERT_UPDATE CompositeEntry ; code[unique = true]                     ; executableCronJob(code)           
+                             ; miraklRetrieveDebitRequestsCronJobEntry ; miraklRetrieveDebitRequestsCronJob
+                             ; miraklProcessDebitsCronJobEntry         ; miraklProcessDebitsCronJob        
+
+# Mirakl Debits retrieve and process composite job
+INSERT_UPDATE MiraklRetrieveProcessDebitsCompositeCronJob ; code[unique = true]                         ; compositeEntries(code)                                                  ; job(code)[default = compositeJobPerformable] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                          ; miraklRetrieveProcessDebitsCompositeCronJob ; miraklRetrieveDebitRequestsCronJobEntry, miraklProcessDebitsCronJobEntry
+
+# Retrieve Refunds Job                                    
+INSERT_UPDATE MiraklRetrieveRefundRequestsCronJob ; code[unique = true]                ; job(code)[default = defaultMiraklRetrieveRefundRequestsJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                  ; miraklRetrieveRefundRequestsCronJob
+
+# Mirakl Refunds processing job                   
+INSERT_UPDATE MiraklRefundPaymentCronJob ; code[unique=true]   ; job(code)[default = defaultRefundPaymentJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                         ; refundPaymentCronJob
+
+# Retrieve --> Process Refunds CompositeJob
+INSERT_UPDATE CompositeEntry ; code[unique = true]                      ; executableCronJob(code)            
+                             ; miraklRetrieveRefundRequestsCronJobEntry ; miraklRetrieveRefundRequestsCronJob
+                             ; refundPaymentCronJobEntry                ; refundPaymentCronJob               
+
+# Mirakl Refunds retrieve and process composite job
+INSERT_UPDATE MiraklRetrieveProcessRefundsCompositeCronJob ; code[unique = true]                          ; compositeEntries(code)                                             ; job(code)[default = compositeJobPerformable] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                           ; miraklRetrieveProcessRefundsCompositeCronJob ; miraklRetrieveRefundRequestsCronJobEntry, refundPaymentCronJobEntry
+
+# Raw product clean up job                                 
+INSERT_UPDATE MiraklCleanupRawProductsCronjob ; code[unique = true]       ; daysBeforeDeletion ; job(code)[default = defaultCleanupMiraklRawProductsPerformableJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                              ; cleanupRawProductsCronjob ;                    
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklpromotions"")"
+# Mirakl Promotions Import Job                
+INSERT_UPDATE MiraklImportPromotionsCronJob ; code[unique = true]          ; job(code)[default = defaultMiraklImportPromotionsJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                            ; miraklImportPromotionsCronJob
+
+# Mirakl Promotions Import Job              
+INSERT_UPDATE MiraklImportPromotionsOfferMappingCronJob ; code[unique = true]                      ; job(code)[default = defaultMiraklImportPromotionsOfferMappingJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                        ; miraklImportPromotionsOfferMappingCronJob
+#% endif:                                               
+
+#### Triggers ####                                      
+
+INSERT_UPDATE Trigger ; cronJob(code)[unique = true]                   ; second ; minute ; hour ; day ; month ; year ; maxAcceptableDelay ; relative[default = true] ; active[default = false] ;  
+#% afterEach: impex.getLastImportedItem().setActivationTime(org.apache.commons.lang.time.DateUtils.addMinutes(new Date(),1));
+
+#CA2 - Category Export Status - Maximum every 1 minute
+#P22 - Product Export Status - Maximum every 1 minute
+                      ; exportStatusCronJob                            ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; -1                 
+
+#OR11 - Consignment updates (List orders) - Maximum every 1 minute
+                      ; retrieveConsignmentUpdatesJob                  ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; -1                 
+
+#S20 -> OF51 Composite every 5 minutes
+                      ; partialMiraklImportShopsOffersCompositeCronJob ; 0      ; 5      ; -1   ; -1  ; -1    ; -1   ; -1                 
+
+# Retrieve and Process Debits - Every minute
+                      ; miraklRetrieveProcessDebitsCompositeCronJob    ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; -1                 
+
+# Retrieve and Process Refunds - Every minutes
+                      ; miraklRetrieveProcessRefundsCompositeCronJob   ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; -1                 
+
+#AF01 - Custom fields import - Maximum every 1 per day
+                      ; importCustomFieldsCronJob                      ; 0      ; 0      ; 0    ; 1   ; -1    ; -1   ; -1                 
+
+# Poll and Process Async tasks - Every minute
+                      ; fullImportOffersPollerCronJob                  ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; -1                 
+                      ; partialImportOffersPollerCronJob               ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; -1                 
+
+#### Offer States ####
+
+INSERT_UPDATE OfferState ; code[unique=true] ; name[lang=$lang]                 
+                         ; 1                 ; Used - Like New                  
+                         ; 2                 ; Used - Very Good Condition       
+                         ; 3                 ; Used - Good Condition            
+                         ; 4                 ; Used - Acceptable Condition      
+                         ; 5                 ; Collectors - Like New            
+                         ; 6                 ; Collectors - Very Good Condition 
+                         ; 7                 ; Collectors - Good Condition      
+                         ; 8                 ; Collectors - Acceptable Condition
+                         ; 10                ; Refurbished                      
+                         ; 11                ; New                              
+
+#### Refund Reasons #### 
+
+INSERT_UPDATE RefundReason ; code[unique=true] ; name[lang=$lang]                         
+                           ; 14                ; No response from the shop                
+                           ; 15                ; Out of stock                             
+                           ; 16                ; Cancelled by the client prior to shipping
+                           ; 17                ; Item returned                            
+                           ; 18                ; Item not received                        
+                           ; 19                ; Agreement found with the vendor          
+
+#### Currencies ####       
+
+# Activate the currencies for the demo shops
+UPDATE Currency ; isocode[unique=true] ; active
+                ; USD                  ; true  
+                ; GBP                  ; true  
+                ; EUR                  ; true  
+
+#### Warehouses ####
+
+# Vendor        
+INSERT_UPDATE Vendor ; code[unique=true]  ; name              
+                     ; marketplace-vendor ; Marketplace Vendor
+
+# Warehouse          
+INSERT_UPDATE Warehouse ; code[unique=true]     ; name                  ; vendor(code)[default=default] ; default[default=true]
+                        ; marketplace-warehouse ; Marketplace Warehouse ; marketplace-vendor            
+
+#### ISO Alpha 3 country codes used by Mirakl ####
+INSERT_UPDATE Country ; isocode[unique = true] ; isoAlpha3
+                      ; AF                     ; AFG      
+                      ; AX                     ; ALA      
+                      ; AL                     ; ALB      
+                      ; DZ                     ; DZA      
+                      ; AS                     ; ASM      
+                      ; AD                     ; AND      
+                      ; AO                     ; AGO      
+                      ; AI                     ; AIA      
+                      ; AQ                     ; ATA      
+                      ; AG                     ; ATG      
+                      ; AR                     ; ARG      
+                      ; AM                     ; ARM      
+                      ; AW                     ; ABW      
+                      ; AU                     ; AUS      
+                      ; AT                     ; AUT      
+                      ; AZ                     ; AZE      
+                      ; BS                     ; BHS      
+                      ; BH                     ; BHR      
+                      ; BD                     ; BGD      
+                      ; BB                     ; BRB      
+                      ; BY                     ; BLR      
+                      ; BE                     ; BEL      
+                      ; BZ                     ; BLZ      
+                      ; BJ                     ; BEN      
+                      ; BM                     ; BMU      
+                      ; BT                     ; BTN      
+                      ; BO                     ; BOL      
+                      ; BA                     ; BIH      
+                      ; BW                     ; BWA      
+                      ; BV                     ; BVT      
+                      ; BR                     ; BRA      
+                      ; VG                     ; VGB      
+                      ; IO                     ; IOT      
+                      ; BN                     ; BRN      
+                      ; BG                     ; BGR      
+                      ; BF                     ; BFA      
+                      ; BI                     ; BDI      
+                      ; KH                     ; KHM      
+                      ; CM                     ; CMR      
+                      ; CA                     ; CAN      
+                      ; CV                     ; CPV      
+                      ; KY                     ; CYM      
+                      ; CF                     ; CAF      
+                      ; TD                     ; TCD      
+                      ; CL                     ; CHL      
+                      ; CN                     ; CHN      
+                      ; HK                     ; HKG      
+                      ; MO                     ; MAC      
+                      ; CX                     ; CXR      
+                      ; CC                     ; CCK      
+                      ; CO                     ; COL      
+                      ; KM                     ; COM      
+                      ; CG                     ; COG      
+                      ; CD                     ; COD      
+                      ; CK                     ; COK      
+                      ; CR                     ; CRI      
+                      ; CI                     ; CIV      
+                      ; HR                     ; HRV      
+                      ; CU                     ; CUB      
+                      ; CY                     ; CYP      
+                      ; CZ                     ; CZE      
+                      ; DK                     ; DNK      
+                      ; DJ                     ; DJI      
+                      ; DM                     ; DMA      
+                      ; DO                     ; DOM      
+                      ; EC                     ; ECU      
+                      ; EG                     ; EGY      
+                      ; SV                     ; SLV      
+                      ; GQ                     ; GNQ      
+                      ; ER                     ; ERI      
+                      ; EE                     ; EST      
+                      ; ET                     ; ETH      
+                      ; FK                     ; FLK      
+                      ; FO                     ; FRO      
+                      ; FJ                     ; FJI      
+                      ; FI                     ; FIN      
+                      ; FR                     ; FRA      
+                      ; GF                     ; GUF      
+                      ; PF                     ; PYF      
+                      ; TF                     ; ATF      
+                      ; GA                     ; GAB      
+                      ; GM                     ; GMB      
+                      ; GE                     ; GEO      
+                      ; DE                     ; DEU      
+                      ; GH                     ; GHA      
+                      ; GI                     ; GIB      
+                      ; GR                     ; GRC      
+                      ; GL                     ; GRL      
+                      ; GD                     ; GRD      
+                      ; GP                     ; GLP      
+                      ; GU                     ; GUM      
+                      ; GT                     ; GTM      
+                      ; GG                     ; GGY      
+                      ; GN                     ; GIN      
+                      ; GW                     ; GNB      
+                      ; GY                     ; GUY      
+                      ; HT                     ; HTI      
+                      ; HM                     ; HMD      
+                      ; VA                     ; VAT      
+                      ; HN                     ; HND      
+                      ; HU                     ; HUN      
+                      ; IS                     ; ISL      
+                      ; IN                     ; IND      
+                      ; ID                     ; IDN      
+                      ; IR                     ; IRN      
+                      ; IQ                     ; IRQ      
+                      ; IE                     ; IRL      
+                      ; IM                     ; IMN      
+                      ; IL                     ; ISR      
+                      ; IT                     ; ITA      
+                      ; JM                     ; JAM      
+                      ; JP                     ; JPN      
+                      ; JE                     ; JEY      
+                      ; JO                     ; JOR      
+                      ; KZ                     ; KAZ      
+                      ; KE                     ; KEN      
+                      ; KI                     ; KIR      
+                      ; KP                     ; PRK      
+                      ; KR                     ; KOR      
+                      ; KW                     ; KWT      
+                      ; KG                     ; KGZ      
+                      ; LA                     ; LAO      
+                      ; LV                     ; LVA      
+                      ; LB                     ; LBN      
+                      ; LS                     ; LSO      
+                      ; LR                     ; LBR      
+                      ; LY                     ; LBY      
+                      ; LI                     ; LIE      
+                      ; LT                     ; LTU      
+                      ; LU                     ; LUX      
+                      ; MK                     ; MKD      
+                      ; MG                     ; MDG      
+                      ; MW                     ; MWI      
+                      ; MY                     ; MYS      
+                      ; MV                     ; MDV      
+                      ; ML                     ; MLI      
+                      ; MT                     ; MLT      
+                      ; MH                     ; MHL      
+                      ; MQ                     ; MTQ      
+                      ; MR                     ; MRT      
+                      ; MU                     ; MUS      
+                      ; YT                     ; MYT      
+                      ; MX                     ; MEX      
+                      ; FM                     ; FSM      
+                      ; MD                     ; MDA      
+                      ; MC                     ; MCO      
+                      ; MN                     ; MNG      
+                      ; ME                     ; MNE      
+                      ; MS                     ; MSR      
+                      ; MA                     ; MAR      
+                      ; MZ                     ; MOZ      
+                      ; MM                     ; MMR      
+                      ; NA                     ; NAM      
+                      ; NR                     ; NRU      
+                      ; NP                     ; NPL      
+                      ; NL                     ; NLD      
+                      ; AN                     ; ANT      
+                      ; NC                     ; NCL      
+                      ; NZ                     ; NZL      
+                      ; NI                     ; NIC      
+                      ; NE                     ; NER      
+                      ; NG                     ; NGA      
+                      ; NU                     ; NIU      
+                      ; NF                     ; NFK      
+                      ; MP                     ; MNP      
+                      ; NO                     ; NOR      
+                      ; OM                     ; OMN      
+                      ; PK                     ; PAK      
+                      ; PW                     ; PLW      
+                      ; PS                     ; PSE      
+                      ; PA                     ; PAN      
+                      ; PG                     ; PNG      
+                      ; PY                     ; PRY      
+                      ; PE                     ; PER      
+                      ; PH                     ; PHL      
+                      ; PN                     ; PCN      
+                      ; PL                     ; POL      
+                      ; PT                     ; PRT      
+                      ; PR                     ; PRI      
+                      ; QA                     ; QAT      
+                      ; RE                     ; REU      
+                      ; RO                     ; ROU      
+                      ; RU                     ; RUS      
+                      ; RW                     ; RWA      
+                      ; BL                     ; BLM      
+                      ; SH                     ; SHN      
+                      ; KN                     ; KNA      
+                      ; LC                     ; LCA      
+                      ; MF                     ; MAF      
+                      ; PM                     ; SPM      
+                      ; VC                     ; VCT      
+                      ; WS                     ; WSM      
+                      ; SM                     ; SMR      
+                      ; ST                     ; STP      
+                      ; SA                     ; SAU      
+                      ; SN                     ; SEN      
+                      ; RS                     ; SRB      
+                      ; SC                     ; SYC      
+                      ; SL                     ; SLE      
+                      ; SG                     ; SGP      
+                      ; SK                     ; SVK      
+                      ; SI                     ; SVN      
+                      ; SB                     ; SLB      
+                      ; SO                     ; SOM      
+                      ; ZA                     ; ZAF      
+                      ; GS                     ; SGS      
+                      ; SS                     ; SSD      
+                      ; ES                     ; ESP      
+                      ; LK                     ; LKA      
+                      ; SD                     ; SDN      
+                      ; SR                     ; SUR      
+                      ; SJ                     ; SJM      
+                      ; SZ                     ; SWZ      
+                      ; SE                     ; SWE      
+                      ; CH                     ; CHE      
+                      ; SY                     ; SYR      
+                      ; TW                     ; TWN      
+                      ; TJ                     ; TJK      
+                      ; TZ                     ; TZA      
+                      ; TH                     ; THA      
+                      ; TL                     ; TLS      
+                      ; TG                     ; TGO      
+                      ; TK                     ; TKL      
+                      ; TO                     ; TON      
+                      ; TT                     ; TTO      
+                      ; TN                     ; TUN      
+                      ; TR                     ; TUR      
+                      ; TM                     ; TKM      
+                      ; TC                     ; TCA      
+                      ; TV                     ; TUV      
+                      ; UG                     ; UGA      
+                      ; UA                     ; UKR      
+                      ; AE                     ; ARE      
+                      ; GB                     ; GBR      
+                      ; US                     ; USA      
+                      ; UM                     ; UMI      
+                      ; UY                     ; URY      
+                      ; UZ                     ; UZB      
+                      ; VU                     ; VUT      
+                      ; VE                     ; VEN      
+                      ; VN                     ; VNM      
+                      ; VI                     ; VIR      
+                      ; WF                     ; WLF      
+                      ; EH                     ; ESH      
+                      ; YE                     ; YEM      
+                      ; ZM                     ; ZMB      
+                      ; ZW                     ; ZWE      
+                      ; BQ                     ; BES      
+                      ; CW                     ; CUW      
+
+
+#### Zone Delivery Mode ####
+
+# Global zone         
+INSERT_UPDATE Zone ; code[unique = true] ; countries(isocode)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                   ; mirakl-global-zone  ; AF, AX, AL, DZ, AS, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, BS, BH, BD, BB, BY, BE, BZ, BJ, BM, BT, BO, BA, BW, BV, BR, VG, IO, BN, BG, BF, BI, KH, CM, CA, CV, KY, CF, TD, CL, CN, HK, MO, CX, CC, CO, KM, CG, CD, CK, CR, CI, HR, CU, CY, CZ, DK, DJ, DM, DO, EC, EG, SV, GQ, ER, EE, ET, FK, FO, FJ, FI, FR, GF, PF, TF, GA, GM, GE, DE, GH, GI, GR, GL, GD, GP, GU, GT, GG, GN, GW, GY, HT, HM, VA, HN, HU, IS, IN, ID, IR, IQ, IE, IM, IL, IT, JM, JP, JE, JO, KZ, KE, KI, KP, KR, KW, KG, LA, LV, LB, LS, LR, LY, LI, LT, LU, MK, MG, MW, MY, MV, ML, MT, MH, MQ, MR, MU, YT, MX, FM, MD, MC, MN, ME, MS, MA, MZ, MM, NA, NR, NP, NL, AN, NC, NZ, NI, NE, NG, NU, NF, MP, NO, OM, PK, PW, PS, PA, PG, PY, PE, PH, PN, PL, PT, PR, QA, RE, RO, RU, RW, BL, SH, KN, LC, MF, PM, VC, WS, SM, ST, SA, SN, RS, SC, SL, SG, SK, SI, SB, SO, ZA, GS, SS, ES, LK, SD, SR, SJ, SZ, SE, CH, SY, TW, TJ, TZ, TH, TL, TG, TK, TO, TT, TN, TR, TM, TC, TV, UG, UA, AE, GB, US, UM, UY, UZ, VU, VE, VN, VI, WF, EH, YE, ZM, ZW, BQ, CW
+
+# Custom Zone Delivery Mode for full marketplace orders
+INSERT_UPDATE ZoneDeliveryMode ; code[unique = true]     ; net  ; active[default = false]
+                               ; mirakl-default-shipping ; false
+
+# Free delivery for full marketplace orders
+INSERT_UPDATE ZoneDeliveryModeValue ; deliveryMode(code)[unique = true] ; zone(code)[default = 'mirakl-global-zone'][unique = true] ; currency(isocode)[unique = true] ; value ; minimum[unique = true]
+                                    ; mirakl-default-shipping           ;                                                           ; $usCurrency                      ; 0, 00 ; 0, 00                 
+                                    ; mirakl-default-shipping           ;                                                           ; $jpCurrency                      ; 0, 00 ; 0, 00                 
+                                    ; mirakl-default-shipping           ;                                                           ; $europeCurrency                  ; 0, 00 ; 0, 00                 
+                                    ; mirakl-default-shipping           ;                                                           ; $ukCurrency                      ; 0, 00 ; 0, 00                 
+
+# Change Media formats to ConversionMediaFormat
+INSERT_UPDATE MediaFormat[impex.legacy.mode=true] ; qualifier[unique=true] ; itemtype(code)[default=ConversionMediaFormat]
+                                                  ; 1200Wx1200H            
+                                                  ; 515Wx515H              
+                                                  ; 365Wx246H              
+                                                  ; 300Wx300H              
+                                                  ; 96Wx96H                
+                                                  ; 65Wx65H                
+                                                  ; 30Wx30H                
+
+# Update conversion media formats                 
+INSERT_UPDATE ConversionMediaFormat ; qualifier[unique=true] ; conversion       ; conversionStrategy[default=imageMagickMediaConversionStrategy] ; mimeType[default=image/jpeg]
+                                    ; 1200Wx1200H            ; -resize 1200x1200
+                                    ; 515Wx515H              ; -resize 515x515  
+                                    ; 365Wx246H              ; -resize 365x365  
+                                    ; 300Wx300H              ; -resize 300x300  
+                                    ; 96Wx96H                ; -resize 96x96    
+                                    ; 65Wx65H                ; -resize 65x65    
+                                    ; 30Wx30H                ; -resize 30x30    
+
+# Media conversion group            
+INSERT_UPDATE ConversionGroup ; code[unique=true]            ; name[lang=en]             ; supportedFormats(qualifier)                                       ;  
+                              ; DefaultMiraklConversionGroup ; Default Mirakl conversion ; 1200Wx1200H,515Wx515H,365Wx246H,300Wx300H,96Wx96H,65Wx65H,30Wx30H ;  
+
+INSERT_UPDATE SearchRestriction; code[unique = true]    ; name[lang = $lang]                  ; principal(uid)[unique = true]; query                      ; restrictedType(code)[unique = true]; active[default = true]; generate[default = false]
+                               ; Backend_MediaContainer ; "Media Container Backend Visiblity" ; mirakl-mediaconversion-user  ; {item:fromMarketplace} = 1 ; MediaContainer
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklpromotions"")"
+INSERT_UPDATE RuleGroup ; code[unique = true]     
+                        ; miraklPromotionRuleGroup
+#% endif:               

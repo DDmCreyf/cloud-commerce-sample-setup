@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+    <bean class="de.hybris.platform.commerceservices.service.data.CommerceCartParameter">
+        <property name="offer" type="com.mirakl.hybris.core.model.OfferModel" />
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.MiraklRefundRequestData">
+        <description>A bean used to receive a refund request from Mirakl</description>
+        <property name="amount" type="java.math.BigDecimal"/>
+        <property name="refundId" type="java.lang.String"/>
+        <property name="commercialOrderId" type="java.lang.String"/>
+        <property name="miraklOrderId" type="java.lang.String"/>
+        <property name="miraklOrderLineId" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.MiraklExportCatalogConfig">
+        <description>A bean containing the required configuration for the catalog export</description>
+        <property name="rootCategory" type="de.hybris.platform.category.model.CategoryModel"/>
+        <property name="catalogVersion" type="de.hybris.platform.catalog.model.CatalogVersionModel"/>
+        <property name="exportCategories" type="boolean"/>
+        <property name="exportAttributes" type="boolean"/>
+        <property name="exportValueLists" type="boolean"/>
+        <property name="categoriesFilename" type="java.lang.String"/>
+        <property name="attributesFilename" type="java.lang.String"/>
+        <property name="valueListsFilename" type="java.lang.String"/>
+        <property name="defaultLocale" type="java.util.Locale"/>
+        <property name="additionalLocales" type="java.util.List&lt;java.util.Locale>"/>
+        <property name="translatableLocales" type="java.util.List&lt;java.util.Locale>"/>
+        <property name="coreAttributes" type="java.util.Set&lt;com.mirakl.hybris.core.model.MiraklCoreAttributeModel>"/>
+        <property name="dryRunMode" type="boolean"/>
+        <property name="importTimeout" type="int"/>
+        <property name="importCheckInterval" type="int"/>
+        <property name="rootProductType" type="java.lang.String"/>
+        <property name="miraklCatalogSystem" type="com.mirakl.hybris.core.enums.MiraklCatalogSystem"/>
+        <property name="excludeRootCategory" type="boolean"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.MiraklExportCatalogResultData">
+        <property name="miraklCatalogCategoryImportTracking" type="java.lang.String"/>
+        <property name="miraklAttributeImportTracking" type="java.lang.String"/>
+        <property name="miraklValueListImportTracking" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ShopVariantGroupCode">
+        <description>A bean containing variant group code for a shop</description>
+        <property name="shopId" type="java.lang.String"/>
+        <property name="variantGroupCode" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductImportData">
+        <description>A bean containing the information needed to perform a product import</description>
+        <property name="shop" type="com.mirakl.hybris.core.model.ShopModel"/>
+        <property name="shopSku" type="java.lang.String"/>
+        <property name="variantGroupCode" type="java.lang.String"/>
+        <property name="rawProduct" type="com.mirakl.hybris.core.model.MiraklRawProductModel"/>
+        <property name="variantType" type="de.hybris.platform.variants.model.VariantTypeModel"/>
+        <property name="productResolvedBySku" type="de.hybris.platform.core.model.product.ProductModel"/>
+        <property name="productsResolvedByUID" type="java.util.Set&lt;de.hybris.platform.core.model.product.ProductModel>"/>
+        <property name="productResolvedByVariantGroup" type="de.hybris.platform.core.model.product.ProductModel"/>
+        <property name="identifiedProduct" type="de.hybris.platform.core.model.product.ProductModel"/>
+        <property name="productToUpdate" type="de.hybris.platform.core.model.product.ProductModel"/>
+        <property name="rootBaseProductToUpdate" type="de.hybris.platform.core.model.product.ProductModel"/>
+        <property name="modelsToSave" type="java.util.Set&lt;de.hybris.platform.core.model.ItemModel>"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductImportGlobalContextData">
+        <description>A global context for the product import</description>
+        <property name="inputFilePattern" type="java.lang.String"/>
+        <property name="productCatalogVersion" type="de.hybris.platform.core.PK"/>
+        <property name="coreAttributes" type="java.util.Map&lt;java.lang.String, de.hybris.platform.core.PK>"/>
+        <property name="uniqueIdentifierCoreAttributes" type="java.util.Set&lt;java.lang.String>"/>
+        <property name="categoryRoleAttribute" type="de.hybris.platform.core.PK"/>
+        <property name="variantAttributesPerType" type="java.util.Map&lt;java.lang.String, java.util.Set&lt;java.lang.String>>"/>
+        <property name="declaredVariantAttributesPerType" type="java.util.Map&lt;java.lang.String, java.util.Set&lt;java.lang.String>>"/>
+        <property name="attributesPerType" type="java.util.Map&lt;java.lang.String,java.util.Set&lt;java.lang.String>>"/>
+        <property name="variantTypeHierarchyPerType" type="java.util.Map&lt;java.lang.String, java.util.List&lt;java.lang.String>>"/>
+        <property name="rootProductType" type="java.lang.String"/>
+        <property name="variantAttributes" type="List&lt;java.lang.String>"/>
+        <property name="coreAttributePerRole" type="java.util.Map&lt;com.mirakl.hybris.core.enums.MiraklAttributeRole,java.lang.String>"/>
+        <property name="allCategoryValues" type="java.util.Map&lt;java.lang.String,java.util.Set&lt;de.hybris.platform.core.PK>>"/>
+        <property name="numberOfWorkers" type="int"/>
+        <property name="forceProductUpdate" type="boolean"/>
+        <property name="miraklCatalogSystem" type="com.mirakl.hybris.core.enums.MiraklCatalogSystem"/>
+        <property name="mediaDownloadHttpHeaders" type="java.util.Map&lt;java.lang.String,java.lang.String>"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductImportFileContextData">
+        <description>A file scope context for the product import</description>
+        <property name="globalContext" type="com.mirakl.hybris.beans.ProductImportGlobalContextData"/>
+        <property name="importResultQueue" type="java.util.concurrent.BlockingQueue&lt;com.mirakl.hybris.beans.ProductImportResultData>"/>
+        <property name="shopId" type="java.lang.String"/>
+        <property name="miraklImportId" type="java.lang.String"/>
+        <property name="shopFilename" type="java.lang.String"/>
+        <property name="fullFilename" type="java.lang.String"/>
+        <property name="headerInfos" type="java.util.Map&lt;java.lang.String,com.mirakl.hybris.beans.HeaderInfoData>"/>
+        <property name="receivedFile" type="java.io.File"/>
+        <property name="errorFile" type="java.io.File"/>
+        <property name="successFile" type="java.io.File"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ShopSkuData">
+        <description>A bean containing shop sku informations</description>
+        <property name="product" type="de.hybris.platform.core.model.product.ProductModel"/>
+        <property name="shop" type="com.mirakl.hybris.core.model.ShopModel"/>
+        <property name="sku" type="java.lang.String"/>
+        <property name="checksum" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductImportResultData">
+        <description>A bean containing a product import line result details</description>
+        <property name="lineValues" type="java.util.Map&lt;java.lang.String,java.lang.String>"/>
+        <property name="rowNumber" type="int"/>
+        <property name="terminationSignal" type="boolean"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductImportErrorData" extends="com.mirakl.hybris.beans.ProductImportResultData">
+        <description>A bean containing a product import error line details</description>
+        <property name="errorMessage" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ProductImportSuccessData" extends="com.mirakl.hybris.beans.ProductImportResultData">
+        <description>A bean containing a product import successful line details</description>
+        <property name="additionalMessage" type="java.lang.String"/>
+        <property name="productCode" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.AttributeValueData">
+        <description>A bean containing a received attribute value, resolved with its locale and its core attribute (if any)</description>
+        <property name="code" type="java.lang.String"/>
+        <property name="value" type="java.lang.String"/>
+        <property name="locale" type="java.util.Locale"/>
+        <property name="coreAttribute" type="com.mirakl.hybris.core.model.MiraklCoreAttributeModel"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.HeaderInfoData">
+        <description>A bean containing a received header, resolved with its locale</description>
+        <property name="attribute" type="java.lang.String"/>
+        <property name="locale" type="java.util.Locale"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ExportCatalogAdditionalData">
+        <description>A bean containing additional data. Currently empty but may be extended depending on the integration needs.</description>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.MiraklRawProductData">
+        <description>A bean containing informations about a raw product data</description>
+        <property name="values" type="java.util.Map&lt;java.lang.String,java.lang.String>"/>
+        <property name="untokenizedRow" type="java.lang.String"/>
+        <property name="lineNumber" type="int"/>
+        <property name="context" type="com.mirakl.hybris.beans.ProductImportFileContextData"/>
+        <property name="importId" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.OfferOrderingConditions">
+        <description>A bean containing the order conditions for an offer</description>
+        <property name="maxOrderQuantity" type="java.lang.Integer"/>
+        <property name="minOrderQuantity" type="java.lang.Integer"/>
+        <property name="packageQuantity" type="java.lang.Integer"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.CartAdjustment">
+        <description>A bean containing the allowed cart adjustment for a requested add to cart</description>
+        <property name="allowedQuantityChange" type="java.lang.Long"/>
+        <property name="status" type="java.lang.String"/>
+        <property name="requestedQuantity" type="java.lang.Long"/>
+        <property name="cartLevelForOffer" type="java.lang.Long"/>
+        <property name="maxOrderQuantity" type="java.lang.Integer"/>
+        <property name="minOrderQuantity" type="java.lang.Integer"/>
+        <property name="packageQuantity" type="java.lang.Integer"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ComparableOfferData&lt;T>">
+        <description>A bean containing the informations needed to compare offers</description>
+        <property name="offer" type="T"/>
+        <property name="totalPrice" type="java.math.BigDecimal"/>
+        <property name="state" type="com.mirakl.hybris.core.enums.OfferState"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.OfferOverviewData">
+        <description>A bean containing an overview of the offer info</description>
+        <property name="code" type="String"/>
+        <property name="shopId" type="String"/>
+        <property name="shopName" type="String"/>
+        <property name="shopGrade" type="java.lang.Double"/>
+        <property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+        <property name="originPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+        <property name="totalPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+        <property name="minShippingPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+        <property name="quantity" type="java.lang.Integer"/>
+        <property name="minPurchasableQty" type="java.lang.Integer"/>
+        <property name="maxPurchasableQty" type="java.lang.Integer"/>
+        <property name="packageQty" type="java.lang.Integer"/>
+        <property name="stateCode" type="String"/>
+        <property name="allOfferPricingsJSON" type="String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ThreadRequestData">
+        <description>A bean containing the request criteria to retrieve threads from Mirakl</description>
+        <property name="consignmentCode" type="String"/>
+        <property name="pageToken" type="String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.OfferPricingData">
+        <description>A bean containing the offer pricing data</description>
+        <property name="channelCode" type="String"/>
+        <property name="discountStartDate" type="java.util.Date"/>
+        <property name="discountEndDate" type="java.util.Date"/>
+        <property name="price" type="java.math.BigDecimal"/>
+        <property name="unitOriginPrice" type="java.math.BigDecimal"/>
+        <property name="unitDiscountPrice" type="java.math.BigDecimal"/>
+        <property name="volumePrices" type="java.util.List&lt;com.mirakl.hybris.beans.OfferVolumePricingData>"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.OfferVolumePricingData">
+        <description>A bean containing the offer volume pricing data</description>
+        <property name="price" type="java.math.BigDecimal"/>
+        <property name="unitOriginPrice" type="java.math.BigDecimal"/>
+        <property name="unitDiscountPrice" type="java.math.BigDecimal"/>
+        <property name="quantityThreshold" type="java.lang.Integer"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.OrganizationData">
+        <property name="id" type="java.lang.String"/>
+        <property name="name" type="java.lang.String"/>
+        <property name="identificationNumber" type="java.lang.String"/>
+        <property name="taxIdentificationNumber" type="java.lang.String"/>
+        <property name="street1" type="java.lang.String"/>
+        <property name="street2" type="java.lang.String"/>
+        <property name="zipCode" type="java.lang.String"/>
+        <property name="city" type="java.lang.String"/>
+        <property name="state" type="java.lang.String"/>
+        <property name="countryIsoCode" type="java.lang.String"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,119 @@
+[
+  {
+    "_test_case_description": "Happy path for offer creation with all fields set",
+    "offer_id": 10000,
+    "active": true,
+    "allow_quote_requests": false,
+    "available_start_date": "2022-02-07T16:16:26Z",
+    "available_end_date": "2024-02-07T16:16:26Z",
+    "currency_iso_code": "USD",
+    "description": "Sample testing offer creation",
+    "deleted": false,
+    "favorite_rank": 12,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:26Z",
+    "leadtime_to_ship": "4",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "max_order_quantity": 100,
+    "min_order_quantity": 10,
+    "package_quantity": 5,
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "premium": false,
+    "offer_additional_fields": [
+      {
+        "code": "BOOLEAN_FIELD",
+        "type": "boolean",
+        "value": "false"
+      },
+      {
+        "code": "STRING_FIELD",
+        "type": "string",
+        "value": "This value is a String"
+      }
+    ],
+    "price_additional_info": "Don't miss this offer !",
+    "prices": [
+      {
+        "origin_price": 921.00,
+        "discount_price": 18.50,
+        "discount_end_date": "2021-05-07T16:16:26Z",
+        "discount_start_date": "2021-01-07T16:16:26Z",
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 921.00
+          },
+          {
+            "quantity_threshold": 10,
+            "unit_discount_price": 18.50,
+            "unit_origin_price": 37.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN3"
+          ],
+          "end_date": "2022-02-07T16:16:26Z"
+        },
+        "origin_price": 37.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_discount_price": 18.50,
+            "unit_origin_price": 37.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "start_date": "2022-02-07T16:16:26Z",
+          "end_date": "2027-02-07T16:16:26Z",
+          "customer_organization_ids": ["ORG_ID_1", "ORG_ID_2"],
+          "customer_group_ids": ["GROUP_ID_1", "GROUP_ID_2", "GROUP_ID_3"]
+        },
+        "origin_price": 30.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 30.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN3"
+          ],
+          "start_date": "2022-02-07T16:16:26Z",
+          "end_date": "2027-02-07T16:16:26Z",
+          "customer_organization_ids": ["ORG_ID_1", "ORG_ID_2"],
+          "customer_group_ids": ["GROUP_ID_1", "GROUP_ID_2", "GROUP_ID_3"]
+        },
+        "origin_price": 20.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 20.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "1992696",
+    "quantity": 72,
+    "shop_id": 2000,
+    "shop_name": "default-shop",
+    "state_code": "1"
+  }
+]

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.mirakl.hybris.beans.ProductDataSheetExportContextData">
+        <description>A context for the product export</description>
+        <property name="productCatalogVersion" type="de.hybris.platform.core.PK"/>
+        <property name="coreAttributes" type="java.util.Map&lt;java.lang.String, de.hybris.platform.core.PK>"/>
+        <property name="attributesPerType" type="java.util.Map&lt;java.lang.String,java.util.Set&lt;java.lang.String>>"/>
+        <property name="allCategoryValues" type="java.util.Map&lt;java.lang.String,java.util.Set&lt;de.hybris.platform.core.PK>>"/>
+        <property name="allExportableCategories" type="java.util.Set&lt;de.hybris.platform.core.PK>"/>
+        <property name="productOrigins" type="java.util.Set&lt;com.mirakl.hybris.core.enums.ProductOrigin>"/>
+        <property name="translatableLocales" type="java.util.List&lt;java.util.Locale>"/>
+        <property name="modifiedAfter" type="java.util.Date"/>
+        <property name="baseSite" type="de.hybris.platform.core.PK"/>
+        <property name="filename" type="java.lang.String"/>
+        <property name="miraklCatalogSystem" type="com.mirakl.hybris.core.enums.MiraklCatalogSystem"/>
+    </bean>
+    
+    <bean class="com.mirakl.hybris.beans.ProductDataSheetDownloadParams">
+    	<description>Holds the parameters used for downloading the product datasheets</description>
+    	<property name="updatedSince" type="java.util.Date" />
+    	<property name="acceptanceStatuses" type="java.util.Set&lt;com.mirakl.hybris.core.enums.MarketplaceProductAcceptanceStatus>" />
+    	<property name="catalogs" type="java.util.Set&lt;java.lang.String>" />
+    	<property name="targetDirectory" type="java.io.File" />
+    </bean>
+
+</beans>

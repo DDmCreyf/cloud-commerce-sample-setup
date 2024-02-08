@@ -1,0 +1,36 @@
+.yw-image-attribute-is-marketplace {
+	width: 16px;
+	height: 16px;
+	padding: 8px;
+	display: inline;
+}
+.yw-image-attribute-is-marketplace-icon {
+	content: " ";
+	top: 50%;
+	left: 50%;
+	width: 16px;
+	height: 16px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	background-image: url("images/mirakl_icon.png");
+}
+
+.yw-gridview-marketplace-amount{
+	font-weight:bold;
+	color:white;
+	padding-left:4px;
+	padding-right:4px;
+	background-color:#254474;
+	border-radius:4px;
+}
+
+.yw-gridview-marketplace-amount-margin-left{
+	margin-left:-6px;
+	font-weight:bold;
+	color:white;
+	padding-left:4px;
+	padding-right:4px;
+	background-color:#254474;
+	border-radius:4px;
+}

@@ -1,0 +1,4 @@
+INSERT_UPDATE MiraklEnvironment ; default ; frontApiKey ; operatorApiKey ; apiUrl [unique=true]
+                                ; true    ; fbe46af7-4bef-470b-949a-c10d5ce96135 ; fbe46af7-4bef-470b-949a-c10d5ce96135d ; https://test1.mirakl.net
+                                ; false   ; fb94dd9f-352a-4674-8226-94a3d716b65  ; fb94dd9f-352a-4674-8226-94a3d716b65e  ; https://test2.mirakl.net
+                                ; false   ; fb94dd9f-352a-4674-8226-94a3d716b65c ; fb94dd9f-352a-4674-8226-94a3d716b65   ; https://test3.mirakl.net

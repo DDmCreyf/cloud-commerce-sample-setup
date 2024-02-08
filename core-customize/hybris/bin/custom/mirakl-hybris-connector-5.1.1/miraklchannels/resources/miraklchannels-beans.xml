@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.mirakl.hybris.beans.OffersSummaryData">
+		<property name="allOffers" type="java.util.List&lt;com.mirakl.hybris.beans.OfferOverviewData>">
+            <description>Deprecated: use offersWithChannels instead.</description>
+            <annotations scope="getter">@Deprecated</annotations>
+            <annotations scope="setter">@Deprecated</annotations>
+        </property>
+        <property name="offersWithChannels" type="java.util.List&lt;com.mirakl.hybris.beans.OfferOverviewData>">
+            <description>The offers that are associated to at least one channel.</description>
+        </property>
+	</bean>
+
+	<bean class="com.mirakl.hybris.beans.OfferOverviewData">
+		<property name="channelCodes" type="java.util.Set&lt;String>">
+            <description>The channel codes associated to the offer</description>
+        </property>
+	</bean>
+
+</beans>

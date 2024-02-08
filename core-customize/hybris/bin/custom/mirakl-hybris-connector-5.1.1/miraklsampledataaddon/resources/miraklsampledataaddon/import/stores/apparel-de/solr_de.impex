@@ -1,0 +1,17 @@
+#
+# Import the Solr configuration for the Apparel DE store
+#
+
+# Index Type
+$solrIndexedType=apparel-deProductType
+
+# Language
+$lang=de
+
+# Solr Indexed Property
+UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];displayName[lang=$lang]
+ ;$solrIndexedType;seller;"Verkäufer"
+ ;$solrIndexedType;condition;"Bedingung"
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklpromotions"")"
+ ;$solrIndexedType;marketplacePromotions;"Förderung"
+#% endif:

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:summary-view="http://www.hybris.com/cockpitng/component/summaryview"
+        xmlns:grid-view="http://www.hybris.com/cockpitng/component/gridView"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+
+       <context component="pcmbackoffice-grid-view" type="Product">
+           <grid-view:grid-view xmlns:grid-view="http://www.hybris.com/cockpitng/component/gridView">
+               <grid-view:additionalRenderer spring-bean="syncStatusCellRenderer" />
+               <grid-view:additionalRenderer spring-bean="productApprovalStatusRenderer" />
+               <grid-view:additionalRenderer spring-bean="productTypeMarkerRenderer" />
+               <grid-view:additionalRenderer spring-bean="marketplaceOriginRenderer" />
+               <grid-view:additionalRenderer spring-bean="marketplaceOffersCountRenderer" />
+           </grid-view:grid-view>
+       </context>
+
+       <context merge-by="type" parent="GenericItem" type="Product" component="pcmbackoffice-listview">
+           <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+               <list-view:column qualifier="preview" spring-bean="previewListCellRenderer" label="" width="90px"/>
+               <list-view:column qualifier="code"/>
+               <list-view:column qualifier="name" hflex="true"/>
+               <list-view:column qualifier="productStatus" spring-bean="productStatusRenderer" label="product.status.column.label" width="120px"/>
+               <list-view:column spring-bean="marketplaceOriginRenderer" qualifier="origin"/>
+               <list-view:column spring-bean="marketplaceOffersCountRenderer" label="product.tooltip.offers"/>
+               <list-view:column qualifier="catalogVersion"/>
+           </list-view:list-view>
+       </context>
+
+   </config>

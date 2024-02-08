@@ -1,0 +1,263 @@
+$contentCatalog = electronicsContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$jarResourceCms = jar:com.mirakl.hybris.addon.constants.MirakladdonConstants&/mirakladdon/import/cockpits/cmscockpit
+$lang=en
+
+INSERT_UPDATE PageTemplate ; $contentCV[unique=true] ; uid[unique=true]        ; name                        ; frontendTemplateName                             ; restrictedPageTypes(code) ; active[default=true]
+                           ;                         ; OfferLayoutPageTemplate ; Offer Details Page Template ; addon:/mirakladdon/pages/product/offerLayoutPage ; ProductPage               
+
+UPDATE PageTemplate ; $contentCV[unique=true] ; uid[unique=true]        ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                    ;                         ; OfferLayoutPageTemplate ; $jarResourceCms/structure-view/structure_offerLayoutPageTemplate.vm                                  
+
+# Add the required slots for your page template.
+# Simple Content Page Templates
+INSERT_UPDATE ContentSlotName ; name[unique=true]      ; template(uid,$contentCV)[unique=true][default='OfferLayoutPageTemplate'] ; validComponentTypes(code)                     ; compTypeGroup(code)
+                              ; SiteLogo               ;                                                                          ;                                               ; logo               
+                              ; HeaderLinks            ;                                                                          ;                                               ; headerlinks        
+                              ; SearchBox              ;                                                                          ;                                               ; searchbox          
+                              ; MiniCart               ;                                                                          ;                                               ; minicart           
+                              ; NavigationBar          ;                                                                          ;                                               ; navigation         
+                              ; Section1               ;                                                                          ;                                               ; wide               
+                              ; Section2               ;                                                                          ;                                               ; wide               
+                              ; Section3               ;                                                                          ;                                               ; wide               
+                              ; Section4               ;                                                                          ;                                               ; wide               
+                              ; ProductDetails         ;                                                                          ; CMSProductDetailsComponent                    ; narrow             
+                              ; VariantSelector        ;                                                                          ; ProductVariantSelectorComponent               ; narrow             
+                              ; AddToCart              ;                                                                          ; ProductAddToCartComponent, CMSBuyBoxComponent ; narrow             
+                              ; CrossSelling           ;                                                                          ; ProductReferencesComponent                    ; narrow             
+                              ; UpSelling              ;                                                                          ; ProductReferencesComponent                    ; narrow             
+                              ; Footer                 ;                                                                          ;                                               ; footer             
+                              ; Tabs                   ;                                                                          ; CMSTabParagraphContainer                      
+                              ; TopHeaderSlot          ;                                                                          ;                                               ; wide               
+                              ; BottomHeaderSlot       ;                                                                          ;                                               ; wide               
+                              ; PlaceholderContentSlot ;                                                                          ;                                               ;                    
+
+# Create Content Slots        
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]   ; name            ; active
+                          ;                         ; ProductDetailsSlot ; Product Details ; true  
+
+# Bind Content Slots to Page Templates
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                    ; position[unique=true]  ; pageTemplate(uid,$contentCV)[unique=true][default='OfferLayoutPageTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OfferDetails               ; SiteLogo               ;                                                                              ; SiteLogoSlot                             ; true          
+                                     ;                         ; HomepageLink-OfferDetails           ; HomepageNavLink        ;                                                                              ; HomepageNavLinkSlot                      ; true          
+                                     ;                         ; MiniCart-OfferDetails               ; MiniCart               ;                                                                              ; MiniCartSlot                             ; true          
+                                     ;                         ; NavigationBar-OfferDetails          ; NavigationBar          ;                                                                              ; NavigationBarSlot                        ; true          
+                                     ;                         ; Tabs-OfferDetails                   ; Tabs                   ;                                                                              ; TabsSlot                                 ; true          
+                                     ;                         ; Footer-OfferDetails                 ; Footer                 ;                                                                              ; FooterSlot                               ; true          
+                                     ;                         ; HeaderLinks-OfferDetails            ; HeaderLinks            ;                                                                              ; HeaderLinksSlot                          ; true          
+                                     ;                         ; SearchBox-OfferDetails              ; SearchBox              ;                                                                              ; SearchBoxSlot                            ; true          
+                                     ;                         ; VariantSelector-OfferDetails        ; VariantSelector        ;                                                                              ; VariantSelectorSlot                      ; true          
+                                     ;                         ; ProductDetails-OfferDetails         ; ProductDetails         ;                                                                              ; ProductDetailsSlot                       ; true          
+                                     ;                         ; AddToCart-OfferDetails              ; AddToCart              ;                                                                              ; AddToCartSlot                            ; true          
+                                     ;                         ; UpSelling-OfferDetails              ; UpSelling              ;                                                                              ; UpSellingSlot                            ; true          
+                                     ;                         ; CrossSelling-OfferDetails           ; CrossSelling           ;                                                                              ; CrossSellingSlot                         ; true          
+                                     ;                         ; TopHeaderSlot-OfferDetails          ; TopHeaderSlot          ;                                                                              ; TopHeaderSlot                            ; true          
+                                     ;                         ; BottomHeaderSlot-OfferDetails       ; BottomHeaderSlot       ;                                                                              ; BottomHeaderSlot                         ; true          
+                                     ;                         ; PlaceholderContentSlot-OfferDetails ; PlaceholderContentSlot ;                                                                              ; PlaceholderContentSlot                   ; true          
+
+# Product Details Page               
+INSERT_UPDATE ProductPage ; $contentCV[unique=true] ; uid[unique=true] ; name            ; masterTemplate(uid,$contentCV) ; defaultPage ; approvalStatus(code)[default='approved']
+                          ;                         ; productDetails   ; Product Details ; OfferLayoutPageTemplate        ; true        ;                                         
+
+# Shop Details Page       
+INSERT_UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]      ; name              ; frontendTemplateName                          ; restrictedPageTypes(code) ; active[default = true]
+                           ;                           ; ShopPageContentTemplate ; Shop Page Content ; addon:/mirakladdon/pages/shop/shopPageContent ; ContentPage               
+
+INSERT_UPDATE ContentSlotName ; name[unique = true] ; template(uid, $contentCV)[unique = true][default = 'ShopPageContentTemplate'] ; validComponentTypes(code) ; compTypeGroup(code)
+                              ; SiteLogo            ;                                                                               ;                           ; logo               
+                              ; HeaderLinks         ;                                                                               ;                           ; headerlinks        
+                              ; SearchBox           ;                                                                               ;                           ; searchbox          
+                              ; MiniCart            ;                                                                               ;                           ; minicart           
+                              ; NavigationBar       ;                                                                               ;                           ; navigation         
+                              ; Footer              ;                                                                               ;                           ; footer             
+
+UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]      ; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                    ;                           ; ShopPageContentTemplate ; $jarResourceCms/structure-view/structure_shopPageContentTemplate.vm                                    
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique = true] ; uid[unique = true]        ; position[unique = true] ; pageTemplate(uid, $contentCV)[unique = true][default = 'ShopPageContentTemplate'] ; contentSlot(uid, $contentCV)[unique = true] ; allowOverwrite
+                                     ;                           ; SiteLogo-ShopDetails      ; SiteLogo                ;                                                                                   ; SiteLogoSlot                                ; true          
+                                     ;                           ; HomepageLink-ShopDetails  ; HomepageNavLink         ;                                                                                   ; HomepageNavLinkSlot                         ; true          
+                                     ;                           ; MiniCart-ShopDetails      ; MiniCart                ;                                                                                   ; MiniCartSlot                                ; true          
+                                     ;                           ; NavigationBar-ShopDetails ; NavigationBar           ;                                                                                   ; NavigationBarSlot                           ; true          
+                                     ;                           ; Footer-ShopDetails        ; Footer                  ;                                                                                   ; FooterSlot                                  ; true          
+                                     ;                           ; HeaderLinks-ShopDetails   ; HeaderLinks             ;                                                                                   ; HeaderLinksSlot                             ; true          
+                                     ;                           ; SearchBox-ShopDetails     ; SearchBox               ;                                                                                   ; SearchBoxSlot                               ; true          
+
+INSERT_UPDATE ContentPage ; $contentCV[unique = true] ; uid[unique = true] ; name                  ; masterTemplate(uid, $contentCV) ; label           ; defaultPage[default = 'true'] ; approvalStatus(code)[default = 'approved'] ; homepage[default = 'false']
+                          ;                           ; shop-information   ; Shop Information Page ; ShopPageContentTemplate         ; shop-information
+
+#New Mirakl cms components for order history page
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique = true] ; uid[unique = true]               ; name                                      ; actions(uid, $contentCV) ; &componentRef                    ; page                                                                                        
+                                  ;                           ; MiraklOrderDetailsItemsComponent ; Mirakl Order Details Items Info Component ;                          ; MiraklOrderDetailsItemsComponent ; /WEB-INF/views/addons/mirakladdon/responsive/pages/account/miraklAccountOrderDetailItems.jsp
+
+UPDATE ContentSlot ; $contentCV[unique = true] ; uid[unique = true]            ; cmsComponents(uid, $contentCV)                                                                                                                                                                                               ;  
+                   ;                           ; BodyContent-orderdetail       ; AccountOrderDetailsHeadlineComponent, AccountOrderDetailsOverviewComponent, MiraklOrderDetailsItemsComponent, AccountOrderDetailsShippingComponent, AccountOrderDetailsTotalsComponent, AccountOrderDetailsActionsComponent  ;  
+                   ;                           ; BodyContent-orderConfirmation ; OrderConfirmationThankMessageComponent, OrderConfirmationOverviewComponent, MiraklOrderDetailsItemsComponent, OrderConfirmationShippingComponent, OrderConfirmationTotalsComponent, OrderConfirmationContinueButtonComponent ;  
+
+# Marketplace consignment evaluation page
+INSERT_UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]                           ; name                                        ; frontendTemplateName                                                  ; restrictedPageTypes(code) ; active[default = true]
+                           ;                           ; MarketplaceConsignmentEvaluationPageTemplate ; Mirakl Consignment Evaluation Page Template ; addon:/mirakladdon/pages/order/miraklConsignmentEvaluationPageContent ; ContentPage               
+
+INSERT_UPDATE ContentSlotName ; name[unique = true] ; template(uid, $contentCV)[unique = true][default = 'MarketplaceConsignmentEvaluationPageTemplate'] ; validComponentTypes(code) ; compTypeGroup(code)
+                              ; SiteLogo            ;                                                                                                    ;                           ; logo               
+                              ; HeaderLinks         ;                                                                                                    ;                           ; headerlinks        
+                              ; SearchBox           ;                                                                                                    ;                           ; searchbox          
+                              ; MiniCart            ;                                                                                                    ;                           ; minicart           
+                              ; NavigationBar       ;                                                                                                    ;                           ; navigation         
+                              ; Footer              ;                                                                                                    ;                           ; footer             
+
+UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]                           ; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                    ;                           ; MarketplaceConsignmentEvaluationPageTemplate ; $jarResourceCms/structure-view/structure_marketplaceConsignmentEvaluationPageTemplate.vm               
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique = true] ; uid[unique = true]                  ; position[unique = true] ; pageTemplate(uid, $contentCV)[unique = true][default = 'MarketplaceConsignmentEvaluationPageTemplate'] ; contentSlot(uid, $contentCV)[unique = true] ; allowOverwrite
+                                     ;                           ; SiteLogo-ConsignmentEvaluation      ; SiteLogo                ;                                                                                                        ; SiteLogoSlot                                ; true          
+                                     ;                           ; HomepageLink-ConsignmentEvaluation  ; HomepageNavLink         ;                                                                                                        ; HomepageNavLinkSlot                         ; true          
+                                     ;                           ; MiniCart-ConsignmentEvaluation      ; MiniCart                ;                                                                                                        ; MiniCartSlot                                ; true          
+                                     ;                           ; NavigationBar-ConsignmentEvaluation ; NavigationBar           ;                                                                                                        ; NavigationBarSlot                           ; true          
+                                     ;                           ; Footer-ConsignmentEvaluation        ; Footer                  ;                                                                                                        ; FooterSlot                                  ; true          
+                                     ;                           ; HeaderLinks-ConsignmentEvaluation   ; HeaderLinks             ;                                                                                                        ; HeaderLinksSlot                             ; true          
+                                     ;                           ; SearchBox-ConsignmentEvaluation     ; SearchBox               ;                                                                                                        ; SearchBoxSlot                               ; true          
+
+INSERT_UPDATE ContentPage ; $contentCV[unique = true] ; uid[unique = true]            ; name                          ; title                      ; masterTemplate(uid, $contentCV)              ; label                        ; defaultPage[default = 'true'] ; approvalStatus(code)[default = 'approved'] ; homepage[default = 'false']
+                          ;                           ; mirakl-consignment-evaluation ; Mirakl Consignment Evaluation ; Parcel delivery evaluation ; MarketplaceConsignmentEvaluationPageTemplate ; mirakl-consignment-evaluation
+
+# Mirakl inbox thread details page
+INSERT_UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]                   ; name                                      ; frontendTemplateName                                               ; restrictedPageTypes(code) ; active[default = true]
+                           ;                           ; MiraklInboxThreadDetailsPageTemplate ; Mirakl Inbox Thread Details Page Template ; addon:/mirakladdon/pages/inbox/miraklInboxThreadDetailsPageContent ; ContentPage               
+
+INSERT_UPDATE ContentSlotName ; name[unique = true] ; template(uid, $contentCV)[unique = true][default = 'MiraklInboxThreadDetailsPageTemplate'] ; validComponentTypes(code) ; compTypeGroup(code)
+                              ; SiteLogo            ;                                                                                            ;                           ; logo               
+                              ; HeaderLinks         ;                                                                                            ;                           ; headerlinks        
+                              ; SearchBox           ;                                                                                            ;                           ; searchbox          
+                              ; MiniCart            ;                                                                                            ;                           ; minicart           
+                              ; NavigationBar       ;                                                                                            ;                           ; navigation         
+                              ; Footer              ;                                                                                            ;                           ; footer             
+
+UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]                   ; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                    ;                           ; MiraklInboxThreadDetailsPageTemplate ; $jarResourceCms/structure-view/structure_miraklInboxThreadDetailsPageTemplate.vm                       
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique = true] ; uid[unique = true]               ; position[unique = true] ; pageTemplate(uid, $contentCV)[unique = true][default = 'MiraklInboxThreadDetailsPageTemplate'] ; contentSlot(uid, $contentCV)[unique = true] ; allowOverwrite
+                                     ;                           ; SiteLogo-InboxThreadDetails      ; SiteLogo                ;                                                                                                ; SiteLogoSlot                                ; true          
+                                     ;                           ; HomepageLink-InboxThreadDetails  ; HomepageNavLink         ;                                                                                                ; HomepageNavLinkSlot                         ; true          
+                                     ;                           ; MiniCart-InboxThreadDetails      ; MiniCart                ;                                                                                                ; MiniCartSlot                                ; true          
+                                     ;                           ; NavigationBar-InboxThreadDetails ; NavigationBar           ;                                                                                                ; NavigationBarSlot                           ; true          
+                                     ;                           ; Footer-InboxThreadDetails        ; Footer                  ;                                                                                                ; FooterSlot                                  ; true          
+                                     ;                           ; HeaderLinks-InboxThreadDetails   ; HeaderLinks             ;                                                                                                ; HeaderLinksSlot                             ; true          
+                                     ;                           ; SearchBox-InboxThreadDetails     ; SearchBox               ;                                                                                                ; SearchBoxSlot                               ; true          
+
+INSERT_UPDATE ContentPage ; $contentCV[unique = true] ; uid[unique = true]          ; name                ; title        ; masterTemplate(uid, $contentCV)      ; label                      ; defaultPage[default = 'true'] ; approvalStatus(code)[default = 'approved'] ; homepage[default = 'false']
+                          ;                           ; mirakl-inbox-thread-details ; Mirakl Conversation ; Conversation ; MiraklInboxThreadDetailsPageTemplate ; mirakl-inbox-thread-details
+
+# Mirakl inbox threads page
+INSERT_UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]             ; name                               ; frontendTemplateName                                         ; restrictedPageTypes(code) ; active[default = true]
+                           ;                           ; MiraklInboxThreadsPageTemplate ; Mirakl Inbox Threads Page Template ; addon:/mirakladdon/pages/inbox/miraklInboxThreadsPageContent ; ContentPage               
+
+INSERT_UPDATE ContentSlotName ; name[unique = true] ; template(uid, $contentCV)[unique = true][default = 'MiraklInboxThreadsPageTemplate'] ; validComponentTypes(code) ; compTypeGroup(code)
+                              ; SiteLogo            ;                                                                                      ;                           ; logo               
+                              ; HeaderLinks         ;                                                                                      ;                           ; headerlinks        
+                              ; SearchBox           ;                                                                                      ;                           ; searchbox          
+                              ; MiniCart            ;                                                                                      ;                           ; minicart           
+                              ; NavigationBar       ;                                                                                      ;                           ; navigation         
+                              ; Footer              ;                                                                                      ;                           ; footer             
+
+UPDATE PageTemplate ; $contentCV[unique = true] ; uid[unique = true]             ; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                    ;                           ; MiraklInboxThreadsPageTemplate ; $jarResourceCms/structure-view/structure_miraklInboxThreadsPageTemplate.vm                             
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique = true] ; uid[unique = true]         ; position[unique = true] ; pageTemplate(uid, $contentCV)[unique = true][default = 'MiraklInboxThreadsPageTemplate'] ; contentSlot(uid, $contentCV)[unique = true] ; allowOverwrite
+                                     ;                           ; SiteLogo-InboxThreads      ; SiteLogo                ;                                                                                          ; SiteLogoSlot                                ; true          
+                                     ;                           ; HomepageLink-InboxThreads  ; HomepageNavLink         ;                                                                                          ; HomepageNavLinkSlot                         ; true          
+                                     ;                           ; MiniCart-InboxThreads      ; MiniCart                ;                                                                                          ; MiniCartSlot                                ; true          
+                                     ;                           ; NavigationBar-InboxThreads ; NavigationBar           ;                                                                                          ; NavigationBarSlot                           ; true          
+                                     ;                           ; Footer-InboxThreads        ; Footer                  ;                                                                                          ; FooterSlot                                  ; true          
+                                     ;                           ; HeaderLinks-InboxThreads   ; HeaderLinks             ;                                                                                          ; HeaderLinksSlot                             ; true          
+                                     ;                           ; SearchBox-InboxThreads     ; SearchBox               ;                                                                                          ; SearchBoxSlot                               ; true          
+
+INSERT_UPDATE ContentPage ; $contentCV[unique = true] ; uid[unique = true]   ; name            ; title    ; masterTemplate(uid, $contentCV) ; label               ; defaultPage[default = 'true'] ; approvalStatus(code)[default = 'approved'] ; homepage[default = 'false']
+                          ;                           ; mirakl-inbox-threads ; Mirakl Messages ; Messages ; MiraklInboxThreadsPageTemplate  ; mirakl-inbox-threads
+
+
+# Add Inbox node to my account
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true] ; name            ; linkName[lang = $lang] ; url               ; &linkRef        ; target(code)[default='sameWindow']
+                               ;                         ; MiraklInboxLink  ; MiraklInboxLink ; Messages               ; /my-account/inbox ; MiraklInboxLink ;                                   
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]   ; $contentCV[unique=true] ; name  ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef          
+                                ; MiraklInboxNavNode ;                         ; Inbox ; MyAccountNavNode        ;                 ; MiraklInboxNavNode
+
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]        ; $contentCV[unique=true] ; name                    ; navigationNode(&nodeRef) ; item(&linkRef)  ;  
+                                 ; MiraklInboxNavNodeEntry ;                         ; MiraklInboxNavNodeEntry ; MiraklInboxNavNode       ; MiraklInboxLink ;  
+
+
+INSERT_UPDATE MiraklListAddToCartAction ; $contentCV[unique=true] ; uid[unique=true]          ; url       ; name                              ; restrictions(uid,$contentCV) ; &actionRef               
+                                        ;                         ; MiraklListAddToCartAction ; /cart/add ; Mirakl Product Add To Cart Action ; ActionRestriction            ; MiraklListAddToCartAction
+
+INSERT_UPDATE MiraklCMSProductListComponent ; $contentCV[unique=true] ; uid[unique=true]           ; name                          ; actions(uid,$contentCV)                            ; &componentRef             
+                                            ;                         ; MiraklProductListComponent ; Mirakl Product List Component ; ListPickUpInStoreAction, MiraklListAddToCartAction ; MiraklProductListComponent
+
+INSERT_UPDATE MiraklSearchResultsListComponent ; $contentCV[unique=true] ; uid[unique=true]                 ; name                         ; actions(uid,$contentCV)                            ; &componentRef                   
+                                               ;                         ; MiraklSearchResultsListComponent ; Mirakl Search List Component ; ListPickUpInStoreAction, MiraklListAddToCartAction ; MiraklSearchResultsListComponent
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]      ; name                                    ; active ; cmsComponents(&componentRef)     ;  ;  ;  
+                          ;                         ; ProductListSlot       ; Product List Slot for Product List      ; true   ; MiraklProductListComponent       ;  ;  ;  
+                          ;                         ; SearchResultsListSlot ; Search Result List Slot for Search List ; true   ; MiraklSearchResultsListComponent ;  ;  ;  
+
+INSERT_UPDATE ApplicableCmsActionsTypeForCmsComponent ; target(code)[unique = true]      ; source(code)[unique = true] ;  
+                                                      ; MiraklCMSProductListComponent    ; ListPickUpInStoreAction     ;  
+                                                      ; MiraklCMSProductListComponent    ; MiraklListAddToCartAction   ;  
+                                                      ; MiraklSearchResultsListComponent ; ListPickUpInStoreAction     ;  
+                                                      ; MiraklSearchResultsListComponent ; MiraklListAddToCartAction   ;  
+
+INSERT_UPDATE CMSTabOfferListComponent ; $contentCV[unique = true] ; uid[unique = true] ; name           ; visible ; title[lang = $lang]
+                                       ;                           ; offerListTab       ; Offer List Tab ; true    ; Offers             
+
+INSERT_UPDATE ElementsForContainer ; source(uid, $contentCV)[unique = true] ; target(uid, $contentCV)[unique = true]
+                                   ; TabPanelContainer                      ; offerListTab                          
+
+INSERT_UPDATE CMSBuyBoxComponent ; $contentCV[unique = true] ; uid[unique = true] ; name    ; visible ; actions(&actionRef)                             
+"#% if: com.mirakl.hybris.core.util.HybrisVersionUtils.versionChecker().maximumVersion(18.11).isValid()"
+                                 ;                           ; buyBoxComponent    ; Buy Box ; true    ; OfferAddToCartAction, ShareOnSocialNetworkAction
+#% endif:                        
+"#%if: com.mirakl.hybris.core.util.HybrisVersionUtils.versionChecker().minimumVersion(19.05).isValid()"
+                                 ;                           ; buyBoxComponent    ; Buy Box ; true    ; OfferAddToCartAction                            
+#% endif:                        
+
+INSERT_UPDATE CMSProductDetailsComponent ; $contentCV[unique = true] ; uid[unique = true]      ; name            ; visible
+                                         ;                           ; productDetailsComponent ; Product Details ; true   
+
+INSERT_UPDATE ContentSlotName ; name[unique = true] ; template(uid, $contentCV)[unique = true][default = 'OfferLayoutPageTemplate'] ; validComponentTypes(code)                    
+                              ; AddToCart           ;                                                                               ; CMSBuyBoxComponent, ProductAddToCartComponent
+                              ; ProductDetails      ;                                                                               ; CMSProductDetailsComponent                   
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique = true] ; uid[unique = true] ; cmsComponents(uid, $contentCV)
+                          ;                           ; AddToCartSlot      ; buyBoxComponent, AddToCart    
+                          ;                           ; ProductDetailsSlot ; productDetailsComponent       
+
+# create a purchasable product restriction
+INSERT_UPDATE CMSPurchasableProductRestriction ; $contentCV[unique = true] ; name                            ; uid[unique = true]            ; components(uid, $contentCV)
+                                               ;                           ; Purchasable Product Restriction ; purchasableProductRestriction ; AddToCart                  
+
+# create an inverse restriction                
+INSERT_UPDATE CMSInverseRestriction ; $contentCV[unique = true] ; name                          ; originalRestriction(uid, $contentCV)[allownull = true] ; uid[unique = true]               ; components(uid, $contentCV)
+                                    ;                           ; Purchasable Offer Restriction ; purchasableProductRestriction                          ; nonPurchasableProductRestriction ; buyBoxComponent            
+
+# CMS AddToCart Action              
+INSERT_UPDATE OfferAddToCartAction ; $contentCV[unique = true] ; uid[unique = true]   ; url       ; name                       ; restrictions(uid, $contentCV) ; &actionRef          
+                                   ;                           ; OfferAddToCartAction ; /cart/add ; Product Add To Cart Action ; ActionRestriction             ; OfferAddToCartAction
+
+"#% if: com.mirakl.hybris.core.util.HybrisVersionUtils.versionChecker().maximumVersion(18.11).isValid()"
+# CMS ShareOnSocialNetwork Action  
+INSERT_UPDATE ShareOnSocialNetworkAction ; $contentCV[unique = true] ; uid[unique = true]         ; url ; name                           ; restrictions(uid, $contentCV) ; &actionRef                
+                                         ;                           ; ShareOnSocialNetworkAction ; /   ; Share On Social Network Action ; ActionRestriction             ; ShareOnSocialNetworkAction
+#% endif:                                
+
+INSERT_UPDATE ApplicableCmsActionsTypeForCmsComponent ; target(code)[unique = true] ; source(code)[unique = true] ;  
+                                                      ; CMSBuyBoxComponent          ; OfferAddToCartAction        ;  
+"#% if: com.mirakl.hybris.core.util.HybrisVersionUtils.versionChecker().maximumVersion(18.11).isValid()"
+                                                      ; CMSBuyBoxComponent          ; ShareOnSocialNetworkAction  ;  
+#% endif:                                             
+
+"#%if: com.mirakl.hybris.core.util.HybrisVersionUtils.versionChecker().minimumVersion(6.4).isValid()"
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]           ; name                      ; page                                                         
+                                  ;                         ; ProductDetailsTabComponent ; Product Details Tab       ; /WEB-INF/views/responsive/pages/product/productDetailsTab.jsp
+                                  ;                         ; ProductSpecsTabComponent   ; Product Specification Tab ; /WEB-INF/views/responsive/pages/product/productSpecsTab.jsp  
+                                  ;                         ; ProductReviewsTabComponent ; Product Reviews Tab       ; /WEB-INF/views/responsive/pages/product/productReviewsTab.jsp
+#% endif:                         

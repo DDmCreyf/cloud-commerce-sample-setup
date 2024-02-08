@@ -1,0 +1,15 @@
+REMOVE MiraklCoreAttribute ; code[unique = true]
+                           ; shop_sku_attribute 
+                           ; title_attribute    
+                           ; vgc_attribute      
+                           ; ean                
+                           ; variant_attribute_1
+                           ; variant_attribute_2
+
+INSERT_UPDATE MiraklCoreAttribute ; code[unique = true] ; role(code)                   ; uniqueIdentifier[default = false] ; variant[default = false]
+                                  ; shop_sku_attribute  ; SHOP_SKU_ATTRIBUTE           ;                                   ;                         
+                                  ; title_attribute     ; TITLE_ATTRIBUTE              ;                                   ;                         
+                                  ; vgc_attribute       ; VARIANT_GROUP_CODE_ATTRIBUTE ;                                   ;                         
+                                  ; ean                 ;                              ; true                              ;                         
+                                  ; variant_attribute_1 ;                              ;                                   ; true                    
+                                  ; variant_attribute_2 ;                              ;                                   ; true                    

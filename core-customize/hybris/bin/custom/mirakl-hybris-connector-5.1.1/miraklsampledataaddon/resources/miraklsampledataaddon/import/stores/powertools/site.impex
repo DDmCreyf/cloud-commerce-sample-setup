@@ -1,0 +1,10 @@
+$productCatalog=powertoolsProductCatalog
+$contentCatalog=powertoolsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=powertools
+$siteUid=powertools
+$webServiceSiteUid=$siteUidWS
+
+INSERT_UPDATE BaseSite;uid[unique=true, default=$storeUid];operatorCode;operatorName
+;;b2b-acc-powertools;B2B Powertools

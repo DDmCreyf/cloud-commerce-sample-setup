@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+            http://www.springframework.org/schema/util/spring-util.xsd">
+           
+    <!--  Strategies  -->
+
+    <bean depends-on="productImportStrategies" parent="mapMergeDirective">
+        <property name="key">
+            <value type="com.mirakl.hybris.core.enums.MiraklCatalogSystem">MCM</value>
+        </property>
+        <property name="value" ref="mcmProductImportStrategy" />
+    </bean>
+    
+    <bean depends-on="miraklDownloadProductFilesStrategies" parent="mapMergeDirective">
+        <property name="key">
+            <value type="com.mirakl.hybris.core.enums.MiraklCatalogSystem">MCM</value>
+        </property>
+        <property name="value" ref="mcmDownloadProductFilesStrategy" />
+    </bean>
+    
+    <alias name="defaultProductDataSheetExportReportStrategy" alias="productDataSheetExportReportStrategy"/>
+    <bean id="defaultProductDataSheetExportReportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultProductDataSheetExportReportStrategy" parent="abstractExportReportStrategy">
+        <property name="reportPopulator" ref="productDataSheetExportReportPopulator"/>
+    </bean>
+    
+    <bean depends-on="exportTypeStrategies" parent="listMergeDirective">
+        <property name="add" ref="productDataSheetExportReportStrategy" />
+    </bean>
+    
+    <alias name="defaultMcmUniqueIdentifierMatchingStrategy" alias="mcmUniqueIdentifierMatchingStrategy"/>
+    <bean id="defaultMcmUniqueIdentifierMatchingStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmUniqueIdentifierMatchingStrategy">
+        <property name="modelService" ref="modelService"/>
+        <property name="miraklProductDao" ref="miraklProductDao"/>
+    </bean>
+    
+    <alias name="defaultMcmProductImportValidationStrategy" alias="mcmProductImportValidationStrategy"/>
+    <bean id="defaultMcmProductImportValidationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductImportValidationStrategy"
+          parent="abstractProductImportValidationStrategy"/>
+          
+    <alias name="defaultMcmProductImportCredentialCheckStrategy" alias="mcmProductImportCredentialCheckStrategy"/>
+    <bean id="defaultMcmProductImportCredentialCheckStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductImportCredentialCheckStrategy"/>
+    
+    <alias name="defaultMcmProductExportPerformJobStrategy" alias="mcmProductExportPerformJobStrategy"/>
+    <bean id="defaultMcmProductExportPerformJobStrategy" class="com.mirakl.hybris.core.product.jobs.strategies.impl.DefaultMcmProductExportPerformJobStrategy">
+        <property name="productExportService" ref="mcmExportProductsService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="productDataSheetExportContextDataConverter" ref="productDataSheetExportContextDataConverter"/>
+    </bean>
+    
+    <bean depends-on="sellableProductExportStrategies" parent="mapMergeDirective">
+        <property name="key">
+            <value type="com.mirakl.hybris.core.enums.MiraklCatalogSystem">MCM</value>
+        </property>
+        <property name="value" ref="mcmProductExportPerformJobStrategy" />
+    </bean>
+    
+    <alias name="defaultMcmProductImportStrategy" alias="mcmProductImportStrategy"/>
+    <bean id="defaultMcmProductImportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductImportStrategy" parent="abstractProductImportStrategy">
+        <property name="fileContextConverter" ref="mcmProductImportFileContextDataConverter"/>
+        <property name="productImportService" ref="mcmProductImportService"/>
+        <property name="productImportResultHandler" ref="mcmProductImportResultHandler"/>
+        <property name="rawProductImportService" ref="mcmMiraklRawProductImportService"/>
+    </bean>
+    
+    <alias name="defaultMcmDownloadProductFilesStrategy" alias="mcmDownloadProductFilesStrategy"/>
+    <bean id="defaultMcmDownloadProductFilesStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmDownloadProductFilesStrategy" parent="abstractDownloadProductFilesStrategy">
+        <property name="productFileDownloadService" ref="mcmProductFileDownloadService"/>
+        <property name="productDataSheetDownloadParamsConverter" ref="productDataSheetDownloadParamsConverter"/>
+    </bean>
+    
+    <alias name="defaultMcmProductReceptionCheckStrategy" alias="mcmProductReceptionCheckStrategy"/>
+    <bean id="defaultMcmProductReceptionCheckStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductReceptionCheckStrategy">
+        <property name="modelService" ref="modelService"/>
+        <property name="l10nService" ref="l10nService"/>
+        <property name="mcmProductService" ref="mcmProductService"/>
+    </bean>
+    
+    <alias name="defaultMcmProductExportStrategy" alias="mcmProductExportStrategy"/>
+    <bean id="defaultMcmProductExportStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductExportStrategy">
+        <property name="mciFrontApi" ref="mciFrontApiClient" />
+        <property name="productDataSheetSyncItemConverter" ref="miraklProductDataSheetSyncItemConverter" />
+        <property name="configurationService" ref="configurationService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="exportJobReportService" ref="exportJobReportService"/>
+    </bean>
+    
+    <alias name="defaultMcmProductUpdateStrategy" alias="mcmProductUpdateStrategy"/>
+    <bean id="defaultMcmProductUpdateStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductUpdateStrategy" parent="defaultProductUpdateStrategy">
+        <property name="mcmProductValuesConverter" ref="mcmProductValuesConverter"/>
+    </bean>
+    
+    <alias name="defaultMcmProductExportEligibilityStrategy" alias="mcmProductExportEligibilityStrategy"/>
+    <bean id="defaultMcmProductExportEligibilityStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductExportEligibilityStrategy">
+        <property name="miraklProductDao" ref="miraklProductDao" />
+        <property name="modelService" ref="modelService" />
+        <property name="productAcceptanceStrategy" ref="mcmProductAcceptanceStrategy"/>
+    </bean>
+    
+    <alias name="defaultMcmExportProductsCatalogResolutionStrategy" alias="mcmExportProductsCatalogResolutionStrategy"/>
+    <bean id="defaultMcmExportProductsCatalogResolutionStrategy" class="com.mirakl.hybris.core.product.jobs.strategies.impl.DefaultMcmExportProductsCatalogResolutionStrategy"/>
+    
+    <bean depends-on="catalogResolutionStrategies" parent="listMergeDirective">
+        <property name="add" ref="mcmExportProductsCatalogResolutionStrategy" />
+    </bean>
+    
+    <alias name="defaultMcmProductAcceptanceStrategy" alias="mcmProductAcceptanceStrategy"/>
+    <bean id="defaultMcmProductAcceptanceStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductAcceptanceStrategy">
+        <property name="hybrisToMiraklAcceptanceStatusMapping" ref="hybrisToMiraklAcceptanceStatusMapping"/>
+        <property name="miraklToHybrisAcceptanceStatusMapping" ref="miraklToHybrisAcceptanceStatusMapping"/>
+    </bean>
+    
+    <alias name="defaultHybrisToMiraklAcceptanceStatusMapping" alias="hybrisToMiraklAcceptanceStatusMapping"/>
+    <util:map id="defaultHybrisToMiraklAcceptanceStatusMapping">
+         <entry key="UNAPPROVED" value="REJECTED"/>
+         <entry key="APPROVED" value="ACCEPTED"/>
+     </util:map>
+     
+     <alias name="defaultMiraklToHybrisAcceptanceStatusMapping" alias="miraklToHybrisAcceptanceStatusMapping"/>
+     <util:map id="defaultMiraklToHybrisAcceptanceStatusMapping">
+         <entry key="NEW" value="CHECK"/>
+         <entry key="REJECTED" value="UNAPPROVED"/>
+         <entry key="ACCEPTED" value="APPROVED"/>
+     </util:map>
+    
+    <!--  Services  -->
+    
+    <alias name="defaultMcmProductImportService" alias="mcmProductImportService"/>
+    <bean id="defaultMcmProductImportService" parent="productImportService">
+        <property name="productImportDataConverter" ref="mcmProductImportDataConverter"/>
+        <property name="productImportValidationStrategy" ref="mcmProductImportValidationStrategy"/>
+        <property name="credentialCheckStrategy" ref="mcmProductImportCredentialCheckStrategy"/>
+        <property name="productReceptionCheckStrategy" ref="mcmProductReceptionCheckStrategy"/>
+        <property name="productUpdateStrategy" ref="mcmProductUpdateStrategy"/>
+    </bean>
+    
+    <alias name="defaultMcmExportProductsService" alias="mcmExportProductsService"/>
+    <bean id="defaultMcmExportProductsService" class="com.mirakl.hybris.core.product.services.impl.DefaultMcmProductExportService">
+        <property name="eligibilityStrategy" ref="mcmProductExportEligibilityStrategy" />
+        <property name="mcmProductExportStrategy" ref="mcmProductExportStrategy" />
+    </bean>
+    
+    <alias name="defaultMcmMiraklRawProductImportService" alias="mcmMiraklRawProductImportService"/>
+    <bean id="defaultMcmMiraklRawProductImportService" class="com.mirakl.hybris.core.product.services.impl.DefaultMiraklRawProductImportService">
+        <property name="csvService" ref="csvService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="headerFileContextPopulator" ref="productImportFileHeaderContextDataPopulator"/>
+        <property name="miraklRawProductConverter" ref="mcmMiraklRawProductConverter"/>
+    </bean>
+    
+    <alias name="defaultMcmProductFileDownloadService" alias="mcmProductFileDownloadService"/>
+    <bean id="defaultMcmProductFileDownloadService" class="com.mirakl.hybris.core.product.services.impl.DefaultMcmProductFileDownloadService">
+        <property name="mciApi" ref="mciFrontApiClient"/>
+        <property name="productDataSheetsRequestConverter" ref="miraklGetProductDataSheetsRequestConverter" />
+    </bean>
+    
+    <alias name="defaultMcmProductService" alias="mcmProductService"/>
+    <bean id="defaultMcmProductService" class="com.mirakl.hybris.core.product.services.impl.DefaultMcmProductService">
+        <property name="mcmProductDao" ref="mcmProductDao"/>
+    </bean>
+    
+    <!--  DAOs  -->
+    
+    <alias name="defaultMcmProductDao" alias="mcmProductDao"/>
+    <bean id="defaultMcmProductDao" class="com.mirakl.hybris.core.product.daos.impl.DefaultMcmProductDao"/>
+    
+    <!--  Converters  -->
+    
+    <alias name="defaultProductDataSheetExportContextDataConverter" alias="productDataSheetExportContextDataConverter"/>
+    <bean id="defaultProductDataSheetExportContextDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ProductDataSheetExportContextData"/>
+        <property name="populators">
+            <list>
+                <ref bean="productDataSheetExportContextDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+    
+    <alias name="defaultMiraklProductDataSheetSyncItemConverter" alias="miraklProductDataSheetSyncItemConverter"/>
+    <bean id="defaultMiraklProductDataSheetSyncItemConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mci.domain.product.MiraklProductDataSheetSyncItem"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklProductDataSheetSyncItemPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklProductDataSheetSyncDetailErrorConverter" alias="miraklProductDataSheetSyncDetailErrorConverter"/>
+    <bean id="defaultMiraklProductDataSheetSyncDetailErrorConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mci.domain.product.MiraklProductDataSheetSyncDetail"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklProductDataSheetSyncDetailErrorPopulator"/>
+            </list>
+        </property>
+    </bean>
+    
+    <alias name="defaultMcmProductImportDataConverter" alias="mcmProductImportDataConverter"/>
+    <bean id="defaultMcmProductImportDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ProductImportData"/>
+        <property name="populators">
+            <list>
+                <ref bean="mcmProductImportDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+    
+    <alias name="defaultMcmProductImportFileContextDataConverter" alias="mcmProductImportFileContextDataConverter"/>
+    <bean id="defaultMcmProductImportFileContextDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ProductImportFileContextData"/>
+        <property name="populators">
+            <list>
+                <ref bean="mcmProductImportFileContextDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+    
+    <alias name="defaultMcmMiraklRawProductConverter" alias="mcmMiraklRawProductConverter"/>
+    <bean id="defaultMcmMiraklRawProductConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.core.model.MiraklRawProductModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="mcmMiraklRawProductPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMcmProductValuesConverter" alias="mcmProductValuesConverter"/>
+    <bean id="defaultMcmProductValuesConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.core.model.product.ProductModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="mcmSpecialAttributesPopulator"/>
+                <ref bean="mcmProductApprovalPopulator"/>
+            </list>
+        </property>
+    </bean>
+    
+    <alias name="defaultMiraklGetProductDataSheetsRequestConverter" alias="miraklGetProductDataSheetsRequestConverter"/>
+    <bean id="defaultMiraklGetProductDataSheetsRequestConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mci.request.product.MiraklGetProductDataSheetsRequest"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklGetProductDataSheetsRequestPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultProductDataSheetDownloadParamsConverter" alias="productDataSheetDownloadParamsConverter"/>
+    <bean id="defaultProductDataSheetDownloadParamsConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ProductDataSheetDownloadParams"/>
+        <property name="populators">
+            <list>
+                <ref bean="productDataSheetDownloadParamsPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--  Populators  -->
+    
+    <alias name="defaultProductDataSheetExportContextDataPopulator" alias="productDataSheetExportContextDataPopulator"/>
+    <bean id="defaultProductDataSheetExportContextDataPopulator" class="com.mirakl.hybris.core.product.populators.ProductDataSheetExportContextDataPopulator">
+        <property name="coreAttributeService" ref="miraklCoreAttributeService"/>
+        <property name="miraklProductService" ref="miraklProductService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="categoryService" ref="categoryService"/>
+    </bean>
+    
+    <alias name="defaultMiraklProductDataSheetSyncItemPopulator" alias="miraklProductDataSheetSyncItemPopulator"/>
+    <bean id="defaultMiraklProductDataSheetSyncItemPopulator" class="com.mirakl.hybris.core.product.populators.MiraklProductDataSheetSyncItemPopulator">
+        <property name="modelService" ref="modelService"/>
+        <property name="coreAttributeHandlerResolver" ref="coreAttributeHandlerResolver"/>
+        <property name="attributeExportEligibilityStrategy" ref="classificationAttributeExportEligibilityStrategy"/>
+        <property name="formattingStrategy" ref="productExportAttributeValueFormattingStrategy"/>
+        <property name="classificationService" ref="classificationService"/>
+        <property name="exportCatalogService" ref="miraklExportCatalogService"/>
+        <property name="productAcceptanceStrategy" ref="mcmProductAcceptanceStrategy"/>
+    </bean>
+    
+    <alias name="defaultProductDataSheetExportReportPopulator" alias="productDataSheetExportReportPopulator"/>
+    <bean id="defaultProductDataSheetExportReportPopulator" class="com.mirakl.hybris.core.product.populators.ProductDataSheetExportReportPopulator" parent="abstractMiraklJobReportPopulator">
+        <property name="productService" ref="productService"/>
+        <property name="objectMapper" ref="miraklCustomObjectMapper"/>
+        <property name="syncDetailErrorConverter" ref="miraklProductDataSheetSyncDetailErrorConverter"/>
+    </bean>
+    
+    <bean depends-on="jobReportClassTypes" parent="mapMergeDirective">
+        <property name="key">
+            <value type="com.mirakl.hybris.core.enums.MiraklExportType">PRODUCT_DATASHEET_EXPORT</value>
+        </property>
+        <property name="value">
+            <value type="java.lang.Class">com.mirakl.hybris.core.model.MiraklExportProductDataSheetJobReportModel</value>
+        </property>
+    </bean>
+    
+    <alias name="defaultMiraklProductDataSheetSyncDetailErrorPopulator" alias="miraklProductDataSheetSyncDetailErrorPopulator"/>
+    <bean id="defaultMiraklProductDataSheetSyncDetailErrorPopulator" class="com.mirakl.hybris.core.product.populators.MiraklProductDataSheetSyncDetailErrorPopulator"/>
+    
+    <alias name="defaultMcmProductImportDataPopulator" alias="mcmProductImportDataPopulator"/>
+    <bean id="defaultMcmProductImportDataPopulator" class="com.mirakl.hybris.core.product.populators.DefaultMcmProductImportDataPopulator">
+        <property name="mcmProductService" ref="mcmProductService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="uniqueIdentifierMatchingStrategy" ref="mcmUniqueIdentifierMatchingStrategy"/>
+        <property name="productService" ref="productService"/>
+    </bean>
+    
+    <alias name="defaultMcmProductImportFileContextDataPopulator" alias="mcmProductImportFileContextDataPopulator"/>
+    <bean id="defaultMcmProductImportFileContextDataPopulator" class="com.mirakl.hybris.core.product.populators.DefaultMcmProductImportFileContextDataPopulator">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+    
+    <alias name="defaultMcmSpecialAttributesPopulator" alias="mcmSpecialAttributesPopulator"/>
+    <bean id="defaultMcmSpecialAttributesPopulator" class="com.mirakl.hybris.core.product.populators.DefaultMcmSpecialAttributesPopulator" />
+
+    <alias name="defaultMcmProductApprovalPopulator" alias="mcmProductApprovalPopulator"/>
+    <bean id="defaultMcmProductApprovalPopulator" class="com.mirakl.hybris.core.product.populators.DefaultMcmProductApprovalPopulator">
+        <property name="productAcceptanceStrategy" ref="mcmProductAcceptanceStrategy"/>
+    </bean>
+    
+    <alias name="defaultMcmMiraklRawProductPopulator" alias="mcmMiraklRawProductPopulator"/>
+    <bean id="defaultMcmMiraklRawProductPopulator" class="com.mirakl.hybris.core.product.populators.DefaultMcmMiraklRawProductPopulator" parent="abstractMiraklRawProductPopulator"/>
+    
+    <alias name="defaultMiraklGetProductDataSheetsRequestPopulator" alias="miraklGetProductDataSheetsRequestPopulator"/>
+    <bean id="defaultMiraklGetProductDataSheetsRequestPopulator" class="com.mirakl.hybris.core.product.populators.DefaultMiraklGetProductDataSheetsRequestPopulator" />
+
+    <alias name="defaultProductDataSheetDownloadParamsPopulator" alias="productDataSheetDownloadParamsPopulator"/>
+    <bean id="defaultProductDataSheetDownloadParamsPopulator" class="com.mirakl.hybris.core.product.populators.DefaultProductDataSheetDownloadParamsPopulator">
+    	<property name="directorySelectionStrategy" ref="downloadProductFilesDirectorySelectionStrategy" />
+    </bean>
+    
+    
+    <!-- Handlers -->
+    
+    <alias name="defaultProductExportCoreAttributesDynamicHandler" alias="productExportCoreAttributesDynamicHandler"/>
+    <bean id="defaultProductExportCoreAttributesDynamicHandler" class="com.mirakl.hybris.core.catalog.attributes.ProductExportCoreAttributesDynamicHandler"/>
+    
+    <alias name="defaultMcmProductImportResultHandler" alias="mcmProductImportResultHandler"/>
+    <bean id="defaultMcmProductImportResultHandler" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductImportResultHandler" parent="abstractProductImportResultHandler">
+        <property name="modelService" ref="modelService"/>
+        <property name="mcmProductExportStrategy" ref="mcmProductExportStrategy"/>
+        <property name="productAcceptanceStrategy" ref="mcmProductAcceptanceStrategy"/>
+    </bean>
+    
+    <alias name="defaultAbstractMcmCoreAttributeHandler" alias="abstractMcmCoreAttributeHandler"/>
+    <bean id="defaultAbstractMcmCoreAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.AbstractMcmCoreAttributeHandler" abstract="true">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+    
+    <alias name="defaultMcmCoreAttributeHandler" alias="mcmCoreAttributeHandler"/>
+    <bean id="defaultMcmCoreAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMcmCoreAttributeHandler" parent="abstractMcmCoreAttributeHandler" >
+        <property name="formattingStrategy" ref="productExportAttributeValueFormattingStrategy" />
+        <property name="fallbackHandler" ref="coreAttributeHandler" />
+    </bean>
+    
+    <alias name="defaultMcmReplicatedAttributeHandler" alias="mcmReplicatedAttributeHandler"/>
+    <bean id="defaultMcmReplicatedAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMcmCoreAttributeHandler" parent="mcmCoreAttributeHandler">
+        <property name="fallbackHandler" ref="replicatedAttributeHandler" />
+    </bean>
+    
+    <alias name="defaultMcmCategoryAttributeHandler" alias="mcmCategoryAttributeHandler"/>
+    <bean id="defaultMcmCategoryAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMcmCategoryAttributeHandler" parent="abstractMcmCoreAttributeHandler">
+        <property name="fallbackHandler" ref="categoryAttributeHandler"/>
+    </bean>
+    
+    <alias name="defaultMcmCategoryWithExportableValuesAttributeHandler" alias="mcmCategoryWithExportableValuesAttributeHandler"/>
+    <bean id="defaultMcmCategoryWithExportableValuesAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMcmCategoryAttributeHandler" parent="abstractMcmCoreAttributeHandler">
+        <property name="fallbackHandler" ref="categoryWithExportableValuesAttributeHandler"/>
+    </bean>
+    
+    <alias name="defaultMcmVariantCategoryAttributeHandler" alias="mcmVariantCategoryAttributeHandler"/>
+    <bean id="defaultMcmVariantCategoryAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMcmCategoryAttributeHandler" parent="abstractMcmCoreAttributeHandler">
+        <property name="fallbackHandler" ref="variantCategoryAttributeHandler"/>
+    </bean>
+    
+    <alias name="defaultMcmGalleryImagesAttributeHandler" alias="mcmGalleryImagesAttributeHandler"/>
+    <bean id="defaultMcmGalleryImagesAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMcmGalleryImagesAttributeHandler" parent="abstractMcmCoreAttributeHandler">
+        <property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="fallbackHandler" ref="galleryImagesAttributeHandler"/>
+        <property name="primaryImageSelectionStrategy" ref="productPrimaryImageSelectionStrategy"/>
+    </bean>
+    
+    <alias name="defaultMcmVariantGroupAttributeHandler" alias="mcmVariantGroupAttributeHandler"/>
+    <bean id="defaultMcmVariantGroupAttributeHandler" class="com.mirakl.hybris.core.catalog.strategies.impl.DefaultMcmVariantGroupAttributeHandler" parent="abstractMcmCoreAttributeHandler" />
+    
+    <bean depends-on="aliasHandlersPerCatalogSystem" parent="mapMergeDirective">
+        <property name="key">
+            <value type="com.mirakl.hybris.core.enums.MiraklCatalogSystem">MCM</value>
+        </property>
+        <property name="value">
+            <util:map>
+                <entry key="replicatedAttributeHandler" value-ref="mcmReplicatedAttributeHandler"/>
+                <entry key="categoryAttributeHandler" value-ref="mcmCategoryAttributeHandler"/>
+                <entry key="categoryWithExportableValuesAttributeHandler" value-ref="mcmCategoryWithExportableValuesAttributeHandler"/>
+                <entry key="variantCategoryAttributeHandler" value-ref="mcmVariantCategoryAttributeHandler"/>
+                <entry key="galleryImagesAttributeHandler" value-ref="mcmGalleryImagesAttributeHandler"/>
+            </util:map>
+        </property>
+    </bean>
+    
+    <bean depends-on="roleAttributeHandlersPerCatalogSystem" parent="mapMergeDirective">
+        <property name="key">
+            <value type="com.mirakl.hybris.core.enums.MiraklCatalogSystem">MCM</value>
+        </property>
+        <property name="value">
+            <util:map key-type="com.mirakl.hybris.core.enums.MiraklAttributeRole">
+                <entry key="VARIANT_GROUP_CODE_ATTRIBUTE" value-ref="mcmVariantGroupAttributeHandler"/>
+            </util:map>
+        </property>
+    </bean>
+    
+    <bean depends-on="handlerPerCatalogSystem" parent="mapMergeDirective">
+        <property name="key">
+            <value type="com.mirakl.hybris.core.enums.MiraklCatalogSystem">MCM</value>
+        </property>
+        <property name="value" ref="mcmCoreAttributeHandler"/>
+    </bean>
+    
+    <!-- Prototype scope -->
+    
+    <alias name="defaultMcmProductImportSuccessLineHandler" alias="mcmProductImportSuccessLineResultHandler"/>
+    <bean id="defaultMcmProductImportSuccessLineHandler" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductImportSuccessLineResultHandler" scope="prototype"/>
+    
+    <alias name="defaultMcmProductImportErrorLineResultHandler" alias="mcmProductImportErrorLineResultHandler"/>
+    <bean id="defaultMcmProductImportErrorLineResultHandler" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmProductImportErrorLineResultHandler" scope="prototype"/>
+    
+    <beans profile="dev">
+        <alias name="defaultMcmDevProductCodeGenerationStrategy" alias="productCodeGenerationStrategy"/>
+        <bean id="defaultMcmDevProductCodeGenerationStrategy" class="com.mirakl.hybris.core.product.strategies.impl.DefaultMcmDevProductCodeGenerationStrategy">
+            <property name="fallbackStrategy" ref="defaultProductCodeGenerationStrategy"/>
+        </bean>
+
+        <alias name="defaultMcmDevProductImportDataPopulator" alias="mcmProductImportDataPopulator"/>
+        <bean id="defaultMcmDevProductImportDataPopulator" class="com.mirakl.hybris.core.product.populators.DefaultMcmDevProductImportDataPopulator"
+              parent="defaultMcmProductImportDataPopulator"/>
+    </beans>
+			
+</beans>

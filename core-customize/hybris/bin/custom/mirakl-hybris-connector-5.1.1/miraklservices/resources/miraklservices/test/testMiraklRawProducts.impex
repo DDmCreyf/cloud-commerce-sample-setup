@@ -1,0 +1,17 @@
+REMOVE MiraklRawProduct ; sku[unique=true]
+                        ; 1               
+                        ; 2               
+                        ; 3               
+                        ; 4               
+                        ; 5               
+                        ; 6               
+                        ; 7               
+
+INSERT_UPDATE MiraklRawProduct ; importId ; shopId[unique=true] ; variantGroupCode ; sku[unique=true]
+                               ; import-1 ; shop-1              ; vgc-1            ; 1               
+                               ; import-1 ; shop-1              ; vgc-1            ; 2               
+                               ; import-1 ; shop-1              ; vgc-2            ; 3               
+                               ; import-2 ; shop-2              ; vgc-3            ; 4
+                               ; import-2 ; shop-2              ; vgc-1            ; 5
+                               ; import-1 ; shop-1              ; vgc-1            ; 6
+                               ; import-2 ; shop-2              ; vgc-1            ; 7               

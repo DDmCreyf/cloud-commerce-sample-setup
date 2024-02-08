@@ -1,0 +1,24 @@
+$productCatalog=apparelProductCatalog
+$productCatalogName=Apparel Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+INSERT_UPDATE Category; code[unique = true]; $catalogVersion; operatorExclusive[default = true]
+                      ; 450000
+                      ; 20000
+                      ; sandals
+                      ; tshirts
+                      ; 360000
+                      ; 30000
+                      ; 210300
+                      ; 221300
+                      ; 221500
+                      ; 190400
+                      ; 200400
+                      ; 270900
+                      ; 170300
+                      ; 450600
+                      ; 371000
+                      ; 371100
+                      ; 330800

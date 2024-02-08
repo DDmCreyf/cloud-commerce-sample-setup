@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/util
+		   http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- Facades -->
+    <alias name="defaultOfferFacade" alias="offerFacade"/>
+    <bean id="defaultOfferFacade" class="com.mirakl.hybris.facades.product.impl.DefaultOfferFacade">
+        <property name="offerService" ref="offerService"/>
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+        <property name="offerDataRetrievalResolutionStrategy" ref="miraklOfferDataRetrievalResolutionStrategy"/>
+    </bean>
+
+    <alias name="miraklCartFacade" alias="cartFacade"/>
+    <bean id="miraklCartFacade" class="com.mirakl.hybris.facades.order.impl.DefaultMiraklCartFacade" parent="defaultCartFacade">
+        <property name="offerFacade" ref="offerFacade" />
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+    </bean>
+
+    <alias name="defaultShippingFacade" alias="shippingFacade"/>
+    <bean id="defaultShippingFacade" class="com.mirakl.hybris.facades.order.impl.DefaultShippingFacade">
+        <property name="shippingOptionsService" ref="shippingOptionsService"/>
+        <property name="offerDiscrepancyConverter" ref="offerDiscrepancyConverter"/>
+        <property name="commerceCheckoutService" ref="commerceCheckoutService"/>
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="cartService" ref="cartService"/>
+        <property name="miraklOrderService" ref="miraklOrderService"/>
+    </bean>
+
+    <alias name="defaultShopFacade" alias="shopFacade"/>
+    <bean id="defaultShopFacade" class="com.mirakl.hybris.facades.shop.impl.DefaultShopFacade">
+        <property name="shopDataConverter" ref="shopDataConverter"/>
+        <property name="shopService" ref="shopService"/>
+        <property name="evaluationDataConverter" ref="evaluationDataConverter"/>
+    </bean>
+
+    <alias name="defaultMarketplaceOrderFacade" alias="marketplaceOrderFacade"/>
+    <bean id="defaultMarketplaceOrderFacade" class="com.mirakl.hybris.facades.order.impl.DefaultMarketplaceOrderFacade">
+        <property name="orderService" ref="miraklOrderService"/>
+        <property name="assessmentDataConverter" ref="assessmentDataConverter"/>
+    </bean>
+
+    <alias name="defaultMarketplaceConsignmentFacade" alias="marketplaceConsignmentFacade"/>
+    <bean id="defaultMarketplaceConsignmentFacade" class="com.mirakl.hybris.facades.order.impl.DefaultMarketplaceConsignmentFacade">
+        <property name="consignmentService" ref="marketplaceConsignmentService"/>
+        <property name="miraklCreateOrderEvaluationConverter" ref="miraklCreateOrderEvaluationConverter"/>
+        <property name="consignmentConverter" ref="consignmentConverter"/>
+        <property name="productDataConverter" ref="productConverter"/>
+    </bean>
+
+    <alias name="defaultIncidentFacade" alias="incidentFacade"/>
+    <bean id="defaultIncidentFacade" class="com.mirakl.hybris.facades.order.impl.DefaultIncidentFacade">
+        <property name="messagingThreadFacade" ref="messagingThreadFacade"/>
+        <property name="reasonFacade" ref="reasonFacade"/>
+        <property name="incidentService" ref="incidentService"/>
+        <property name="miraklCreateOrderMessageConverter" ref="miraklCreateOrderMessageConverter"/>
+    </bean>
+
+    <alias name="defaultReasonFacade" alias="reasonFacade"/>
+    <bean id="defaultReasonFacade" class="com.mirakl.hybris.facades.setting.impl.DefaultReasonFacade">
+        <property name="reasonService" ref="reasonService"/>
+        <property name="reasonDataConverter" ref="reasonDataConverter"/>
+    </bean>
+
+    <alias name="defaultMarketplaceConsignmentMessagesFacade" alias="marketplaceConsignmentMessagesFacade"/>
+    <bean id="defaultMarketplaceConsignmentMessagesFacade" class="com.mirakl.hybris.facades.order.impl.DefaultMarketplaceConsignmentMessagesFacade">
+        <property name="marketplaceConsignmentMessagesService" ref="marketplaceConsignmentMessagesService"/>
+        <property name="orderMessageConverter" ref="orderMessageConverter"/>
+        <property name="miraklCreateOrderMessageConverter" ref="miraklCreateOrderMessageConverter"/>
+        <property name="marketplaceConsignmentMessagesStrategy" ref="marketplaceConsignmentMessagesStrategy"/>
+        <property name="marketplaceConsignmentService" ref="marketplaceConsignmentService"/>
+        <property name="messagesComparator" ref="messageDataComparator"/>
+    </bean>
+
+    <alias name="defaultMessagingThreadFacade" alias="messagingThreadFacade"/>
+    <bean id="defaultMessagingThreadFacade" class="com.mirakl.hybris.facades.message.impl.DefaultMessagingThreadFacade">
+        <property name="messagingThreadService" ref="messagingThreadService"/>
+        <property name="threadListDataConverter" ref="threadListDataConverter"/>
+        <property name="miraklThreadReplyMessageInputConverter" ref="miraklThreadReplyMessageInputConverter"/>
+        <property name="miraklCreateOrderThreadConverter" ref="miraklCreateOrderThreadConverter"/>
+        <property name="threadDetailsDataConverter" ref="threadDetailsDataConverter"/>
+        <property name="miraklDocumentService" ref="miraklDocumentService"/>
+    </bean>
+
+    <alias name="defaultMiraklRealtimeOfferDataRetrievalStrategy" alias="miraklRealtimeOfferDataRetrievalStrategy"/>
+    <bean id="defaultMiraklRealtimeOfferDataRetrievalStrategy" class="com.mirakl.hybris.facades.product.strategies.impl.DefaultMiraklRealtimeOfferDataRetrievalStrategy">
+        <property name="realtimeOfferService" ref="miraklRealtimeOfferService"/>
+        <property name="realtimeOfferPriceRetrievalMode" ref="miraklRealtimeOfferDataRetrievalMode"/>
+        <property name="offerConverter" ref="realtimeOfferDataConverter"/>
+        <property name="offerDataSortingStrategy" ref="offerComparisonBeanSortingStrategy"/>
+        <property name="offerDataComparableConverter" ref="miraklOfferDataToComparableOfferDataConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklPersistentOfferDataRetrievalStrategy" alias="miraklPersistentOfferDataRetrievalStrategy"/>
+    <bean id="defaultMiraklPersistentOfferDataRetrievalStrategy" class="com.mirakl.hybris.facades.product.strategies.impl.DefaultMiraklPersistentOfferDataRetrievalStrategy">
+        <property name="offerConverter" ref="offerDataConverter"/>
+        <property name="offerService" ref="offerService"/>
+        <property name="realtimeOfferPriceRetrievalMode" ref="miraklRealtimeOfferDataRetrievalMode"/>
+    </bean>
+
+   <alias name="defaultMiraklOfferDataRetrievalResolutionStrategy" alias="miraklOfferDataRetrievalResolutionStrategy"/>
+    <bean id="defaultMiraklOfferDataRetrievalResolutionStrategy" class="com.mirakl.hybris.facades.product.strategies.impl.DefaultMiraklOfferDataRetrievalResolutionStrategy">
+        <property name="offerDataRetrievalStrategies" ref="offerDataRetrievalStrategiesMappings"/>
+    </bean>
+
+    <alias name="defaultOfferDataRetrievalStrategiesMappings" alias="offerDataRetrievalStrategiesMappings"/>
+    <util:list id="defaultOfferDataRetrievalStrategiesMappings" value-type="com.mirakl.hybris.facades.product.strategies.OfferDataRetrievalStrategy">
+        <ref bean="miraklPersistentOfferDataRetrievalStrategy"/>
+        <ref bean="miraklRealtimeOfferDataRetrievalStrategy"/>
+    </util:list>
+
+    <!-- Converters -->
+    <alias name="defaultOfferDataConverter" alias="offerDataConverter"/>
+    <bean id="defaultOfferDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferData"/>
+        <property name="populators">
+            <list>
+                <ref bean="offerDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultOfferDiscrepancyConverter" alias="offerDiscrepancyConverter"/>
+    <bean id="defaultOfferDiscrepancyConverter" class="com.mirakl.hybris.facades.order.converters.ShippingOfferDiscrepancyConverter">
+        <property name="targetClass" value="com.mirakl.hybris.facades.shipping.data.ShippingOfferDiscrepancyData"/>
+        <property name="orderEntryConverter" ref="orderEntryConverter"/>
+        <property name="errorCodes">
+            <map key-type="com.mirakl.client.mmp.front.domain.shipping.MiraklOrderShippingFeeErrorEnum">
+                <entry key="OFFER_NOT_FOUND" value="shipping.discrepancy.offer.notFound"/>
+                <entry key="SHIPPING_TYPE_NOT_ALLOWED" value="shipping.discrepancy.offer.shippingTypeNotAllowed"/>
+                <entry key="SHIPPING_ZONE_NOT_ALLOWED" value="shipping.discrepancy.offer.shippingZoneNotAllowed"/>
+            </map>
+        </property>
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+    </bean>
+
+    <alias name="defaultShopDataConverter" alias="shopDataConverter"/>
+    <bean id="defaultShopDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ShopData"/>
+        <property name="populators">
+            <list>
+                <ref bean="shopDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultEvaluationDataConverter" alias="evaluationDataConverter"/>
+    <bean id="defaultEvaluationDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.EvaluationData"/>
+        <property name="populators">
+            <list>
+                <ref bean="evaluationDataPopulator"/>
+                <ref bean="evaluationAssessmentDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultAssessmentDataConverter" alias="assessmentDataConverter"/>
+    <bean id="defaultAssessmentDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.AssessmentData"/>
+        <property name="populators">
+            <list>
+                <ref bean="assessmentDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderEvaluationConverter" alias="miraklCreateOrderEvaluationConverter"/>
+    <bean id="defaultMiraklCreateOrderEvaluationConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.front.request.order.evaluation.MiraklCreateOrderEvaluation"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateOrderEvaluationPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOffersSummaryDataConverter" alias="miraklOffersSummaryDataConverter"/>
+    <bean id="defaultMiraklOffersSummaryDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OffersSummaryData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOffersSummaryDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOfferOverviewDataConverter" alias="miraklOfferOverviewDataConverter"/>
+    <bean id="defaultMiraklOfferOverviewDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferOverviewData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOfferOverviewDataPopulator"/>
+                <ref bean="miraklOfferOverviewDataPricePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOffersStateSummaryDataConverter" alias="miraklOffersStateSummaryDataConverter"/>
+    <bean id="defaultMiraklOffersStateSummaryDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="java.util.ArrayList"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOffersStateSummaryDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultReasonDataConverter" alias="reasonDataConverter"/>
+    <bean id="defaultReasonDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ReasonData"/>
+        <property name="populators">
+            <list>
+                <ref bean="reasonDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultOrderMessageConverter" alias="orderMessageConverter"/>
+    <bean id="defaultOrderMessageConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.MessageData"/>
+        <property name="populators">
+            <list>
+                <ref bean="orderMessagePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderMessageConverter" alias="miraklCreateOrderMessageConverter"/>
+    <bean id="defaultMiraklCreateOrderMessageConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.request.order.message.MiraklCreateOrderMessage"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateOrderMessagePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultmessageDocumentConverter" alias="messageDocumentConverter"/>
+    <bean id="defaultmessageDocumentConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.DocumentData"/>
+        <property name="populators">
+            <list>
+                <ref bean="messageDocumentPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMarketplaceConsignmentDocumentConverter" alias="marketplaceConsignmentDocumentConverter"/>
+    <bean id="defaultMarketplaceConsignmentDocumentConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.DocumentData"/>
+        <property name="populators">
+            <list>
+                <ref bean="marketplaceConsignmentDocumentPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklThreadReplyMessageInputConverter" alias="miraklThreadReplyMessageInputConverter"/>
+    <bean id="defaultMiraklThreadReplyMessageInputConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.request.order.message.MiraklThreadReplyMessageInput"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklThreadReplyMessageInputPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderThreadConverter" alias="miraklCreateOrderThreadConverter"/>
+    <bean id="defaultMiraklCreateOrderThreadConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.request.order.message.MiraklCreateOrderThread"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCreateOrderThreadPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultThreadListDataConverter" alias="threadListDataConverter"/>
+    <bean id="defaultThreadListDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ThreadListData"/>
+        <property name="populators">
+            <list>
+                <ref bean="threadListDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultThreadDataConverter" alias="threadDataConverter"/>
+    <bean id="defaultThreadDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ThreadData"/>
+        <property name="populators">
+            <list>
+                <ref bean="threadDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultThreadRecipientDataConverter" alias="threadRecipientDataConverter"/>
+    <bean id="defaultThreadRecipientDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ThreadRecipientData"/>
+        <property name="populators">
+            <list>
+                <ref bean="threadRecipientDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultThreadTopicDataConverter" alias="threadTopicDataConverter"/>
+    <bean id="defaultThreadTopicDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ThreadTopicData"/>
+        <property name="populators">
+            <list>
+                <ref bean="threadTopicDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultThreadDetailsDataConverter" alias="threadDetailsDataConverter"/>
+    <bean id="defaultThreadDetailsDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ThreadDetailsData"/>
+        <property name="populators">
+            <list>
+                <ref bean="threadDataPopulator"/>
+                <ref bean="threadDetailsDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultThreadMessageDataConverter" alias="threadMessageDataConverter"/>
+    <bean id="defaultThreadMessageDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ThreadMessageData"/>
+        <property name="populators">
+            <list>
+                <ref bean="threadMessageDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultThreadMessageAttachmentDataConverter" alias="threadMessageAttachmentDataConverter"/>
+    <bean id="defaultThreadMessageAttachmentDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ThreadMessageAttachmentData"/>
+        <property name="populators">
+            <list>
+                <ref bean="threadMessageAttachmentDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="realtimeOfferDataConverter" alias="miraklRealtimeOfferDataConverter"/>
+    <bean id="realtimeOfferDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OfferData"/>
+        <property name="populators">
+            <list>
+                <ref bean="realtimeOfferDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOfferDataToComparableOfferDataConverter" alias="miraklOfferDataToComparableOfferDataConverter"/>
+    <bean id="defaultMiraklOfferDataToComparableOfferDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.ComparableOfferData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOfferDataToComparableOfferDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Populators -->
+    <alias name="defaultOfferDataPopulator" alias="offerDataPopulator"/>
+    <bean id="defaultOfferDataPopulator" class="com.mirakl.hybris.facades.product.converters.populator.OfferDataPopulator">
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="volumePricePopulator" ref="offerDataVolumePricePopulator"/>
+    </bean>
+
+    <alias name="defaultOfferDataVolumePricePopulator" alias="offerDataVolumePricePopulator"/>
+    <bean id="defaultOfferDataVolumePricePopulator" class="com.mirakl.hybris.facades.product.converters.populator.OfferDataVolumePricePopulator">
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+        <property name="volumePriceComparator" ref="miraklVolumePriceComparator"/>
+    </bean>
+
+    <alias name="defaultOrderEntryOfferPopulator" alias="orderEntryOfferPopulator"/>
+    <bean id="defaultOrderEntryOfferPopulator" class="com.mirakl.hybris.facades.order.converters.populator.OrderEntryOfferPopulator"/>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="orderEntryConverter"/>
+        <property name="add" ref="orderEntryOfferPopulator"/>
+    </bean>
+
+    <alias name="defaultOrderEntryOfferStockPopulator" alias="orderEntryOfferStockPopulator"/>
+    <bean id="defaultOrderEntryOfferStockPopulator" class="com.mirakl.hybris.facades.order.converters.populator.OrderEntryOfferStockPopulator">
+        <property name="offerService" ref="offerService"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="orderEntryConverter"/>
+        <property name="add" ref="orderEntryOfferStockPopulator"/>
+    </bean>
+
+    <alias name="defaultMarketplaceConsignmentPopulator" alias="marketplaceConsignmentPopulator"/>
+    <bean id="defaultMarketplaceConsignmentPopulator" class="com.mirakl.hybris.facades.order.converters.populator.MarketplaceConsignmentPopulator">
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="messagesStrategy" ref="marketplaceConsignmentMessagesStrategy"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="consignmentConverter"/>
+        <property name="add" ref="marketplaceConsignmentPopulator"/>
+    </bean>
+
+    <alias name="defaultMarketplaceConsignmentEntryPopulator" alias="marketplaceConsignmentEntryPopulator"/>
+    <bean id="defaultMarketplaceConsignmentEntryPopulator" class="com.mirakl.hybris.facades.order.converters.populator.MarketplaceConsignmentEntryPopulator">
+        <property name="enumerationService" ref="enumerationService"/>
+    </bean>
+
+     <bean parent="modifyPopulatorList">
+        <property name="list" ref="consignmentEntryConverter"/>
+        <property name="add" ref="marketplaceConsignmentEntryPopulator"/>
+    </bean>
+
+    <alias name="defaultShopDataPopulator" alias="shopDataPopulator"/>
+    <bean id="defaultShopDataPopulator" class="com.mirakl.hybris.facades.shop.converters.populator.ShopDataPopulator">
+        <property name="solrSearchStateConverter" ref="solrSearchStateConverter"/>
+    </bean>
+
+    <alias name="defaultEvaluationDataPopulator" alias="evaluationDataPopulator"/>
+    <bean id="defaultEvaluationDataPopulator" class="com.mirakl.hybris.facades.shop.converters.populator.EvaluationDataPopulator"/>
+
+    <alias name="defaultevaluationAssessmentDataPopulator" alias="evaluationAssessmentDataPopulator"/>
+    <bean id="defaultevaluationAssessmentDataPopulator" class="com.mirakl.hybris.facades.shop.converters.populator.EvaluationAssessmentDataPopulator"/>
+
+    <alias name="defaultAssessmentDataPopulator" alias="assessmentDataPopulator"/>
+    <bean id="defaultAssessmentDataPopulator" class="com.mirakl.hybris.facades.order.converters.populator.AssessmentDataPopulator"/>
+
+    <alias name="defaultMiraklCreateOrderEvaluationPopulator" alias="miraklCreateOrderEvaluationPopulator"/>
+    <bean id="defaultMiraklCreateOrderEvaluationPopulator"
+          class="com.mirakl.hybris.facades.order.converters.populator.MiraklCreateOrderEvaluationPopulator">
+        <property name="defaultEvaluationVisibility" value="${mirakl.shops.evaluation.visible}"/>
+    </bean>
+
+    <alias name="miraklDeliveryOrderEntryGroupPopulator" alias="deliveryOrderEntryGroupPopulator"/>
+    <bean id="miraklDeliveryOrderEntryGroupPopulator"
+          class="com.mirakl.hybris.facades.order.converters.populator.MiraklDeliveryOrderEntryGroupPopulator"
+          parent="defaultDeliveryOrderEntryGroupPopulator">
+        <property name="shippingOptionPopulator" ref="shippingOptionPopulator"/>
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+    </bean>
+
+    <alias name="defaultShippingOptionPopulator" alias="shippingOptionPopulator"/>
+    <bean id="defaultShippingOptionPopulator" class="com.mirakl.hybris.facades.order.converters.populator.ShippingOptionPopulator">
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+    </bean>
+
+    <alias name="defaultMiraklOfferOverviewDataPopulator" alias="miraklOfferOverviewDataPopulator"/>
+    <bean id="defaultMiraklOfferOverviewDataPopulator" class="com.mirakl.hybris.facades.search.solrfacetsearch.populators.impl.MiraklOfferOverviewDataPopulator">
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklOfferOverviewDataPricePopulator" alias="miraklOfferOverviewDataPricePopulator"/>
+    <bean id="defaultMiraklOfferOverviewDataPricePopulator" class="com.mirakl.hybris.facades.search.solrfacetsearch.populators.impl.MiraklOfferOverviewDataPricePopulator">
+        <property name="offerService" ref="offerService"/>
+        <property name="offerPricingSelectionStrategy" ref="offerPricingSelectionStrategy"/>
+        <property name="priceDataFactoryHelper" ref="priceDataFactoryHelper"/>
+    </bean>
+
+    <alias name="defaultMiraklOffersStateSummaryDataPopulator" alias="miraklOffersStateSummaryDataPopulator"/>
+    <bean id="defaultMiraklOffersStateSummaryDataPopulator" class="com.mirakl.hybris.facades.search.solrfacetsearch.populators.impl.MiraklOffersStateSummaryDataPopulator">
+        <property name="enumerationService" ref="enumerationService" />
+    </bean>
+
+    <alias name="defaultMiraklOffersSummaryDataPopulator" alias="miraklOffersSummaryDataPopulator"/>
+    <bean id="defaultMiraklOffersSummaryDataPopulator" class="com.mirakl.hybris.facades.search.solrfacetsearch.populators.impl.MiraklOffersSummaryDataPopulator">
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="offersStateSummaryConverter" ref="miraklOffersStateSummaryDataConverter"/>
+        <property name="sortingStrategy" ref="offerOverviewRelevanceSortingStrategy"/>
+        <property name="priceDataFactoryHelper" ref="priceDataFactoryHelper"/>
+    </bean>
+
+    <alias name="defaultMiraklSearchResultProductPopulator" alias="miraklSearchResultProductPopulator"/>
+    <bean id="defaultMiraklSearchResultProductPopulator" class="com.mirakl.hybris.facades.search.solrfacetsearch.populators.impl.MiraklSearchResultProductPopulator">
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+    </bean>
+
+    <alias name="defaultOrderMessagePopulator" alias="orderMessagePopulator"/>
+    <bean id="defaultOrderMessagePopulator" class="com.mirakl.hybris.facades.order.converters.populator.OrderMessagePopulator">
+        <property name="documentConverter" ref="messageDocumentConverter"/>
+    </bean>
+
+    <alias name="defaultMessageDocumentPopulator" alias="messageDocumentPopulator"/>
+    <bean id="defaultMessageDocumentPopulator" class="com.mirakl.hybris.facades.order.converters.populator.MessageDocumentPopulator"/>
+
+    <alias name="defaultMarketplaceConsignmentDocumentPopulator" alias="marketplaceConsignmentDocumentPopulator"/>
+    <bean id="defaultMarketplaceConsignmentDocumentPopulator" class="com.mirakl.hybris.facades.order.converters.populator.MarketplaceConsignmentDocumentPopulator"/>
+
+    <alias name="defaultOrderDocumentsPopulator" alias="orderDocumentsPopulator"/>
+    <bean id="defaultOrderDocumentsPopulator" class="com.mirakl.hybris.facades.order.converters.populator.OrderDocumentsPopulator">
+        <property name="documentService" ref="miraklDocumentService"/>
+        <property name="marketplaceConsignmentDocumentConverter" ref="marketplaceConsignmentDocumentConverter"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="orderConverter"/>
+        <property name="add" ref="orderDocumentsPopulator"/>
+    </bean>
+
+    <alias name="defaultMiraklCreateOrderMessagePopulator" alias="miraklCreateOrderMessagePopulator"/>
+    <bean id="defaultMiraklCreateOrderMessagePopulator" class="com.mirakl.hybris.facades.order.converters.populator.MiraklCreateOrderMessagePopulator">
+        <property name="userService" ref="userService"/>
+        <property name="customerNameStrategy" ref="customerNameStrategy"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="commerceSearchResultProductConverter"/>
+        <property name="add" ref="miraklSearchResultProductPopulator"/>
+    </bean>
+
+    <alias name="defaultReasonDataPopulator" alias="reasonDataPopulator"/>
+    <bean id="defaultReasonDataPopulator" class="com.mirakl.hybris.facades.order.converters.populator.ReasonDataPopulator"/>
+
+    <alias name="defaultMiraklVariantOptionDataPopulator" alias="miraklVariantOptionDataPopulator"/>
+    <bean id="defaultMiraklVariantOptionDataPopulator" class="com.mirakl.hybris.facades.product.converters.populator.MiraklVariantOptionDataPopulator">
+        <property name="offerService" ref="offerService"/>
+        <property name="miraklProductService" ref="miraklProductService"/>
+        <property name="miraklPriceService" ref="miraklPriceService"/>
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="variantOptionDataConverter"/>
+        <property name="add" ref="miraklVariantOptionDataPopulator"/>
+    </bean>
+
+    <alias name="defaultMiraklThreadReplyMessageInputPopulator" alias="miraklThreadReplyMessageInputPopulator"/>
+    <bean id="defaultMiraklThreadReplyMessageInputPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.MiraklThreadReplyMessageInputPopulator"/>
+
+    <alias name="defaultMiraklCreateOrderThreadPopulator" alias="miraklCreateOrderThreadPopulator"/>
+    <bean id="defaultMiraklCreateOrderThreadPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.MiraklCreateOrderThreadPopulator"/>
+
+    <alias name="defaultThreadListDataPopulator" alias="threadListDataPopulator"/>
+    <bean id="defaultThreadListDataPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.ThreadListDataPopulator">
+        <property name="threadDataConverter" ref="threadDataConverter"/>
+    </bean>
+
+    <alias name="defaultThreadDataPopulator" alias="threadDataPopulator"/>
+    <bean id="defaultThreadDataPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.ThreadDataPopulator">
+        <property name="reasonFacade" ref="reasonFacade"/>
+        <property name="threadRecipientDataConverter" ref="threadRecipientDataConverter"/>
+        <property name="threadTopicDataConverter" ref="threadTopicDataConverter"/>
+    </bean>
+
+    <alias name="defaultThreadRecipientDataPopulator" alias="threadRecipientDataPopulator"/>
+    <bean id="defaultThreadRecipientDataPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.ThreadRecipientDataPopulator">
+        <property name="cmsSiteService" ref="cmsSiteService"/>
+    </bean>
+
+    <alias name="defaultThreadTopicDataPopulator" alias="threadTopicDataPopulator"/>
+    <bean id="defaultThreadTopicDataPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.ThreadTopicDataPopulator"/>
+
+    <alias name="defaultThreadDetailsDataPopulator" alias="threadDetailsDataPopulator"/>
+    <bean id="defaultThreadDetailsDataPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.ThreadDetailsDataPopulator">
+        <property name="threadMessageDataConverter" ref="threadMessageDataConverter"/>
+    </bean>
+
+    <alias name="defaultThreadMessageDataPopulator" alias="threadMessageDataPopulator"/>
+    <bean id="defaultThreadMessageDataPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.ThreadMessageDataPopulator">
+        <property name="threadMessageAttachmentDataConverter" ref="threadMessageAttachmentDataConverter"/>
+        <property name="threadRecipientDataConverter" ref="threadRecipientDataConverter"/>
+    </bean>
+
+    <alias name="defaultThreadMessageAttachmentDataPopulator" alias="threadMessageAttachmentDataPopulator"/>
+    <bean id="defaultThreadMessageAttachmentDataPopulator" class="com.mirakl.hybris.facades.inbox.converters.populator.ThreadMessageAttachmentDataPopulator"/>
+
+
+    <alias name="defaultMiraklOfferDataToComparableOfferDataPopulator" alias="miraklOfferDataToComparableOfferDataPopulator"/>
+    <bean id="defaultMiraklOfferDataToComparableOfferDataPopulator" class="com.mirakl.hybris.facades.product.populators.MiraklOfferDataToComparableOfferDataPopulator"/>
+
+    <alias name="miraklRealtimeOfferDataPopulator" alias="realtimeOfferDataPopulator"/>
+    <bean id="miraklRealtimeOfferDataPopulator" class="com.mirakl.hybris.facades.product.converters.populator.MiraklRealtimeOfferDataPopulator">
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+        <property name="offerDataVolumePricePopulator" ref="offerDataVolumePricePopulator"/>
+        <property name="offerPricingDataConverter" ref="miraklOfferPricingToDataConverter"/>
+        <property name="realtimePriceService" ref="miraklRealtimePriceService"/>
+    </bean>
+
+
+    <!-- Providers -->
+    <bean id="shopIdValueProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.ShopIdValueProvider" parent="abstractPropertyFieldValueProvider">
+        <property name="miraklProductService" ref="miraklProductService"/>
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="shopDao" ref="shopDao"/>
+    </bean>
+
+    <bean id="shopFacetDisplayNameProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.ShopFacetDisplayNameProvider">
+        <property name="shopService" ref="shopService" />
+    </bean>
+
+    <bean id="shopFacetSortProvider" class="de.hybris.platform.solrfacetsearch.config.impl.DefaultFacetSortProvider">
+        <property name="comparator" ref="facetShopComparator" />
+        <property name="descending" value="true" />
+    </bean>
+
+    <bean id="offerStateValueProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.OfferStateValueProvider" parent="abstractPropertyFieldValueProvider">
+        <property name="offerDao" ref="offerDao"/>
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="miraklProductService" ref="miraklProductService"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <bean id="offerStateFacetDisplayNameProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.OfferStateFacetDisplayNameProvider">
+        <property name="enumerationService" ref="enumerationService"/>
+    </bean>
+
+    <bean id="offerStateFacetSortProvider" class="de.hybris.platform.solrfacetsearch.config.impl.DefaultFacetSortProvider">
+        <property name="comparator" ref="offerStateFacetValuesComparator" />
+        <property name="descending" value="true" />
+    </bean>
+
+    <bean id="offersSummaryValueProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.OffersSummaryValueProvider">
+        <property name="offerService" ref="offerService"/>
+        <property name="sessionService" ref="sessionService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService"/>
+        <property name="offersSummaryConverter" ref="miraklOffersSummaryDataConverter"/>
+        <property name="offerOverviewConverter" ref="miraklOfferOverviewDataConverter"/>
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+    </bean>
+
+    <bean id="miraklPriceValueProvider" parent="productPriceValueProvider">
+        <property name="priceService" ref="miraklPriceService"/>
+    </bean>
+
+    <bean id="miraklVolumeAwareProductPriceValueProvider" parent="volumeAwareProductPriceValueProvider">
+        <property name="priceService" ref="miraklPriceService"/>
+    </bean>
+
+    <bean id="hasMiraklOfferValueProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.HasMiraklOfferValueProvider" parent="abstractPropertyFieldValueProvider">
+        <property name="offerService" ref="offerService"/>
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+    </bean>
+
+    <bean id="originFacetDisplayNameProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.OriginFacetDisplayNameProvider">
+        <property name="enumerationService" ref="enumerationService"/>
+    </bean>
+
+    <bean id="originValueProvider" class="com.mirakl.hybris.facades.search.solrfacetsearch.provider.impl.OriginValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+    </bean>
+
+    <!--  Comparators -->
+
+	<alias name="defaultFacetShopComparator" alias="facetShopComparator"/>
+    <bean id="defaultFacetShopComparator" class="com.mirakl.hybris.facades.search.solrfacetsearch.comparators.impl.FacetShopComparator">
+        <property name="baseSiteService" ref="baseSiteService"/>
+    </bean>
+
+	<alias name="defaultOfferStateFacetValuesComparator" alias="offerStateFacetValuesComparator"/>
+    <bean id="defaultOfferStateFacetValuesComparator" class="com.mirakl.hybris.facades.search.solrfacetsearch.comparators.impl.OfferStateFacetValuesComparator" />
+
+	<alias name="defaultMessageDataComparator" alias="messageDataComparator"/>
+    <bean id="defaultMessageDataComparator" class="com.mirakl.hybris.facades.order.comparators.MessageDataComparator"/>
+
+    <alias name="defaultMiraklVolumePriceComparator" alias="miraklVolumePriceComparator"/>
+    <bean id="defaultMiraklVolumePriceComparator" class="com.mirakl.hybris.facades.product.comparators.MiraklVolumePriceComparator"/>
+
+    <!-- Aspects  -->
+    <aop:aspectj-autoproxy/>
+    <aop:config>
+        <aop:aspect id="productForOfferAspect" ref="productForOfferAspect">
+            <aop:pointcut id="productForCodePointCut" expression="execution(* de.hybris.platform.commercefacades.product.ProductFacade.getProductForCodeAndOptions(..)) and args(code,options)" />
+            <aop:around method="preGetProductForCodeAndOptions" pointcut-ref="productForCodePointCut" arg-names="code,options"/>
+        </aop:aspect>
+    </aop:config>
+
+    <alias name="defaultProductForOfferAspect" alias="productForOfferAspect"/>
+    <bean id="defaultProductForOfferAspect" class="com.mirakl.hybris.facades.product.aspects.DefaultProductForOfferAspect">
+        <property name="offerCodeGenerationStrategy" ref="offerCodeGenerationStrategy"/>
+        <property name="offerFacade" ref="offerFacade"/>
+    </bean>
+
+    <!-- Helpers -->
+
+    <bean id="priceDataFactoryHelper" class="com.mirakl.hybris.facades.product.helpers.PriceDataFactoryHelper">
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+    </bean>
+
+</beans>

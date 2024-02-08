@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+    <explorertree>
+        <group name="mirakl">
+            <typeref type="MiraklChannel"/>
+        </group>
+    </explorertree>
+
+	<type name="MiraklChannel" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="code" operator="contains" />
+				<condition attribute="label" operator="contains" />
+			</search>
+			<result>
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="code" width="350"/>
+						<attribute name="label" width="350" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<columnlayout>
+						<row>
+							<attribute name="code" />
+							<attribute name="label" />
+						</row>
+					</columnlayout>
+				</essentials>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace">
+			<itemlayout>
+				<attribute name="code" />
+				<attribute name="label" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+    
+    <type name="Offer" mode="append">
+        <organizer>
+            <editor>
+                <tab name="tab.offer.properties">
+                    <section name="hmc.offer.general">
+                        <listlayout mode="append">
+                            <attribute name="channels"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+    
+    <type name="Shop" mode="append">
+        <organizer>
+            <editor>
+                <tab name="properties">
+                    <section name="properties">
+                        <listlayout mode="append">
+                            <attribute name="channels"/>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+    
+</configuration>

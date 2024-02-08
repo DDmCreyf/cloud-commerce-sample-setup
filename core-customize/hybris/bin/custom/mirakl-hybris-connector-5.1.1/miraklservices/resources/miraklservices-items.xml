@@ -1,0 +1,1794 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+
+    <!-- Relations typecodes : 27300-27400 -->
+    <!-- itemtype typecodes : 27400-27500 -->
+
+    <collectiontypes>
+        <collectiontype code="MarketplaceConsignmentList" elementtype="MarketplaceConsignment" type="set"/>
+        <collectiontype code="MiraklCoreAttributeList" elementtype="MiraklCoreAttribute" type="set"/>
+        <collectiontype code="ProductOriginList" elementtype="ProductOrigin" type="set"/>
+        <collectiontype code="OfferList" elementtype="Offer" autocreate="true" generate="true" type="set"/>
+        <collectiontype code="CustomFieldAcceptedValuesList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/>
+    </collectiontypes>
+
+    <enumtypes>
+        <enumtype code="OfferState" dynamic="true">
+            <description>Offer condition</description>
+        </enumtype>
+
+        <enumtype code="ShopState">
+            <description>The state of the shop.</description>
+            <value code="OPEN"/>
+            <value code="CLOSE"/>
+            <value code="SUSPENDED"/>
+            <value code="TERMINATED"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="PremiumState">
+            <description>The premium state of the shop</description>
+            <value code="DEFAULT"/>
+            <value code="PREMIUM"/>
+            <value code="NOT_PREMIUM"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="MiraklExportStatus">
+            <description>Export Job Status</description>
+            <value code="PENDING"/>
+            <value code="COMPLETE"/>
+            <value code="FAILED"/>
+            <value code="NOT_FOUND"/>
+            <value code="CANCELLED"/>
+        </enumtype>
+
+        <enumtype code="MiraklExportType">
+            <description>Export Job Type</description>
+            <value code="CATALOG_CATEGORY_EXPORT"/>
+            <value code="ATTRIBUTE_EXPORT"/>
+            <value code="VALUE_LIST_EXPORT"/>
+        </enumtype>
+
+        <enumtype code="MiraklOrderStatus" dynamic="true">
+            <description>Mirakl Order Status</description>
+            <value code="STAGING"/>
+            <value code="WAITING_ACCEPTANCE"/>
+            <value code="WAITING_DEBIT"/>
+            <value code="WAITING_DEBIT_PAYMENT"/>
+            <value code="SHIPPING"/>
+            <value code="SHIPPED"/>
+            <value code="TO_COLLECT"/>
+            <value code="RECEIVED"/>
+            <value code="CLOSED"/>
+            <value code="REFUSED"/>
+            <value code="CANCELED"/>
+            <value code="INCIDENT_OPEN"/>
+            <value code="INCIDENT_CLOSED"/>
+            <value code="REFUNDED"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="MarketplaceConsignmentPaymentStatus">
+            <description>Marketplace consignment</description>
+            <value code="INITIAL"/>
+            <value code="PENDING"/>
+            <value code="SUCCESS"/>
+            <value code="FAILURE"/>
+        </enumtype>
+
+        <enumtype code="MiraklOrderLineStatus" dynamic="true">
+            <description>Mirakl Order Line Status</description>
+            <value code="STAGING"/>
+            <value code="WAITING_ACCEPTANCE"/>
+            <value code="WAITING_DEBIT"/>
+            <value code="WAITING_DEBIT_PAYMENT"/>
+            <value code="SHIPPING"/>
+            <value code="SHIPPED"/>
+            <value code="TO_COLLECT"/>
+            <value code="RECEIVED"/>
+            <value code="CLOSED"/>
+            <value code="REFUSED"/>
+            <value code="CANCELED"/>
+            <value code="INCIDENT_OPEN"/>
+            <value code="INCIDENT_CLOSED"/>
+            <value code="REFUNDED"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="AssessmentType" dynamic="true">
+            <description>Mirakl Assessment types</description>
+            <value code="GRADE"/>
+            <value code="BOOLEAN"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="RefundReason" autocreate="false" generate="false" dynamic="true">
+            <value code="MARKETPLACE_SELLER_REFUND"/>
+        </enumtype>
+
+        <enumtype code="OrderSource">
+            <description>The source of the order</description>
+            <value code="OPERATOR"/>
+            <value code="MARKETPLACE"/>
+            <value code="MIXED"/>
+        </enumtype>
+
+        <enumtype code="MiraklAttributeType">
+            <description>The Mirakl Attribute type</description>
+            <value code="TEXT"/>
+            <value code="LONG_TEXT"/>
+            <value code="MEDIA"/>
+            <value code="DATE"/>
+            <value code="INTEGER"/>
+            <value code="DECIMAL"/>
+            <value code="BOOLEAN"/>
+            <value code="LIST"/>
+            <value code="LIST_MULTIPLE_VALUES"/>
+            <value code="MULTIPLE"/>
+        </enumtype>
+
+        <enumtype code="MiraklAttributeRole">
+            <description>The Mirakl Attribute role</description>
+            <value code="CATEGORY_ATTRIBUTE"/>
+            <value code="SHOP_SKU_ATTRIBUTE"/>
+            <value code="TITLE_ATTRIBUTE"/>
+            <value code="VARIANT_GROUP_CODE_ATTRIBUTE"/>
+        </enumtype>
+
+        <enumtype code="MiraklProductImportStatus">
+            <description>The status of product file imports in Mirakl</description>
+            <value code="WAITING"/>
+            <value code="QUEUED"/>
+            <value code="RUNNING"/>
+            <value code="SENT"/>
+            <value code="COMPLETE"/>
+            <value code="FAILED"/>
+            <value code="CANCELLED"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="ProductOrigin">
+            <description>Source of the product</description>
+            <value code="OPERATOR"/>
+            <value code="MARKETPLACE"/>
+        </enumtype>
+
+        <enumtype code="MiraklCatalogSystem" dynamic="true">
+            <description>Sets of APIs used to synchronize your catalog with Mirakl</description>
+        </enumtype>
+
+        <enumtype code="MiraklCustomFieldPermission" dynamic="true">
+            <description>Describes the permissions applied to a target (shop user, for instance) on a given field</description>
+            <value code="INVISIBLE"/>
+            <value code="READ_ONLY"/>
+            <value code="READ_WRITE"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="MiraklCustomFieldType">
+            <description>Type of an custom field</description>
+            <value code="STRING"/>
+            <value code="DATE"/>
+            <value code="NUMERIC"/>
+            <value code="BOOLEAN"/>
+            <value code="LINK"/>
+            <value code="LIST"/>
+            <value code="REGEX"/>
+            <value code="TEXTAREA"/>
+            <value code="MULTIPLE_VALUES_LIST"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="MiraklCustomFieldLinkedEntity">
+            <description>Type of the Mirakl related entity for a custom field</description>
+            <value code="SHOP"/>
+            <value code="OFFER"/>
+            <value code="ORDER_LINE"/>
+            <value code="ORDER"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="MiraklAttributeRequirementLevel" dynamic="true">
+            <description>Type of the requirement level for an operator attribute</description>
+            <value code="REQUIRED"/>
+            <value code="RECOMMENDED"/>
+            <value code="OPTIONAL"/>
+            <value code="DISABLED"/>
+            <value code="UNKNOWN_ENUM_VALUE"/>
+        </enumtype>
+
+        <enumtype code="MiraklThreadEntityType" dynamic="true">
+            <description>Type of the entity a thread is related to</description>
+            <value code="MMP_ORDER"/>
+            <value code="MMP_OFFER"/>
+            <value code="MPS_ORDER"/>
+            <value code="MPS_OFFER"/>
+        </enumtype>
+
+        <enumtype code="MiraklThreadTopicType" dynamic="true">
+            <description>Thread topic type</description>
+            <value code="FREE_TEXT"/>
+            <value code="REASON_CODE"/>
+        </enumtype>
+
+        <enumtype code="MiraklThreadParticipantType" dynamic="true">
+            <description>Thread participant type</description>
+            <value code="OPERATOR"/>
+            <value code="SHOP"/>
+            <value code="CUSTOMER"/>
+        </enumtype>
+
+        <enumtype code="MiraklMessageSenderType" dynamic="true">
+            <description>Message sender type</description>
+            <value code="OPERATOR"/>
+            <value code="OPERATOR_USER"/>
+            <value code="SHOP_USER"/>
+            <value code="CUSTOMER"/>
+            <value code="CUSTOMER_USER"/>
+        </enumtype>
+
+        <enumtype code="MiraklAsyncTaskStatus">
+            <description>Mirakl Async task status</description>
+            <value code="PENDING"/>
+            <value code="DONE"/>
+            <value code="ERROR"/>
+        </enumtype>
+
+        <enumtype code="MiraklAsyncTaskType">
+            <description>Mirakl Async task type</description>
+            <value code="OFFER_IMPORT_DELTA"/>
+            <value code="OFFER_IMPORT_FULL"/>
+        </enumtype>
+
+    </enumtypes>
+
+    <maptypes>
+        <maptype code="RawProductValuesMap" argumenttype="java.lang.String" returntype="java.lang.String" autocreate="true" generate="false" />
+        <maptype code="HttpHeadersMap" argumenttype="java.lang.String" returntype="java.lang.String" autocreate="true" generate="false" />
+    </maptypes>
+
+    <relations>
+        <relation code="Shop2OffersRel" localized="false">
+            <description>The one to many relation between a shop and offers</description>
+            <sourceElement type="Shop" cardinality="one" qualifier="shop">
+                <description>A marketplace shop</description>
+            </sourceElement>
+            <targetElement type="Offer" cardinality="many" qualifier="offers">
+                <description>An offer sold by a shop</description>
+            </targetElement>
+        </relation>
+
+        <relation code="MiraklExportCatalog2LangRel" localized="false">
+            <description>The many to many relation between the export catalog job and the languages</description>
+            <deployment table="MiraklECJob2LangRel" typecode="27300"/>
+            <sourceElement type="MiraklExportCatalogCronJob" cardinality="many" navigable="false">
+                <description>Export catalog cronjob</description>
+            </sourceElement>
+            <targetElement type="Language" cardinality="many" qualifier="additionalLanguages">
+                <description>Additional language to be used by the catalog export</description>
+            </targetElement>
+        </relation>
+
+        <relation code="CoreAttr2CompTypesRel" localized="false">
+            <description>The many to many relation between a core attribute and the composed types on which it is set</description>
+            <deployment table="CoreAttr2CompTypesRel" typecode="27302" />
+            <sourceElement type="MiraklCoreAttribute" cardinality="many" navigable="false">
+                <description>The Mirakl Core Attribute defining its variant type owners</description>
+            </sourceElement>
+            <targetElement type="ComposedType" cardinality="many" qualifier="composedTypeOwners">
+                <description>The composed type owner of the attribute (the type on which the attribute should be set)</description>
+            </targetElement>
+        </relation>
+
+        <relation code="Catalog2LanguageRel" localized="false">
+            <description>The many to many relation between a catalog and the languages in which its product attributes values should be translated.</description>
+            <deployment table="Catalog2LanguageRel" typecode="27305"/>
+            <sourceElement type="Catalog" cardinality="many" navigable="false">
+                <description>The catalog</description>
+            </sourceElement>
+            <targetElement type="Language" cardinality="many" qualifier="translatableLanguages">
+                <description>The languages in which product attribute values are translatable</description>
+            </targetElement>
+        </relation>
+
+        <relation code="CoreAttributeConfig2CoreAttributesRel" localized="false">
+            <description>The many to many relation between a core attribute configuration and its core attributes.</description>
+            <deployment table="Config2CoreAttrRel" typecode="27306"/>
+            <sourceElement type="MiraklCoreAttributeConfiguration" cardinality="many" navigable="false">
+                <description>The core attributes configuration</description>
+            </sourceElement>
+            <targetElement type="MiraklCoreAttribute" cardinality="many" qualifier="coreAttributes" collectiontype="set">
+                <description>The core attributes linked to the configuration</description>
+            </targetElement>
+        </relation>
+
+        <relation code="MiraklImportCustomFields2EntityRel" localized="false">
+            <description>The many to many relation between the custom fields import cron job and the entity to which is assigned the custom field to import</description>
+            <deployment table="ImportCF2EntityRel" typecode="27309"/>
+            <sourceElement type="MiraklImportCustomFieldsCronJob" cardinality="many" navigable="false" >
+                <description>The custom fields import cron job</description>
+            </sourceElement>
+            <targetElement type="MiraklCustomFieldLinkedEntity" cardinality="many" qualifier="entities" collectiontype="set">
+                <description>Type of the custom field related entity to import</description>
+            </targetElement>
+        </relation>
+
+    </relations>
+    <itemtypes>
+
+        <itemtype code="Shop" jaloclass="com.mirakl.hybris.core.jalo.Shop">
+            <description>A marketplace shop</description>
+            <deployment table="shops" typecode="27400" />
+            <attributes>
+                <attribute qualifier="id" type="java.lang.String">
+                    <description>The identifier of the shop in Mirakl</description>
+                    <modifiers optional="false" initial="true" unique="true"/>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="internalId" type="java.lang.String">
+                    <description>The internal identifier of the shop (for the operator)</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="name" type="java.lang.String">
+                    <description>The name of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="contactInformation" type="Address">
+                    <modifiers partof="true"/>
+                    <description>The contact information address of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="currency" type="Currency">
+                    <description>The currency of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="state" type="ShopState">
+                    <description>State shop : OPEN or CLOSE</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="professional" type="java.lang.Boolean">
+                    <description>The shop is professional ?</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="premium" type="java.lang.Boolean">
+                    <description>Is a premium shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="premiumState" type="PremiumState">
+                    <description>The premium level of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="registrationDate" type="java.util.Date">
+                    <description>The date of the creation of the shop in Mirakl</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="closedFrom" type="java.util.Date">
+                    <description>The start date of the closing of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="closedTo" type="java.util.Date">
+                    <description>The end date of the closing of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="description" type="java.lang.String">
+                    <description>The description of the shop</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="returnPolicy" type="java.lang.String">
+                    <description>Terms of restitution</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="approvalDelay" type="java.lang.Long">
+                    <description>Average time for a shop to accept or refuse an order (in seconds)</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="approvalRate" type="java.lang.Double">
+                    <description>Rate of accepted orders</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="evaluationCount" type="java.lang.Integer">
+                    <description>Number of evaluations for the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="grade" type="java.lang.Double">
+                    <description>Global grade of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="offersCount" type="java.lang.Long">
+                    <description>Total count of offers of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="ordersCount" type="java.lang.Long">
+                    <description>Total count of orders of the shop</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="freeShipping" type="java.lang.Boolean">
+                    <description>Is this shop offer shipping for their customers?</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="shippingCountry" type="Country">
+                    <description>The shipping country</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="logo" type="Media">
+                    <description>Url of the shop's logo image</description>
+                    <persistence type="property" />
+                    <modifiers partof="true"/>
+                </attribute>
+                <attribute qualifier="banner" type="Media">
+                    <description>Url of the shop's banner image</description>
+                    <persistence type="property" />
+                    <modifiers partof="true"/>
+                </attribute>
+                <attribute qualifier="customFieldsJSON" type="java.lang.String">
+                    <description>Mirakl order line custom fields as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxShopId" unique="true">
+                    <key attribute="id"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="Offer" jaloclass="com.mirakl.hybris.core.jalo.Offer" extends="GenericItem">
+            <description>A marketplace offer</description>
+            <deployment table="Offers" typecode="27401"/>
+            <attributes>
+                <attribute qualifier="id" type="java.lang.String">
+                    <description>Unique offer identifier assigned by Mirakl</description>
+                    <modifiers optional="false" initial="true" unique="true"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="productCode" type="java.lang.String">
+                    <description>Product code to which the offer is linked to</description>
+                    <modifiers optional="false" initial="true"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="active" type="boolean">
+                    <description>Offer status</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="deleted" type="boolean">
+                    <description>Indicates whether the offer exists or is deleted</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="currency" type="Currency">
+                    <description>Offer currency</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="minShippingPrice" type="java.math.BigDecimal">
+                    <description>Minimum shipping charge for the offer</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="minShippingPriceAdditional" type="java.math.BigDecimal">
+                    <description>Additional shipping charge for the offer</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="price" type="java.math.BigDecimal">
+                    <description>Offer current price (original price or discount price if in discount period)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="totalPrice" type="java.math.BigDecimal">
+                    <description>Offer price + minimum shipping charge</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="originPrice" type="java.math.BigDecimal">
+                    <description>Original price of the offer</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="priceAdditionalInfo" type="java.lang.String">
+                    <description>Information about the offer price</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="quantity" type="java.lang.Integer">
+                    <description>Offer quantity available</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="description" type="java.lang.String">
+                    <description>Offer description</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="state" type="OfferState">
+                    <description>Offer state</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="favoriteRank" type="java.lang.Integer">
+                    <description>Number indicating if present that the offer is a favorite offer ranked</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="discountStartDate" type="java.util.Date">
+                    <description>Start date of the discount period</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="discountEndDate" type="java.util.Date">
+                    <description>End date of the discount period</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="discountPrice" type="java.math.BigDecimal">
+                    <description>Discount price</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="availableStartDate" type="java.util.Date">
+                    <description>Date when the offer will be activated</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="availableEndDate" type="java.util.Date">
+                    <description>Date when the offer will be deactivated</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="leadTimeToShip" type="java.lang.Integer">
+                    <description>Leadtime-to-ship corresponding to the offer</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="allOfferPricingsJSON" type="java.lang.String">
+                    <description>All offer pricings as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="packageQuantity" type="java.lang.Integer">
+                    <description>Package quantity</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="minOrderQuantity" type="java.lang.Integer">
+                    <description>Minimum allowed quantity per order</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="maxOrderQuantity" type="java.lang.Integer">
+                    <description>Maximum allowed quantity per order</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="customFieldsJSON" type="java.lang.String">
+                    <description>Mirakl offer custom fields as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="idIDX" unique="true">
+                    <key attribute="id"/>
+                </index>
+                <index name="idxOfferProductCode">
+                    <key attribute="productCode"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="MiraklImportShopsCronjob" extends="CronJob">
+            <attributes>
+                <attribute qualifier="lastExecutionDate" type="java.util.Date">
+                    <description>The last execution date of the cronjob</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="fullImport" type="boolean">
+                    <description>Is a full import ?</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklJobReport" jaloclass="com.mirakl.hybris.core.jalo.MiraklJobReport" extends="GenericItem">
+            <description>Entity holding the exports status, details and errors</description>
+            <deployment table="MiraklJobReports" typecode="27402"/>
+            <attributes>
+                <attribute qualifier="jobId" type="java.lang.String">
+                    <description>Export Job Id</description>
+                    <modifiers optional="false" initial="true"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="status" type="MiraklExportStatus">
+                    <description>Export Job Status</description>
+                    <modifiers optional="false" initial="true"/>
+                    <persistence type="property"/>
+                    <defaultvalue>com.mirakl.hybris.core.enums.MiraklExportStatus.PENDING</defaultvalue>
+                </attribute>
+                <attribute qualifier="reportType" type="MiraklExportType">
+                    <description>Export Job Type</description>
+                    <modifiers optional="false" initial="true"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="linesRead" type="java.lang.Integer">
+                    <description>Number of lines read</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="linesInError" type="java.lang.Integer">
+                    <description>Number of lines in error</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="linesInSuccess" type="java.lang.Integer">
+                    <description>Number of lines in success</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="hasErrorReport" type="java.lang.Boolean">
+                    <description>Indicates if export contains errors</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="errorReport" type="Media">
+                    <description>Error Report</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="errorReportPreview" type="java.lang.String">
+                    <description>Error Report Preview</description>
+                    <modifiers write="false"/>
+                    <persistence type="dynamic" attributeHandler="errorReportPreviewHandler"/>
+                </attribute>
+                <attribute qualifier="itemsDeleted" type="java.lang.Integer">
+                    <description>Number of deleted items</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="itemsInserted" type="java.lang.Integer">
+                    <description>Number of created items</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="itemsUpdated" type="java.lang.Integer">
+                    <description>Number of updated items</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="creationDate" type="java.util.Date">
+                    <description>Creation date of the report in Mirakl</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="jobIdIDX" unique="true">
+                    <key attribute="jobId"/>
+                    <key attribute="reportType"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="MiraklAsyncTaskScheduler" jaloclass="com.mirakl.hybris.core.jalo.MiraklAsyncTaskScheduler" extends="CronJob">
+            <description>Job scheduling MiraklAsyncTasks</description>
+            <attributes>
+                <attribute qualifier="lastImportTime" type="java.util.Date">
+                    <description>Last Import Time</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="fullImport" type="boolean">
+                    <description>Is a full import ?</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklImportOffersCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklImportOffersCronJob" extends="MiraklAsyncTaskScheduler">
+            <description>Offer Import Job (Mirakl API OF51)</description>
+            <attributes>
+                <attribute qualifier="includeInactiveOffers" type="boolean">
+                    <description>Ensure proper update of inactive offers during full update. May have a significant impact on performance.</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklExportStatusCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklExportStatusCronJob" extends="CronJob">
+            <description>Job updating the status and error reports of the export jobs to Mirakl</description>
+        </itemtype>
+
+        <itemtype code="MiraklImportShopOffersCompositeCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklImportShopOffersCompositeCronJob" extends="CompositeCronJob">
+            <description>Mirakl Composite job triggering import jobs in the right order</description>
+        </itemtype>
+
+        <itemtype code="MiraklProductImportCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklProductImportCronJob" extends="CronJob">
+            <description>Job importing products from Mirakl</description>
+            <attributes>
+                <attribute qualifier="coreAttributes" type="MiraklCoreAttributeList">
+                    <description>The core Attributes included in the configuration</description>
+                    <persistence type="dynamic" attributeHandler="productImportCoreAttributesDynamicHandler"/>
+                </attribute>
+                <attribute qualifier="coreAttributeConfiguration" type="MiraklCoreAttributeConfiguration">
+                    <description>The core attribute configuration to be used for the import (has to be the same as the related export job)</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="catalogVersion" type="CatalogVersion">
+                    <description>The catalog version in which products should be imported</description>
+                    <modifiers optional="false" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="systemVersion" type="ClassificationSystemVersion">
+                    <description>The classification system version to use</description>
+                    <modifiers optional="false" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="inputDirectory" type="java.lang.String">
+                    <description>The directory in which the input files are expected</description>
+                    <modifiers optional="false" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="archiveDirectory" type="java.lang.String">
+                    <description>The directory in which the input files will be placed after processing</description>
+                    <modifiers optional="false" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="inputFilePattern" type="java.lang.String">
+                    <description>The pattern (regex) of the inuput file</description>
+                    <modifiers optional="false"  />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="numberOfWorkers" type="java.lang.Integer">
+                    <description>The number of import workers</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="cleanupRawProducts" type="boolean">
+                    <description>Remove generated raw products after import ?</description>
+                    <persistence type="property" />
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="forceProductUpdate" type="boolean">
+                    <description>Force the update of existing products. Can slow the import process.</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="mediaDownloadHttpHeaders" type="HttpHeadersMap">
+                    <description>A map of Http headers to add to the media download requests.</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklProductImportCompositeCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklProductImportCompositeCronJob" extends="CompositeCronJob">
+            <description>A Composite job for importing products</description>
+        </itemtype>
+
+        <itemtype code="MiraklImportOfferStatesCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklImportOfferStatesCronJob" extends="CronJob">
+            <description>Offer States Import Job (Mirakl API OF61)</description>
+        </itemtype>
+
+        <itemtype code="AbstractOrderEntry" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="offerId" type="java.lang.String">
+                    <description>Offer Id of the order entry</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shopId" type="java.lang.String">
+                    <description>Id of the seller</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shopName" type="java.lang.String">
+                    <description>Name of the seller</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lineShippingPrice" type="double">
+                    <description>Total Line Shipping Price</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lineShippingCode" type="java.lang.String">
+                    <description>Selected Shipping Code</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lineShippingLabel" type="java.lang.String">
+                    <description>Selected Shipping Label</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="AbstractOrder" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="shippingFeesJSON" type="java.lang.String">
+                    <description>Mirakl Shipping Fees as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="createdOrdersJSON" type="java.lang.String">
+                    <description>Mirakl created orders response as JSON (OR01)</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="cartCalculationJSON" type="java.lang.String">
+                    <description>Mirakl Cart Calculation as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="marketplaceEntries" type="AbstractOrderEntryList">
+                    <persistence type="dynamic" attributeHandler="marketplaceOrderEntriesDynamicHandler"/>
+                    <modifiers write="false"/>
+                </attribute>
+                <attribute qualifier="marketplaceConsignments" type="MarketplaceConsignmentList">
+                    <persistence type="dynamic" attributeHandler="marketplaceConsignmentsDynamicHandler"/>
+                    <modifiers write="false"/>
+                </attribute>
+                <attribute qualifier="operatorEntries" type="AbstractOrderEntryList">
+                    <persistence type="dynamic" attributeHandler="operatorOrderEntriesDynamicHandler"/>
+                    <modifiers write="false"/>
+                </attribute>
+                <attribute qualifier="operatorEntriesForDelivery" type="AbstractOrderEntryList">
+                    <persistence type="dynamic" attributeHandler="operatorOrderEntriesForDeliveryDynamicHandler"/>
+                    <modifiers write="false"/>
+                </attribute>
+                <attribute qualifier="marketplaceOrder" type="boolean">
+                    <persistence type="dynamic" attributeHandler="marketplaceOrderDynamicHandler"/>
+                    <modifiers write="false"/>
+                </attribute>
+                <attribute qualifier="source" type="OrderSource">
+                    <description>The source of the order</description>
+                    <persistence type="dynamic" attributeHandler="orderSourceDynamicHandler"/>
+                    <modifiers read="true" write="false" optional="true" unique="false"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="Country" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="isoAlpha3" type="java.lang.String">
+                    <description>ISO 3166-1 alpha-3 code for the countries</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklExportSellableProductsCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklExportSellableProductsCronJob" extends="CronJob">
+            <description>Products Export Job</description>
+            <attributes>
+                <attribute qualifier="baseSite" type="BaseSite">
+                    <description>Base site, used for generating URLs</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lastExportDate" type="java.util.Date" >
+                    <description>Last export date. Used for incremental export</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="fullExport" type="boolean" >
+                    <description>Full/Incremental export?</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="synchronizationFileName" type="java.lang.String">
+                    <description>Name of the csv file sent to Mirakl</description>
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="Consignment" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="statusDisplayName" type="java.lang.String">
+                    <description>The name of the Mirakl Order or the Operator Consignment current status</description>
+                    <persistence type="dynamic" attributeHandler="consignmentStatusDisplayNameDynamicHandler"/>
+                    <modifiers read="true" write="false" optional="true" unique="false"/>
+                </attribute>
+                <attribute qualifier="deliveryModeDisplayName" type="java.lang.String">
+                    <description>The name of the Mirakl Shipping Method or the Operator Delivery Mode</description>
+                    <persistence type="dynamic" attributeHandler="consignmentDeliveryModeDisplayNameDynamicHandler"/>
+                    <modifiers read="true" write="false" optional="true" unique="false"/>
+                </attribute>
+                <attribute qualifier="shopDisplayName" type="java.lang.String">
+                    <description>The name of the shop sending the consignment</description>
+                    <persistence type="dynamic" attributeHandler="consignmentShopDisplayNameDynamicHandler"/>
+                    <modifiers read="true" write="false" optional="true" unique="false"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MarketplaceConsignment" extends="Consignment" jaloclass="com.mirakl.hybris.core.jalo.MarketplaceConsignment">
+            <description>Marketplace consignment corresponding to the logistic order in Mirakl</description>
+            <attributes>
+                <attribute qualifier="shopId" type="java.lang.String">
+                    <description>The marketplace shop id</description>
+                    <persistence type="property"/>
+                    <modifiers initial="true" optional="false" write="false"/>
+                </attribute>
+                <attribute qualifier="shopName" type="java.lang.String">
+                    <description>The marketplace shop name</description>
+                    <modifiers initial="true" optional="false" write="false" />
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="canEvaluate" type="java.lang.Boolean">
+                    <description>Indicates if the order can be evaluated by the customer</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="canCancel" type="java.lang.Boolean">
+                    <description>Indicates if the order can be cancelled</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="imprintNumber" type="java.lang.String">
+                    <description>The payment imprint number</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="miraklOrderStatus" type="MiraklOrderStatus">
+                    <description>Mirakl Order Status</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="leadTimeToShip" type="java.lang.Integer">
+                    <description>Lead time to ship</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shippingTypeCode" type="java.lang.String">
+                    <description>Shipping type code</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shippingTypeLabel" type="java.lang.String">
+                    <description>Shipping type label</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="consignmentUpdatePayload" type="java.lang.String">
+                    <description>Mirakl last update for logistic order (OR11) stored in its raw format</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="lastUpdateProcessed" type="boolean">
+                    <description>A flag to indicate if the last received update has been processed</description>
+                    <modifiers optional="false" />
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="totalPrice" type="java.lang.Double">
+                    <description>The total price of the consignment including its shipping cost (calculated by Mirakl)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shippingCost" type="java.lang.Double">
+                    <description>The shipping cost for the consignment (calculated by Mirakl)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="debitRequestPayload" type="java.lang.String">
+                    <description>Debit request received from Mirakl stored in its raw format</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="paymentStatus" type="MarketplaceConsignmentPaymentStatus">
+                    <description>The payment status for the consignment</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lastUpdatedDate" type="java.util.Date">
+                    <description>The last updated date in Mirakl</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="paymentTransactionEntry" type="PaymentTransactionEntry">
+                    <description>The payment transaction entry used to capture the consignment amount (for partial capture only)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="customerDebitDate" type="java.util.Date">
+                    <description>The debit date of the customer</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="customFieldsJSON" type="java.lang.String">
+                    <description>Mirakl order custom fields as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MarketplaceConsignmentProcess" extends="ConsignmentProcess" jaloclass="com.mirakl.hybris.core.jalo.MarketplaceConsignmentProcess" />
+
+        <itemtype code="BaseStore" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="defaultDeliveryCountry" type="Country">
+                    <description>The default delivery country, used for marketplace cart calculation (SH02)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="miraklPromotionsEnabled" type="boolean">
+                    <description>Enables the Mirakl promotions integration (a synchronous call to API SH02 will be made for each cart mutation)</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="synchronousCartUpdateEnabled" type="boolean">
+                    <description>Enables real time offer stock and price updates (a synchronous call to API SH02 will be made for each cart mutation)</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="BaseSite" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="operatorName" type="java.lang.String">
+                    <description>The operator name</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="operatorCode" type="java.lang.String">
+                    <description>The operator code</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="ConsignmentEntry" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="miraklOrderLineId" type="java.lang.String">
+                    <description>Mirakl Order Line id</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="miraklOrderLineStatus" type="MiraklOrderLineStatus">
+                    <description>Mirakl Order Line Status</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="canOpenIncident" type="java.lang.Boolean">
+                    <description>Specify if the customer is able to open an incident</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="customFieldsJSON" type="java.lang.String">
+                    <description>Mirakl order line custom fields as JSON</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="RefundEntry" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="miraklRefundId" type="java.lang.String">
+                    <description>Refund id received from Mirakl</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="confirmedToMirakl" type="boolean">
+                    <description>A flag indicating if the refund payment confirmation (PA02) was sent to Mirakl</description>
+                    <modifiers optional="false" />
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="paymentTransactionEntry" type="PaymentTransactionEntry">
+                    <description>The payment transaction entry used for the refund of the line</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxMiraklRefundId">
+                    <key attribute="miraklRefundId"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+
+        <itemtype code="MiraklRetrieveDebitRequestsCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklRetrieveDebitRequestsCronJob" extends="CronJob">
+            <description>Cronjob retrieving debits (Mirakl API PA11)</description>
+        </itemtype>
+
+        <itemtype code="MiraklProcessDebitsCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklProcessDebitsCronJob" extends="CronJob">
+            <description>Cronjob for processing pending debit requests</description>
+        </itemtype>
+
+        <itemtype code="MiraklRetrieveProcessDebitsCompositeCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklRetrieveProcessDebitsCompositeCronJob" extends="CompositeCronJob">
+            <description>Composite job downloading and processing Mirakl debits</description>
+        </itemtype>
+
+        <itemtype code="MiraklRetrieveRefundRequestsCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklRetrieveRefundRequestsCronJob" extends="CronJob">
+            <description>Cronjob retrieving refunds (Mirakl API PA12)</description>
+        </itemtype>
+
+        <itemtype code="MiraklRefundPaymentCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklRefundPaymentCronJob" extends="CronJob">
+            <description>Cronjob for processing pending refund requests</description>
+        </itemtype>
+
+        <itemtype code="MiraklRetrieveProcessRefundsCompositeCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklRetrieveProcessRefundsCompositeCronJob" extends="CompositeCronJob">
+            <description>Composite job downloading and processing Mirakl refunds</description>
+        </itemtype>
+
+        <itemtype code="Category" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="operatorExclusive" type="boolean">
+                    <description>A flag indicating that a category is not exportable to Mirakl (sold exclusively by the operator)</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklExportCatalogCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklExportCatalogCronJob" extends="CronJob">
+            <attributes>
+                <attribute qualifier="catalogVersion" type="CatalogVersion">
+                    <description>The product catalog to export</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="coreAttributes" type="MiraklCoreAttributeList">
+                    <description>The core Attributes included in the configuration</description>
+                    <persistence type="dynamic" attributeHandler="exportCatalogCoreAttributesDynamicHandler"/>
+                </attribute>
+                <attribute qualifier="coreAttributeConfiguration" type="MiraklCoreAttributeConfiguration">
+                    <description>The core attribute configuration to be used for the export (has to be the same as the
+                        related import job)
+                    </description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="defaultLanguage" type="Language">
+                    <description>The default language to use for the export</description>
+                    <modifiers optional="false" />
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="exportCategories" type="boolean">
+                    <description>A flag indicating if the job should export catalog categories</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="exportAttributes" type="boolean">
+                    <description>A flag indicating if the job should export product attributes</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="exportValueLists" type="boolean">
+                    <description>A flag indicating if the job should export attribute value lists</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="categoriesFileName" type="java.lang.String">
+                    <description>the name of the categories file sent to Mirakl</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="attributesFileName" type="java.lang.String">
+                    <description>the name of the attributes file sent to Mirakl</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="valueListsFileName" type="java.lang.String">
+                    <description>the name of the value lists file sent to Mirakl</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute  qualifier="categoriesMedia" type="Media">
+                    <description>Categories media file</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute  qualifier="attributesMedia" type="Media">
+                    <description>Attributes media file</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute  qualifier="valueListsMedia" type="Media">
+                    <description>Value lists media file</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="dryRunMode" type="boolean">
+                    <description>A flag indicating if the job should perform without calling Mirakl (dry-run mode)</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="importTimeout" type="int">
+                    <description>Maximum time allowed waiting for value lists and categories import before sending
+                        the attributes (in seconds)
+                    </description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="importCheckInterval" type="int">
+                    <description>The frequency of the value lists and categories import status check (in seconds)
+                    </description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="excludeRootCategory" type="boolean">
+                    <description>A flag indicating if the root category should be exported or not</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+
+        <itemtype code="MiraklImportCustomFieldsCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklImportCustomFieldsCronJob" extends="CronJob">
+            <description>Custom Fields Import Job (Mirakl API AF01)</description>
+        </itemtype>
+
+        <itemtype code="MiraklCoreAttribute" jaloclass="com.mirakl.hybris.core.jalo.MiraklCoreAttribute" extends="GenericItem">
+            <deployment table="MiraklCoreAttributes" typecode="27403"/>
+            <attributes>
+                <attribute qualifier="uid" type="java.lang.String">
+                    <description>The unique identifier of a core attribute. Defaults to the code value</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>The code of the attribute</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="label" type="localized:java.lang.String">
+                    <description>The Label of the attribute</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="description" type="localized:java.lang.String">
+                    <description>The description of the attribute</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="required" type="boolean">
+                    <description>(Deprecated) Use the "marketplaceRequirementLevel" attribute instead</description>
+                    <modifiers />
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="defaultValue" type="java.lang.String">
+                    <description>The default value of the attribute</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="type" type="MiraklAttributeType">
+                    <description>The mirakl type of the attribute</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="typeParameter" type="java.lang.String">
+                    <description>(Deprecated) Use the "typeParameters" attribute instead</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="typeParametersInternal" type="java.lang.String">
+                    <description>Internal attribute holding additional information about the attribute type</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="typeParameters" type="java.lang.String">
+                    <description>Dynamic attribute returning additional information about the attribute type. Uses typeParametersInternal if defined, or else the typeParameter by adapting it to the new format</description>
+                    <persistence type="dynamic" attributeHandler="typeParametersForCoreAttributeDynamicHandler"/>
+                </attribute>
+                <attribute qualifier="importExportHandlerStringId" type="java.lang.String">
+                    <description>An optional spring bean id to handle import/export of attribute value lists</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="category" type="Category">
+                    <description>The category to which the attribute is attached</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="variant" type="boolean">
+                    <description>Indicates if the attribute is variant</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="uniqueIdentifier" type="boolean" >
+                    <description>Indicates if the attribute is part of a unique identifier for the product</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="localized" type="boolean">
+                    <description>Indicates if the attribute is localized</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="role" type="MiraklAttributeRole">
+                    <description>The role assigned to the attribute</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="requirementLevel" type="MiraklAttributeRequirementLevel">
+                    <description>Dynamic attribute returning the requirementLevel attribute if defined, or else using the "required" attribute to return either REQUIRED or OPTIONAL</description>
+                    <persistence type="dynamic" attributeHandler="requirementLevelForCoreAttributeDynamicHandler"/>
+                </attribute>
+                <attribute qualifier="requirementLevelInternal" type="MiraklAttributeRequirementLevel">
+                    <description>Internal attribute holding the requirement level</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxMiraklCoreAttributeUid" unique="true">
+                    <key attribute="uid"/>
+                </index>
+                <index name="IdxMiraklCoreAttributeCode">
+                    <key attribute="code"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="MiraklCategoryCoreAttribute" jaloclass="com.mirakl.hybris.core.jalo.MiraklCategoryCoreAttribute" extends="MiraklCoreAttribute">
+            <attributes>
+                <attribute qualifier="rootCategoryCode" type="java.lang.String">
+                    <description>The root category code</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklCoreAttributeConfiguration" jaloclass="com.mirakl.hybris.core.jalo.MiraklCoreAttributeConfiguration">
+            <description>Entity listing the core attributes required for related catalog export and product import jobs</description>
+            <deployment table="coreattributeconfig" typecode="27407"/>
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>The code of the core attribute configuration</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="productRootCategoryCode" type="java.lang.String">
+                    <description>Product Root Category code used by this configuration</description>
+                    <modifiers write="false"/>
+                    <persistence type="dynamic" attributeHandler="coreAttributeConfigurationRootCategoryDynamicHandler"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxMiraklCoreAttributeConfiguration" unique="true">
+                    <key attribute="code"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="ClassAttributeAssignment" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="operatorExclusive" type="java.lang.Boolean">
+                    <description>A flag indicating that an attribute is not exportable to Mirakl (used exclusively by the operator)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="requiredForMarketplace" type="boolean">
+                    <description>(Deprecated) Use the "marketplaceRequirementLevel" attribute instead</description>
+                    <modifiers optional="false" />
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="marketplaceRequirementLevelInternal" type="MiraklAttributeRequirementLevel">
+                    <description>Internal attribute holding the requirement level</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="marketplaceRequirementLevel" type="MiraklAttributeRequirementLevel">
+                    <description>Dynamic attribute returning the requirementLevel attribute if defined, or else using the "requiredForMarketplace" attribute to return either REQUIRED or OPTIONAL</description>
+                    <persistence type="dynamic" attributeHandler="requirementLevelForClassAttributeAssignmentDynamicHandler"/>
+                </attribute>
+                <attribute qualifier="marketplaceTypeParametersInternal" type="java.lang.String">
+                	<description>Internal attribute holding additional information about the attribute type</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="marketplaceTypeParameters" type="java.lang.String">
+                	<description>Dynamic attribute returning additional information about the attribute type. Uses typeParametersInternal if defined, or else the typeParameter by adapting it to the new format</description>
+                    <persistence type="dynamic" attributeHandler="typeParametersForClassAttributeAssignmentDynamicHandler"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="ClassificationAttribute" generate="false" autocreate="false">
+            <attributes>
+                <attribute qualifier="operatorExclusive" type="boolean">
+                    <description>A flag indicating that an attribute is not exportable to Mirakl (used exclusively by the operator)</description>
+                    <modifiers optional="false" />
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklRawProduct" jaloclass="com.mirakl.hybris.core.jalo.MiraklRawProduct">
+            <description>Entity representing a raw product received from Mirakl</description>
+            <deployment table="miraklrawproducts" typecode="27406"/>
+            <attributes>
+                <attribute qualifier="values" type="RawProductValuesMap">
+                    <description>Header to value map</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="rawData" type="java.lang.String">
+                    <description>The received raw data</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>CLOB</value>
+                        </columntype>
+                        <columntype database="sap">
+                            <value>NCLOB</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>TEXT</value>
+                        </columntype>
+                        <columntype database="sqlserver">
+                            <value>NVARCHAR(MAX)</value>
+                        </columntype>
+                        <columntype>
+                            <value>HYBRIS.LONG_STRING</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
+                <attribute qualifier="rowNumber" type="int" >
+                    <description>The row number</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="checksum" type="java.lang.String" >
+                    <description>The line checksum</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shopId" type="java.lang.String" >
+                    <description>The id of the shop submitting the product</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="importId" type="java.lang.String">
+                    <description>A UUID assigned to the import</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="variantGroupCode" type="java.lang.String">
+                    <description>The variant group code assigned to the product</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sku" type="java.lang.String">
+                    <description>The shop sku</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxRawProduct">
+                    <key attribute="shopId"/>
+                    <key attribute="variantGroupCode"/>
+                    <key attribute="importId"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="MediaContainer" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="fromMarketplace" type="boolean">
+                    <description>A flag indicating if the media container has been created by a marketplace shop</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="masterUrl" type="java.lang.String">
+                    <description>The url which served to create the media container</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="Catalog" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="rootProductType" type="ComposedType">
+                    <description>Type for non variant products</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="miraklCatalogSystem" type="MiraklCatalogSystem">
+                    <description>Preferred method to synchronize this catalog with Mirakl</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklCleanupRawProductsCronjob" extends="CronJob">
+            <attributes>
+                <attribute qualifier="daysBeforeDeletion" type="java.lang.Integer">
+                    <description>Every raw products created before the given days will be removed</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklDownloadProductFilesCronjob" jaloclass="com.mirakl.hybris.core.jalo.MiraklDownloadProductFilesCronjob" extends="CronJob">
+            <description>This job get the list of available product files (P51) and downloads them (P46)</description>
+            <attributes>
+                <attribute qualifier="lastExecutionDate" type="java.util.Date">
+                    <description>The last execution date of the cronjob</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="downloadDirectory" type="java.lang.String">
+                    <description>The directory in which the product files should be downloaded</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="fullDownload" type="boolean">
+                    <description>Download all the available product files</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="productimportCronJob" type="MiraklProductImportCronJob">
+                    <description>The product import job used to determine the download strategy</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="Product" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="origin" type="ProductOrigin">
+                    <description>Source of the product</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                    <defaultvalue>em().getEnumerationValue("ProductOrigin", "OPERATOR")</defaultvalue>
+                </attribute>
+                <attribute qualifier="offers" type="OfferList">
+                    <description>Offers Preview</description>
+                    <modifiers write="false"/>
+                    <persistence type="dynamic" attributeHandler="offersPreviewHandler"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklEnvironment">
+            <deployment table="miraklenvironment" typecode="27408"/>
+            <attributes>
+                <attribute qualifier="default" type="boolean">
+                    <description>True if this Mirakl API is used by Hybris</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="frontApiKey" type="java.lang.String">
+                    <description>The Mirakl Front API key</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="operatorApiKey" type="java.lang.String">
+                    <description>The Mirakl Operator API key</description>
+                    <persistence type="property" />
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="apiUrl" type="java.lang.String">
+                    <description>The Mirakl API url</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklCustomField">
+            <deployment table="miraklcustomfields" typecode="27409"/>
+            <attributes>
+                <attribute qualifier="shopPermission" type="MiraklCustomFieldPermission">
+                    <description>Describes the access level of shops on this custom field</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>The Mirakl custom field code</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="label" type="java.lang.String">
+                    <description>The Mirakl custom field label</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="type" type="MiraklCustomFieldType">
+                    <description>The Mirakl custom field type</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="required" type="boolean">
+                    <description>Whether or not the custom field is required</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="entity" type="MiraklCustomFieldLinkedEntity">
+                    <description>The Mirakl type of entity to which is assigned the additional field</description>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="acceptedValues" type="CustomFieldAcceptedValuesList">
+                    <description>The list of accepted values of custom field when the type is MiraklCustomFieldType.LIST
+                    </description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="regex" type="java.lang.String">
+                    <description>The Mirakl custom field regex that is used to validate the field value</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="MiraklCustomFieldUnqIDX" unique="true">
+                    <key attribute="code"/>
+                    <key attribute="entity"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="MiraklAsyncTask" jaloclass="com.mirakl.hybris.core.jalo.MiraklAsyncTask">
+            <description>Allows to track the state of Mirakl asynchronous tasks</description>
+            <deployment table="miraklasynctasks" typecode="27410"/>
+            <attributes>
+                <attribute qualifier="trackingId" type="java.lang.String">
+                    <description>Id of the asynchronous task in Mirakl</description>
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="status" type="MiraklAsyncTaskStatus">
+                    <description>Status of the tracking: Waiting for Mirakl, in progress, in error...</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="type" type="MiraklAsyncTaskType">
+                    <description>Type of tracking</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="requestDate" type="java.util.Date">
+                    <description>Date just before requesting the task in Mirakl</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklAsyncTaskPoller" jaloclass="com.mirakl.hybris.core.jalo.MiraklAsyncTakPoller" extends="CronJob">
+            <description>Job polling MiraklAsyncTasks</description>
+            <attributes>
+                <attribute qualifier="schedulerInstance" type="MiraklAsyncTaskScheduler">
+                    <description>Instance of related scheduler job</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="cleanupMiraklAsyncTask" type="java.lang.Boolean">
+                    <description>Clean MiraklAsyncTask after import</description>
+                    <modifiers optional="false"/>
+                    <defaultvalue>true</defaultvalue>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklImportOfferPoller" jaloclass="com.mirakl.hybris.core.jalo.MiraklImportOfferPoller" extends="MiraklAsyncTaskPoller">
+            <description>Job polling offers MiraklAsyncTasks</description>
+            <attributes>
+                <attribute qualifier="numberOfWorkers" type="java.lang.Integer">
+                    <description>The number of import workers</description>
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+    </itemtypes>
+</items>

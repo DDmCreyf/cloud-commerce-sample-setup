@@ -1,0 +1,11 @@
+INSERT_UPDATE MiraklCustomField ; shopPermission(code)[default = READ_WRITE] ; code[unique = true] ; label     ; type(code)           ; required ; entity(code)[unique = true] ; acceptedValues ; regex
+                                ;                                            ; "code-1"            ; "label-1" ; STRING               ; false    ; OFFER                       ;                ;      
+                                ;                                            ; "code-2"            ; "label-2" ; DATE                 ; false    ; OFFER                       ;                ;      
+                                ;                                            ; "code-3"            ; "label-3" ; NUMERIC              ; false    ; SHOP                        ;                ;      
+                                ; INVISIBLE                                  ; "code-4"            ; "label-4" ; BOOLEAN              ; true     ; SHOP                        ;                ;      
+                                ; READ_ONLY                                  ; "code-5"            ; "label-5" ; LINK                 ; false    ; SHOP                        ;                ;      
+                                ;                                            ; "code-6"            ; "label-6" ; LIST                 ; false    ; ORDER                       ;                ;      
+                                ;                                            ; "code-7"            ; "label-7" ; MULTIPLE_VALUES_LIST ; false    ; ORDER_LINE                  ; VALUE1,VALUE2  ;      
+                                ;                                            ; "code-8"            ; "label-8" ; REGEX                ; false    ; ORDER_LINE                  ;                ; [0-4]
+                                ;                                            ; "code-9"            ; "label-9" ; TEXTAREA             ; false    ; ORDER                       ;                ;      
+                                ;                                            ; "code-3"            ; "label-3" ; NUMERIC              ; false    ; ORDER_LINE                  ;                ;      

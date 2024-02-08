@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. -->
+<extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+    <extension abstractclassprefix="Generated" classprefix="Mirakladvancedpricingchannels" managername="MirakladvancedpricingchannelsManager"
+        managersuperclass="de.hybris.platform.jalo.extension.Extension" name="mirakladvancedpricingchannels" usemaven="false">
+
+        <requires-extension name="mirakladvancedpricing" />
+        <requires-extension name="miraklchannels" />
+        
+        <coremodule generated="true" manager="com.mirakl.hybris.advancedpricingchannels.jalo.MirakladvancedpricingchannelsManager"
+            packageroot="com.mirakl.hybris.advancedpricingchannels" />
+
+    </extension>
+</extensioninfo>

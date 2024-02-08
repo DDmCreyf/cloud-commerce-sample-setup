@@ -1,0 +1,40 @@
+$productCatalog = wsTestProductCatalog
+$productCatalogName = wsTest Product Catalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+$supercategories = supercategories(code, $catalogVersion)
+$baseProduct = baseProduct(code, $catalogVersion)
+$approved = approvalstatus(code)[default='check']
+$defaultCurrency = USD
+$languages = en
+$defaultLanguage = en
+$staged = catalogVersion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default='$productCatalog:Staged']
+$online = catalogVersion(catalog(id[default=$productCatalog]), version[default='Online'])[unique=true, default='$productCatalog:Online']
+
+INSERT_UPDATE Language; isocode[unique = true]; active
+                      ; en                    ; true
+
+INSERT_UPDATE Currency; isocode[unique = true]; name[lang = de]; name[lang = en]; active; base ; conversion; digits; symbol
+                      ; USD                   ; Usd            ; Usd            ; true  ; true ; 1         ; 2     ; €
+
+INSERT_UPDATE Catalog; id[unique = true]; name[lang = de] ; name[lang = en] ; defaultCatalog
+                     ; $productCatalog  ; $productCatalog ; $productCatalog ; true
+
+INSERT_UPDATE CatalogVersion; catalog(id)[unique = true]; version[unique = true]; active; defaultCurrency(isocode); languages(isoCode)
+                            ; $productCatalog           ; Staged                ; false ; $defaultCurrency        ; $languages
+                            ; $productCatalog           ; Online                ; true  ; $defaultCurrency        ; $languages
+
+INSERT_UPDATE Unit; unitType[unique = true]; code[unique = true]; name[lang = en]; conversion;;;
+                  ; pieces                 ; pieces             ; pieces         ; 1
+
+INSERT_UPDATE Product; $staged; code[unique = true]; variantType(code)     ; approvalStatus(code)[default = 'approved']; origin (code)[default = 'OPERATOR']; unit(code)[default = pieces]
+                     ;        ; miraklProduct1     ;                       ;                                           ;                                    ;
+                     ;        ; miraklProduct2     ; GenericVariantProduct ;                                           ;                                    ;
+                     ;        ; miraklProduct3     ;                       ;                                           ; MARKETPLACE                        ;
+                     ;        ; miraklProduct4     ;                       ;                                           ;                                    ;
+
+INSERT_UPDATE Product; $online; code[unique = true]; variantType(code); approvalStatus(code)[default = 'approved']; origin (code)[default = 'OPERATOR']; unit(code)[default = pieces]
+                     ;        ; miraklProduct1     ;                  ;                                           ;                                    ;
+                     ;        ; miraklProduct2     ;                  ;                                           ;                                    ;
+                     ;        ; miraklProduct3     ;                  ;                                           ;                                    ;
+                     ;        ; miraklProduct4     ;                  ;                                           ;                                    ;
+

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Populators -->
+    <alias name="defaultMiraklAppliedPromotionPopulator" alias="miraklAppliedPromotionPopulator" />
+    <bean id="defaultMiraklAppliedPromotionPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklPromotionRaoPopulator" />
+
+    <alias name="defaultMiraklPromotionRaoPopulator" alias="miraklPromotionRaoPopulator" />
+    <bean id="defaultMiraklPromotionRaoPopulator" class="com.mirakl.hybris.promotions.converters.populators.RuleMiraklPromotionRaoPopulator">
+        <property name="miraklAppliedPromotionConverter" ref="miraklAppliedPromotionConverter" />
+        <property name="miraklPromotionsActivationStrategy" ref="miraklPromotionsActivationStrategy"/>
+        <property name="jsonMarshallingService" ref="jsonMarshallingService" />
+    </bean>
+
+    <alias name="defaultMiraklCartRaoPopulator" alias="miraklCartRaoPopulator" />
+    <bean id="defaultMiraklCartRaoPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklCartRaoPopulator">
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="marketplaceDeliveryCostStrategy" ref="marketplaceDeliveryCostStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklOrderEntryRaoPopulator" alias="miraklOrderEntryRaoPopulator" />
+    <bean id="defaultMiraklOrderEntryRaoPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklOrderEntryRaoPopulator"/>
+
+    <alias name="defaultMiraklPromotionResultPopulator" alias="miraklPromotionResultPopulator" />
+    <bean id="defaultMiraklPromotionResultPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklPromotionResultPopulator">
+        <property name="miraklPromotionService" ref="miraklPromotionService"/>
+        <property name="configurationService" ref="configurationService" />
+        <property name="i18NService" ref="i18nService" />
+        <property name="localeMappingStrategy" ref="miraklLocaleMappingStrategy" />
+        <property name="miraklApi" ref="mmpFrontApiClient" />
+        <property name="modelService" ref="modelService"/>
+        <property name="miraklPromotionConverter" ref="miraklPromotionConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklPromotionPopulator" alias="miraklPromotionPopulator"/>
+    <bean id="defaultMiraklPromotionPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklPromotionPopulator">
+        <property name="localeMappingStrategy" ref="miraklLocaleMappingStrategy"/>
+    </bean>
+    
+    <alias name="defaultMiraklPromotionOffersMappingImpexPopulator" alias="miraklPromotionOffersMappingImpexPopulator"/>
+    <bean id="defaultMiraklPromotionOffersMappingImpexPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklPromotionOffersMappingImpexPopulator"/>
+    
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="cartRaoConverter" />
+        <property name="add" ref="miraklPromotionRaoPopulator" />
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="cartRaoConverter" />
+        <property name="add" ref="miraklCartRaoPopulator" />
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="orderEntryRaoConverter" />
+        <property name="add" ref="miraklOrderEntryRaoPopulator" />
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="promotionResultConverter" />
+        <property name="add" ref="miraklPromotionResultPopulator" />
+    </bean>
+
+    <alias name="defaultMiraklPromotionDataPopulator" alias="miraklPromotionDataPopulator"/>
+    <bean id="defaultMiraklPromotionDataPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklPromotionDataPopulator">
+        <property name="solrSearchStateConverter" ref="solrSearchStateConverter"/>
+    </bean>
+
+    <alias name="defaultOfferPromotionDataPopulator" alias="offerPromotionDataPopulator"/>
+    <bean id="defaultOfferPromotionDataPopulator" class="com.mirakl.hybris.promotions.converters.populators.OfferPromotionDataPopulator">
+        <property name="miraklPromotionService" ref="miraklPromotionService"/>
+        <property name="miraklPromotionDataConverter" ref="miraklPromotionDataConverter"/>
+        <property name="miraklPromotionsActivationStrategy" ref="miraklPromotionsActivationStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklPromotionMediaPopulator" alias="miraklPromotionMediaPopulator" />
+    <bean id="defaultMiraklPromotionMediaPopulator" class="com.mirakl.hybris.promotions.converters.populators.MiraklPromotionMediaPopulator">
+        <property name="localeMappingStrategy" ref="miraklLocaleMappingStrategy"/>
+        <property name="i18NService" ref="i18NService"/>
+        <property name="miraklMediaService" ref="miraklMediaService"/>
+    </bean>
+
+    <alias name="defaultShopPromotionDataPopulator" alias="shopPromotionDataPopulator"/>
+    <bean id="defaultShopPromotionDataPopulator" class="com.mirakl.hybris.promotions.converters.populators.ShopPromotionDataPopulator">
+        <property name="miraklPromotionService" ref="miraklPromotionService"/>
+        <property name="miraklPromotionDataConverter" ref="miraklPromotionDataConverter"/>
+    </bean>
+
+    <!-- Converters -->
+    <alias name="defaultMiraklAppliedPromotionConverter" alias="miraklAppliedPromotionConverter" />
+    <bean id="defaultMiraklAppliedPromotionConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.promotions.ruleengineservices.rao.MiraklPromotionRAO" />
+        <property name="populators">
+            <list>
+                <ref bean="miraklAppliedPromotionPopulator" />
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklPromotionConverter" alias="miraklPromotionConverter"/>
+    <bean id="defaultMiraklPromotionConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.promotions.model.MiraklPromotionModel" />
+        <property name="populators">
+            <list>
+                <ref bean="miraklPromotionPopulator" />
+                <ref bean="miraklPromotionMediaPopulator"/>
+            </list>
+        </property>
+    </bean>
+    
+    <alias name="defaultMiraklPromotionOffersMappingImpexConverter" alias="miraklPromotionOffersMappingImpexConverter"/>
+    <bean id="defaultMiraklPromotionOffersMappingImpexConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="java.util.HashMap" />
+        <property name="populators">
+            <list>
+                <ref bean="miraklPromotionOffersMappingImpexPopulator" />
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklPromotionDataConverter" alias="miraklPromotionDataConverter"/>
+    <bean id="defaultMiraklPromotionDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.MiraklPromotionData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklPromotionDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="offerDataConverter"/>
+        <property name="add" ref="offerPromotionDataPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="shopDataConverter"/>
+        <property name="add" ref="shopPromotionDataPopulator"/>
+    </bean>
+    
+    <!-- Services -->
+
+    <alias name="defaultMiraklPromotionService" alias="miraklPromotionService" />
+    <bean id="defaultMiraklPromotionService" class="com.mirakl.hybris.promotions.services.impl.DefaultMiraklPromotionService">
+        <property name="miraklPromotionDao" ref="miraklPromotionDao"/>
+    </bean>
+
+    <alias name="defaultMiraklPromotionImportService" alias="miraklPromotionImportService" />
+    <bean id="defaultMiraklPromotionImportService" class="com.mirakl.hybris.promotions.services.impl.DefaultMiraklPromotionImportService">
+        <property name="miraklPromotionService" ref="miraklPromotionService" />
+        <property name="configurationService" ref="configurationService" />
+        <property name="modelService" ref="modelService" />
+        <property name="csvService" ref="csvService"/>
+        <property name="importService" ref="importService"/>
+        <property name="miraklPromotionConverter" ref="miraklPromotionConverter" />
+        <property name="miraklPromotionOffersMappingImpexConverter" ref="miraklPromotionOffersMappingImpexConverter"/>
+        <property name="miraklFrontApi" ref="mmpFrontApiClient" />
+    </bean>
+
+    <alias name="defaultMiraklRuleEngineCalculationService" alias="miraklRuleEngineCalculationService" />
+    <bean id="defaultMiraklRuleEngineCalculationService" class="com.mirakl.hybris.promotions.services.impl.MiraklRuleEngineCalculationService" parent="ruleEngineCalculationService" />
+
+    <!-- Strategies, actions and translators -->
+    
+    <alias name="defaultMiraklOrderAdjustTotalActionStrategy" alias="miraklOrderAdjustTotalActionStrategy" />
+    <bean id="defaultMiraklOrderAdjustTotalActionStrategy" class="com.mirakl.hybris.promotions.action.impl.MiraklOrderAdjustTotalActionStrategy"
+          parent="orderTotalAdjustActionStrategy">
+        <property name="promotionAction" value="com.mirakl.hybris.promotions.model.MiraklRuleBasedOrderAdjustTotalActionModel" />
+    </bean>
+    
+    <alias name="defaultRuleMiraklPromotionRAOAction" alias="ruleMiraklPromotionRAOAction" />
+    <bean id="defaultRuleMiraklPromotionRAOAction" class="com.mirakl.hybris.promotions.rule.action.impl.RuleMiraklPromotionRAOAction" parent="abstractRuleExecutableSupport">
+        <property name="ruleEngineCalculationService" ref="miraklRuleEngineCalculationService" />
+    </bean>
+
+    <bean id="miraklPromotionsPromotionActionStrategiesMapping" depends-on="promotionActionStrategiesMapping" parent="mapMergeDirective">
+        <property name="key" value="defaultRuleMiraklPromotionRAOAction" />
+        <property name="value" ref="miraklOrderAdjustTotalActionStrategy" />
+    </bean>
+
+    <alias alias="ruleMiraklChangeDeliveryModeRAOAction" name="defaultRuleMiraklChangeDeliveryModeRAOAction" />
+    <bean id="defaultRuleMiraklChangeDeliveryModeRAOAction" parent="ruleChangeDeliveryModeRAOAction"
+          class="com.mirakl.hybris.promotions.rule.action.impl.RuleMiraklChangeDeliveryModeRAOAction"/>
+
+    <bean id="ruleMiraklChangeDeliveryModeActionStrategiesMapping" depends-on="promotionActionStrategiesMapping" parent="mapMergeDirective">
+        <property name="key" value="defaultRuleMiraklChangeDeliveryModeRAOAction" />
+        <property name="value" ref="shippingActionStrategy" />
+    </bean>
+    
+    <bean depends-on="actionStrategies" parent="listMergeDirective">
+        <property name="add" ref="defaultMiraklOrderAdjustTotalActionStrategy" />
+    </bean>
+    
+    <alias name="defaultRuleMiraklPromotionAction" alias="ruleMiraklPromotionAction" />
+    <bean id="defaultRuleMiraklPromotionAction" class="de.hybris.platform.ruledefinitions.actions.DefaultRuleExecutableAction">
+        <property name="raoAction" ref="ruleMiraklPromotionRAOAction" />
+    </bean>
+
+    <alias alias="ruleMiraklChangeDeliveryModeAction" name="defaultRuleMiraklChangeDeliveryModeAction" />
+    <bean id="defaultRuleMiraklChangeDeliveryModeAction" class="de.hybris.platform.ruledefinitions.actions.DefaultRuleExecutableAction">
+        <property name="raoAction" ref="ruleMiraklChangeDeliveryModeRAOAction"/>
+    </bean>
+
+    <alias name="defaultRuleMiraklPromotionTranslator" alias="ruleMiraklPromotionTranslator" />
+    <bean id="defaultRuleMiraklPromotionTranslator" class="com.mirakl.hybris.promotions.definitions.conditions.RuleMiraklPromotionTranslator" />
+
+    <alias name="defaultRuleCartOperatorTotalConditionTranslator" alias="ruleCartOperatorTotalConditionTranslator" />
+    <bean id="defaultRuleCartOperatorTotalConditionTranslator" class="com.mirakl.hybris.promotions.definitions.conditions.RuleCartOperatorTotalConditionTranslator" parent="defaultRuleCartTotalConditionTranslator"/>
+
+    <alias name="defaultRuleEntryOperatorConditionTranslator" alias="ruleEntryOperatorConditionTranslator" />
+    <bean id="defaultRuleEntryOperatorConditionTranslator" class="com.mirakl.hybris.promotions.definitions.conditions.RuleEntryOperatorConditionTranslator" parent="defaultAbstractRuleConditionTranslator"/>
+
+    <alias name="defaultMiraklRAOConsumptionSupport" alias="raoConsumptionSupport"/>
+    <bean id="defaultMiraklRAOConsumptionSupport"
+          class="com.mirakl.hybris.promotions.rule.evaluation.actions.impl.MiraklRAOConsumptionSupport" parent="defaultRaoConsumptionSupport"/>
+
+    <!-- DAOs -->
+
+    <alias name="defaultMiraklPromotionDao" alias="miraklPromotionDao" />
+    <bean id="defaultMiraklPromotionDao" class="com.mirakl.hybris.promotions.daos.impl.DefaultMiraklPromotionDao" />
+    
+     <!-- Jobs -->
+
+    <bean id="defaultMiraklImportPromotionsJob" class="com.mirakl.hybris.promotions.jobs.MiraklImportPromotionsJob" parent="abstractJobPerformable">
+        <property name="miraklPromotionImportService" ref="miraklPromotionImportService" />
+    </bean>
+    
+    <bean id="defaultMiraklImportPromotionsOfferMappingJob" class="com.mirakl.hybris.promotions.jobs.MiraklImportPromotionsOfferMappingJob" parent="abstractJobPerformable">
+        <property name="miraklPromotionImportService" ref="miraklPromotionImportService" />
+    </bean>
+
+    <!-- Solr -->
+    
+    <bean id="miraklPromotionsValueProvider" class="com.mirakl.hybris.promotions.search.solrfacetsearch.provider.impl.MiraklPromotionsValueProvider" parent="abstractPropertyFieldValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="offerService" ref="offerService"/>
+    </bean>
+
+    <bean id="miraklPromotionsFacetDisplayNameProvider" class="com.mirakl.hybris.promotions.search.solrfacetsearch.provider.impl.MiraklPromotionsFacetDisplayNameProvider">
+        <property name="miraklPromotionService" ref="miraklPromotionService"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,112 @@
+$productCatalog = apparelProductCatalog
+$online = catalogVersion(catalog(id[default = $productCatalog]), version[default = Online])[unique = true, default = $productCatalog:Online]
+$staged = catalogVersion(catalog(id[default = $productCatalog]), version[default = Staged])[unique = true, default = $productCatalog:Staged]
+$classificationCatalog = ApparelClassification
+$systemVersion = systemVersion(catalog(id[default = $classificationCatalog]), version[default = 1.0])[unique = true, default = $classificationCatalog:1.0]
+$rootCategoryCode = categories
+$rootBrandCategoryCode = brands
+$rootCategory = rootCategory(code, $online)[default = $rootCategoryCode]
+$rootBrandCategory = rootBrandCategory(code, $online)[default = $rootBrandCategoryCode]
+$sessionUser = mirakl-system-user
+$mediaConversionUser = mirakl-mediaconversion-user
+$sessionCurrency = GBP
+$lang = en
+
+INSERT_UPDATE Catalog ; miraklCatalogSystem(code) ; translatableLanguages(isocode) ; rootProductType(code) ; id[unique = true, default = $productCatalog]
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+                      ; MCI                       ; en,de                          ; ApparelProduct        
+#% endif:             
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogmanager"")"
+                      ; MCM                       ; en,de                          ; ApparelProduct        
+#% endif:             
+                             
+INSERT_UPDATE MiraklCoreAttribute ; uid[unique = true] ; code             ; label[lang = $lang] ; description[lang = $lang] ; role(code)                   ; localized ; requirementLevelInternal(code) ; variant ; uniqueIdentifier ; type(code) ; typeParameter ; importExportHandlerStringId   ; category(code, $online) ; composedTypeOwners(code)[mode = append]
+                                  ; name               ; name             ; Name                ; The product name          ; TITLE_ATTRIBUTE              ; true      ; REQUIRED                       ; false   ; false            ; TEXT       ;               ; replicatedAttributeHandler    ;                         ;                                        
+                                  ; description        ; description      ; Description         ; The product description   ;                              ; true      ; RECOMMENDED                    ; false   ; false            ; LONG_TEXT  ;               ;                               ;                         ;                                        
+                                  ; ean                ; ean              ; EAN                 ; The product EAN           ;                              ; false     ; REQUIRED                       ; false   ; true             ; TEXT       ;               ;                               ;                         ;                                        
+                                  ; style              ; style            ; Style               ; The product style         ;                              ; false     ; OPTIONAL                       ; true    ; false            ; TEXT       ;               ;                               ;                         ; ApparelStyleVariantProduct,ApparelProduct             
+                                  ; size               ; size             ; Size                ; The product size          ;                              ; false     ; OPTIONAL                       ; true    ; false            ; TEXT       ;               ;                               ;                         ;                                        
+                                  ; media              ; media            ; Media               ; The product image         ;                              ; false     ; OPTIONAL                       ; false   ; false            ; MEDIA      ; 10240         ; galleryImagesAttributeHandler ;                         ; ApparelStyleVariantProduct,ApparelProduct             
+                                  ; variantGroupCode   ; variantGroupCode ; Variant Group Code  ; The variant group code    ; VARIANT_GROUP_CODE_ATTRIBUTE ; false     ; OPTIONAL                       ; false   ; false            ; TEXT       ;               ;                               ;                         ;                                        
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+                                  ; shop_sku           ; shop_sku         ; Shop sku            ; The shop sku              ; SHOP_SKU_ATTRIBUTE           ; false     ; REQUIRED                       ; false   ; false            ; TEXT       ;               ;                               ;                         ;                                        
+#% endif:                         
+
+INSERT_UPDATE MiraklCategoryCoreAttribute ; uid[unique = true]           ; code[unique = true] ; label[lang = $lang] ; description[lang = $lang] ; requirementLevelInternal(code) ; variant ; importExportHandlerStringId                  ; rootCategoryCode       ; type(code) ; typeParameter ; role(code)        
+                                          ; category-$rootCategoryCode   ; category            ; Category            ; The product category      ; REQUIRED                       ; false   ; categoryAttributeHandler                     ; $rootCategoryCode      ; TEXT       ;               ; CATEGORY_ATTRIBUTE
+                                          ; brand-$rootBrandCategoryCode ; brand               ; Brand               ; The product brand         ; OPTIONAL                       ; false   ; categoryWithExportableValuesAttributeHandler ; $rootBrandCategoryCode ; LIST       ; brand-values  ;                   
+
+INSERT_UPDATE MiraklCoreAttributeConfiguration ; code[unique = true]                    ; coreAttributes(uid)                                                                                                 
+                                               ; apparel-uk-coreAttributesConfiguration ; name, description, ean, variantGroupCode, style, size, media,category-$rootCategoryCode,brand-$rootBrandCategoryCode
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+INSERT_UPDATE CoreAttributeConfig2CoreAttributesRel ; source(code)[unique = true]            ; target(uid)[unique = true]
+                                                    ; apparel-uk-coreAttributesConfiguration ; shop_sku                  
+#% endif:                                           
+
+INSERT_UPDATE MiraklExportCatalogCronJob ; $online ; code[unique = true]                   ; job(code)                     ; coreAttributeConfiguration(code)       ; defaultLanguage(isocode) ; additionalLanguages(isocode) ; exportCategories ; exportAttributes ; exportValueLists ; categoriesFileName ; attributesFileName ; valueListsFileName ; importTimeout ; importCheckInterval ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                         ;         ; apparel-uk-MiraklExportCatalogCronJob ; defaultMiraklExportCatalogJob ; apparel-uk-coreAttributesConfiguration ; en                       ; de                           ; true             ; true             ; true             ; catalog-categories ; attributes         ; value-lists        ; 3600          ; 5                   
+
+INSERT_UPDATE MiraklExportSellableProductsCronJob ; code[unique = true]                                        ; job(code)                ; baseSite(uid) ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; fullExport ; synchronizationFileName                 ; sessionUser(uid)[default = $sessionUser] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                  ; apparel-uk-MiraklExportSellableProductsCronJob-full        ; defaultExportProductsJob ; apparel-uk    ;                                           ;                                                      ; true       ; apparelProductCatalog-online-full       
+                                                  ; apparel-uk-MiraklExportSellableProductsCronJob-incremental ; defaultExportProductsJob ; apparel-uk    ;                                           ;                                                      ; false      ; apparelProductCatalog-online-incremental
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogmanager"")"
+UPDATE MiraklExportSellableProductsCronJob ; code[unique = true]                                        ; coreAttributeConfiguration(code)[default=apparel-uk-coreAttributesConfiguration] ; productOrigins(code)[default=OPERATOR] ; catalogVersion(catalog(id[default = $productCatalog]), version[default = Online])[default = $productCatalog:Online]
+                                           ; apparel-uk-MiraklExportSellableProductsCronJob-full        ;                                                                                  
+                                           ; apparel-uk-MiraklExportSellableProductsCronJob-incremental ;                                                                                  
+#% endif:                                         
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+INSERT_UPDATE MiraklExportSellableProductsCronJob ; code[unique = true]                                        ; $rootCategory ; $rootBrandCategory ;  
+                                                  ; apparel-uk-MiraklExportSellableProductsCronJob-full        ;               
+                                                  ; apparel-uk-MiraklExportSellableProductsCronJob-incremental ;               
+
+INSERT_UPDATE MiraklExportCommissionCategoriesCronJob ; code[unique = true]            ; job(code)                  ; $rootCategory ; synchronizationFileName      ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                      ; apparelExportCategoriesCronJob ; defaultExportCategoriesJob ; categories    ; apparelProductCatalog-online ;                                          ;                                           ;                                                      ;                          ;                          
+#% endif:                                             
+
+INSERT_UPDATE MiraklProductImportCronJob ; code[unique = true]               ; inputDirectory              ; archiveDirectory              ; inputFilePattern          ; numberOfWorkers ; coreAttributeConfiguration(code)       ; mediaDownloadHttpHeaders[map-delimiter=','][key2value-delimiter=':'] ; $online ; $systemVersion ; job(code)[default = defaultMiraklProductImportJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1] ; cleanupRawProducts[default = true]
+                                         ; miraklApparelProductImportCronJob ; productImport/apparel/input ; productImport/apparel/archive ; ([^-]+)-([^-]+)-(.*)\.csv ;                 ; apparel-uk-coreAttributesConfiguration ; Accept:*, Accept-Language:*, Accept-Encoding:*                       
+
+INSERT_UPDATE MiraklDownloadProductFilesCronjob ; code[unique = true]                      ; productimportCronJob(code)       ; job(code)[default = defaultMiraklDownloadProductFilesJob] ; sessionUser(uid)[default = $sessionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                ; miraklApparelDownloadProductFilesCronJob ; miraklApparelProductImportCronJob
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+INSERT_UPDATE MiraklDownloadProductFilesCronjob ; code[unique = true]                      ; importStatuses(code)[default = 'SENT,FAILED,RUNNING']
+                                                ; miraklApparelDownloadProductFilesCronJob ;                                                      
+#% endif:                                       
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogmanager"")"
+INSERT_UPDATE MiraklDownloadProductFilesCronjob ; code[unique = true]                      ; acceptanceStatuses(code)[default = 'ACCEPTED']
+                                                ; miraklApparelDownloadProductFilesCronJob ;                                               
+#% endif:                                       
+
+INSERT_UPDATE MediaConversionCronJob ; code[unique = true]                      ; job(code)                       ; maxThreads ; sessionLanguage(isocode)[default = $lang] ; sessionUser(uid)[default = $mediaConversionUser] ; $online
+                                     ; apparelMarketplaceMediaConversionCronjob ; defaultMiraklMediaConversionJob ; 4          ;                                           
+
+INSERT_UPDATE CompositeEntry ; code[unique = true]                    ; executableCronJob(code)                 ;  
+                             ; miraklApparelDownloadProductFilesEntry ; miraklApparelDownloadProductFilesCronJob
+                             ; miraklApparelImportProductEntry        ; miraklApparelProductImportCronJob       
+                             ; miraklApparelMediaConversionEntry      ; apparelMarketplaceMediaConversionCronjob
+
+INSERT_UPDATE MiraklProductImportCompositeCronJob ; code[unique = true]                        ; compositeEntries(code)                                                                                  ; job(code)[default = compositeJobPerformable] ; sessionUser(uid)[default = $mediaConversionUser] ; sessionLanguage(isocode)[default = $lang] ; sessionCurrency(isocode)[default = $sessionCurrency] ; logsDaysOld[default = 1] ; filesDaysOld[default = 1]
+                                                  ; miraklApparelProductImportCompositeCronJob ; miraklApparelDownloadProductFilesEntry,miraklApparelImportProductEntry,miraklApparelMediaConversionEntry
+
+INSERT_UPDATE Trigger ; cronJob(code)[unique = true]                               ; second ; minute ; hour ; day ; month ; year ; relative ; active[default = false] ; maxAcceptableDelay ;  
+#% afterEach: impex.getLastImportedItem().setActivationTime(org.apache.commons.lang.time.DateUtils.addMinutes(new Date(),1));
+
+#P21 - Recommended every 15 minute
+                      ; apparel-uk-MiraklExportSellableProductsCronJob-incremental ; 0      ; 15     ; -1   ; -1  ; -1    ; -1   ; true     ;                         ; -1                 
+                      ; apparel-uk-MiraklExportSellableProductsCronJob-full        ; 0      ; -1     ; -1   ; 1   ; -1    ; -1   ; true     ;                         ; -1                 
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklcatalogintegrator"")"
+INSERT_UPDATE Trigger ; cronJob(code)[unique = true]   ; second ; minute ; hour ; day ; month ; year ; relative ; active[default = false] ; maxAcceptableDelay ;  
+#% afterEach: impex.getLastImportedItem().setActivationTime(org.apache.commons.lang.time.DateUtils.addMinutes(new Date(),1));
+
+#CA01 - Recommended every 1 minute
+                      ; apparelExportCategoriesCronJob ; 0      ; 1      ; -1   ; -1  ; -1    ; -1   ; true     ;                         ; -1                 
+#% endif:             
+
+# Fixes the default Solr indexation jobs
+UPDATE SolrIndexerCronJob ; code [unique = true]           ; sessionCurrency(isocode)[default = $sessionCurrency]
+                          ; full-apparel-ukIndex-cronJob   ;                                                     
+                          ; update-apparel-ukIndex-cronJob ;                                                     

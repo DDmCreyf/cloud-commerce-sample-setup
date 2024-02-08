@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+    <bean class="de.hybris.platform.commercefacades.order.data.DeliveryOrderEntryGroupData">
+        <property name="shopId" type="String"/>
+        <property name="shopName" type="String"/>
+        <property name="selectedShippingOption" type="de.hybris.platform.commercefacades.order.data.DeliveryModeData"/>
+        <property name="availableShippingOptions"
+                  type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.DeliveryModeData>"/>
+        <property name="leadTimeToShip" type="Integer"/>
+    </bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="offerId" type="String"/>
+		<property name="shopId" type="String"/>
+		<property name="shopName" type="String"/>
+	</bean>
+
+    <bean class="com.mirakl.hybris.facades.shipping.data.ShippingOfferDiscrepancyData">
+        <property name="missingQuantity" type="Long"/>
+        <property name="message" type="String"/>
+        <property name="entry" type="de.hybris.platform.commercefacades.order.data.OrderEntryData"/>
+    </bean>
+
+	<bean class="com.mirakl.hybris.beans.OfferData">
+		<property name="id" type="String"/>
+		<property name="code" type="String"/>
+		<property name="productCode" type="String"/>
+		<property name="minShippingPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="minShippingPriceAdditional" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="totalPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="originPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="priceAdditionalInfo" type="String"/>
+		<property name="quantity" type="Integer"/>
+		<property name="description" type="String"/>
+		<property name="state" type="String"/>
+        <property name="stateCode" type="String"/>
+        <property name="discountStartDate" type="java.util.Date"/>
+		<property name="discountEndDate" type="java.util.Date"/>
+		<property name="discountPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="availableStartDate" type="java.util.Date"/>
+		<property name="availableEndDate" type="java.util.Date"/>
+		<property name="leadTimeToShip" type="Integer"/>
+		<property name="shopCode" type="String"/>
+		<property name="shopName" type="String"/>
+		<property name="shopGrade" type="Double"/>
+		<property name="shopEvaluationCount" type="Integer"/>
+        <property name="volumePrices" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PriceData>"/>
+        <property name="volumeOriginPrices" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PriceData>"/>
+		<property name="packageQuantity" type="Integer"/>
+		<property name="minOrderQuantity" type="Integer"/>
+		<property name="maxOrderQuantity" type="Integer"/>
+		<property name="promotions" type="java.util.List&lt;com.mirakl.hybris.beans.MiraklPromotionData>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.ConsignmentData">
+		<property name="shippingModeLabel" type="String"/>
+		<property name="marketplaceStatus" type="String"/>
+		<property name="marketplaceStatusLabel" type="String"/>
+		<property name="canEvaluate" type="Boolean"/>
+        <property name="canWriteMessage" type="Boolean"/>
+        <property name="documents" type="java.util.List&lt;com.mirakl.hybris.beans.DocumentData>"/>
+        <property name="customerDebited" type="Boolean"/>
+	</bean>
+
+    <bean class="de.hybris.platform.commercefacades.order.data.ConsignmentEntryData">
+        <property name="miraklOrderLineId" type="String"/>
+        <property name="consignmentCode" type="String"/>
+        <property name="miraklOrderLineStatus" type="com.mirakl.hybris.core.enums.MiraklOrderLineStatus"/>
+        <property name="miraklOrderLineStatusLabel" type="String"/>
+        <property name="canOpenIncident" type="Boolean"/>
+    </bean>
+
+	<bean class="com.mirakl.hybris.beans.ShopData">
+		<property name="id" type="String"/>
+		<property name="name" type="String"/>
+		<property name="premium" type="Boolean"/>
+		<property name="grade" type="Double"/>
+		<property name="evaluationCount" type="Integer"/>
+		<property name="registrationDate" type="java.util.Date"/>
+		<property name="approvalDelay" type="Long"/>
+		<property name="approvalRate" type="Double"/>
+		<property name="shippingCountry" type="String"/>
+        <property name="availableShippingOptions" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.DeliveryModeData>"/>
+        <property name="description" type="String"/>
+        <property name="returnPolicy" type="String"/>
+        <property name="logo" type="String"/>
+        <property name="banner" type="String"/>
+        <property name="offersPageUrl" type="String"/>
+        <property name="promotions" type="java.util.List&lt;com.mirakl.hybris.beans.MiraklPromotionData>"/>
+	</bean>
+
+    <bean class="com.mirakl.hybris.beans.AssessmentData">
+        <property name="code" type="String"/>
+        <property name="label" type="String"/>
+        <property name="response" type="String"/>
+		<property name="type" type="com.mirakl.hybris.core.enums.AssessmentType"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.EvaluationData">
+        <property name="assessments" type="java.util.List&lt;com.mirakl.hybris.beans.AssessmentData>"/>
+        <property name="comment" type="String"/>
+        <property name="date" type="java.util.Date"/>
+        <property name="firstName" type="String"/>
+        <property name="lastName" type="String"/>
+        <property name="grade" type="Integer"/>
+    </bean>
+
+	<bean class="com.mirakl.hybris.beans.EvaluationPageData">
+		<property name="evaluations" type="java.util.List&lt;com.mirakl.hybris.beans.EvaluationData>"/>
+		<property name="evaluationPageCount" type="Integer"/>
+	</bean>
+
+    <bean class="com.mirakl.hybris.beans.OffersSummaryData">
+        <property name="bestOffer" type="com.mirakl.hybris.beans.OfferOverviewData"/>
+        <property name="states" type="java.util.List&lt;com.mirakl.hybris.beans.OfferStateSummaryData>"/>
+        <property name="offerCount" type="int"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.OfferStateSummaryData">
+        <property name="stateCode" type="String"/>
+        <property name="stateLabel" type="String"/>
+        <property name="offerCount" type="long"/>
+        <property name="minPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.DocumentData">
+        <property name="dateUploaded" type="java.util.Date"/>
+        <property name="fileName" type="String"/>
+        <property name="fileSize" type="Long"/>
+        <property name="code" type="String"/>
+        <property name="type" type="String"/>
+    </bean>
+
+     <bean class="com.mirakl.hybris.beans.ThreadListData">
+        <property name="threads" type="java.util.List&lt;com.mirakl.hybris.beans.ThreadData>"/>
+        <property name="nextPageToken" type="String"/>
+        <property name="previousPageToken" type="String"/>
+        <property name="consignmentCode" type="String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ThreadData">
+        <property name="id" type="String"/>
+        <property name="topic" type="com.mirakl.hybris.beans.ThreadTopicData"/>
+        <property name="authorizedParticipants" type="java.util.List&lt;com.mirakl.hybris.beans.ThreadRecipientData>"/>
+        <property name="selectableParticipants" type="java.util.List&lt;com.mirakl.hybris.beans.ThreadRecipientData>"/>
+        <property name="currentParticipants" type="java.util.List&lt;com.mirakl.hybris.beans.ThreadRecipientData>"/>
+        <property name="currentParticipantsDisplayValue" type="String"/>
+        <property name="dateCreated" type="java.util.Date" />
+        <property name="dateUpdated" type="java.util.Date" />
+        <property name="entityType" type="String"/>
+        <property name="entityLabel" type="String"/>
+        <property name="entityId" type="String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.CreateThreadMessageData">
+        <property name="topic" type="String"/>
+        <property name="body" type="String"/>
+        <property name="to" type="java.util.Set&lt;com.mirakl.hybris.beans.ThreadRecipientData>"/>
+        <property name="attachements" type="java.util.List&lt;java.io.File>"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ThreadDetailsData" extends="com.mirakl.hybris.beans.ThreadData">
+        <property name="messages" type="java.util.List&lt;com.mirakl.hybris.beans.ThreadMessageData>"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ThreadMessageData">
+        <property name="senderType" type="String"/>
+        <property name="senderDisplayName" type="String"/>
+        <property name="body" type="String"/>
+        <property name="dateCreated" type="java.util.Date" />
+        <property name="attachments" type="java.util.List&lt;com.mirakl.hybris.beans.ThreadMessageAttachmentData>"/>
+        <property name="to" type="java.util.List&lt;com.mirakl.hybris.beans.ThreadRecipientData>"/>
+        <property name="isFromCustomer" type="Boolean"/>
+    </bean>
+
+     <bean class="com.mirakl.hybris.beans.ThreadMessageAttachmentData">
+        <property name="id" type="String"/>
+        <property name="name" type="String"/>
+        <property name="size" type="Long"/>
+    </bean>
+
+     <bean class="com.mirakl.hybris.beans.ThreadRecipientData">
+        <property name="id" type="String"/>
+        <property name="type" type="String"/>
+        <property name="displayName" type="String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ThreadTopicData">
+        <property name="code" type="String"/>
+        <property name="displayValue" type="String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.MessageData">
+        <property name="subject" type="String"/>
+        <property name="dateCreated" type="java.util.Date"/>
+        <property name="isFromCustomer" type="Boolean"/>
+        <property name="author" type="String"/>
+        <property name="authorId" type="String"/>
+        <property name="body" type="String"/>
+        <property name="documents" type="java.util.List&lt;com.mirakl.hybris.beans.DocumentData>"/>
+    </bean>
+
+    <bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+        <property name="offersSummary" type="com.mirakl.hybris.beans.OffersSummaryData"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.ReasonData">
+        <property name="code" type="String"/>
+        <property name="label" type="String"/>
+    </bean>
+
+    <bean class="com.mirakl.hybris.beans.MiraklPromotionData">
+        <property name="description" type="java.lang.String"/>
+        <property name="searchPageUrl" type="java.lang.String"/>
+        <property name="mediaUrl" type="java.lang.String"/>
+    </bean>
+
+
+</beans>

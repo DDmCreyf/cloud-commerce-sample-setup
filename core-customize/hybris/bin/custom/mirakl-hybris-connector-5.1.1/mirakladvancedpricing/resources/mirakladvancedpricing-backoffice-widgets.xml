@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
+
+    <widget-connection sourceWidgetId="STUB_com.mirakl.hybris.advancedpricing.backoffice.editor.offerpricefindereditor"
+                       outputId="finderOutput" targetWidgetId="occ-coll-container" inputId="activate"/>
+    <widget-connection sourceWidgetId="STUB_com.mirakl.hybris.advancedpricing.backoffice.editor.offerpricefindereditor"
+                       outputId="finderOutput" targetWidgetId="occ-advanced-search" inputId="initContext"/>
+
+</widgets>

@@ -1,0 +1,39 @@
+$productCatalog=productCatalog
+$defaultCurrency=EUR
+$languages=en
+$defaultLanguage=en
+$staged=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$online=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default='$productCatalog:Online']
+
+INSERT_UPDATE Language ; isocode[unique=true] ; active
+                       ; de                   ; true  
+                       ; en                   ; true  
+
+INSERT_UPDATE Currency ; isocode[unique=true] ; name[lang=de] ; name[lang=en] ; active ; base ; conversion ; digits ; symbol
+                       ; EUR                  ; Euro          ; Euro          ; true   ; true ; 1          ; 2      ; €     
+
+INSERT_UPDATE Catalog ; id[unique=true] ; name[lang=de]   ; name[lang=en]   ; defaultCatalog
+                      ; $productCatalog ; $productCatalog ; $productCatalog ; true          
+
+INSERT_UPDATE CatalogVersion ; catalog(id)[unique=true] ; version[unique=true] ; active ; defaultCurrency(isocode) ; languages(isoCode)
+                             ; $productCatalog          ; Staged               ; false  ; $defaultCurrency         ; $languages        
+                             ; $productCatalog          ; Online               ; true   ; $defaultCurrency         ; $languages        
+
+INSERT_UPDATE Product ; $staged ; code[unique=true]
+                      ;         ; product1         
+                      ;         ; product2         
+
+INSERT_UPDATE Product ; $online ; code[unique=true]
+                      ;         ; product1         
+                      ;         ; product3         
+
+INSERT_UPDATE Shop ; id[unique=true]
+                   ; shop1          
+                   ; shop2          
+
+INSERT_UPDATE ShopSku ; sku[unique=true] ; checksum  ; shop(id)[unique=true] ; product(code,$staged)[unique=true]
+                      ; sku1             ; checksum1 ; shop1                 ; product1                          
+                      ; sku2             ; checksum2 ; shop2                 ; product1                          
+
+INSERT_UPDATE ShopSku ; sku[unique=true] ; checksum  ; shop(id)[unique=true] ; product(code,$online)[unique=true]
+                      ; sku1             ; checksum3 ; shop2                 ; product3                          

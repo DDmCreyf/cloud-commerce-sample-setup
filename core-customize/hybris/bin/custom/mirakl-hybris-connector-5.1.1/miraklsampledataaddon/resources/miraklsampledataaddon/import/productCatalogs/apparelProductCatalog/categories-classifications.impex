@@ -1,0 +1,63 @@
+$productCatalogName = apparelProductCatalog
+$productCatalogVersion = Staged
+$productCatalog = catalogversion(catalog(id[default = $productCatalogName]), version[default = $productCatalogVersion])[unique = true, default = $productCatalogName:$productCatalogVersion]
+
+$classificationCatalog = ApparelClassification
+$classificationCatalogVersion = 1.0
+$classCatalogVersion = catalogversion(catalog(id[default = $classificationCatalog]), version[default = $classificationCatalogVersion])[unique = true, default = $classificationCatalog:$classificationCatalogVersion]
+$classSystemVersion = systemVersion(catalog(id[default = $classificationCatalog]), version[default = $classificationCatalogVersion])[unique = true]
+$classCategories = target(code, $classCatalogVersion)[unique = true]
+$supercategories = source(code, $classCatalogVersion)[unique = true]
+$class = classificationClass(ClassificationClass.code, $classCatalogVersion)[unique = true]
+$attribute = classificationAttribute(code, $classSystemVersion)[unique = true]
+$unit = unit(code, $classSystemVersion)
+$lang = en
+
+INSERT_UPDATE ClassificationSystem ; id[unique = true]     
+                                   ; $classificationCatalog
+
+INSERT_UPDATE ClassificationSystemVersion ; catalog(id)[unique = true] ; version[unique = true]        ; active ; inclPacking[virtual = true, default = true] ; inclDuty[virtual = true, default = true] ; inclFreight[virtual = true, default = true] ; inclAssurance[virtual = true, default = true]
+                                          ; $classificationCatalog     ; $classificationCatalogVersion ; true   
+
+# Insert Classification System            
+INSERT_UPDATE ClassificationSystem ; id[unique = true]     
+                                   ; $classificationCatalog
+
+# Insert Classifications System Version
+INSERT_UPDATE ClassificationSystemVersion ; catalog(id)[unique = true] ; version[unique = true] ; active ; inclPacking[virtual = true, default = true] ; inclDuty[virtual = true, default = true] ; inclFreight[virtual = true, default = true] ; inclAssurance[virtual = true, default = true]
+                                          ; $classificationCatalog     ; 1.0                    ; true   
+
+# Insert Classification Classes           
+INSERT_UPDATE ClassificationClass ; $classCatalogVersion ; code[unique = true] ; categories(code, $productCatalog) ; allowedPrincipals(uid)[default = 'customergroup']
+                                  ;                      ; CL-APPAREL          ; categories                        
+                                  ;                      ; CL-SHIRT            ; tshirts                           
+
+# Classification hierarchy        
+INSERT_UPDATE CategoryCategoryRelation ; $classCategories ; $supercategories
+                                       ; CL-SHIRT         ; CL-APPAREL      
+
+# Insert Classification Attributes     
+INSERT_UPDATE ClassificationAttribute ; $classSystemVersion ; code[unique = true] ; name[lang = $lang]
+                                      ;                     ; MATERIAL            ; Material          
+                                      ;                     ; WASHING-DIRECTIONS  ; Washing directions
+                                      ;                     ; SLEEVES-TYPE        ; Sleeves type      
+                                      ;                     ; BUTTON-TYPE         ; Button type       
+                                      ;                     ; POCKETS             ; Pockets           
+                                      ;                     ; COLLAR              ; Collar            
+
+# Insert Classification attribute enum values
+INSERT_UPDATE ClassificationAttributeValue ; code[unique = true]  ; name[lang = $lang] ; $classSystemVersion
+                                           ; SHIRT-LONG-SLEEVES   ; long sleeves       
+                                           ; SHIRT-SHORT-SLEEVES  ; short sleeves      
+                                           ; SHIRT-PRESS-STUD     ; press stud         
+                                           ; SHIRT-CUFF-LINK      ; cuff link          
+                                           ; SHIRT-CLASSIC-BUTTON ; classic button     
+
+# Insert Classification attribute assignments
+INSERT_UPDATE ClassAttributeAssignment ; $class     ; $attribute         ; position ; $unit ; attributeType(code[default = string]) ; multiValued[default = false] ; range[default = false] ; localized[default = true] ; attributeValues(code, $classSystemVersion)           
+                                       ; CL-APPAREL ; MATERIAL           ; 1        ;       ; string                                ; false                        ; false                  ; false                     ;                                                      
+                                       ; CL-APPAREL ; WASHING-DIRECTIONS ; 2        ;       ; string                                ; false                        ; false                  ; false                     ;                                                      
+                                       ; CL-SHIRT   ; SLEEVES-TYPE       ; 1        ;       ; enum                                  ; false                        ; false                  ; false                     ; SHIRT-LONG-SLEEVES,SHIRT-SHORT-SLEEVES               
+                                       ; CL-SHIRT   ; BUTTON-TYPE        ; 2        ;       ; enum                                  ; false                        ; false                  ; false                     ; SHIRT-PRESS-STUD,SHIRT-CUFF-LINK,SHIRT-CLASSIC-BUTTON
+                                       ; CL-SHIRT   ; POCKETS            ; 3        ;       ; string                                ; false                        ; false                  ; false                     ;                                                      
+                                       ; CL-SHIRT   ; COLLAR             ; 4        ;       ; string                                ; false                        ; false                  ; false                     ;                                                      

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Populators  -->
+    
+    <alias name="defaultChannelOfferPricingCriteriaBuilderPopulator" alias="channelOfferPricingCriteriaBuilderPopulator"/>
+    <bean id="defaultChannelOfferPricingCriteriaBuilderPopulator" class="com.mirakl.hybris.advancedpricingchannels.product.populators.ChannelOfferPricingCriteriaBuilderPopulator">
+        <property name="channelResolvingStrategy" ref="miraklChannelResolvingStrategy" />
+    </bean>
+    
+    <bean id="channelPricingCriteriaBuilderMergeDirective" depends-on="offerPricingCriteriaBuilderPopulators" parent="listMergeDirective" >
+        <property name="add" ref="channelOfferPricingCriteriaBuilderPopulator" />           
+    </bean>
+    
+    <alias name="defaultMiraklOfferOverviewDataChannelAdvancedPricePopulator" alias="miraklOfferOverviewDataPricePopulator"/>
+    <bean id="defaultMiraklOfferOverviewDataChannelAdvancedPricePopulator" class="com.mirakl.hybris.advancedpricingchannels.search.solrfacetsearch.populators.impl.MiraklOfferOverviewDataChannelAdvancedPricePopulator" parent="defaultMiraklOfferOverviewDataAdvancedPricePopulator">
+        <property name="channelResolvingStrategy" ref="miraklChannelResolvingStrategy"/>
+    </bean>
+    
+    <!-- Strategies  -->
+    
+    <alias name="defaultAdvancedOfferPricingSelectionStrategy" alias="offerPricingSelectionStrategy" />
+
+</beans>

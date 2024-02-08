@@ -1,0 +1,16 @@
+#% impex.setLocale( Locale.GERMAN );
+
+$defaultPromoGrp = apparelUKPromoGrp
+$productCatalog = apparelProductCatalog
+$productCatalogName = Apparel Product Catalog
+$catalogVersion = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $productCatalog]), CatalogVersion.version[default = Online])[default = $productCatalog:Online]
+$regulargroup = regulargroup
+$promotionsModule = "promotions-module"
+$previewModule = "promotions-preview-module"
+$lang = en
+
+"#% if: de.hybris.platform.jalo.extension.ExtensionManager.getInstance().isExtensionInstalled(""miraklpromotions"")"
+INSERT_UPDATE PromotionSourceRule; code[unique = true]         ; name[lang = $lang]      ; description[lang = $lang]                                          ; messageFired[lang = $lang]                    ; priority; maxAllowedRuns; ruleGroup(code)          ; conditions                                                  ; actions                                           ; website(Identifier)[default = $defaultPromoGrp]; excludeFromStorefrontDisplay[default = false]
+"#% afterEach: de.hybris.platform.core.Registry.getApplicationContext().getBean(""ruleEngineSystemSetup"").registerSourceRuleForDeployment(impex.getLastImportedItem(), new String[]{$promotionsModule,$previewModule});"
+                                 ; mirakl_promotions_apparelUK ; Apply Mirakl Promotions ; Promotions defined in Mirakl are retrieved and applied to the cart ; Marketplace promotion(s) applied to your cart ; 1000    ; 1             ; miraklPromotionRuleGroup ; "[{""definitionId"":""mirakl_promotion"",""children"":[]}]" ; "[{""definitionId"":""apply_mirakl_promotion""}]" ;                                                ;
+#% endif:

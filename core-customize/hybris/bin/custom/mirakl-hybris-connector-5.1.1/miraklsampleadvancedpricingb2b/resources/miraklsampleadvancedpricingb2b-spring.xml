@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+           
+   <alias name="sampleMiraklCustomerGroupResolvingStrategy" alias="miraklCustomerGroupResolvingStrategy" />
+    <bean id="sampleMiraklCustomerGroupResolvingStrategy" class="com.mirakl.hybris.b2badvancedpricing.user.strategies.impl.SampleMiraklCustomerGroupResolvingStrategy">
+        <property name="userService" ref="userService" />
+        <property name="b2bCommerceUnitService" ref="b2bCommerceUnitService" />
+    </bean>
+
+    <alias name="sampleMiraklCustomerOrganizationResolvingStrategy" alias="miraklCustomerOrganizationResolvingStrategy" />
+    <bean id="sampleMiraklCustomerOrganizationResolvingStrategy" class="com.mirakl.hybris.b2badvancedpricing.user.strategies.impl.SampleMiraklCustomerOrganizationResolvingStrategy">
+        <property name="userService" ref="userService" />
+        <property name="b2BUnitService" ref="b2bUnitService"/>
+        <property name="organizationDataConverter" ref="miraklOrganizationDataConverter"/>
+    </bean>
+
+    <!-- Populators -->
+    <alias name="defaultMiraklOrganizationDataPopulator" alias="miraklOrganizationDataPopulator"/>
+    <bean id="defaultMiraklOrganizationDataPopulator"
+          class="com.mirakl.hybris.b2badvancedpricing.user.populators.OrganizationDataPopulator"/>
+
+    <!-- Converters -->
+    <alias name="defaultMiraklOrganizationDataConverter" alias="miraklOrganizationDataConverter" />
+    <bean id="defaultMiraklOrganizationDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.OrganizationData" />
+        <property name="populators">
+            <list merge="true">
+                <ref bean="miraklOrganizationDataPopulator" />
+            </list>
+        </property>
+    </bean>
+			
+</beans>

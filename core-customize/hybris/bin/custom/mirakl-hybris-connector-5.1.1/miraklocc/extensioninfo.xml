@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+
+    <extension abstractclassprefix="Generated" classprefix="Miraklocc" description="miraklocc extension"
+               jaloLogicFree="true" managername="MirakloccManager"
+               managersuperclass="de.hybris.platform.jalo.extension.Extension" name="miraklocc">
+
+        <requires-extension name="commercewebservices"/>
+        <requires-extension name="commercefacades"/>
+        <requires-extension name="miraklfacades"/>
+
+        <coremodule generated="true" manager="com.mirakl.hybris.jalo.MirakloccManager" packageroot="com.mirakl.hybris.occ"/>
+
+    </extension>
+
+</extensioninfo>

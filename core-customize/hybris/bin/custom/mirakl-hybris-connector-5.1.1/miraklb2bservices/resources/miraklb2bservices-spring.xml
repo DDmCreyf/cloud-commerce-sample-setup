@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Populators  -->
+    <alias name="defaultMiraklB2BOrderCustomerPopulator" alias="miraklOrderCustomerPopulator"/>
+    <bean id="defaultMiraklB2BOrderCustomerPopulator"
+          class="com.mirakl.hybris.b2bcore.order.populators.MiraklB2BOrderCustomerPopulator"
+          parent="defaultMiraklOrderCustomerPopulator">
+        <property name="b2bUnitBillingAddressStrategy" ref="b2bUnitBillingAddressStrategy"/>
+        <property name="organizationResolvingStrategy" ref="miraklCustomerOrganizationResolvingStrategy"/>
+        <property name="miraklCustomerOrganizationConverter" ref="miraklCustomerOrganizationConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklB2BOrderLineRefundPopulator" alias="miraklOrderLineRefundPopulator"/>
+    <bean id="defaultMiraklB2BOrderLineRefundPopulator"
+          class="com.mirakl.hybris.b2bcore.payment.populators.MiraklB2BOrderLineRefundPopulator"
+          parent="defaultMiraklOrderLineRefundPopulator">
+        <property name="skipPaymentStrategy" ref="skipPaymentStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklCustomerOrganizationPopulator" alias="miraklCustomerOrganizationPopulator"/>
+    <bean id="defaultMiraklCustomerOrganizationPopulator"
+          class="com.mirakl.hybris.b2bcore.order.populators.MiraklCustomerOrganizationPopulator"/>
+
+    <!-- Converters -->
+    <alias name="defaultMiraklCustomerOrganizationConverter" alias="miraklCustomerOrganizationConverter" />
+    <bean id="defaultMiraklCustomerOrganizationConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.domain.order.customerorganization.MiraklCustomerOrganization" />
+        <property name="populators">
+            <list merge="true">
+                <ref bean="miraklCustomerOrganizationPopulator" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- Strategies -->
+    <alias name="defaultB2BUnitBillingAddressStrategy" alias="b2bUnitBillingAddressStrategy"/>
+    <bean id="defaultB2BUnitBillingAddressStrategy"
+          class="com.mirakl.hybris.b2bcore.order.strategies.impl.DefaultB2BUnitBillingAddressStrategy"/>
+
+    <alias name="defaultB2BProcessOperatorPaymentStrategy" alias="processOperatorPaymentStrategy"/>
+    <bean id="defaultB2BProcessOperatorPaymentStrategy"
+          class="com.mirakl.hybris.b2bcore.fulfilment.strategies.impl.DefaultB2BProcessOperatorPaymentStrategy"
+          parent="defaultProcessOperatorPaymentStrategy">
+        <property name="skipPaymentStrategy" ref="skipPaymentStrategy"/>
+    </bean>
+
+    <alias name="defaultB2BProcessMarketplacePaymentStrategy" alias="processMarketplacePaymentStrategy"/>
+    <bean id="defaultB2BProcessMarketplacePaymentStrategy"
+          class="com.mirakl.hybris.b2bcore.fulfilment.strategies.impl.DefaultB2BProcessMarketplacePaymentStrategy"
+          parent="defaultProcessMarketplacePaymentStrategy">
+        <property name="skipPaymentStrategy" ref="skipPaymentStrategy"/>
+    </bean>
+
+    <alias name="defaultSkipPaymentStrategy" alias="skipPaymentStrategy"/>
+    <bean id="defaultSkipPaymentStrategy"
+          class="com.mirakl.hybris.b2bcore.payment.strategies.impl.DefaultSkipPaymentStrategy"/>
+
+    <alias name="defaultMiraklB2BRefundProcessingStrategy" alias="miraklRefundProcessingStrategy"/>
+    <bean id="defaultMiraklB2BRefundProcessingStrategy"
+          class="com.mirakl.hybris.b2bcore.returns.strategies.impl.DefaultMiraklB2BRefundProcessingStrategy"
+          parent="defaultMiraklRefundProcessingStrategy">
+        <property name="skipPaymentStrategy" ref="skipPaymentStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklB2BRefundLookupStrategy" alias="miraklRefundLookupStrategy"/>
+    <bean id="defaultMiraklB2BRefundLookupStrategy"
+          class="com.mirakl.hybris.b2bcore.returns.strategies.impl.DefaultMiraklB2BRefundLookupStrategy"
+          parent="defaultMiraklRefundLookupStrategy">
+        <property name="miraklB2BRefundEntryDao" ref="miraklB2BRefundEntryDao"/>
+    </bean>
+
+    <alias name="defaultMiraklB2BCartValidationStrategy" alias="cartValidationStrategy"/>
+    <bean id="defaultMiraklB2BCartValidationStrategy"
+          class="com.mirakl.hybris.b2bcore.order.strategies.impl.DefaultMiraklB2BCartValidationStrategy"
+          parent="miraklCartValidationStrategy"/>
+          
+    <!-- DAOs -->
+    <alias name="defaultMiraklB2BRefundEntryDao" alias="miraklB2BRefundEntryDao"/>
+    <bean id="defaultMiraklB2BRefundEntryDao"
+          class="com.mirakl.hybris.b2bcore.returns.dao.impl.DefaultMiraklB2BRefundEntryDao"/>
+</beans>

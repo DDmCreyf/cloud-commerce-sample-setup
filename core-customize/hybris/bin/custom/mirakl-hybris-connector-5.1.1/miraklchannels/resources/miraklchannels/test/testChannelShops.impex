@@ -1,0 +1,16 @@
+INSERT_UPDATE MiraklChannel ; code[unique = true]
+                            ; channel1           
+                            ; channel2           
+                            ; channel3           
+
+INSERT_UPDATE Shop ; id[unique=true] ; channels(code)   
+                   ; shop1           ; channel2,channel3
+                   ; shop2           ; channel1                
+                   ; shop3           ; channel2                
+
+INSERT_UPDATE Offer ; id[unique=true] ; productCode  ; shop(id) 
+                    ; offer1          ; productCode1 ; shop1
+                    ; offer2          ; productCode1 ; shop2
+                    ; offer3          ; productCode1 ; shop2
+                    ; offer4          ; productCode1 ; shop3
+                    ; offer5          ; productCode2 ; shop2

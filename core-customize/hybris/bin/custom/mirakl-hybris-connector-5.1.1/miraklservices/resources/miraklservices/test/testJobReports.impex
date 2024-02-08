@@ -1,0 +1,4 @@
+INSERT_UPDATE MiraklJobReport ; jobId[unique=true] ; status(code) ; reportType(code)          
+                              ; syncJobId1         ; PENDING      ; ATTRIBUTE_EXPORT
+                              ; syncJobId2         ; PENDING      ; CATALOG_CATEGORY_EXPORT            
+                              ; syncJobId3         ; COMPLETE     ; ATTRIBUTE_EXPORT

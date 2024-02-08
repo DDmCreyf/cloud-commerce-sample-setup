@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Converters -->
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="miraklAbstractOrderEntryModelConverter"/>
+        <property name="add" ref="miraklTaxConnectorAbstractOrderEntryModelPopulator"/>
+    </bean>
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="miraklOrderEntryShippingConverter"/>
+        <property name="add" ref="miraklAbstractOrderEntryTaxesPopulator"/>
+    </bean>
+
+    <alias name="defaultMiraklCustomerShippingToAddressConverter" alias="miraklCustomerShippingToAddressConverter"/>
+    <bean id="defaultMiraklCustomerShippingToAddressConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.client.mmp.front.request.shipping.MiraklCustomerShippingToAddress"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklCustomerShippingToAddressPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorTaxValuesDataConverter" alias="miraklTaxConnectorTaxValuesDataConverter"/>
+    <bean id="defaultMiraklTaxConnectorTaxValuesDataConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.mirakl.hybris.beans.MiraklTaxValuesData"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklTaxConnectorTaxValuesDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorAbsoluteTaxValueConverter" alias="miraklTaxConnectorAbsoluteTaxValueConverter"/>
+    <bean id="defaultMiraklTaxConnectorAbsoluteTaxValueConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="java.util.ArrayList"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklTaxConnectorAbsoluteTaxValuePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultMiraklOrderTaxConnectorTaxAmountConverter" alias="miraklOrderTaxConnectorTaxAmountConverter"/>
+    <bean id="defaultMiraklOrderTaxConnectorTaxAmountConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="java.util.ArrayList"/>
+        <property name="populators">
+            <list>
+                <ref bean="miraklOrderTaxConnectorTaxAmountPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Populators -->
+
+    <alias name="defaultMiraklCreateOrderWithMiraklTaxConnectorOfferPopulator" alias="miraklCreateOrderOfferPopulator"/>
+    <alias name="defaultMiraklCreateOrderWithMiraklTaxConnectorOfferPopulator" alias="miraklCreateOrderWithMiraklTaxConnectorOfferPopulator"/>
+    <bean id="defaultMiraklCreateOrderWithMiraklTaxConnectorOfferPopulator" class="com.mirakl.hybris.mtc.populators.MiraklCreateOrderWithMiraklTaxConnectorOfferPopulator" parent="defaultMiraklCreateOrderOfferPopulator">
+        <property name="miraklTaxConnectorTaxValuesDataConverter" ref="miraklTaxConnectorTaxValuesDataConverter"/>
+        <property name="miraklTaxConnectorEmptyTaxesStrategy" ref="miraklTaxConnectorEmptyTaxesStrategy"/>
+        <property name="miraklOrderTaxConnectorTaxAmountConverter" ref="miraklOrderTaxConnectorTaxAmountConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorAbstractOrderEntryModelPopulator" alias="miraklTaxConnectorAbstractOrderEntryModelPopulator"/>
+    <bean id="defaultMiraklTaxConnectorAbstractOrderEntryModelPopulator" class="com.mirakl.hybris.mtc.populators.MiraklTaxConnectorAbstractOrderEntryModelPopulator">
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="miraklTaxConnectorTaxValuesDataConverter" ref="miraklTaxConnectorTaxValuesDataConverter"/>
+    </bean>
+
+    <bean id="miraklTaxConnectorGetShippingRatesRequestPopulators" depends-on="miraklGetShippingRatesRequestPopulators" parent="listMergeDirective">
+        <property name="add" ref="miraklTaxConnectorGetShippingRatesRequestPopulator" />
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorGetShippingRatesRequestPopulator" alias="miraklTaxConnectorGetShippingRatesRequestPopulator"/>
+    <bean id="defaultMiraklTaxConnectorGetShippingRatesRequestPopulator" class="com.mirakl.hybris.mtc.populators.MiraklTaxConnectorGetShippingRatesRequestPopulator">
+        <property name="miraklTaxConnectorActivationStrategy" ref="miraklTaxConnectorActivationStrategy"/>
+        <property name="miraklCustomerShippingToAddressConverter" ref="miraklCustomerShippingToAddressConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklAbstractOrderEntryTaxesPopulator" alias="miraklAbstractOrderEntryTaxesPopulator"/>
+    <bean id="defaultMiraklAbstractOrderEntryTaxesPopulator" class="com.mirakl.hybris.mtc.populators.MiraklAbstractOrderEntryTaxesPopulator">
+        <property name="miraklTaxConnectorAbsoluteTaxValueConverter" ref="miraklTaxConnectorAbsoluteTaxValueConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklCustomerShippingToAddressPopulator" alias="miraklCustomerShippingToAddressPopulator"/>
+    <bean id="defaultMiraklCustomerShippingToAddressPopulator" class="com.mirakl.hybris.mtc.populators.MiraklCustomerShippingToAddressPopulator" />
+
+    <alias name="defaultMiraklTaxConnectorTaxValuesDataPopulator" alias="miraklTaxConnectorTaxValuesDataPopulator"/>
+    <bean id="defaultMiraklTaxConnectorTaxValuesDataPopulator" class="com.mirakl.hybris.mtc.populators.MiraklTaxConnectorTaxValuesDataPopulator">
+        <property name="miraklTaxConnectorAbsoluteTaxValueConverter" ref="miraklTaxConnectorAbsoluteTaxValueConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorAbsoluteTaxValuePopulator" alias="miraklTaxConnectorAbsoluteTaxValuePopulator"/>
+    <bean id="defaultMiraklTaxConnectorAbsoluteTaxValuePopulator" class="com.mirakl.hybris.mtc.populators.MiraklTaxConnectorAbsoluteTaxValuePopulator"/>
+
+    <alias name="defaultMiraklOrderTaxConnectorTaxAmountPopulator" alias="miraklOrderTaxConnectorTaxAmountPopulator"/>
+    <bean id="defaultMiraklOrderTaxConnectorTaxAmountPopulator"
+          class="com.mirakl.hybris.mtc.populators.MiraklOrderTaxConnectorTaxAmountPopulator"/>
+
+    <!-- Strategies -->
+
+    <alias name="defaultMiraklTaxConnectorActivationStrategy" alias="miraklTaxConnectorActivationStrategy"/>
+    <bean id="defaultMiraklTaxConnectorActivationStrategy" class="com.mirakl.hybris.mtc.strategies.impl.DefaultMiraklTaxConnectorActivationStrategy">
+        <property name="baseStoreService" ref="baseStoreService" />
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorFindTaxValuesStrategy" alias="miraklTaxConnectorFindTaxValuesStrategy"/>
+    <bean id="defaultMiraklTaxConnectorFindTaxValuesStrategy" class="com.mirakl.hybris.mtc.strategies.impl.DefaultMiraklTaxConnectorFindTaxValuesStrategy">
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="miraklTaxConnectorAbsoluteTaxValueConverter" ref="miraklTaxConnectorAbsoluteTaxValueConverter"/>
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorCalculationService" alias="calculationService"/>
+    <alias name="defaultMiraklTaxConnectorCalculationService" alias="miraklCalculationService"/>
+    <alias name="defaultMiraklTaxConnectorCalculationService" alias="miraklTaxConnectorCalculationService"/>
+    <bean id="defaultMiraklTaxConnectorCalculationService" class="com.mirakl.hybris.mtc.services.impl.DefaultMiraklTaxConnectorCalculationService" parent="defaultMiraklCalculationService">
+        <property name="findTaxesStrategies" ref="taxesStrategiesFinderList"/>
+        <property name="orderRequiresCalculationStrategy" ref="orderRequiresCalculationStrategy"/>
+        <property name="miraklTaxConnectorFindTaxValuesStrategy" ref="miraklTaxConnectorFindTaxValuesStrategy"/>
+        <property name="findDeliveryCostStrategy" ref="findDeliveryCostStrategy"/>
+        <property name="findPaymentCostStrategy" ref="findPaymentCostStrategy"/>
+        <property name="marketplaceDeliveryCostStrategy" ref="marketplaceDeliveryCostStrategy"/>
+        <property name="operatorFindDeliveryCostStrategy" ref="defaultFindDeliveryCostStrategy"/>
+        <property name="shippingFeeService" ref="shippingFeeService"/>
+        <property name="miraklTaxConnectorActivationStrategy" ref="miraklTaxConnectorActivationStrategy"/>
+        <property name="miraklPromotionsActivationStrategy" ref="miraklPromotionsActivationStrategy"/>
+        <property name="miraklTaxConnectorEmptyTaxesStrategy" ref="miraklTaxConnectorEmptyTaxesStrategy"/>
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorEmptyTaxesStrategy" alias="miraklTaxConnectorEmptyTaxesStrategy"/>
+    <bean id="defaultMiraklTaxConnectorEmptyTaxesStrategy"
+          class="com.mirakl.hybris.mtc.strategies.impl.DefaultMiraklTaxConnectorEmptyTaxesStrategy"/>
+
+    <!-- Services -->
+
+    <alias name="defaultMiraklTaxConnectorShippingFeeService" alias="shippingFeeService"/>
+    <alias name="defaultMiraklTaxConnectorShippingFeeService" alias="miraklTaxConnectorShippingFeeService"/>
+    <bean id="defaultMiraklTaxConnectorShippingFeeService" class="com.mirakl.hybris.mtc.services.impl.DefaultMiraklTaxConnectorShippingFeeService" parent="defaultShippingFeeService">
+        <property name="miraklTaxConnectorActivationStrategy" ref="miraklTaxConnectorActivationStrategy"/>
+        <property name="miraklGetShippingRatesRequestFactory" ref="miraklGetShippingRatesRequestFactory"/>
+    </bean>
+
+    <alias name="defaultDefaultMiraklTaxConnectorShippingOptionsService" alias="shippingOptionsService" />
+    <alias name="defaultDefaultMiraklTaxConnectorShippingOptionsService" alias="miraklTaxConnectorShippingOptionsService"/>
+    <bean id="defaultDefaultMiraklTaxConnectorShippingOptionsService" class="com.mirakl.hybris.mtc.services.impl.DefaultMiraklTaxConnectorShippingOptionsService" parent="defaultShippingOptionsService">
+        <property name="miraklTaxConnectorShippingFeeService" ref="miraklTaxConnectorShippingFeeService"/>
+    </bean>
+
+    <!-- Hooks -->
+
+    <alias name="defaultMiraklTaxConnectorCommerceUpdateCartEntryHook" alias="miraklTaxConnectorCommerceUpdateCartEntryHook"/>
+    <bean id="defaultMiraklTaxConnectorCommerceUpdateCartEntryHook" class="com.mirakl.hybris.mtc.hook.MiraklTaxConnectorCommerceUpdateCartEntryHook">
+        <property name="orderEntryConverter" ref="miraklAbstractOrderEntryModelConverter"/>
+        <property name="miraklTaxConnectorActivationStrategy" ref="miraklTaxConnectorActivationStrategy"/>
+    </bean>
+
+    <bean id="miraklTaxConnectorCommerceUpdateCartEntryHookMergeDirective" depends-on="commerceUpdateCartEntryMethodHooks" parent="listMergeDirective">
+        <property name="add" ref="miraklTaxConnectorCommerceUpdateCartEntryHook" />
+    </bean>
+
+    <alias name="defaultMiraklTaxConnectorCommerceCartCalculationMethodHook" alias="miraklCommerceCartCalculationMethodHook"/>
+    <alias name="defaultMiraklTaxConnectorCommerceCartCalculationMethodHook" alias="miraklTaxConnectorCommerceCartCalculationMethodHook"/>
+    <bean id="defaultMiraklTaxConnectorCommerceCartCalculationMethodHook" class="com.mirakl.hybris.mtc.hook.MiraklTaxConnectorCommerceCartCalculationMethodHook" parent="defaultMiraklCommerceCartCalculationMethodHook">
+        <property name="miraklTaxConnectorActivationStrategy" ref="miraklTaxConnectorActivationStrategy" />
+    </bean>
+
+</beans>

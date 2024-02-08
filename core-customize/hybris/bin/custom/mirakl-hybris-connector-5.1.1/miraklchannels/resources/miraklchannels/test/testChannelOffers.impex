@@ -1,0 +1,23 @@
+INSERT_UPDATE Currency; isocode[unique = true]
+                      ; USD
+                      ; EUR
+
+INSERT_UPDATE OfferState; code[unique = true]; name[lang = en]
+                        ; 1                  ; Used - Like New
+                        ; 11                 ; New
+
+INSERT_UPDATE MiraklChannel; code[unique = true]
+                           ; channel1
+                           ; channel2
+
+
+INSERT_UPDATE Offer; id[unique = true]; productCode  ; state(code); currency(isocode)[default = 'USD']; deleted[default = false]; channels(code)
+                   ; testOffer1       ; testProduct1 ; 1          ;                                   ;                         ;
+                   ; testOffer2       ; testProduct2 ; 1          ;                                   ;                         ; channel1,channel2
+                   ; testOffer3       ; testProduct2 ; 11         ;                                   ;                         ;
+                   ; testOffer4       ; testProduct2 ; 11         ; EUR                               ;                         ;
+                   ; testOffer5       ; testProduct2 ; 1          ;                                   ; true                    ; channel1
+                   ; testOffer6       ; testProduct3 ; 1          ;                                   ;                         ; channel1
+                   ; testOffer7       ; testProduct3 ; 1          ;                                   ;                         ; channel2
+                   ; testOffer8       ; testProduct3 ; 1          ;                                   ;                         ;
+                   ; testOffer9       ; testProduct3 ; 1          ;                                   ;                         ; channel1,channel2

@@ -1,0 +1,596 @@
+[
+  {
+    "active": true,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": false,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 3093,
+    "premium": false,
+    "prices": [
+      {
+        "origin_price": 539.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 539.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "779864",
+    "quantity": 46,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "8"
+  },
+  {
+    "active": false,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": true,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 3099,
+    "premium": false,
+    "prices": [
+      {
+        "origin_price": 636.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 636.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "779864",
+    "quantity": 66,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "2"
+  },
+  {
+    "active": true,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": false,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 3102,
+    "premium": false,
+    "prices": [
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN2"
+          ]
+        },
+        "origin_price": 87.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 87.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN3"
+          ]
+        },
+        "origin_price": 92.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 92.00
+          }
+        ]
+      },
+      {
+        "origin_price": 152.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 152.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "289540",
+    "quantity": 36,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "10"
+  },
+  {
+    "active": true,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": false,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 3103,
+    "premium": false,
+    "prices": [
+      {
+        "origin_price": 495.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 495.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN3"
+          ]
+        },
+        "origin_price": 29.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 29.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN2"
+          ]
+        },
+        "origin_price": 65.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 65.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "289540",
+    "quantity": 20,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "8"
+  },
+  {
+    "active": true,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": false,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 3105,
+    "premium": false,
+    "prices": [
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN2"
+          ]
+        },
+        "origin_price": 74.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 74.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN3"
+          ]
+        },
+        "origin_price": 55.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 55.00
+          }
+        ]
+      },
+      {
+        "origin_price": 333.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 333.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "289540",
+    "quantity": 30,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "6"
+  },
+  {
+    "active": false,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": true,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 2951,
+    "premium": false,
+    "prices": [
+      {
+        "origin_price": 410.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 410.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "1432722",
+    "quantity": 19,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "11"
+  },
+  {
+    "active": false,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": true,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 2956,
+    "premium": false,
+    "prices": [
+      {
+        "origin_price": 463.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 463.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN3"
+          ]
+        },
+        "discount_price": 32.50,
+        "origin_price": 65.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_discount_price": 32.50,
+            "unit_origin_price": 65.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN2"
+          ]
+        },
+        "discount_price": 19.00,
+        "origin_price": 38.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_discount_price": 19.00,
+            "unit_origin_price": 38.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "478828",
+    "quantity": 98,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "5"
+  },
+  {
+    "active": false,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": true,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 2960,
+    "premium": false,
+    "prices": [
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN2"
+          ]
+        },
+        "discount_price": 33.50,
+        "origin_price": 67.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_discount_price": 33.50,
+            "unit_origin_price": 67.00
+          }
+        ]
+      },
+      {
+        "origin_price": 108.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 108.00
+          }
+        ]
+      },
+      {
+        "context": {
+          "channel_codes": [
+            "CHAN3"
+          ]
+        },
+        "discount_price": 16.50,
+        "origin_price": 33.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_discount_price": 16.50,
+            "unit_origin_price": 33.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "478828",
+    "quantity": 64,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "1"
+  },
+  {
+    "active": true,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": false,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 2964,
+    "premium": false,
+    "prices": [
+      {
+        "origin_price": 460.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 460.00
+          },
+          {
+            "quantity_threshold": 5,
+            "unit_origin_price": 458.00
+          },
+          {
+            "quantity_threshold": 10,
+            "unit_origin_price": 456.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "3470545",
+    "quantity": 35,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "7"
+  },
+  {
+    "active": false,
+    "allow_quote_requests": false,
+    "channels": [
+      "CHAN2",
+      "CHAN3",
+      "INIT"
+    ],
+    "currency_iso_code": "USD",
+    "deleted": true,
+    "fulfillment": {
+      "center": {
+        "code": "DEFAULT"
+      }
+    },
+    "is_professional": true,
+    "last_updated": "2022-02-07T16:16:27Z",
+    "logistic_class": {
+      "code": "INIT"
+    },
+    "min_shipping_price": 10.00,
+    "min_shipping_price_additional": 5.00,
+    "min_shipping_type": "STD",
+    "min_shipping_zone": "UK",
+    "offer_id": 2971,
+    "premium": false,
+    "prices": [
+      {
+        "origin_price": 145.00,
+        "volume_prices": [
+          {
+            "quantity_threshold": 1,
+            "unit_origin_price": 145.00
+          },
+          {
+            "quantity_threshold": 5,
+            "unit_origin_price": 143.00
+          },
+          {
+            "quantity_threshold": 10,
+            "unit_origin_price": 141.00
+          }
+        ]
+      }
+    ],
+    "product_sku": "3470545",
+    "quantity": 66,
+    "shop_id": 2000,
+    "shop_name": "gaetan-shop",
+    "state_code": "11"
+  }
+]

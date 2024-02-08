@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+			
+	<!-- Relations typecodes : 28700-28800 -->
+    <!-- itemtype typecodes : 28800-28900 -->
+
+    <enumtypes>
+        <enumtype code="MiraklCatalogSystem" autocreate="false" generate="false" dynamic="true">
+            <description>Sets of APIs used to synchronize your catalog with Mirakl</description>
+            <value code="MCI"/>
+        </enumtype>
+        
+        <enumtype code="MiraklExportType" autocreate="false" generate="false">
+            <description>Export Job Type</description>
+            <value code="PRODUCT_EXPORT"/>
+             <value code="COMMISSION_CATEGORY_EXPORT"/>
+        </enumtype>
+    </enumtypes>
+    
+    <relations>
+        <relation code="Product2ShopSkuRel" localized="false">
+            <description>The one to many relation between the product and the different shop skus referencing it</description>
+            <sourceElement type="Product" cardinality="one" qualifier="product">
+                <description>The product referenced by the shop sku</description>
+            </sourceElement>
+            <targetElement type="ShopSku" cardinality="many" qualifier="shopSkus">
+                <description>The shop skus of the product</description>
+                <modifiers partof="true"/>
+            </targetElement>
+        </relation>
+
+        <relation code="Product2VariantGroupRel" localized="false">
+            <description>The one to many relation between the product and its variant groups per shop</description>
+            <sourceElement type="Product" cardinality="one" qualifier="product">
+                <description>The product referenced by the variant group</description>
+            </sourceElement>
+            <targetElement type="ShopVariantGroup" cardinality="many" qualifier="shopVariantGroups">
+                <description>The variant groups of the product</description>
+                <modifiers partof="true"/>
+            </targetElement>
+        </relation>
+
+        <relation code="MiraklExportCategory2LangRel" localized="false">
+            <description>The many to many relation between the export category job and the languages</description>
+            <deployment table="MiraklECatJob2LangRel" typecode="28700"/>
+            <sourceElement type="MiraklExportCommissionCategoriesCronJob" cardinality="many" navigable="false">
+                <description>Export commission category cronjob</description>
+            </sourceElement>
+            <targetElement type="Language" cardinality="many" qualifier="additionalLanguages" collectiontype="set">
+                <description>Additional languages to use for the catalog export</description>
+            </targetElement>
+        </relation>
+
+        <relation code="MiraklDownloadProductFiles2ImportStatusRel" localized="false">
+            <description>The one to many relation between the product file downloader and the file import status</description>
+            <deployment table="ProdFile2StatusRel" typecode="27307"/>
+            <sourceElement type="MiraklDownloadProductFilesCronjob" cardinality="many" navigable="false">
+                <description>The product files download job</description>
+            </sourceElement>
+            <targetElement type="MiraklProductImportStatus" qualifier="importStatuses" cardinality="many" collectiontype="set">
+                <description>The status of the files to import</description>
+            </targetElement>
+        </relation>
+    </relations>
+    
+	<itemtypes>
+	   <itemtype code="MiraklExportSellableProductsCronJob" autocreate="false" generate="false">
+            <description>Products Export Job</description>
+            <attributes>
+                <attribute qualifier="rootCategory" type="Category">
+                    <description>Root Category</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="rootBrandCategory" type="Category">
+                    <description>Root Brand Category</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        
+        <itemtype code="MiraklDownloadProductFilesCronjob" autocreate="false" generate="false">
+            <description>This job get the list of available product files (P51) and downloads them (P46)</description>
+            <attributes>
+                <attribute qualifier="shop" type="Shop">
+                    <description>Download product files of this shop only</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="importId" type="java.lang.String">
+                    <description>Download product file for this import ID only</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        
+        <itemtype code="MiraklExportCommissionCategoriesCronJob" jaloclass="com.mirakl.hybris.core.jalo.MiraklExportCommissionCategoriesCronJob" extends="CronJob">
+            <description>Marketplace Category Export Job (Mirakl API CA01)</description>
+            <attributes>
+                <attribute qualifier="rootCategory" type="Category">
+                    <description>Root Export Category</description>
+                    <modifiers optional="false" initial="true"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="synchronizationFileName" type="java.lang.String">
+                    <description>Name of the csv file sent to Mirakl</description>
+                    <modifiers optional="false" initial="true"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+	
+	   <itemtype code="ShopSku" jaloclass="com.mirakl.hybris.core.jalo.ShopSku">
+            <description>Entity holding sku informations for a shop</description>
+            <deployment table="shopskus" typecode="27404"/>
+            <attributes>
+                <attribute qualifier="sku" type="java.lang.String">
+                    <description>The shop sku</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="checksum" type="java.lang.String">
+                    <description>A checksum of the sku received line (from MCI)</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shop" type="Shop">
+                    <description>The shop owning the sku number</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxShopSku">
+                    <key attribute="sku"/>
+                    <key attribute="shop"/>
+                </index>
+                <index name="IdxChecksumShopSku">
+                    <key attribute="checksum"/>
+                </index>
+            </indexes>
+        </itemtype>
+
+        <itemtype code="ShopVariantGroup" jaloclass="com.mirakl.hybris.core.jalo.ShopVariantGroup">
+            <description>Entity holoding a variant group code per shop</description>
+            <deployment table="shopvariantgroups" typecode="27405"/>
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <description>The variant group code for the shop</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="shop" type="Shop">
+                    <description>The shop owning the variant group code</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+            <indexes>
+                <index name="IdxShopVG">
+                    <key attribute="code"/>
+                    <key attribute="shop"/>
+                </index>
+            </indexes>
+        </itemtype>
+        
+	</itemtypes>
+</items>

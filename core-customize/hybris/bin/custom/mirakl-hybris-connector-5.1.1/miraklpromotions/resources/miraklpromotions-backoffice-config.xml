@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+
+    <context component="explorer-tree" merge-by="module">
+        <explorer-tree:explorer-tree>
+            <explorer-tree:navigation-node id="hmc_treenode_mirakl">
+                <explorer-tree:navigation-node id="hmc_treenode_mirakl_jobs">
+                    <explorer-tree:type-node id="hmc_type_tree_miraklimportpromotionscronjob" code="MiraklImportPromotionsCronJob"/>
+                    <explorer-tree:type-node id="hmc_type_tree_miraklimportpromotionsoffermappingcronjob" code="MiraklImportPromotionsOfferMappingCronJob"/>
+                </explorer-tree:navigation-node>
+                <explorer-tree:type-node id="hmc_type_tree_miraklpromotion" code="MiraklPromotion"/>
+            </explorer-tree:navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+    
+    <context type="MiraklPromotion" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search connection-operator="AND">
+            <advanced-search:field-list>
+                <advanced-search:field name="internalId" operator="equals" selected="true"/>
+                <advanced-search:field name="shopId" operator="equals" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+    
+    <context component="editor-area" type="MiraklPromotion" merge-by="type">
+        <editorArea:editorArea name="MiraklPromotionJobEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="internalId"/>
+                    <editorArea:attribute qualifier="shopId"/>
+                    <editorArea:attribute qualifier="startDate"/>
+                    <editorArea:attribute qualifier="endDate"/>
+                    <editorArea:attribute qualifier="amountOff"/>
+                    <editorArea:attribute qualifier="percentageOff"/>
+                    <editorArea:attribute qualifier="freeItemsQuantity"/>
+                    <editorArea:attribute qualifier="publicDescription"/>
+                    <editorArea:attribute qualifier="mediaUrl"/>
+                    <editorArea:attribute qualifier="state"/>
+                    <editorArea:attribute qualifier="type"/>
+                    <editorArea:attribute qualifier="rewardOnPurchasedItems"/>
+                    <editorArea:attribute qualifier="internalDescription"/>
+                    <editorArea:attribute qualifier="miraklCreationDate"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+    
+    <context type="MiraklPromotion" component="listview">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="internalId"/>
+            <list:column qualifier="shopId"/>
+            <list:column qualifier="amountOff"/>
+            <list:column qualifier="percentageOff"/>
+            <list:column qualifier="freeItemsQuantity"/>
+        </list:list-view>
+    </context>
+    
+    <context merge-by="type" parent="GenericItem" type="MiraklPromotion" component="base">
+        <y:base>
+            <y:labels>
+                <y:label>internalId + ' - ' + shopId</y:label>
+                <y:description>publicDescription != null ? publicDescription : ''</y:description>
+            </y:labels>
+        </y:base>
+    </context>
+    
+    <context merge-by="type" parent="GenericItem" type="Offer" component="editor-area">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.offer.properties">
+                <editorArea:section name="hmc.offer.promotions">
+                    <editorArea:attribute qualifier="triggerPromotions"/>
+                    <editorArea:attribute qualifier="rewardPromotions"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    
+    <context component="editor-area" type="MiraklImportPromotionsOfferMappingCronJob" merge-by="type">
+        <editorArea:editorArea>
+            <editorArea:tab name="hmc.tab.properties" position="0">
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="lastExecutionDate"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+</config>

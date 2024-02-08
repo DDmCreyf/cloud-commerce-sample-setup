@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+
+    <context component="explorer-tree" merge-by="module">
+        <explorer-tree:explorer-tree>
+            <explorer-tree:navigation-node id="hmc_treenode_mirakl">
+                <explorer-tree:type-node id="hmc_type_tree_miraklchannel" code="MiraklChannel"/>
+            </explorer-tree:navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+
+ 
+    <!-- MiraklChannel -->
+
+    <context type="MiraklChannel" component="editor-area"  parent="GenericItem" merge-by="type">
+        <editorArea:editorArea name="MiraklChannelEditor">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code" />
+                    <editorArea:attribute qualifier="label"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="MiraklChannel" component="listview" merge-by="type">
+        <list-view:list-view>
+            <list-view:column qualifier="code"/>
+            <list-view:column qualifier="label"/>
+        </list-view:list-view>
+    </context>
+
+    <context type="MiraklChannel" component="base" module="miraklservices"  merge-by="type">
+        <y:base>
+            <y:labels>
+                <y:label>'MiraklChannel - ' + label</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="MiraklChannel" component="simple-search" merge-by="type">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="code"/>
+            <yss:field name="label"/>
+            <yss:sort-field name="code" asc="true"/>
+            <yss:sort-field name="label" asc="true"/>
+        </yss:simple-search>
+    </context>
+    
+    <!-- Offer -->
+    
+    <context merge-by="type" parent="GenericItem" type="Offer" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="channels"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+    
+    <!-- Shop -->
+    
+    <context merge-by="type" parent="GenericItem" type="Shop" component="editor-area">
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="channels"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+        </editorArea:editorArea>
+    </context>
+
+</config>

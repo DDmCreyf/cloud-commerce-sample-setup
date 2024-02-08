@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ All hybris buildcallbacks.xml macrodefinitions:
+
+ Build/Documentation
+
+	 before/after ant macro "clean"
+		 <macrodef name="miraklocctests_before_clean"/>
+		 <macrodef name="miraklocctests_after_clean"/>
+
+	 before/after ant macro "build"
+		 <macrodef name="miraklocctests_before_build"/>
+		 <macrodef name="miraklocctests_after_build"/>
+
+	 before/after ant macro "compile_core" - the core module of the extension
+		 <macrodef name="miraklocctests_before_compile_core">
+		 <macrodef name="miraklocctests_after_compile_core">
+
+	 before/after ant macro "compile_web" - the web module of the extension
+		 <macrodef name="miraklocctests_before_compile_web" />
+		 <macrodef name="miraklocctests_after_compile_web" />
+
+ Preparing extension
+
+	 will be called in the beginning of the ant call and only once (also when using multiple
+	 ant targets e.g. ant build yunittest)
+		 <macrodef name="miraklocctests_only_once_prepare"/>
+
+ Creating ear module/production
+
+	 before/after ant macro "ear"
+		 <macrodef name="miraklocctests_before_ear"/>
+		 <macrodef name="miraklocctests_after_ear"/>
+
+	 before/after ant macro "production" - for hybris server only
+		 <macrodef name="miraklocctests_before_production" />
+		 <macrodef name="miraklocctests_after_production" />
+
+ JUnit Test
+
+	 before/after ant macro "yunitinit"
+		 <macrodef name="miraklocctests_before_yunitinit" />
+		 <macrodef name="miraklocctests_after_yunitinit" />
+
+	 before/after ant macro "yunit"
+		 <macrodef name="miraklocctests_before_yunit" />
+		 <macrodef name="miraklocctests_after_yunit" />
+
+ Distribution package
+
+ 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
+		 <macrodef name="miraklocctests_after_dist"/>
+		 <macrodef name="miraklocctests_before_dist"/>
+
+	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
+		 <macrodef name="miraklocctests_before_dist_copy"/>
+		 <macrodef name="miraklocctests_after_dist_copy"/>
+
+ 	 With these filters you can override the default extension filters defined in platform/resources/ant/dist/filtersets.xml
+ 	  	 <patternset id="extension.miraklocctests.binary.filter">
+ 	  	  	 <patternset refid="extension.filter" />
+ 	  	  	 <exclude name="**/*-source.jar" />
+ 	  	 </patternset>
+ 	  	 <patternset id="extension.miraklocctests.source.filter">
+ 	  	  	 <exclude name="**/bin/**" />
+ 	  	 </patternset>
+
+-->
+<project name="miraklocctests_buildcallbacks">
+
+    <!--
+	    Called whenever 'ant ear' is used. this callback can be used to modify the content of the ear file
+
+	     ${ear.path}: 			path to ear
+	 -->
+
+    <macrodef name="miraklocctests_before_ear">
+
+        <sequential>
+
+            <!-- you can do anything before the EAR file is being packed -->
+
+        </sequential>
+
+    </macrodef>
+
+    <macrodef name="miraklocctests_importwstestdata">
+
+        <sequential>
+
+            <yrun>
+                com.mirakl.hybris.occtests.setup.TestSetupUtils.loadExtensionDataInJunit();
+                de.hybris.platform.util.RedeployUtilities.shutdown();
+            </yrun>
+
+        </sequential>
+
+    </macrodef>
+
+</project>

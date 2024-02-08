@@ -1,0 +1,10 @@
+$productCatalog=apparelProductCatalog
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=apparel-uk
+$siteUid=apparel-uk
+$webServiceSiteUid=$siteUidWS
+
+INSERT_UPDATE BaseSite;uid[unique=true, default=$storeUid];operatorCode;operatorName
+;;b2c-acc-apparel-uk;B2C Apparel UK

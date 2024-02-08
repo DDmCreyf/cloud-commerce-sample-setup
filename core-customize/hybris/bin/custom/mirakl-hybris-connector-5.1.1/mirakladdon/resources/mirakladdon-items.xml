@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<itemtypes>
+		<itemtype code="CMSTabOfferListComponent" generate="true"
+				  jaloclass="com.mirakl.hybris.addon.jalo.CMSTabOfferListComponent"
+				  extends="CMSTabParagraphComponent" autocreate="true">
+            <description>It represents the Offer List Tab component. Allows to display a list of offers from Mirakl for a specific
+                product.
+            </description>
+		</itemtype>
+
+        <itemtype code="CMSBuyBoxComponent" generate="true"
+                  jaloclass="com.mirakl.hybris.addon.jalo.CMSBuyBoxComponent"
+                  extends="ProductAddToCartComponent" autocreate="true">
+            <description>Displays the most competitive Offer for the Product and an add to cart button.</description>
+        </itemtype>
+
+        <itemtype code="CMSProductDetailsComponent" generate="true"
+                  jaloclass="com.mirakl.hybris.addon.jalo.CMSProductDetailsComponent"
+                  extends="CMSParagraphComponent" autocreate="true">
+            <description>Displays offer or product price and description.</description>
+        </itemtype>
+        
+        <itemtype code="MiraklCMSProductListComponent" jaloclass="com.mirakl.hybris.addon.jalo.MiraklCMSProductListComponent"
+                  extends="CMSProductListComponent">
+            <description>Displays offers informations on product lister pages</description>
+        </itemtype>
+
+        <itemtype code="MiraklProductGridComponent" jaloclass="com.mirakl.hybris.addon.jalo.MiraklProductGridComponent"
+                  extends="ProductGridComponent">
+            <description>Displays offers informations on product lister pages</description>
+            <attributes>
+                <attribute qualifier="displayOfferStates" type="boolean">
+                    <description>Displays or not the "more buying options" text</description>
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklSearchResultsListComponent" jaloclass="com.mirakl.hybris.addon.jalo.MiraklSearchResultsListComponent"
+                  extends="SearchResultsListComponent">
+            <description>Displays offers informations on product search pages (List display)</description>
+        </itemtype>
+
+        <itemtype code="MiraklSearchResultsGridComponent" jaloclass="com.mirakl.hybris.addon.jalo.MiraklSearchResultsGridComponent"
+                  extends="SearchResultsGridComponent">
+            <description>Displays offers informations on product search pages (Grid display)</description>
+            <attributes>
+                <attribute qualifier="displayOfferStates" type="boolean">
+                    <description>Displays or not the "more buying options" text</description>
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="MiraklListAddToCartAction" jaloclass="com.mirakl.hybris.addon.jalo.MiraklListAddToCartAction" 
+                  extends="ListAddToCartAction">
+            <description>Adds an offer to the cart when the product is unavailable</description>
+        </itemtype>
+
+        <itemtype code="CMSPurchasableProductRestriction" extends="AbstractRestriction" generate="true" autocreate="true"
+                  jaloclass="com.mirakl.hybris.addon.jalo.restrictions.CMSPurchasableProductRestriction">
+            <description>Restriction to evaluate if the Buy Box Component should be rendered or not.</description>
+            <attributes>
+                <attribute qualifier="description" type="java.lang.String" redeclare="true">
+                    <persistence type="dynamic" attributeHandler="purchasableProductRestrictionDynamicDescription" />
+                    <modifiers write="false" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="OfferAddToCartAction"
+                  jaloclass="com.mirakl.hybris.addon.jalo.actions.OfferAddToCartAction"
+                  extends="SimpleCMSAction" autocreate="true" generate="true">
+        </itemtype>
+
+    </itemtypes>
+</items>

@@ -1,0 +1,26 @@
+$lang = en
+
+INSERT_UPDATE RuleConditionDefinition ; id[unique = true]       ; name[lang = $lang]     ; priority ; breadcrumb[lang = $lang]                              ; allowsChildren ; translatorId                             ; translatorParameters ; categories(id)
+                                      ; mirakl_promotion        ; Mirakl Promotion       ; 200      ; Order containing offers eligible to Mirakl promotions ; false          ; ruleMiraklPromotionTranslator            ;                      ; cart          
+                                      ; target_operator_entries ; Operator products only ; 500      ; Applies the promotions on operator entries only       ; false          ; ruleEntryOperatorConditionTranslator     ;                      ; cart          
+                                      ; y_cart_operator_total   ; Operator cart total    ; 1200     ; Operator Order total                                  ; false          ; ruleCartOperatorTotalConditionTranslator ;                      ; cart          
+
+INSERT_UPDATE RuleConditionDefinitionParameter ; definition(id)[unique = true] ; id[unique = true] ; name[lang=$lang]          ; description[lang=$lang]                                         ; priority ; type                                                    ; value                       ; required[default = true] ; validators                           ; filters
+                                               ; y_cart_operator_total         ; operator          ; Comparator                ; Operator to compare the Operator cart total value               ; 1100     ; Enum(de.hybris.platform.ruledefinitions.AmountOperator) ; """GREATER_THAN_OR_EQUAL""" ;                          ;
+                                               ; y_cart_operator_total         ; value             ; Operator cart total value ; Map of currency and value of the Operator cart total to be used ; 1000     ; Map(ItemType(Currency),java.math.BigDecimal)            ;                             ;                          ; rulePositiveNumberParameterValidator
+
+INSERT_UPDATE RuleConditionDefinitionRuleTypeMapping ; definition(id)[unique = true] ; ruleType(code)[default = PromotionSourceRule][unique = true]
+                                                     ; mirakl_promotion              ;                                                             
+                                                     ; target_operator_entries       ;                                                             
+                                                     ; y_cart_operator_total         ;                                                             
+
+INSERT_UPDATE RuleActionDefinition ; id[unique = true]           ; name[lang = $lang]            ; priority ; breadcrumb[lang = $lang]                           ; translatorId                   ; translatorParameters                         ; categories(id)   
+                                   ; apply_mirakl_promotion      ; Mirakl Promotion              ; 200      ; Apply Mirakl promotions on the qualifying products ; ruleExecutableActionTranslator ; actionId->ruleMiraklPromotionAction          ; product_discounts
+                                   ; mirakl_change_delivery_mode ; Change operator delivery mode ; 1000     ; Change operator delivery mode                      ; ruleExecutableActionTranslator ; actionId->ruleMiraklChangeDeliveryModeAction ; shipping         
+
+INSERT_UPDATE RuleActionDefinitionParameter ; definition(id)[unique = true] ; id[unique = true] ; priority ; name[lang = $lang] ; description[lang = $lang]                                             ; type                   ; value ; required[default = true]
+                                            ; mirakl_change_delivery_mode   ; delivery_mode     ; 100      ; Delivery mode      ; The delivery mode to be applied on the cart as a result of the action ; ItemType(DeliveryMode) ;       ;                         
+
+INSERT_UPDATE RuleActionDefinitionRuleTypeMapping ; definition(id)[unique = true] ; ruleType(code)[default = PromotionSourceRule][unique = true]
+                                                  ; apply_mirakl_promotion        ;                                                             
+                                                  ; mirakl_change_delivery_mode   ;                                                             

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+
+    <extension abstractclassprefix="Generated" classprefix="Miraklchannels" managername="MiraklchannelsManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="miraklchannels" usemaven="false">
+
+        <requires-extension name="miraklfacades" />
+
+        <coremodule generated="true" manager="com.mirakl.hybris.channels.jalo.MiraklchannelsManager" packageroot="com.mirakl.hybris.channels"/>
+
+        <meta key="backoffice-module" value="true"/>
+
+    </extension>
+
+</extensioninfo>

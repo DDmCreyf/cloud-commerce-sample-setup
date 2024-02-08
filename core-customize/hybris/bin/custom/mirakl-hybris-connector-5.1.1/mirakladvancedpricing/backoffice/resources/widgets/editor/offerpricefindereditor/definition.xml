@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<editor-definition id="com.mirakl.hybris.advancedpricing.backoffice.editor.offerpricefindereditor"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/editor-definition.xsd">
+
+    <name>Offer Price Finder Editor</name>
+    <description>Offer Price Finder Editor</description>
+    <author>mirakl</author>
+    <version>0.1</version>
+
+    <type>java.lang.String</type>
+    <editorClassName>com.mirakl.hybris.advancedpricing.backoffice.editor.OfferPriceFinderEditor</editorClassName>
+    <sockets>
+        <output id="finderOutput" type="com.hybris.backoffice.widgets.advancedsearch.impl.AdvancedSearchInitContext"/>
+    </sockets>
+
+</editor-definition>

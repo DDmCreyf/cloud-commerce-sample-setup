@@ -1,0 +1,10 @@
+$productCatalog=electronicsProductCatalog
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=electronics
+$siteUid=electronics
+$webServiceSiteUid=$siteUidWS
+
+INSERT_UPDATE BaseSite;uid[unique=true, default=$storeUid];operatorCode;operatorName
+;;b2c-acc-electronics;B2C Electronics

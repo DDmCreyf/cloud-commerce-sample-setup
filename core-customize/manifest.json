@@ -1,6 +1,12 @@
 {
     "commerceSuiteVersion": "2211",
     "enableImageProcessingService": true,
+    "extensionPacks": [
+        {
+            "name": "hybris-commerce-integrations",
+            "version": "2211"
+        }
+    ],
     "extensions": [
         "cloudmediaconversion",
         "mediaconversionbackoffice"
@@ -8,7 +14,7 @@
     "storefrontAddons": [
         {
             "addons": [
-                "ordermanagementaddon"
+                "ordermanagementaddon", "sapcoreaddon"
             ],
             "storefronts": [
                 "yacceleratorstorefront"
@@ -260,7 +266,8 @@
                     "contextPath": "/permissionswebservices"
                 },
                 {
-                    "name": "odata2webservices"
+                    "name": "odata2webservices",
+                    "contextPath": "/odata2webservices"
                 },
                 {
                     "name": "orbeonweb",

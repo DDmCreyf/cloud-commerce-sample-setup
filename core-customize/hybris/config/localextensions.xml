@@ -288,7 +288,7 @@
 	<extension name= 'miraklcatalogintegrator' />
 	<extension name= 'miraklcatalogmanager' />
 	<extension name= 'miraklfacades' />
-	<extension name= 'miraklfulfillmentprocess' />
+	<extension name= 'miraklfulfilmentprocess' />
 	<extension name= 'mirakladdon' />
 	<extension name= 'miraklwebservices' />
 	<extension name= 'miraklpromotions' />

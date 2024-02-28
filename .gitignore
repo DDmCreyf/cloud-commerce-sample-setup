@@ -27,7 +27,7 @@ eclipsebin
 **/testclasses
 
 # Generated jalo java files
-**/jalo
+**/jalo/*
 !**/jalo/restrictions/CMSPurchasableProductRestriction.java
 
 # allow only custom extensions

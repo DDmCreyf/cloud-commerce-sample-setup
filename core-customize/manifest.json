@@ -14,7 +14,7 @@
     "storefrontAddons": [
         {
             "addons": [
-                "ordermanagementaddon", "sapcoreaddon"
+                "ordermanagementaddon", "sapcoreaddon", "customerticketingaddon"
             ],
             "storefronts": [
                 "yacceleratorstorefront"

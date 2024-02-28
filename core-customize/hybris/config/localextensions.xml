@@ -283,5 +283,14 @@
     <extension name='saporderexchangebackoffice'/>
 
 
+<!-- Replication of B2B Customer Tickets for SAP Cloud for Customer integration -->
+    <extension name='customerticketingaddon'/>
+    <extension name='customerticketingc4cb2bintegration'/>
+
+
+<!-- Integration Using SAP Cloud Integration -->
+    <extension name='scpiconnectorbackoffice'/>
+
+
   </extensions>
 </hybrisconfig>

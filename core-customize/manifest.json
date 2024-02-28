@@ -14,7 +14,7 @@
     "storefrontAddons": [
         {
             "addons": [
-                "ordermanagementaddon", "sapcoreaddon"
+                "ordermanagementaddon", "sapcoreaddon", "mirakladdon", "miraklsampledataaddon"
             ],
             "storefronts": [
                 "yacceleratorstorefront"
@@ -177,6 +177,10 @@
         {
             "key": "acceleratorservices.payment.url.strict.enabled",
             "value": "false"
+        },
+        {
+            "key": "spring.profiles.active",
+            "value": "fix-18.11"
         }
     ],
     "aspects": [

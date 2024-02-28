@@ -283,5 +283,21 @@
     <extension name='saporderexchangebackoffice'/>
 
 
+<!-- Mirakl Connector Extensions for B2C demo -->
+	<extension name= 'miraklservices' />
+	<extension name= 'miraklcatalogintegrator' />
+	<extension name= 'miraklcatalogmanager' />
+	<extension name= 'miraklfacades' />
+	<extension name= 'miraklfulfillmentprocess' />
+	<extension name= 'mirakladdon' />
+	<extension name= 'miraklwebservices' />
+	<extension name= 'miraklpromotions' />
+	<extension name= 'miraklsampledataaddon' />
+	<extension name= 'miraklmediaconversion' />
+	<extension name= 'miraklbackofficeaddon' />
+	<extension name= 'miraklcartmerge' />
+	<extension name= 'miraklocc' />
+
+
   </extensions>
 </hybrisconfig>

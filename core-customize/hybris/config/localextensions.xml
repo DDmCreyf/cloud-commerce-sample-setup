@@ -74,8 +74,8 @@
 	  <extension name= 'commercewebservices' />
 	  <extension name= 'commercewebservicescommons' />
 	  <extension name= 'commercewebservicestests' />
-	  <extension name= 'yocc' />
-	  <extension name= 'yocctests' />
+	  <!--<extension name= 'yocc' />-->
+	  <!--<extension name= 'yocctests' />-->
 	  <extension name= 'configurablebundlebackoffice' />
 	  <extension name= 'configurablebundlefacades' />
 	  <extension name= 'configurablebundleocc' />
@@ -150,7 +150,7 @@
 	  <extension name= 'warehousingbackoffice' />
 	  <extension name= 'warehousingfacades' />
 	  <extension name= 'warehousingwebservices' />
-	  <extension name= 'yacceleratorordermanagement' />
+	  <!--<extension name= 'yacceleratorordermanagement' />-->
 	  <extension name= 'personalizationcms' />
 	  <extension name= 'personalizationcmsbackoffice' />
 	  <extension name= 'personalizationcmsweb' />
@@ -181,9 +181,9 @@
 	  <extension name= 'patches' />
 	  <extension name= 'springintegrationlibs' />
 	  <extension name= 'tomcatembeddedserver' />
-	  <extension name= 'yempty' />
-	  <extension name= 'yhacext' />
-	  <extension name= 'yvoid' />
+	  <!--<extension name= 'yempty' />-->
+	  <!--<extension name= 'yhacext' />-->
+	  <!--<extension name= 'yvoid' />-->
 	  <extension name= 'oauth2' />
 	  <extension name= 'promotionenginebackoffice' />
 	  <extension name= 'promotionengineservices' />
@@ -239,7 +239,7 @@
 	  <extension name= 'permissionsfacades' />
 	  <extension name= 'permissionswebservices' />
 	  <extension name= 'webservicescommons' />
-	  <extension name= 'ywebservices' />
+	  <!--<extension name= 'ywebservices' />-->
 	  <extension name= 'orbeonweb' />
 	  <extension name= 'xyformsbackoffice' />
 	  <extension name= 'xyformsfacades' />

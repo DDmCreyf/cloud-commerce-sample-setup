@@ -308,5 +308,12 @@
     <extension name='smarteditaddon'/>
 
 
+<!-- SAP S/4HANA Order Management Integration Module -->
+    <extension name='saps4omservices'/>
+    <extension name='saps4omfacades'/>
+    <extension name='saps4ombackoffice'/>
+    <extension name='saps4omocc'/>
+
+
   </extensions>
 </hybrisconfig>

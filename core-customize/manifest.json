@@ -14,7 +14,7 @@
     "storefrontAddons": [
         {
             "addons": [
-                "ordermanagementaddon", "sapcoreaddon", "mirakladdon", "miraklsampledataaddon", "smarteditaddon", "assistedservicestorefront"
+                "ordermanagementaddon", "sapcoreaddon", "mirakladdon", "miraklsampledataaddon", "smarteditaddon", "multicountrysampledataaddon", "assistedservicestorefront"
             ],
             "storefronts": [
                 "yacceleratorstorefront"

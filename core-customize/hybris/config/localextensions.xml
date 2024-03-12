@@ -306,6 +306,7 @@
 
 <!-- SmartEdit addon -->
     <extension name='smarteditaddon'/>
+    <extension name='multicountrysampledataaddon'/>
 
 
 <!-- SAP S/4HANA Order Management Integration Module -->

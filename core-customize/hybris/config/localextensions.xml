@@ -17,6 +17,7 @@
 	  <extension name= 'assistedserviceservices' />
 	  <extension name= 'assistedservicewebservices' />
 	  <extension name= 'assistedserviceyprofilefacades' />
+	  <extension name= 'assistedservicestorefront' />
 	  <extension name= 'yaasyprofileconnect' />
 	  <extension name= 'b2bacceleratorfacades' />
 	  <extension name= 'b2bacceleratorservices' />
@@ -297,6 +298,14 @@
 	<extension name= 'miraklbackofficeaddon' />
 	<extension name= 'miraklcartmerge' />
 	<extension name= 'miraklocc' />
+
+
+<!-- Integration Using SAP Cloud Integration -->
+    <extension name='scpiconnectorbackoffice'/>
+
+
+<!-- SmartEdit addon -->
+    <extension name='smarteditaddon'/>
 
 
   </extensions>

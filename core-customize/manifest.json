@@ -63,6 +63,34 @@
     },
     "properties": [
         {
+            "key": "mirakl.httpclient.dropidleconnections",
+            "value": "true"
+        },
+        {
+            "key": "mirakl.httpclient.clientkeepaliveduration",
+            "value": "210000"
+        },
+        {
+            "key": "mirakl.httpclient.socketconfig.sokeepalive",
+            "value": "true"
+        },
+        {
+            "key": "mirakl.httpclient.socketconfig.sotimeout",
+            "value": "7200000"
+        },
+        {
+            "key": "mirakl.env.frontapikey",
+            "value": ""
+        },
+        {
+            "key": "mirakl.env.operatorapikey",
+            "value": "dfef6e9d-e4ba-4eec-ad11-4a9d60427bb3"
+        },
+        {
+            "key": "mirakl.env.url",
+            "value": ""
+        },
+        {
             "key": "lang.packs",
             "value": "de,en,es,es_CO,fr,it,ja,ko,pl,pt,ru,zh,zh_TW,hi,id,cs,hu"
         },

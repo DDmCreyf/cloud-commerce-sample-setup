@@ -520,6 +520,10 @@
             ],
             "webapps": [
                 {
+                    "name": "hac",
+                    "contextPath": "/hac"
+                },
+                {
                     "name": "mediaweb",
                     "contextPath": "/medias"
                 },
